@@ -1,0 +1,17 @@
+## Interface: 11200
+## Title: ClickyDemo
+## Notes: Demo addon
+## Author: Claude
+
+ClickyDemo.lua
+Icons\Lucifron.blp
+Icons\Magmadar.blp
+Icons\Gehennas.blp
+Icons\BaronGeddon.blp
+Icons\Garr.blp
+Icons\Shazzrah.blp
+Icons\Sulfuron.blp
+Icons\Golemagg.blp
+Icons\Majordomo.blp
+Icons\Ragnaros.blp
+Icons\vplus.blp
