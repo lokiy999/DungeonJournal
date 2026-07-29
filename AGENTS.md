@@ -118,12 +118,10 @@ scroll frames with the mouse wheel and the scrollbar.
 
 Fix these deliberately, not incidentally, and mention them in the commit message:
 
-- `DungeonJournal.toc` still carries demo metadata (`## Title: ClickyDemo`) and loads
-  `ClickyDemo.lua`, which does not exist — the real file is `DungeonJournal.lua`.
-- The window title is hard-coded to `"Boss Mechanics Demo"` and the slash command is
-  `/clicky`.
 - The Scarlet Monastery boss Loksey references `Icons\Loksey`, which is not present in
   `Icons/` nor listed in the TOC.
+
+The slash command remains `/clicky` (unchanged, not currently considered an issue).
 
 ## Commit and Pull Request Guidelines
 

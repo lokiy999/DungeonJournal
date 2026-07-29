@@ -1020,7 +1020,7 @@ frame:SetBackdrop({
 
 local title = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 title:SetPoint("TOP", frame, "TOP", 0, -15)
-title:SetText("Boss Mechanics Demo")
+title:SetText("Dungeon Journal")
 
 local closeBtn = CreateFrame("Button", "DungeonJournalCloseButton", frame, "UIPanelCloseButton")
 closeBtn:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -3, -3)
