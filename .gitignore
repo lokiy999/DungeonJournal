@@ -1,0 +1,4 @@
+# Combat logs used for research when documenting encounters.
+# These are multi-GB client dumps and must never be committed.
+WoWCombatLog.txt
+WoWCombatLog*.txt
