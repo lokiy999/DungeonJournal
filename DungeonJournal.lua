@@ -14,6 +14,18 @@ local TREE_ROW_HEIGHT     = 22
 local ABILITY_ROW_TOP_H   = 26   -- height of the icon/name/icons line
 local ABILITY_ICON_SIZE   = 20
 local SEPARATOR_ROW_H     = 20   -- CHANGED: height of a phase separator bar
+local STATS_ROW_H         = 18   -- CHANGED: height of the boss armor/resistance line
+
+-- CHANGED: schools shown on a boss's optional stats line, in display order.
+-- Holy is deliberately omitted - 1.12 has no meaningful Holy resistance.
+-- Each entry is { data key, label, ARGB colour }.
+local RESISTANCE_SCHOOLS = {
+    {"fire",   "Fire",   "ffff4400"},
+    {"nature", "Nature", "ff4dc94d"},
+    {"frost",  "Frost",  "ff4dc9ff"},
+    {"shadow", "Shadow", "ffa335ee"},
+    {"arcane", "Arcane", "ffff80ff"},
+}
 
 -- CHANGED: top nav bar ("Bosses" / "Explaination") and the full-width panel
 -- used by the Explaination view.
@@ -286,6 +298,9 @@ local RAIDS = {{
         name = "Lucifron",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Lucifron",
         flags = {"nottauntable", "potion_fire"}, -- CHANGED: demo of the new boss flag icons
+        -- CHANGED: test of the optional stats line. Values are placeholders -
+        -- fill in the real armor and resistances when they are known.
+        stats = {armor = 0, fire = 0, nature = 0, frost = 0, shadow = 0, arcane = 0},
         abilities = {{
             name = "Lucifron's Curse",
             icon = "Interface\\Icons\\Spell_Shadow_BlackPlague",
@@ -2944,6 +2959,34 @@ local function ConfigureSeparatorRow(btn, entry)
     end
 end
 
+-- CHANGED: optional boss stats line, drawn above the ability list. A boss can
+-- carry stats = { armor = 0, fire = 0, ... } and the values are rendered as a
+-- single row. Missing keys default to 0, so a boss only needs to list what is
+-- known. Only one of these is ever visible at a time, so it is a single frame
+-- rather than a pool.
+local statsRow = nil
+
+local function GetStatsRow()
+    if not statsRow then
+        statsRow = CreateFrame("Frame", "DungeonJournalStatsRow", abilityScrollChild)
+        statsRow:SetHeight(STATS_ROW_H)
+
+        local label = statsRow:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        label:SetPoint("LEFT", statsRow, "LEFT", 18, 0)
+        label:SetJustifyH("LEFT")
+        statsRow.label = label
+    end
+    return statsRow
+end
+
+local function FormatBossStats(stats)
+    local text = "|cffffd100Armor|r " .. (stats.armor or 0)
+    for _, school in ipairs(RESISTANCE_SCHOOLS) do
+        text = text .. "   |c" .. school[3] .. school[2] .. "|r " .. (stats[school[1]] or 0)
+    end
+    return text
+end
+
 -- CHANGED: now generic - takes a parent, indent, and optional frame-name prefix.
 -- This lets the same row "widget" be used both for the top-level list (abilities
 -- or adds) AND for a nested sub-list of abilities belonging to a single add.
@@ -3131,6 +3174,21 @@ function RebuildAbilityList(boss)
     local rowIndex = 0
     local sepIndex = 0
     local phaseVisible = true
+
+    -- CHANGED: draw the boss's armor/resistance line above the abilities. Only
+    -- on the Abilities tab - it describes the boss, not its adds.
+    if boss.stats and activeTab == "abilities" then
+        local row = GetStatsRow()
+        row:ClearAllPoints()
+        row:SetPoint("TOPLEFT", abilityScrollChild, "TOPLEFT", 0, -yOffset)
+        row:SetPoint("TOPRIGHT", abilityScrollChild, "TOPRIGHT", 0, -yOffset)
+        row.label:SetText(FormatBossStats(boss.stats))
+        row:Show()
+
+        yOffset = yOffset + row:GetHeight() + 4
+    elseif statsRow then
+        statsRow:Hide()
+    end
 
     for i, item in ipairs(dataSource) do
         if item.separator then

@@ -63,6 +63,15 @@ Add content by editing the `RAIDS` table only; the UI is fully data-driven.
 }} }
 ```
 
+**Boss stats line.** A boss may carry an optional `stats` table, rendered as a
+single armor/resistance line above its ability list (Abilities tab only). Omitted
+keys default to `0`, and Holy is deliberately unsupported — 1.12 has no
+meaningful Holy resistance. Add new schools to `RESISTANCE_SCHOOLS`.
+
+```lua
+stats = { armor = 0, fire = 0, nature = 0, frost = 0, shadow = 0, arcane = 0 },
+```
+
 **Phase separators.** An entry in a boss's top-level `abilities` list with
 `separator = true` renders as a clickable bar instead of an ability row. Every
 ability after it belongs to that phase until the next separator, so grouping is
