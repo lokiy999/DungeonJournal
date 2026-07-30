@@ -1019,64 +1019,85 @@ local RAIDS = {{
         name = "Brigitte Abbendis",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Brigitte",
         flags = {"tauntable"},
+        -- NOTE: values from Spell.dbc (IDs 35848-35877). Percentages are the
+        -- real $s values (DBC stores them as value-1). Phase 2 is the mounted
+        -- phase - she summons the Scarlet Charger and swaps to its abilities.
         abilities = {{
             separator = true,
             name = "Phase 1"
         }, {
             name = "Command Gesture",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\Ability_Hunter_KillCommand",
+            lines = {"Used at the pull while she is still at range. No damage or debuff recorded in logs - it appears to be the flavour cast before she closes to melee."}
         }, {
             name = "Righteous Charge",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\Ability_Warrior_VictoryRush",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Charges an enemy, inflicting normal damage plus 500 and stunning them."}
         }, {
             name = "Shield Bash",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\INV_Shield_05",
+            warning = true,
+            lines = {"Slams the target for up to 3160 damage and dispels one magic effect from them - your buffs will be stripped."}
         }, {
             name = "Consecration",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\Spell_Holy_InnerFire",
+            lines = {"Consecrates the ground beneath her, dealing Holy damage every second to anyone standing in the area. Logs show 6-9 players ticking at once for up to 2290.",
+                     "Move out of the patch rather than tanking the damage."}
         }, {
-            name = "Provocation(taunt)",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            name = "Provocation (taunt)",
+            icon = "Interface\\Icons\\Ability_Warrior_InnerRage",
+            lines = {"Forces all nearby enemies to attack her, overriding your current target."}
         }, {
             separator = true,
             name = "Phase 2"
         }, {
             name = "Fist of Justice",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\Spell_Holy_SealOfMight",
+            warning = true,
+            lines = {"Stuns nearby enemies. Marks the transition into her mounted phase."}
         }, {
             name = "Lay on Hands",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\Spell_Holy_LayOnHands",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Heals for an amount equal to her maximum health. Interrupt or stop this cast or the phase resets."}
         }, {
             name = "Scarlet Charger",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\mount_scarlet_charger",
+            lines = {"She summons her mount, increasing her speed by 100%. This is what enables the charge and trample abilities below."}
         }, {
             name = "Stormbolt",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\Ability_ThunderClap",
+            roles = {"healer"},
+            lines = {"Hurls a hammer at an enemy for around 1900 Holy damage. Her most frequent phase 2 cast, seen hitting for 440-2560."}
         }, {
             name = "Hoof Kick",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
-        }, {
-            name = "Crash",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
-        }, {
-            name = "Consecration (phase 2)",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Inflicts up to 1500 damage to enemies in a cone behind her and knocks them back. Do not stand behind the mount."}
         }, {
             name = "Trampling Charge",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Inflicts 1800 damage to enemies in a cone in front of her and knocks them back."}
+        }, {
+            name = "Crash",
+            icon = "Interface\\Icons\\Ability_WarStomp",
+            warning = true,
+            lines = {"Inflicts 400% weapon damage to an already wounded enemy and stuns them."}
+        }, {
+            name = "Consecration (phase 2)",
+            icon = "Interface\\Icons\\Spell_Holy_InnerFire",
+            lines = {"The same ground-based Holy damage patch, still used while mounted."}
+        }, {
+            name = "Close Quarters Combat Experience",
+            icon = "Interface\\Icons\\Ability_Warrior_OffensiveStance",
+            warning = true,
+            roles = {"tank"},
+            lines = {"A buff she gains during the fight, increasing her Physical damage by 100% and attack speed by 100%.",
+                     "Watch for this - tank damage taken roughly doubles while it is up."}
         }},
         adds = {{
             name = "Scarlet Sharpshooter",
