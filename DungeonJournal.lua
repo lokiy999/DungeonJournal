@@ -1145,6 +1145,36 @@ local RAIDS = {{
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Neferian",
         flags = {"nottauntable"},
         abilities = {{
+            separator = true,
+            name = "Phase 1 - Vaelastrasz"
+        }, {
+            name = "Essence of the Red",
+            icon = "Interface\\Icons\\Spell_Fire_FelFireNova",
+            lines = {"A beneficial effect granting mana, energy and rage regeneration. Applied once at the start and lasts 3 minutes.",
+                     "Killing Vaelastrasz removes it, so he must be kept alive for the full 3 minutes and then killed swiftly."}
+        }, {
+            name = "Burning Adrenaline",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball02",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Lasts 20 seconds. Damage done increased by 100% and all spell casts become instant, but damage taken increases by 5% every second.",
+                     "On death the victim deals 6250-8100 damage to surrounding allies - run out before dying."}
+        }, {
+            name = "Tail Swipe",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Tanks position front and back, away from the raid during phase 1."}
+        }, {
+            name = "Tunnel adds",
+            icon = "Interface\\Icons\\Ability_Hunter_Pet_Dragonhawk",
+            warning = true,
+            lines = {"Tunnel mobs spawn continuously and are the number one priority - they overwhelm the raid quickly.",
+                     "Roughly 42-84 must die to enter phase 2. Green Drakonid stun (dispellable), Red deal Fire damage, Blue reduce attack speed."}
+        }, {
+            separator = true,
+            name = "Phase 2 - Nefarian"
+        }, {
             name = "Class Calls",
             icon = "Interface\\Icons\\Spell_Shadow_ShadowWordDominate",
             warning = true,
@@ -1831,6 +1861,360 @@ local RAIDS = {{
             name = "Lord Valthalak's Ability",
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }}
+}, {
+    -- CHANGED: World bosses. Mechanics come from Spell.dbc plus the raid-lead
+    -- tips document, with cast frequencies observed in combat logs.
+    key = "WORLD",
+    name = "World Bosses",
+    expanded = false,
+    bosses = {{
+        key = "azuregos",
+        name = "Azuregos",
+        icon = "Interface\\Icons\\temp",
+        flags = {"potion_frost"},
+        abilities = {{
+            name = "Chill",
+            icon = "Interface\\Icons\\Spell_Frost_Glacier",
+            warning = true,
+            roles = {"dispel", "tank"},
+            lines = {"Blasts nearby enemies with ice, increasing the time between their attacks and slowing movement. His most frequent ability.",
+                     "Dispel tanks first, then melee - skip the rest."}
+        }, {
+            name = "Frost Breath",
+            icon = "Interface\\Icons\\Spell_Frost_FrostNova",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts Frost damage in a cone in front of him, steals mana and stuns. Do not stand in front unless you are tanking.",
+                     "Unlike most dragons he does NOT tail swipe, so standing behind him is safe."}
+        }, {
+            name = "Manastorm",
+            icon = "Interface\\Icons\\Spell_Frost_IceStorm",
+            warning = true,
+            lines = {"Calls down a mana storm inflicting Frost damage and draining mana every second in a selected area. Move out of it."}
+        }, {
+            name = "Deep Freeze",
+            icon = "Interface\\Icons\\Spell_Frost_ChainsOfIce",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Freezes the target in place with a large damage-over-time effect. Assign 1-2 resto druids to heal these targets."}
+        }, {
+            name = "Magic Reflection",
+            icon = "Interface\\Icons\\Spell_Frost_WindWalkOn",
+            warning = true,
+            roles = {"reflect", "caster"},
+            lines = {"Casters must stop all spell damage while this is up or it will be reflected back."}
+        }, {
+            name = "Teleport",
+            icon = "Interface\\Icons\\Spell_Arcane_PortalIronForge",
+            warning = true,
+            lines = {"Stop DPS when he teleports - he resets threat and will otherwise kill the raid."}
+        }, {
+            name = "Mark of Frost",
+            icon = "Interface\\Icons\\Spell_Frost_ChainsOfIce",
+            warning = true,
+            lines = {"A 15 minute undispellable debuff applied on death - it freezes you in place if you release while Azuregos is nearby.",
+                     "He is immune to Arcane and has very high Frost resistance."}
+        }}
+    }, {
+        key = "hederine",
+        name = "Lady Hederine",
+        icon = "Interface\\Icons\\temp",
+        flags = {"potion_nature"},
+        abilities = {{
+            name = "Bloating Toxins",
+            icon = "Interface\\Icons\\Ability_Creature_Disease_02",
+            warning = true,
+            roles = {"poison"},
+            lines = {"The defining mechanic - the target's flesh bloats and explodes, firing a poison bolt volley at everyone in their line of sight, including themselves.",
+                     "Targets must break line of sight with the whole raid. Each cast marks 2 players: the furthest raid member and someone in the top 3 threat."}
+        }, {
+            name = "Flesh Explosion",
+            icon = "Interface\\Icons\\Ability_Poisons",
+            warning = true,
+            roles = {"poison", "healer"},
+            lines = {"Nature damage every second after Bloating Toxins expires. Cleanse poison to remove it. Her most frequent log entry."}
+        }, {
+            name = "Tears of the Hederine",
+            icon = "Interface\\Icons\\Ability_Mage_ColdAsIce",
+            warning = true,
+            lines = {"Green gas on the ground - standing in it too long freezes you, applies a heavy damage-over-time effect and prevents healing. Move out."}
+        }, {
+            name = "Curse of Weakness",
+            icon = "Interface\\Icons\\Spell_Shadow_CurseOfMannoroth",
+            warning = true,
+            roles = {"decurse", "tank"},
+            lines = {"Reduces Physical damage dealt. Decurse tanks first, then hunters and melee DPS - skip the rest."}
+        }, {
+            name = "Impotence",
+            icon = "Interface\\Icons\\Spell_Shadow_ChillTouch",
+            warning = true,
+            roles = {"dispel"},
+            lines = {"Reduces magical damage dealt by 90%. Dispel priority: shaman/paladin tank, then DPS shaman/warlock, then mages and boomkins.",
+                     "DPS priests and paladins should dispel themselves."}
+        }, {
+            name = "Sonic Lash",
+            icon = "Interface\\Icons\\Spell_Shadow_Curse",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Nature damage in a cone in front of her, knocking enemies back and wiping aggro. Keep a Nature Resistance totem in the main tank's group."}
+        }, {
+            name = "Lash of Pain",
+            icon = "Interface\\Icons\\Spell_Shadow_Curse",
+            lines = {"Shadow damage lash. Fire damage component - keep a Fire Resistance totem in the main tank's group."}
+        }, {
+            name = "Mind Control",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowWordDominate",
+            warning = true,
+            lines = {"Crowd control the mind controlled player - do NOT kill them."}
+        }, {
+            name = "Adds",
+            icon = "Interface\\Icons\\Ability_Hunter_Pet_Bat",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Requires 5 tanks total: a main tank plus 2 tanks for each add. Off tanks must pull.",
+                     "Tanks taunt off each other at 3 stacks of Sunder Armor, and must taunt immediately when adds charge the main tank."}
+        }}
+    }, {
+        key = "kazzak",
+        name = "Lord Kazzak",
+        icon = "Interface\\Icons\\temp",
+        flags = {"potion_shadow"},
+        abilities = {{
+            name = "Mark of Kazzak",
+            icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
+            warning = true,
+            roles = {"decurse"},
+            lines = {"A curse draining mana over time. If the target runs out of mana while afflicted they explode.",
+                     "Decurse it, and never let your mana fall below 2000."}
+        }, {
+            name = "Shadow Bolt Volley",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            warning = true,
+            lines = {"Hurls Shadow bolts at everyone, ignoring line of sight. By far his most frequent ability (25000+ log entries)."}
+        }, {
+            name = "Twisted Reflection",
+            icon = "Interface\\Icons\\Spell_Arcane_PortalDarnassus",
+            warning = true,
+            roles = {"dispel"},
+            lines = {"Heals Kazzak whenever damage is dealt to the affected target. Dispel it promptly."}
+        }, {
+            name = "Thunderclap",
+            icon = "Interface\\Icons\\Spell_Nature_ThunderClap",
+            warning = true,
+            roles = {"dispel", "tank"},
+            lines = {"Nature damage that slows attack speed and movement. Dispel from the main tank and assign a dedicated dispeller for high value melee DPS."}
+        }, {
+            name = "A Falling Star (Meteor)",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball02",
+            warning = true,
+            roles = {"melee"},
+            lines = {"An AoE knockback that can also hit the tank. Melee must stay at maximum range behind him to avoid this and the frontal Cleave."}
+        }, {
+            name = "Void Bolt",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            lines = {"A single-target bolt of dark magic."}
+        }, {
+            name = "Capture Soul",
+            icon = "Interface\\Icons\\Spell_Shadow_SoulGem",
+            warning = true,
+            lines = {"Every player OR pet that dies heals Kazzak for 70000+ health - including hunter pets and Eskhandar.",
+                     "Any player or pet outside the raid also heals him if they are near or in combat with him. Do not die."}
+        }}
+    }, {
+        key = "kurinnaxx",
+        name = "Kurinnaxx",
+        icon = "Interface\\Icons\\temp",
+        flags = {"potion_nature"},
+        abilities = {{
+            name = "Mortal Wound",
+            icon = "Interface\\Icons\\Ability_CriticalStrike",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"Reduces healing taken by 10% per stack. Tanks must taunt off each other at three to five stacks."}
+        }, {
+            name = "Poison Bolt Volley",
+            icon = "Interface\\Icons\\Ability_Poisons",
+            warning = true,
+            roles = {"poison"},
+            lines = {"Shoots poison at enemies in a cone in front of him. Keep a Poison Cleansing Totem in the tank group.",
+                     "Do not stand in front of him unless you are tanking. His most frequent ability."}
+        }, {
+            name = "Tail Sweep",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Damages and knocks back enemies behind him. Do not stand behind Kurinnaxx.",
+                     "All DPS and healers should be positioned at his left or right side."}
+        }, {
+            name = "Sand Trap",
+            icon = "Interface\\Icons\\INV_Misc_Dust_02",
+            warning = true,
+            lines = {"Move away from the sand trap or you will be silenced and unable to cast for 20 seconds."}
+        }, {
+            name = "Sand Reaver's Rush (Charge)",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            warning = true,
+            lines = {"Stop DPS when he charges."}
+        }, {
+            name = "Wide Slash",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"Inflicts normal damage plus extra to enemies in a cone in front of him."}
+        }, {
+            name = "Enrage",
+            icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
+            warning = true,
+            roles = {"warrior"},
+            lines = {"Enrages at 30% health. Save damage cooldowns for this phase.",
+                     "He should be disarmed as much as possible while enraged."}
+        }}
+    }}
+}, {
+    -- CHANGED: the four Dragons of Nightmare. They share a common ability set
+    -- (Noxious Breath, Tail Sweep) plus one signature mechanic each.
+    key = "GREEN",
+    name = "Green Dragons",
+    expanded = false,
+    bosses = {{
+        key = "emeriss",
+        name = "Emeriss",
+        icon = "Interface\\Icons\\temp",
+        flags = {"potion_nature"},
+        abilities = {{
+            name = "Volatile Infection",
+            icon = "Interface\\Icons\\Spell_Holy_HarmUndeadAura",
+            warning = true,
+            roles = {"dispel", "healer"},
+            lines = {"Emeriss' signature mechanic - infects a player so they inflict Nature damage to nearby allies.",
+                     "The infected player must move away from the raid. Her most frequent ability."}
+        }, {
+            name = "Corruption of the Earth",
+            icon = "Interface\\Icons\\Ability_Creature_Cursed_03",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Deals a percentage of maximum health as damage every few seconds to the entire raid."}
+        }, {
+            name = "Noxious Breath",
+            icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Frontal breath dealing damage over time and increasing ability cooldowns. Do not stand in front."}
+        }, {
+            name = "Tail Sweep",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Damages and knocks back enemies behind her. Do not stand behind."}
+        }, {
+            name = "Mark of Nature",
+            icon = "Interface\\Icons\\Spell_Nature_SpiritArmor",
+            warning = true,
+            lines = {"Applied on death - you are weakened and susceptible to her Aura of Nature if you release nearby."}
+        }}
+    }, {
+        key = "lethon",
+        name = "Lethon",
+        icon = "Interface\\Icons\\temp",
+        flags = {"potion_shadow"},
+        abilities = {{
+            name = "Shadow Bolt Whirl",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            warning = true,
+            lines = {"Spinning bolts of Shadow magic radiate outward from him. His most frequent ability by a wide margin - keep moving to avoid them."}
+        }, {
+            name = "Draw Spirit",
+            icon = "Interface\\Icons\\Spell_Shadow_SummonInfernal",
+            warning = true,
+            roles = {"dps"},
+            lines = {"Lethon draws spirits out of the raid. The spirit shades travel back to him and heal him if they reach him - intercept and kill them."}
+        }, {
+            name = "Noxious Breath",
+            icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Frontal breath dealing damage over time and increasing ability cooldowns. Do not stand in front."}
+        }, {
+            name = "Tail Sweep",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Damages and knocks back enemies behind him. Do not stand behind."}
+        }, {
+            name = "Mark of Nature",
+            icon = "Interface\\Icons\\Spell_Nature_SpiritArmor",
+            warning = true,
+            lines = {"Applied on death - you are weakened and susceptible to his aura if you release nearby."}
+        }}
+    }, {
+        key = "taerar",
+        name = "Taerar",
+        icon = "Interface\\Icons\\temp",
+        flags = {"potion_arcane"},
+        abilities = {{
+            name = "Arcane Blast",
+            icon = "Interface\\Icons\\Spell_Shadow_DeathPact",
+            warning = true,
+            lines = {"Blasts an enemy with Arcane magic for normal damage plus extra, knocking them back."}
+        }, {
+            name = "Bellowing Roar",
+            icon = "Interface\\Icons\\Spell_Shadow_Charm",
+            warning = true,
+            roles = {"shaman"},
+            lines = {"Fears the raid. Keep a Tremor Totem down for the main tank."}
+        }, {
+            name = "Shades of Taerar",
+            icon = "Interface\\Icons\\Spell_Shadow_SummonInfernal",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Taerar splits into shades partway through the fight - they must be tanked and killed before he becomes vulnerable again."}
+        }, {
+            name = "Noxious Breath",
+            icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Frontal breath dealing damage over time and increasing ability cooldowns. Do not stand in front."}
+        }, {
+            name = "Tail Sweep",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Damages and knocks back enemies behind him. His most frequent ability - do not stand behind."}
+        }, {
+            name = "Mark of Nature",
+            icon = "Interface\\Icons\\Spell_Nature_SpiritArmor",
+            warning = true,
+            lines = {"Applied on death - you are weakened and susceptible to his aura if you release nearby."}
+        }}
+    }, {
+        key = "ysondre",
+        name = "Ysondre",
+        icon = "Interface\\Icons\\temp",
+        flags = {"potion_nature"},
+        abilities = {{
+            name = "Lightning Wave",
+            icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
+            warning = true,
+            lines = {"Strikes an enemy with lightning that arcs to nearby enemies, dealing greater Nature damage to each. Her most frequent ability - spread out."}
+        }, {
+            name = "Summon Druids",
+            icon = "Interface\\Icons\\Spell_Nature_ForceOfNature",
+            warning = true,
+            roles = {"kick", "tank"},
+            lines = {"Ysondre summons Demented Druids that cast Moonfire and heal her. Interrupt and kill them quickly."}
+        }, {
+            name = "Noxious Breath",
+            icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Frontal breath dealing damage over time and increasing ability cooldowns. Do not stand in front."}
+        }, {
+            name = "Tail Sweep",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Damages and knocks back enemies behind her. Do not stand behind."}
+        }, {
+            name = "Mark of Nature",
+            icon = "Interface\\Icons\\Spell_Nature_SpiritArmor",
+            warning = true,
+            lines = {"Applied on death - you are weakened and susceptible to her aura if you release nearby."}
         }}
     }}
 }}
