@@ -1214,37 +1214,173 @@ local RAIDS = {{
         key = "brother_michael",
         name = "Brother Michael",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BrotherMichael",
+        -- NOTE: values from Spell.dbc (IDs 35940-35951). Percentages are the
+        -- real $s values (DBC stores them as value-1).
         abilities = {{
-            name = "Brother Michael's Ability",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Abilities not yet documented."}
+            name = "Curse of Thorns",
+            icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
+            warning = true,
+            roles = {"decurse"},
+            lines = {"The target takes back a portion of the damage they deal. Decurse it or stop attacking until it is removed."}
+        }, {
+            name = "Thorned Roots",
+            icon = "Interface\\Icons\\Spell_Nature_StrangleVines",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Roots a player and deals 20% of their maximum health as Nature damage every second.",
+                     "When the roots collapse, thorns explode outward from the target - spread out before that happens."}
+        }, {
+            name = "Fists of Fire",
+            icon = "Interface\\Icons\\Spell_Fire_Immolation",
+            roles = {"tank"},
+            lines = {"90% of Brother Michael's Physical damage becomes Fire damage, so armour stops mitigating most of his melee."}
+        }, {
+            name = "Four Finger Death Punch",
+            icon = "Interface\\Icons\\Spell_Shadow_CorpseExplode",
+            warning = true,
+            lines = {"Inflicts one of four wounds on the target. Taking all four hits causes the victim's heart to explode."}
+        }, {
+            name = "Soulbind",
+            icon = "Interface\\Icons\\Spell_Shadow_Haunting",
+            lines = {"Splits 20% of the damage Brother Michael takes onto the bound player."}
+        }, {
+            name = "Grip Break",
+            icon = "Interface\\Icons\\Ability_Warrior_Disarm",
+            roles = {"tank"},
+            lines = {"Disarms the target."}
+        }, {
+            name = "Kick",
+            icon = "Interface\\Icons\\Ability_Kick",
+            lines = {"Interrupts the target's spellcast."}
         }}
     }, {
         key = "doan",
         name = "Doan",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Doan",
+        -- NOTE: values from Spell.dbc (IDs 35954-35989). Percentages are the
+        -- real $s values (DBC stores them as value-1).
         abilities = {{
-            name = "Doan's Ability",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Abilities not yet documented."}
+            name = "Arcane Pulse",
+            icon = "Interface\\Icons\\Spell_Arcane_ArcaneResilience",
+            warning = true,
+            lines = {"Doan's most frequent ability - pulses the raid for 100 Arcane damage and interrupts spellcasting, locking that school for a few seconds.",
+                     "Logs show 8-12 players hit at once, so casters should expect regular lockouts."}
+        }, {
+            name = "Arcanebolt",
+            icon = "Interface\\Icons\\Spell_Nature_StarFall",
+            lines = {"Blasts an enemy for 1040 Arcane damage."}
+        }, {
+            name = "Flamebolt",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            lines = {"Hurls a fiery ball for 5750 Fire damage plus 250 Fire damage every 0.5 seconds afterwards."}
+        }, {
+            name = "Flamestrike",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"Calls down a pillar of fire for 1555 Fire damage, then 575 Fire damage every second to anyone standing in it. Move out."}
+        }, {
+            name = "Dragon Breath",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts 1850 Fire damage in a cone in front of Doan. Keep him faced away from the raid."}
+        }, {
+            name = "Ice Blast",
+            icon = "Interface\\Icons\\Spell_Frost_Glacier",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Deals 15% of the target's health every second while it lasts."}
+        }, {
+            name = "Searing Heat",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            lines = {"Continually inflicts Fire damage on the raid."}
         }}
     }, {
         key = "renault_mograine_sally_whitemane",
         name = "Renault Mograine & Sally Whitemane",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\RenaultMograineSallyWhitemane",
+        -- NOTE: values from Spell.dbc (IDs 33456-36021). Percentages are the
+        -- real $s values (DBC stores them as value-1).
         abilities = {{
-            name = "Renault Mograine & Sally Whitemane's Ability",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Abilities not yet documented."}
+            separator = true,
+            name = "Renault Mograine"
+        }, {
+            name = "Eye for an Eye",
+            icon = "Interface\\Icons\\Spell_Holy_EyeforanEye",
+            warning = true,
+            lines = {"Mograine's signature effect and by far his most common log entry - a portion of the damage dealt to him is reflected back at the attacker."}
+        }, {
+            name = "Crusader Strike",
+            icon = "Interface\\Icons\\Spell_Holy_CrusaderStrike2",
+            roles = {"tank"},
+            lines = {"A weapon strike that also increases his attack speed."}
+        }, {
+            name = "Searing Light",
+            icon = "Interface\\Icons\\Spell_Holy_ReviveChampion",
+            lines = {"Increases Holy damage dealt but reduces healing done."}
+        }, {
+            separator = true,
+            name = "Sally Whitemane"
+        }, {
+            name = "Scarlet Resurrection",
+            icon = "Interface\\Icons\\Spell_Holy_RighteousFury",
+            warning = true,
+            lines = {"When Mograine dies, Whitemane resurrects him and the fight continues. Interrupting or racing this cast is the core of the encounter."}
+        }, {
+            name = "Holy Smite",
+            icon = "Interface\\Icons\\Spell_Holy_HolySmite",
+            roles = {"kick"},
+            lines = {"Whitemane's main cast, smiting a target for 2730 Holy damage."}
+        }, {
+            name = "Holy Fire",
+            icon = "Interface\\Icons\\Spell_Holy_SearingLight",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Inflicts 1275 Holy damage plus 830 Holy damage every 3 seconds, and dispels a beneficial effect from the target on each tick."}
+        }, {
+            name = "Absolution",
+            icon = "Interface\\Icons\\Spell_Holy_RighteousFury",
+            warning = true,
+            roles = {"kick"},
+            lines = {"A heavy Holy nuke for 4000 damage."}
+        }, {
+            name = "Heal",
+            icon = "Interface\\Icons\\Spell_Holy_Heal",
+            roles = {"kick"},
+            lines = {"Whitemane heals herself or Mograine. Interrupt it where possible."}
+        }, {
+            name = "Dispel Magic",
+            icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
+            lines = {"Whitemane repeatedly dispels magic from herself and Mograine, removing your debuffs."}
+        }, {
+            name = "Power Word: Shield",
+            icon = "Interface\\Icons\\Spell_Holy_PowerWordShield",
+            lines = {"Shields herself, absorbing incoming damage."}
         }}
     }, {
         key = "fairbanks",
         name = "Fairbanks",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Fairbanks",
+        -- NOTE: values from Spell.dbc (IDs 36024-36213). Percentages are the
+        -- real $s values (DBC stores them as value-1).
         abilities = {{
-            name = "Fairbanks' Ability",
+            name = "Stomp",
+            icon = "Interface\\Icons\\Ability_Kick",
+            warning = true,
+            lines = {"Fairbanks' most frequent ability - stomps the ground, damaging everyone nearby and interrupting spellcasting, locking that school for a few seconds.",
+                     "Logs show 7-12 players hit at once."}
+        }, {
+            name = "Bile Vomit",
+            icon = "Interface\\Icons\\Spell_Shadow_PlagueCloud",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Shoots a cloud of bile in a cone in front of him, reducing armour by 650 and inflicting Nature damage every 5 seconds.",
+                     "Keep him faced away from the raid."}
+        }, {
+            name = "Claustrophobia",
             icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Abilities not yet documented."}
+            warning = true,
+            lines = {"The walls press inward, increasing the damage and radius of Stomp. Rarely seen in logs - likely a soft enrage."}
         }}
     }}
 }}
