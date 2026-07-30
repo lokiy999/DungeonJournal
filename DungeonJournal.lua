@@ -1034,21 +1034,21 @@ local RAIDS = {{
             icon = "Interface\\Icons\\Ability_Warrior_VictoryRush",
             warning = true,
             roles = {"tank"},
-            lines = {"Charges an enemy, inflicting normal damage plus 500 and stunning them."}
+            lines = {"Charges an enemy, inflicting normal damage plus 500, gaining aggro and stunning them."}
         }, {
             name = "Shield Bash",
             icon = "Interface\\Icons\\INV_Shield_05",
             warning = true,
-            lines = {"Slams the target for up to 3160 damage and dispels one magic effect from them - your buffs will be stripped."}
+            lines = {"Slam the target with your shield, causing 1794 to 2170 damage, and dispels 1 magic effect on the target."}
         }, {
             name = "Consecration",
             icon = "Interface\\Icons\\Spell_Holy_InnerFire",
-            lines = {"Consecrates the ground beneath her, dealing Holy damage every second to anyone standing in the area. Logs show 6-9 players ticking at once for up to 2290.",
-                     "Move out of the patch rather than tanking the damage."}
+            warning = true,
+            lines = {"Consecrates the ground on the closest and furthest target, dealing Holy damage every second to anyone standing in the area. Won't be cast if mana is empty."}
         }, {
-            name = "Provocation (taunt)",
+            name = "Provocation",
             icon = "Interface\\Icons\\Ability_Warrior_InnerRage",
-            lines = {"Forces all nearby enemies to attack her, overriding your current target."}
+            lines = {"Taunts and forces all nearby enemies within 10 yards to focus attacks on her for 8 seconds."}
         }, {
             separator = true,
             name = "Phase 2"
@@ -1056,32 +1056,31 @@ local RAIDS = {{
             name = "Fist of Justice",
             icon = "Interface\\Icons\\Spell_Holy_SealOfMight",
             warning = true,
-            lines = {"Stuns nearby enemies. Marks the transition into her mounted phase."}
+            lines = {"Casts at 20% health left. Stuns nearby enemies for up to 10 seconds."}
         }, {
             name = "Lay on Hands",
             icon = "Interface\\Icons\\Spell_Holy_LayOnHands",
             warning = true,
-            roles = {"kick"},
-            lines = {"Heals for an amount equal to her maximum health. Interrupt or stop this cast or the phase resets."}
+            lines = {"Casts at 20% health left. Heals to full health."}
         }, {
             name = "Scarlet Charger",
             icon = "Interface\\Icons\\mount_scarlet_charger",
-            lines = {"She summons her mount, increasing her speed by 100%. This is what enables the charge and trample abilities below."}
+            lines = {"Casts at 20% health left. She summons her mount, increasing her speed by 100%."}
         }, {
             name = "Stormbolt",
             icon = "Interface\\Icons\\Ability_ThunderClap",
-            roles = {"healer"},
-            lines = {"Hurls a hammer at an enemy for around 1900 Holy damage. Her most frequent phase 2 cast, seen hitting for 440-2560."}
+            roles = {"healer", "tank", "reflect"},
+            lines = {"Hurls a hammer that strikes an enemy for 1897 to 2327 Holy damage every 1.5 seconds. Reflectable"}
         }, {
             name = "Hoof Kick",
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
-            lines = {"Inflicts up to 1500 damage to enemies in a cone behind her and knocks them back. Do not stand behind the mount."}
+            lines = {"Inflicts 1500 to 2050 damage on enemies in a cone behind the caster, knocking them back."}
         }, {
             name = "Trampling Charge",
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
-            lines = {"Inflicts 1800 damage to enemies in a cone in front of her and knocks them back."}
+            lines = {"Inflicts 1800 to 2298 damage to enemies in a cone in front of the caster, knocking them back."}
         }, {
             name = "Crash",
             icon = "Interface\\Icons\\Ability_WarStomp",
@@ -1090,14 +1089,13 @@ local RAIDS = {{
         }, {
             name = "Consecration (phase 2)",
             icon = "Interface\\Icons\\Spell_Holy_InnerFire",
-            lines = {"The same ground-based Holy damage patch, still used while mounted."}
+            lines = {"Consecrates the ground on the closest and furthest target, dealing 1150-1520 Holy damage instantly and 10% health damage per 0.95s to anyone standing in the area. Lasts 8 seconds. Won't be cast if mana is empty."}
         }, {
             name = "Close Quarters Combat Experience",
             icon = "Interface\\Icons\\Ability_Warrior_OffensiveStance",
             warning = true,
             roles = {"tank"},
-            lines = {"A buff she gains during the fight, increasing her Physical damage by 100% and attack speed by 100%.",
-                     "Watch for this - tank damage taken roughly doubles while it is up."}
+            lines = {"Increases her attack speed by 100% and the Physical damage she deals by 100% for 10 seconds."}
         }},
         adds = {{
             name = "Scarlet Sharpshooter",
@@ -1332,7 +1330,7 @@ local RAIDS = {{
             name = "Eye for an Eye",
             icon = "Interface\\Icons\\Spell_Holy_EyeforanEye",
             warning = true,
-            lines = {"Mograine's signature effect and by far his most common log entry - a portion of the damage dealt to him is reflected back at the attacker."}
+            lines = {"All of the damage dealt to him is reflected back at the raid, divided between each member."}
         }, {
             name = "Crusader Strike",
             icon = "Interface\\Icons\\Spell_Holy_CrusaderStrike2",
