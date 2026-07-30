@@ -62,6 +62,22 @@ Add content by editing the `RAIDS` table only; the UI is fully data-driven.
 }} }
 ```
 
+**Phase separators.** An entry in a boss's top-level `abilities` list with
+`separator = true` renders as a clickable bar instead of an ability row. Every
+ability after it belongs to that phase until the next separator, so grouping is
+driven purely by position in the table. Clicking the bar collapses/expands that
+phase. Separators default to expanded and are ignored inside an add's nested
+`abilities`.
+
+```lua
+abilities = {
+    { separator = true, name = "Phase 1" },            -- optional color = "ffRRGGBB"
+    { name = "Command Gesture", lines = {"..."} },
+    { separator = true, name = "Phase 2" },
+    { name = "Lay on Hands", lines = {"..."} },
+}
+```
+
 ## Essential Commands
 
 There is no build, lint, format, test, or dev-server tooling in this repo. Validation is

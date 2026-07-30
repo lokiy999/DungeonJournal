@@ -13,6 +13,7 @@ local RIGHT_CONTENT_WIDTH = WINDOW_WIDTH - LEFT_WIDTH - 60
 local TREE_ROW_HEIGHT     = 22
 local ABILITY_ROW_TOP_H   = 26   -- height of the icon/name/icons line
 local ABILITY_ICON_SIZE   = 20
+local SEPARATOR_ROW_H     = 20   -- CHANGED: height of a phase separator bar
 
 -- CHANGED: top nav bar ("Bosses" / "Explaination") and the full-width panel
 -- used by the Explaination view.
@@ -1019,6 +1020,9 @@ local RAIDS = {{
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Brigitte",
         flags = {"tauntable"},
         abilities = {{
+            separator = true,
+            name = "Phase 1"
+        }, {
             name = "Command Gesture",
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
@@ -1039,7 +1043,10 @@ local RAIDS = {{
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
         }, {
-            name = "Fist of Justice (Phase 2 transition abilities below)",
+            separator = true,
+            name = "Phase 2"
+        }, {
+            name = "Fist of Justice",
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
         }, {
@@ -1070,6 +1077,28 @@ local RAIDS = {{
             name = "Trampling Charge",
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+        }},
+        adds = {{
+            name = "Scarlet Sharpshooter",
+            icon = "Interface\\Icons\\temp",
+            color = "ffcc0000",
+            lines = {"Four of these accompany Brigitte Abbendis into battle."},
+            abilities = {{
+                name = "Longshot",
+                icon = "Interface\\Icons\\inv_spear_07",
+                color = "ff00ccff",
+                lines = {"Shoots an enemy, inflicting an additional 100 ranged damage and slowing its movement speed by 60% for 3 seconds."}
+            }, {
+                name = "Explosive Shot",
+                icon = "Interface\\Icons\\inv_musket_03",
+                color = "ff00ccff",
+                lines = {"Inflicts X Fire damage and knocks the target back, applying Concussed, Dazed and Silenced."}
+            }, {
+                name = "Volley",
+                icon = "Interface\\Icons\\ability_marksmanship",
+                color = "ff00ccff",
+                lines = {"Continuously fires a volley of ammo at the target area, inflicting 500 to 550 Arcane damage every second to enemies within 8 yards for 12 seconds."}
+            }}
         }}
     }, {
         key = "vishas",
@@ -1180,7 +1209,13 @@ local RAIDS = {{
 for _, raid in ipairs(RAIDS) do
     for _, boss in ipairs(raid.bosses) do
         for _, ability in ipairs(boss.abilities) do
-            ability.expanded = false
+            -- CHANGED: phase separators start expanded so all abilities are
+            -- visible by default; normal ability rows start collapsed.
+            if ability.separator then
+                ability.expanded = true
+            else
+                ability.expanded = false
+            end
         end
         if boss.adds then
             for _, add in ipairs(boss.adds) do
@@ -1663,6 +1698,57 @@ SelectView("bosses")
 ------------------------------------------------------------
 -- List Item Creation and configuration
 ------------------------------------------------------------
+-- CHANGED: phase separator bars. An entry in a boss's `abilities` list that
+-- carries `separator = true` is rendered as a full-width labelled bar instead
+-- of an ability row. Every ability listed after it belongs to that phase,
+-- until the next separator - so the grouping is driven purely by where the
+-- separator sits in the data. Clicking the bar collapses/expands that phase.
+-- Separators are only handled at the top level of the list (not inside an
+-- add's nested `abilities`).
+local separatorRowPool = {}
+
+local function CreateSeparatorRow(parent, index)
+    local btn = CreateFrame("Button", "DungeonJournalPhaseRow" .. index, parent)
+    btn:SetHeight(SEPARATOR_ROW_H)
+
+    local bg = btn:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints(btn)
+    bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    bg:SetVertexColor(0.15, 0.15, 0.3, 1)
+    btn.bg = bg
+
+    btn:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight", "ADD")
+
+    local expandLabel = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    expandLabel:SetPoint("LEFT", btn, "LEFT", 6, 0)
+    expandLabel:SetWidth(12)
+    expandLabel:SetJustifyH("LEFT")
+    btn.expandLabel = expandLabel
+
+    local nameLabel = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    nameLabel:SetPoint("LEFT", expandLabel, "RIGHT", 2, 0)
+    nameLabel:SetJustifyH("LEFT")
+    btn.nameLabel = nameLabel
+
+    btn:SetScript("OnClick", function()
+        this.separatorData.expanded = not this.separatorData.expanded
+        RebuildAbilityList(currentBoss)
+    end)
+
+    return btn
+end
+
+local function ConfigureSeparatorRow(btn, entry)
+    btn.separatorData = entry
+    btn.expandLabel:SetText(entry.expanded and "-" or "+")
+
+    if entry.color then
+        btn.nameLabel:SetText("|c" .. entry.color .. entry.name .. "|r")
+    else
+        btn.nameLabel:SetText(entry.name)
+    end
+end
+
 -- CHANGED: now generic - takes a parent, indent, and optional frame-name prefix.
 -- This lets the same row "widget" be used both for the top-level list (abilities
 -- or adds) AND for a nested sub-list of abilities belonging to a single add.
@@ -1843,25 +1929,57 @@ function RebuildAbilityList(boss)
     end
 
     local yOffset = 0
+    -- CHANGED: separators and abilities are drawn from two different pools, so
+    -- each needs its own running index. `phaseVisible` tracks whether the most
+    -- recent separator is expanded; abilities under a collapsed phase are
+    -- skipped entirely (and therefore contribute no height).
+    local rowIndex = 0
+    local sepIndex = 0
+    local phaseVisible = true
+
     for i, item in ipairs(dataSource) do
-        local btn = abilityRowPool[i]
-        if not btn then
-            btn = CreateAbilityRow(abilityScrollChild, i, 18, "DungeonJournalAbilityRow")
-            abilityRowPool[i] = btn
+        if item.separator then
+            sepIndex = sepIndex + 1
+            local sep = separatorRowPool[sepIndex]
+            if not sep then
+                sep = CreateSeparatorRow(abilityScrollChild, sepIndex)
+                separatorRowPool[sepIndex] = sep
+            end
+
+            sep:ClearAllPoints()
+            sep:SetPoint("TOPLEFT", abilityScrollChild, "TOPLEFT", 0, -yOffset)
+            sep:SetPoint("TOPRIGHT", abilityScrollChild, "TOPRIGHT", 0, -yOffset)
+
+            ConfigureSeparatorRow(sep, item)
+            sep:Show()
+
+            phaseVisible = item.expanded
+            yOffset = yOffset + sep:GetHeight() + 4
+        elseif phaseVisible then
+            rowIndex = rowIndex + 1
+            local btn = abilityRowPool[rowIndex]
+            if not btn then
+                btn = CreateAbilityRow(abilityScrollChild, rowIndex, 18, "DungeonJournalAbilityRow")
+                abilityRowPool[rowIndex] = btn
+            end
+
+            btn:ClearAllPoints()
+            btn:SetPoint("TOPLEFT", abilityScrollChild, "TOPLEFT", 0, -yOffset)
+            btn:SetPoint("TOPRIGHT", abilityScrollChild, "TOPRIGHT", 0, -yOffset)
+
+            ConfigureAbilityRow(btn, item, 18, RIGHT_CONTENT_WIDTH - 24)
+            btn:Show()
+
+            yOffset = yOffset + btn:GetHeight() + 4
         end
-
-        btn:ClearAllPoints()
-        btn:SetPoint("TOPLEFT", abilityScrollChild, "TOPLEFT", 0, -yOffset)
-        btn:SetPoint("TOPRIGHT", abilityScrollChild, "TOPRIGHT", 0, -yOffset)
-
-        ConfigureAbilityRow(btn, item, 18, RIGHT_CONTENT_WIDTH - 24)
-        btn:Show()
-
-        yOffset = yOffset + btn:GetHeight() + 4
     end
 
-    for i = table.getn(dataSource) + 1, table.getn(abilityRowPool) do
+    for i = rowIndex + 1, table.getn(abilityRowPool) do
         abilityRowPool[i]:Hide()
+    end
+
+    for i = sepIndex + 1, table.getn(separatorRowPool) do
+        separatorRowPool[i]:Hide()
     end
 
     abilityScrollChild:SetHeight(yOffset)
