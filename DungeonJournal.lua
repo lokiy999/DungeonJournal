@@ -1112,51 +1112,45 @@ local RAIDS = {{
             name = "Sear",
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
             roles = {"tank"},
-            lines = {"Vishas' main attack on his current target - a Flame Lash for 550 Fire damage, applied every 1-2 seconds.",
-                     "Heavily reduced by Fire Resistance - most hits in logs landed for 150-250 with 3-4x that amount resisted."}
+            lines = {"Vishas' main attack on his current target - a Flame Lash for 550-650 Fire damage."}
         }, {
             name = "Shadow Word: Pain",
             icon = "Interface\\Icons\\Spell_Shadow_ShadowWordPain",
             warning = true,
             roles = {"dispel"},
-            lines = {"A raid-wide curse dealing 5% of a player's health every 3 seconds. 5 to 10 raid members were afflicted at once in logs.",
-                     "Because it scales off health, high-HP players take the most - reflecting it back hit Vishas for 32000+."}
-        }, {
-            name = "Shared Sentence",
-            icon = "Interface\\Icons\\Spell_Holy_RighteousFury",
-            warning = true,
-            roles = {"healer"},
-            lines = {"Every 15-30 seconds Vishas sentences 1-3 raid members, inflicting roughly 1000-4700 Holy damage to each.",
-                     "The damage is shared between everyone hit, so spreading the sentence over more players lowers the damage each one takes.",
-                     "Reflecting it back at Vishas hits him for 9000-27000, and every cast stacks Recidivism on him."}
+            lines = {"A raid-wide curse dealing 5% of a player's health every 3 seconds. Applied every 5-10 seconds."}
         }, {
             name = "Impending Sentence",
             icon = "Interface\\Icons\\Spell_Holy_RetributionAura",
             warning = true,
-            lines = {"Marks a player with 'You are being prosecuted!' for 3 seconds - the telegraph that a Shared Sentence is incoming.",
-                     "Spread out or prepare to share the damage before it lands."}
+            lines = {"Marks a player with 'You are being prosecuted!' after 3 seconds Shared Sentence is applied to that player. Applied every 20 seconds."},
+            abilities = {{
+                name = "Shared Sentence",
+                icon = "Interface\\Icons\\Spell_Holy_RighteousFury",
+                warning = true,
+                roles = {"healer"},
+                lines = {"Every 15-20 seconds Vishas sentences a raid member, inflicting roughly 1000-4700 Holy damage to each."}            
+        }, {
+                name = "Recidivism",
+                icon = "Interface\\Icons\\Spell_Holy_FistOfJustice",
+                lines = {"Increase damage taken from Shared Sentence by 50%. Acquired by being dealt damage by Shared Sentence. Stacks up to 10. Lasts for 30 seconds."}
+        }}
         }, {
             name = "Atonement",
             icon = "Interface\\Icons\\INV_Belt_18",
             warning = true,
             roles = {"healer"},
-            lines = {"Stuns a single raid member and deals 20% of their health every 2 seconds while it lasts.",
-                     "Vishas then moves it onto a different raid member."}
-        }, {
-            name = "Recidivism",
-            icon = "Interface\\Icons\\Spell_Holy_FistOfJustice",
-            lines = {"Vishas stacks this on himself - one stack per Shared Sentence cast, up to 10 stacks.",
-                     "Each stack increases the damage he takes from Shared Sentence by 50%, so reflecting sentences back at him snowballs quickly."}
+            lines = {"Teleports a raid member to one of three 'sacrifice' benches and stuns them, dealing 20% of their health every 2 seconds for 12 seconds. Applied every 20 seconds."}
         }, {
             name = "Ordeal Grip",
             icon = "Interface\\Icons\\INV_Gauntlets_04",
             roles = {"dispel"},
-            lines = {"Slows movement by 60% and increases all damage taken by 50%. Lasts about 8 seconds and is dispellable (Magic).",
-                     "Can be reflected back onto Vishas."}
+            lines = {"Slows movement by 60% and increases all damage taken by 50%. Lasts 8 seconds.",
+                     "Can be reflected back onto Vishas? Applied every 12-15 seconds."}
         }, {
             name = "Pummel",
             icon = "Interface\\Icons\\INV_Gauntlets_04",
-            lines = {"Strikes a raid member for around 1150 damage. Presumably also interrupts, as it does for players."}
+            lines = {"Pummel the target for 1150 to 1450 damage. It also interrupts spellcasting and prevents any spell in that school from being cast for 5 seconds."}
         }}
     }, {
         key = "herod",
