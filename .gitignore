@@ -8,3 +8,5 @@ WoWCombatLog*.txt
 *.xlsx
 *.xls
 *.csv
+*.docx
+*.doc

@@ -906,12 +906,19 @@ local RAIDS = {{
         key = "broodlord",
         name = "Broodlord Lashlayer",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Broodlord",
+        flags = {"nottauntable"},
         abilities = {{
             name = "Blast Wave",
             icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
             warning = true,
-            lines = {"A wave of flame radiates outward, inflicting around 425 Fire damage to everyone caught in it and dazing them.",
+            lines = {"A wave of flame radiates outward, inflicting heavy Fire damage to everyone within roughly 10 yards, knocking them back and slowing them.",
                      "His signature ability - by far his most common log entry."}
+        }, {
+            name = "Knock Back",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Resets or reduces threat. Any DPS who pulls threat must run towards the boss so the tanks can recover him - the tanks are slowed and cannot chase."}
         }, {
             name = "Mortal Strike",
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
@@ -934,7 +941,8 @@ local RAIDS = {{
             warning = true,
             roles = {"tank"},
             lines = {"Firemaw's defining mechanic and his most frequent ability by an enormous margin (37000+ log entries).",
-                     "Inflicts Fire damage and increases the Fire damage the target takes - it stacks, so tanks must rotate out before it becomes lethal."}
+                     "Increases Fire damage taken and stacks indefinitely. It CANNOT be removed with Vial of Elune's Light.",
+                     "Tanks never run away to reset stacks - maximum threat is required, so healers must rotate to keep them alive. Ensure only one tank is hit by Wing Buffet at a time."}
         }, {
             name = "Shadow Flame",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
@@ -984,8 +992,9 @@ local RAIDS = {{
             icon = "Interface\\Icons\\Spell_Shadow_GatherShadows",
             warning = true,
             roles = {"healer"},
-            lines = {"When Ebonroc deals damage he heals himself for a multiple of the damage dealt - the classic heal-debuff on the tank.",
-                     "Swap tanks or burn through the healing."}
+            lines = {"When Ebonroc deals damage he heals himself for a multiple of the damage dealt.",
+                     "Ebonroc and Flamegor must be tanked far apart with casters in between so their auras do not overlap.",
+                     "High threat players drop threat with a timed Wing Buffet - Shadow Flame follows 2 seconds after."}
         }, {
             name = "Shadow Flame",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
@@ -999,8 +1008,9 @@ local RAIDS = {{
         }, {
             name = "Frenzy",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            warning = true,
             roles = {"hunter"},
-            lines = {"Attack speed increased. Stacks, and should be removed with Tranquilizing Shot."}
+            lines = {"Enrage causing heavy raid-wide Shadow damage. MUST be removed with Tranquilizing Shot - ideally 2 hunters per dragon."}
         }}
     }, {
         key = "flamegor",
@@ -1034,8 +1044,9 @@ local RAIDS = {{
         }, {
             name = "Frenzy",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            warning = true,
             roles = {"hunter"},
-            lines = {"Attack speed increased. Stacks, and should be removed with Tranquilizing Shot."}
+            lines = {"Enrage causing heavy raid-wide Fire damage. MUST be removed with Tranquilizing Shot - ideally 2 hunters per dragon."}
         }}
     }, {
         key = "chromaggus",
@@ -1047,32 +1058,76 @@ local RAIDS = {{
             roles = {"tank"},
             lines = {"Chromaggus bites twice, hitting a second enemy as well. His most frequent melee ability."}
         }, {
-            separator = true,
-            name = "Brood Afflictions"
+            name = "Enrage",
+            icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
+            warning = true,
+            lines = {"Enrages at 20% health. Cannot be removed - time your damage so he reaches enrage just after a breath to maximise DPS."}
         }, {
-            name = "Brood Affliction: Red",
+            name = "Frenzy",
+            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            warning = true,
+            roles = {"hunter"},
+            lines = {"Must be removed with Tranquilizing Shot. Still occurs during the enrage phase - the Frenzy can be removed even though the Enrage cannot."}
+        }, {
+            separator = true,
+            name = "Brood Afflictions - dispel assignments"
+        }, {
+            name = "Brood Affliction: Black",
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_01",
             warning = true,
-            roles = {"dispel", "healer"},
-            lines = {"The most commonly applied affliction in logs. Each colour is a different debuff and they must be managed separately."}
-        }, {
-            name = "Brood Affliction: Green",
-            icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Green",
-            roles = {"dispel"},
-            lines = {"One of the five brood afflictions."}
+            roles = {"decurse", "dps"},
+            lines = {"Curse. Increases all damage you cause by 10% but magical damage taken by 100%.",
+                     "All DPS keep this one and remove the rest."}
         }, {
             name = "Brood Affliction: Blue",
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Blue",
-            roles = {"dispel"},
-            lines = {"One of the five brood afflictions - increases the time between the target's attacks."}
+            warning = true,
+            roles = {"dispel", "tank"},
+            lines = {"Magic. Burns 1% mana every second, reduces casting speed by 100% and increases armour by 3000.",
+                     "All tanks keep this one and remove the rest. Do not dispel Blue from tanks."}
+        }, {
+            name = "Brood Affliction: Green",
+            icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Green",
+            warning = true,
+            roles = {"poison", "healer"},
+            lines = {"Poison. Deals 300 damage every 5 seconds, reduces healing received by 50% and increases healing done by 20%.",
+                     "All healers keep this one and remove the rest."}
+        }, {
+            name = "Brood Affliction: Red",
+            icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Red",
+            warning = true,
+            roles = {"disease", "healer"},
+            lines = {"Disease. Deals 3% health damage every 3 seconds and increases melee attack speed by 10%.",
+                     "Heals Chromaggus when the afflicted player dies."}
         }, {
             name = "Brood Affliction: Bronze",
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Bronze",
+            warning = true,
             roles = {"dispel"},
-            lines = {"One of the five brood afflictions."}
+            lines = {"Increases movement speed by 40%, then periodically stops time - stunning the target and reducing magical damage taken by 100%.",
+                     "Removed with a Free Action Potion (Sand)."}
         }, {
             separator = true,
-            name = "Breaths and Enrage"
+            name = "Breaths"
+        }, {
+            name = "Breath rotation",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            warning = true,
+            lines = {"He uses all five breath attacks in a single encounter rather than only two.",
+                     "Everyone except the current tank must hide for a breath - including off tanks, who need to pick him up afterwards.",
+                     "Stack tightly against the wall so dispels stay in line of sight."}
+        }, {
+            name = "Caustic Breath",
+            icon = "Interface\\Icons\\Spell_Nature_Acid_01",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"'Caustic Pain!' - deals 475-700 damage every 3 seconds, reduces armour by 8000-9000 and increases casting speed by 33%.",
+                     "Off tanks must avoid this. During the enrage phase only one tank should ever carry it."}
+        }, {
+            name = "Ignite Flesh",
+            icon = "Interface\\Icons\\Spell_Fire_FlameShock",
+            warning = true,
+            lines = {"Deals 5% health damage every 3 seconds and increases physical damage done by 5%."}
         }, {
             name = "Incinerate",
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
@@ -1083,17 +1138,19 @@ local RAIDS = {{
             icon = "Interface\\Icons\\Spell_Frost_ChillingBlast",
             warning = true,
             lines = {"A Frost breath that increases the time between the target's attacks."}
-        }, {
-            name = "Frenzy",
-            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
-            roles = {"hunter"},
-            lines = {"Attack speed increased. Should be removed with Tranquilizing Shot."}
         }}
     }, {
         key = "nefarian",
         name = "Neferian",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Neferian",
+        flags = {"nottauntable"},
         abilities = {{
+            name = "Class Calls",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowWordDominate",
+            warning = true,
+            lines = {"Nefarian periodically targets a whole class. None of these can be avoided with line of sight.",
+                     "Hunters lose their ranged weapons, Warlocks summon infernals to banish, Priests' heals damage their targets, Shamans spawn four totems to kill, Paladins heal Nefarian unless they keep moving, Rogues are teleported and rooted in front of him, Warriors are forced into Berserker Stance, Druids are forced out of form, Mages are polymorphed."}
+        }, {
             name = "Tail Lash",
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
             warning = true,
@@ -1107,7 +1164,14 @@ local RAIDS = {{
             name = "Bellowing Roar",
             icon = "Interface\\Icons\\Spell_Shadow_Charm",
             warning = true,
-            lines = {"Fears the raid, sending everyone fleeing. Expect players to run into the room and pull adds."}
+            roles = {"shaman"},
+            lines = {"Fears the raid, sending everyone fleeing. The main tank requires a Tremor Totem."}
+        }, {
+            name = "Curse of Nefarius",
+            icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
+            warning = true,
+            roles = {"decurse", "healer"},
+            lines = {"A curse reducing healing received by 75%. Decurse it as a priority."}
         }, {
             name = "Dropped Weapon",
             icon = "Interface\\Icons\\Ability_Warrior_Disarm",
