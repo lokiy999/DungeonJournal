@@ -2177,6 +2177,79 @@ local RAIDS = {{
             lines = {"Enrages at 30% health. Save damage cooldowns for this phase.",
                      "He should be disarmed as much as possible while enraged."}
         }}
+    }, {
+        key = "teremus",
+        name = "Teremus the Devourer",
+        icon = "Interface\\Icons\\temp",
+        color = "ffffd100",
+        flags = {"potion_shadow"},
+        abilities = {{
+            name = "Soul Consumption",
+            icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Drains health from everyone nearby and heals himself for a multiple of the amount stolen.",
+                     "His most frequent ability by a wide margin - spread out and keep the raid topped up so he gains as little as possible."}
+        }, {
+            name = "Devour Essence",
+            icon = "Interface\\Icons\\Spell_Shadow_SummonFelHunter",
+            warning = true,
+            roles = {"healer"},
+            lines = {"'Feeding the Devourer...' - devours the target's flesh, dealing damage every second, stunning them and healing himself."}
+        }, {
+            name = "Unrestrained Corruption",
+            icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Black",
+            warning = true,
+            roles = {"tank"},
+            lines = {"A self-buff increasing his Physical damage by 30% and his armour by 45%.",
+                     "Tank damage spikes and your damage output drops while this is up."}
+        }, {
+            name = "Shadow Flame",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            lines = {"Inflicts heavy Shadow damage to enemies in a cone in front of him. Do not stand in front."}
+        }, {
+            name = "Knock Away",
+            icon = "Interface\\Icons\\INV_Gauntlets_05",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts damage to nearby enemies and knocks them back, shedding threat."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank", "melee"},
+            lines = {"Strikes his target and its nearest allies, knocking them back."}
+        }}
+    }, {
+        key = "king_mosh",
+        name = "King Mosh",
+        icon = "Interface\\Icons\\temp",
+        color = "ffffd100",
+        abilities = {{
+            name = "Trample",
+            icon = "Interface\\Icons\\Spell_Nature_NaturesWrath",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts Physical damage to everyone nearby. His most frequent ability - melee should expect constant incoming damage."}
+        }, {
+            name = "Terrifying Roar",
+            icon = "Interface\\Icons\\Stampede",
+            warning = true,
+            roles = {"shaman", "tank"},
+            lines = {"Paralyses the target with terror and sends nearby raid members fleeing in fear.",
+                     "Keep a Tremor Totem down for the main tank."}
+        }, {
+            name = "Vicious Rend",
+            icon = "Interface\\Icons\\Ability_Gouge",
+            warning = true,
+            roles = {"healer"},
+            lines = {"A bleed inflicting Physical damage every 3 seconds on the tank."}
+        }, {
+            name = "Primal Vitality",
+            icon = "Interface\\Icons\\INV_Relics_IdolofRejuvenation",
+            warning = true,
+            lines = {"Regenerates a percentage of his total health every 3 seconds - the raid must out-damage the regeneration."}
+        }}
     }}
 }, {
     -- CHANGED: the four Dragons of Nightmare. They share a common ability set
@@ -3190,7 +3263,15 @@ function RebuildTree()
             btn.label:SetPoint("LEFT", btn, "LEFT", 4, 0)
             btn.label:SetFontObject(GameFontNormalSmall)
         else
-            btn.label:SetText(entry.boss.name)
+            -- CHANGED: a boss may carry an optional `color` (ARGB hex, same
+            -- format as ability names) to highlight it in the tree - e.g. gold
+            -- for world bosses. Always set the text explicitly either way so a
+            -- pooled row never keeps a previous entry's colour codes.
+            if entry.boss.color then
+                btn.label:SetText("|c" .. entry.boss.color .. entry.boss.name .. "|r")
+            else
+                btn.label:SetText(entry.boss.name)
+            end
             btn.label:SetPoint("LEFT", btn, "LEFT", 18, 0)
             btn.label:SetFontObject(GameFontHighlightSmall)
         end

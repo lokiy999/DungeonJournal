@@ -49,6 +49,7 @@ Add content by editing the `RAIDS` table only; the UI is fully data-driven.
     key = "lucifron",
     name = "Lucifron",
     icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Lucifron", -- no .blp extension
+    color = "ffffd100",                                          -- optional, tints the tree row (gold here)
     flags = { "nottauntable", "potion_fire" },                   -- keys of BOSS_FLAGS
     abilities = {{
         name = "Lucifron's Curse",
