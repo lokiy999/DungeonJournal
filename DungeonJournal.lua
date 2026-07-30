@@ -973,10 +973,39 @@ local RAIDS = {{
             lines = {"Inflicts around 1100 damage of a rotating school (Nature, Fire or Frost). The cast cannot be interrupted by damage."}
         }}
     }, {
-        key = "ebonroc",
-        name = "Ebonroc",
+        key = "ebonroc_flamegor",
+        name = "Ebonroc & Flamegor",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Ebonroc",
         abilities = {{
+            separator = true,
+            name = "Shared - both dragons"
+        }, {
+            name = "Positioning",
+            icon = "Interface\\Icons\\Ability_Hunter_Pet_Dragonhawk",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Both dragons are active at once and must be tanked far apart with casters in between, so their auras do not overlap."}
+        }, {
+            name = "Shadow Flame",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            lines = {"Inflicts heavy Shadow damage to enemies in a cone in front of the dragon. Both use it."}
+        }, {
+            name = "Wing Buffet",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+            roles = {"tank"},
+            lines = {"Knocks nearby enemies back for around 1500 damage, shedding threat.",
+                     "High threat players drop threat with a timed Wing Buffet - Shadow Flame follows 2 seconds after."}
+        }, {
+            name = "Frenzy",
+            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            warning = true,
+            roles = {"hunter"},
+            lines = {"Both dragons enrage, causing heavy raid-wide damage. MUST be removed with Tranquilizing Shot - ideally 2 hunters per dragon."}
+        }, {
+            separator = true,
+            name = "Ebonroc"
+        }, {
             name = "Shadow Nova",
             icon = "Interface\\Icons\\Spell_Shadow_ShadeTrueSight",
             warning = true,
@@ -992,31 +1021,11 @@ local RAIDS = {{
             icon = "Interface\\Icons\\Spell_Shadow_GatherShadows",
             warning = true,
             roles = {"healer"},
-            lines = {"When Ebonroc deals damage he heals himself for a multiple of the damage dealt.",
-                     "Ebonroc and Flamegor must be tanked far apart with casters in between so their auras do not overlap.",
-                     "High threat players drop threat with a timed Wing Buffet - Shadow Flame follows 2 seconds after."}
+            lines = {"When Ebonroc deals damage he heals himself for a multiple of the damage dealt."}
         }, {
-            name = "Shadow Flame",
-            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
-            warning = true,
-            lines = {"Inflicts heavy Shadow damage to enemies in a cone in front of him."}
+            separator = true,
+            name = "Flamegor"
         }, {
-            name = "Wing Buffet",
-            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
-            roles = {"tank"},
-            lines = {"Knocks nearby enemies back for around 1500 damage, shedding threat."}
-        }, {
-            name = "Frenzy",
-            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
-            warning = true,
-            roles = {"hunter"},
-            lines = {"Enrage causing heavy raid-wide Shadow damage. MUST be removed with Tranquilizing Shot - ideally 2 hunters per dragon."}
-        }}
-    }, {
-        key = "flamegor",
-        name = "Flamegor",
-        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Flamegor",
-        abilities = {{
             name = "Fire Nova",
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
             warning = true,
@@ -1031,22 +1040,6 @@ local RAIDS = {{
             name = "Flames of Flamegor",
             icon = "Interface\\Icons\\Spell_Fire_MoltenBlood",
             lines = {"When Flamegor deals damage he also damages himself for a portion of it."}
-        }, {
-            name = "Shadow Flame",
-            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
-            warning = true,
-            lines = {"Inflicts heavy Shadow damage to enemies in a cone in front of him."}
-        }, {
-            name = "Wing Buffet",
-            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
-            roles = {"tank"},
-            lines = {"Knocks nearby enemies back for around 1500 damage, shedding threat."}
-        }, {
-            name = "Frenzy",
-            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
-            warning = true,
-            roles = {"hunter"},
-            lines = {"Enrage causing heavy raid-wide Fire damage. MUST be removed with Tranquilizing Shot - ideally 2 hunters per dragon."}
         }}
     }, {
         key = "chromaggus",
