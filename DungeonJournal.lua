@@ -1088,19 +1088,21 @@ local RAIDS = {{
         abilities = {{
             name = "Rushing Charge",
             icon = "Interface\\Icons\\ability_warstomp",
-            lines = {"Increases the caster's movement speed by 50% for 4 sec. and causes it to inflict an additional 1 damage on its first attack."}
+            lines = {"At the start of the fight and after each Bladestorm, Herod charges towards the highest threat target.",
+                     "Increasing his movement speed by 50% for 4 sec. and causes it to inflict an additional 1? damage on its first attack."}
         }, {
             name = "Deep Wound",
             icon = "Interface\\Icons\\ability_backstab",
-            lines = {"Empty Description"}
+            lines = {"Bleeding for 10% health damage every 3 sec. Healing effects reduced by 10%. Lasts for 21 seconds. Stacks up to 5 times."}
         }, {
             name = "Cleaving Blow",
             icon = "Interface\\Icons\\ability_warrior_cleave",
-            lines = {"Cleave AoE MH"}
+            roles = {"melee"},
+            lines = {"Herod sometimes cleaves in a 90 degree frontal arc."}
         }, {
             name = "Wound",
             icon = "Interface\\Icons\\ability_backstab",
-            lines = {"Empty Description"}
+            lines = {"Bleeding for 550 damage every 3 sec. Lasts 21 seconds."}
         }, {
             name = "Echo Clap",
             icon = "Interface\\Icons\\spell_nature_thunderclap",
@@ -1118,7 +1120,7 @@ local RAIDS = {{
         }, {
             name = "Blades of Light",
             icon = "Interface\\Icons\\ability_whirlwind",
-            lines = {"Every 10-15 seconds Herod yells something and after 2 seconds deals X damage (and a bleed?) to all enemies within 8 yards."}
+            lines = {"Every 10-15 seconds Herod yells 'Blades of Light' and after 2 seconds deals 125% weapon damage (and a bleed?) to all enemies within 8 yards."}
         }, {
             name = "Enrage",
             icon = "Interface\\Icons\\spell_shadow_unholyfrenzy",
