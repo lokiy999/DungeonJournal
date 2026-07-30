@@ -59,6 +59,9 @@ local UTILITY_ICONS = {
     poison  = "Interface\\Icons\\Spell_Nature_NullifyPoison",
     disease = "Interface\\Icons\\Spell_Nature_NullifyDisease",
     kick = "Interface\\Icons\\Ability_Kick",
+    -- CHANGED: reflect - abilities worth turning back on the caster (this
+    -- server's bosses take heavy self-damage from reflected spells).
+    reflect = "Interface\\Icons\\Spell_Frost_WindWalkOn",
 
     -- CHANGED: Per-class icons. All nine share the same CLASS_ICON_TEXTURE
     -- atlas; CLASS_ICON_COORDS (above) picks out the right square for each.
@@ -183,6 +186,10 @@ local ICON_ExplainationS = {{
     icon = UTILITY_ICONS.kick,
     name = "Kick / Interrupt",
     desc = "Interrupt a spell cast."
+}, {
+    icon = UTILITY_ICONS.reflect,
+    name = "Reflect",
+    desc = "This spell can be reflected back at the caster, often for very heavy damage."
 }, {
     icon = WARNING_ICON,
     name = "Warning",
@@ -854,81 +861,264 @@ local RAIDS = {{
         name = "Razorgore the Untamed",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Razorgore",
         abilities = {{
-            name = "Razorgore's Ability",
+            name = "Conflagration",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Razorgore's most frequent ability by far - burns the target for 100 Fire damage every second."}
+        }, {
+            name = "Fireball Volley",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            lines = {"Inflicts 455 Fire damage to nearby enemies and slows their movement speed by 50%."}
+        }, {
+            name = "Untamed Strike",
             icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Abilities not yet documented."}
+            roles = {"tank"},
+            lines = {"A heavy strike on his current target."}
+        }, {
+            name = "Eternal Livingflame",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            lines = {"Heals his allies but burns enemies, ticking every second."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank", "melee"},
+            lines = {"Strikes his target and its nearest allies."}
         }}
     }, {
         key = "elementium_decapitator",
         name = "Elementium Decapitator Mk III",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\ElementiumDecapitator",
         abilities = {{
-            name = "Elementium Decapitator Mk III's Ability",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Abilities not yet documented."}
+            name = "Heavy Thorium Grenade",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"Lobs grenades at the raid - by far its most frequent ability (26000+ log entries)."}
+        }, {
+            name = "Coke Ejection",
+            icon = "Interface\\Icons\\Spell_Fire_MeteorStorm",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts 3000-6000 Fire damage to enemies in a cone in front of it. Keep it faced away from the raid."}
         }}
     }, {
         key = "broodlord",
         name = "Broodlord Lashlayer",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Broodlord",
         abilities = {{
-            name = "Broodlord Lashlayer's Ability",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Abilities not yet documented."}
+            name = "Blast Wave",
+            icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
+            warning = true,
+            lines = {"A wave of flame radiates outward, inflicting around 425 Fire damage to everyone caught in it and dazing them.",
+                     "His signature ability - by far his most common log entry."}
+        }, {
+            name = "Mortal Strike",
+            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"A brutal strike that also reduces healing received on the target. Tank healing must account for this."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank", "melee"},
+            lines = {"Strikes his target and its nearest allies."}
         }}
     }, {
         key = "firemaw",
         name = "Firemaw",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Firemaw",
         abilities = {{
-            name = "Firemaw's Ability",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Abilities not yet documented."}
+            name = "Flame Buffet",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Firemaw's defining mechanic and his most frequent ability by an enormous margin (37000+ log entries).",
+                     "Inflicts Fire damage and increases the Fire damage the target takes - it stacks, so tanks must rotate out before it becomes lethal."}
+        }, {
+            name = "Shadow Flame",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            lines = {"Inflicts heavy Shadow damage to enemies in a cone in front of him. Do not stand in front."}
+        }, {
+            name = "Wing Buffet",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Knocks nearby enemies back for around 1500 damage, shedding threat."}
         }}
     }, {
         key = "krixix",
         name = "Master Elemental Shaper Krixix",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Krixix",
         abilities = {{
-            name = "Master Elemental Shaper Krixix's Ability",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Abilities not yet documented."}
+            name = "Mirrors System",
+            icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
+            warning = true,
+            roles = {"caster"},
+            lines = {"Reflects the next several direct damage spells back at everyone around him.",
+                     "This is why the combat log shows him 'casting' the raid's own spells - stop casting while it is up."}
+        }, {
+            name = "Elemental Blast",
+            icon = "Interface\\Icons\\Spell_Nature_EarthShock",
+            warning = true,
+            lines = {"Inflicts around 1100 damage of a rotating school (Nature, Fire or Frost). The cast cannot be interrupted by damage."}
         }}
     }, {
         key = "ebonroc",
         name = "Ebonroc",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Ebonroc",
         abilities = {{
-            name = "Ebonroc's Ability",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Abilities not yet documented."}
+            name = "Shadow Nova",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadeTrueSight",
+            warning = true,
+            lines = {"An explosion of Shadow around Ebonroc, inflicting around 500 Shadow damage to everyone nearby. His most frequent ability."}
+        }, {
+            name = "Embrace of Shadows",
+            icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Increases the Shadow damage the target takes from Embrace of Shadows by 500, stacking as the fight goes on."}
+        }, {
+            name = "Shadows of Ebonroc",
+            icon = "Interface\\Icons\\Spell_Shadow_GatherShadows",
+            warning = true,
+            roles = {"healer"},
+            lines = {"When Ebonroc deals damage he heals himself for a multiple of the damage dealt - the classic heal-debuff on the tank.",
+                     "Swap tanks or burn through the healing."}
+        }, {
+            name = "Shadow Flame",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            lines = {"Inflicts heavy Shadow damage to enemies in a cone in front of him."}
+        }, {
+            name = "Wing Buffet",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+            roles = {"tank"},
+            lines = {"Knocks nearby enemies back for around 1500 damage, shedding threat."}
+        }, {
+            name = "Frenzy",
+            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            roles = {"hunter"},
+            lines = {"Attack speed increased. Stacks, and should be removed with Tranquilizing Shot."}
         }}
     }, {
         key = "flamegor",
         name = "Flamegor",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Flamegor",
         abilities = {{
-            name = "Flamegor's Ability",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Abilities not yet documented."}
+            name = "Fire Nova",
+            icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
+            warning = true,
+            lines = {"Inflicts around 955 Fire damage to nearby enemies. His most frequent ability."}
+        }, {
+            name = "Embrace of Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Immolation",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Increases the Fire damage the target takes from Embrace of Flames by 500, stacking as the fight goes on."}
+        }, {
+            name = "Flames of Flamegor",
+            icon = "Interface\\Icons\\Spell_Fire_MoltenBlood",
+            lines = {"When Flamegor deals damage he also damages himself for a portion of it."}
+        }, {
+            name = "Shadow Flame",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            lines = {"Inflicts heavy Shadow damage to enemies in a cone in front of him."}
+        }, {
+            name = "Wing Buffet",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+            roles = {"tank"},
+            lines = {"Knocks nearby enemies back for around 1500 damage, shedding threat."}
+        }, {
+            name = "Frenzy",
+            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            roles = {"hunter"},
+            lines = {"Attack speed increased. Stacks, and should be removed with Tranquilizing Shot."}
         }}
     }, {
         key = "chromaggus",
         name = "Chromaggus",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Chromaggus",
         abilities = {{
-            name = "Chromaggus' Ability",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Abilities not yet documented."}
+            name = "Double Bite",
+            icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
+            roles = {"tank"},
+            lines = {"Chromaggus bites twice, hitting a second enemy as well. His most frequent melee ability."}
+        }, {
+            separator = true,
+            name = "Brood Afflictions"
+        }, {
+            name = "Brood Affliction: Red",
+            icon = "Interface\\Icons\\INV_Misc_Head_Dragon_01",
+            warning = true,
+            roles = {"dispel", "healer"},
+            lines = {"The most commonly applied affliction in logs. Each colour is a different debuff and they must be managed separately."}
+        }, {
+            name = "Brood Affliction: Green",
+            icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Green",
+            roles = {"dispel"},
+            lines = {"One of the five brood afflictions."}
+        }, {
+            name = "Brood Affliction: Blue",
+            icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Blue",
+            roles = {"dispel"},
+            lines = {"One of the five brood afflictions - increases the time between the target's attacks."}
+        }, {
+            name = "Brood Affliction: Bronze",
+            icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Bronze",
+            roles = {"dispel"},
+            lines = {"One of the five brood afflictions."}
+        }, {
+            separator = true,
+            name = "Breaths and Enrage"
+        }, {
+            name = "Incinerate",
+            icon = "Interface\\Icons\\Spell_Fire_FlameShock",
+            warning = true,
+            lines = {"One of Chromaggus' breath attacks."}
+        }, {
+            name = "Frost Burn",
+            icon = "Interface\\Icons\\Spell_Frost_ChillingBlast",
+            warning = true,
+            lines = {"A Frost breath that increases the time between the target's attacks."}
+        }, {
+            name = "Frenzy",
+            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            roles = {"hunter"},
+            lines = {"Attack speed increased. Should be removed with Tranquilizing Shot."}
         }}
     }, {
         key = "nefarian",
         name = "Neferian",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Neferian",
         abilities = {{
-            name = "Neferian's Ability",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Abilities not yet documented."}
+            name = "Tail Lash",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+            warning = true,
+            lines = {"Strikes enemies behind Nefarian, knocking them back and stunning them. His most frequent ability - do not stand behind him."}
+        }, {
+            name = "Shadow Flame",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            lines = {"Inflicts very heavy Shadow damage in a cone in front of him."}
+        }, {
+            name = "Bellowing Roar",
+            icon = "Interface\\Icons\\Spell_Shadow_Charm",
+            warning = true,
+            lines = {"Fears the raid, sending everyone fleeing. Expect players to run into the room and pull adds."}
+        }, {
+            name = "Dropped Weapon",
+            icon = "Interface\\Icons\\Ability_Warrior_Disarm",
+            warning = true,
+            roles = {"warrior", "tank"},
+            lines = {"Disarms the target, leaving them unable to wield a weapon until it is picked back up."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank", "melee"},
+            lines = {"Strikes his target and its nearest allies."}
         }}
     }}
 }, {
@@ -1403,6 +1593,180 @@ local RAIDS = {{
             icon = "Interface\\Icons\\temp",
             warning = true,
             lines = {"The walls press inward, increasing the damage and radius of Stomp. Rarely seen in logs - likely a soft enrage."}
+        }}
+    }}
+}, {
+    -- CHANGED: LBRS and UBRS bosses are listed for navigation only - their
+    -- abilities still need documenting. Boss list confirmed against combat logs.
+    key = "LBRS",
+    name = "Lower Blackrock Spire",
+    expanded = false,
+    bosses = {{
+        key = "omokk",
+        name = "Highlord Omokk",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Highlord Omokk's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "voshgajin",
+        name = "Shadow Hunter Vosh'gajin",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Shadow Hunter Vosh'gajin's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "voone",
+        name = "War Master Voone",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "War Master Voone's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "smolderweb",
+        name = "Mother Smolderweb",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Mother Smolderweb's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "urok",
+        name = "Urok Doomhowl",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Urok Doomhowl's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "zigris",
+        name = "Quartermaster Zigris",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Quartermaster Zigris' Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "halycon",
+        name = "Halycon",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Halycon's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "gizrul",
+        name = "Gizrul the Slavener",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Gizrul's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "wyrmthalak",
+        name = "Overlord Wyrmthalak",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Overlord Wyrmthalak's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }}
+}, {
+    key = "UBRS",
+    name = "Upper Blackrock Spire",
+    expanded = false,
+    bosses = {{
+        key = "emberseer",
+        name = "Pyroguard Emberseer",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Pyroguard Emberseer's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "solakar",
+        name = "Solakar Flamewreath",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Solakar Flamewreath's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "goraluk",
+        name = "Goraluk Anvilcrack",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Goraluk Anvilcrack's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "jed",
+        name = "Jed Runewatcher",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Jed Runewatcher's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "rend",
+        name = "Warchief Rend Blackhand",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Warchief Rend Blackhand's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "gyth",
+        name = "Gyth",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Gyth's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "the_beast",
+        name = "The Beast",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "The Beast's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "drakkisath",
+        name = "General Drakkisath",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "General Drakkisath's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "valthalak",
+        name = "Lord Valthalak",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Lord Valthalak's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
         }}
     }}
 }}
