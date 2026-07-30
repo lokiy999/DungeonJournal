@@ -1104,10 +1104,58 @@ local RAIDS = {{
         key = "vishas",
         name = "Vishas",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Vishas",
+        -- NOTE: the entries below were derived from combat logs, so damage
+        -- numbers and timings are observed values rather than tooltip data.
+        -- Anything still marked with "?" needs confirming in-game.
         abilities = {{
-            name = "Vishas' Ability",
+            name = "Sear",
             icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Abilities not yet documented."}
+            roles = {"tank"},
+            lines = {"Vishas' main attack on his current target, inflicting 40-1360 Fire damage every 1-2 seconds.",
+                     "Heavily reduced by Fire Resistance - most hits in logs were resisted for 3-4x the damage dealt."}
+        }, {
+            name = "Shadow Word: Pain",
+            icon = "Interface\\Icons\\temp",
+            warning = true,
+            roles = {"dispel"},
+            lines = {"A raid-wide Shadow damage curse - 5 to 10 raid members were afflicted at once, ticking for up to 1100 Shadow damage each.",
+                     "Can be reflected back onto Vishas for very heavy damage (32000+ observed)."}
+        }, {
+            name = "Shared Sentence",
+            icon = "Interface\\Icons\\temp",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Every 15-30 seconds Vishas sentences 1-3 raid members, inflicting roughly 1000-4700 Holy damage to each.",
+                     "Can be reflected back onto Vishas for 9000-27000 damage, and each cast applies a stack of Recidivism to him.",
+                     "Damage appears to be split between the targets hit - single targets take noticeably more."}
+        }, {
+            name = "Atonement",
+            icon = "Interface\\Icons\\temp",
+            roles = {"healer"},
+            lines = {"A Physical damage-over-time effect on a single raid member, ticking for around 1300-1400 every 2 seconds for about 10 seconds.",
+                     "Vishas then moves it onto a different raid member."}
+        }, {
+            name = "Recidivism",
+            icon = "Interface\\Icons\\temp",
+            lines = {"A stacking effect Vishas gains on himself - one stack per Shared Sentence cast, seen as high as 7 stacks.",
+                     "Effect not confirmed - possibly increases his damage or the damage he takes."}
+        }, {
+            name = "Ordeal Grip",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Lasts 8 seconds and can be reflected back onto Vishas.",
+                     "Effect not confirmed - likely a movement-restricting grip."}
+        }, {
+            name = "Pummel",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Strikes a raid member for 600-1600 damage. Presumably also interrupts, as it does for players."}
+        }, {
+            name = "Stoicism",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Hits a raid member for 590-6200 damage. Trigger condition not confirmed."}
+        }, {
+            name = "Impending Sentence",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Seen only once in the logs, where it failed against an immune target. Effect not confirmed."}
         }}
     }, {
         key = "herod",
