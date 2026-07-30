@@ -1129,12 +1129,13 @@ local RAIDS = {{
                 icon = "Interface\\Icons\\Spell_Holy_RighteousFury",
                 warning = true,
                 roles = {"healer"},
-                lines = {"Every 15-20 seconds Vishas sentences a raid member, inflicting roughly 1000-4700 Holy damage to each."}            
-        }, {
-                name = "Recidivism",
-                icon = "Interface\\Icons\\Spell_Holy_FistOfJustice",
-                lines = {"Increase damage taken from Shared Sentence by 50%. Acquired by being dealt damage by Shared Sentence. Stacks up to 10. Lasts for 30 seconds."}
-        }}
+                lines = {"Every 15-20 seconds Vishas sentences a raid member, inflicting roughly 1000-4700 Holy damage to each."},
+                abilities = {{
+                    name = "Recidivism",
+                    icon = "Interface\\Icons\\Spell_Holy_FistOfJustice",
+                    lines = {"Increase damage taken from Shared Sentence by 50%. Acquired by being dealt damage by Shared Sentence. Stacks up to 10. Lasts for 30 seconds."}
+                }}
+            }}
         }, {
             name = "Atonement",
             icon = "Interface\\Icons\\INV_Belt_18",
