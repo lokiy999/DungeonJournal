@@ -1131,7 +1131,7 @@ local RAIDS = {{
                      "Stacks are removable by doing 4000? damage within 5? seconds."},
             abilities = {{
                 name = "Cowardice",
-                icon = "Interface\\Icons\\spell_shadow_deathscream",
+                icon = "Interface\\Icons\\ability_cheapshot",
                 lines = {"Feared for 8 seconds and gains aggro of the boss during that time. Boss also becomes untauntable?"}
             }}
         }}
