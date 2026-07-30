@@ -834,6 +834,92 @@ local RAIDS = {{
         }}
     }}
 }, {
+    key = "BWL",
+    name = "Blackwing Lair",
+    expanded = false,
+    bosses = {{
+        key = "razorgore",
+        name = "Razorgore the Untamed",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Razorgore",
+        abilities = {{
+            name = "Razorgore's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "elementium_decapitator",
+        name = "Elementium Decapitator Mk III",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\ElementiumDecapitator",
+        abilities = {{
+            name = "Elementium Decapitator Mk III's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "broodlord",
+        name = "Broodlord Lashlayer",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Broodlord",
+        abilities = {{
+            name = "Broodlord Lashlayer's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "firemaw",
+        name = "Firemaw",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Firemaw",
+        abilities = {{
+            name = "Firemaw's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "krixix",
+        name = "Master Elemental Shaper Krixix",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Krixix",
+        abilities = {{
+            name = "Master Elemental Shaper Krixix's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "ebonroc",
+        name = "Ebonroc",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Ebonroc",
+        abilities = {{
+            name = "Ebonroc's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "flamegor",
+        name = "Flamegor",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Flamegor",
+        abilities = {{
+            name = "Flamegor's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "chromaggus",
+        name = "Chromaggus",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Chromaggus",
+        abilities = {{
+            name = "Chromaggus' Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "nefarian",
+        name = "Neferian",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Neferian",
+        abilities = {{
+            name = "Neferian's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }}
+}, {
     key = "SM",
     name = "Scarlet Monastery",
     expanded = false,
@@ -918,7 +1004,7 @@ local RAIDS = {{
         }}
     }, {
         key = "brigitte",
-        name = "Brigitte",
+        name = "Brigitte Abbendis",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Brigitte",
         flags = {"tauntable"},
         abilities = {{
@@ -973,6 +1059,60 @@ local RAIDS = {{
             name = "Trampling Charge",
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+        }}
+    }, {
+        key = "vishas",
+        name = "Vishas",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Vishas",
+        abilities = {{
+            name = "Vishas' Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "herod",
+        name = "Herod",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Herod",
+        abilities = {{
+            name = "Herod's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "brother_michael",
+        name = "Brother Michael",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BrotherMichael",
+        abilities = {{
+            name = "Brother Michael's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "doan",
+        name = "Doan",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Doan",
+        abilities = {{
+            name = "Doan's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "renault_mograine_sally_whitemane",
+        name = "Renault Mograine & Sally Whitemane",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\RenaultMograineSallyWhitemane",
+        abilities = {{
+            name = "Renault Mograine & Sally Whitemane's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "fairbanks",
+        name = "Fairbanks",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Fairbanks",
+        abilities = {{
+            name = "Fairbanks' Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
         }}
     }}
 }}

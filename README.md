@@ -9,7 +9,7 @@ role/dispel/class icons and quick-glance encounter flags (e.g. "not
 tauntable", "bring Fire Protection Potions"). A second "Explaination" view
 lists a legend explaining every icon used in the tool.
 
-Currently included: **Molten Core** and **Scarlet Monastery**.
+Currently included: **Molten Core**, **Blackwing Lair**, and **Scarlet Monastery**.
 
 ## Installing
 

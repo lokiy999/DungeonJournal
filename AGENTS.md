@@ -118,8 +118,14 @@ scroll frames with the mouse wheel and the scrollbar.
 
 Fix these deliberately, not incidentally, and mention them in the commit message:
 
-- The Scarlet Monastery boss Loksey references `Icons\Loksey`, which is not present in
-  `Icons/` nor listed in the TOC.
+- Several bosses reference portrait icons that are not present in `Icons/` nor listed
+  in the TOC (they fall back to the default question-mark icon in-game): the Scarlet
+  Monastery bosses Loksey, Brigitte Abbendis, Vishas, Herod, Brother Michael, Doan,
+  Renault Mograine & Sally Whitemane, and Fairbanks, plus every Blackwing Lair boss.
+  Only the original Molten Core bosses have real `.blp` portraits.
+- Blackwing Lair and the newer Scarlet Monastery bosses currently have only a single
+  placeholder ability each ("Placeholder. Abilities not yet documented.") — real
+  ability data still needs to be filled in.
 
 The slash command remains `/clicky` (unchanged, not currently considered an issue).
 
