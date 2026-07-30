@@ -1088,7 +1088,7 @@ local RAIDS = {{
         abilities = {{
             name = "Rushing Charge",
             icon = "Interface\\Icons\\ability_warstomp",
-            lines = {"At the start of the fight and after each Bladestorm, Herod charges towards the highest threat target. 
+            lines = {"At the start of the fight and after each Bladestorm, Herod charges towards the highest threat target.",
                      "Increasing his movement speed by 50% for 4 sec. and causes it to inflict an additional 1? damage on its first attack."}
         }, {
             name = "Deep Wound",
