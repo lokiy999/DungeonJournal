@@ -1123,13 +1123,16 @@ local RAIDS = {{
             name = "Impending Sentence",
             icon = "Interface\\Icons\\Spell_Holy_RetributionAura",
             warning = true,
-            lines = {"Marks a player with 'You are being prosecuted!' after 3 seconds Shared Sentence is applied to that player. Applied every 20 seconds."},
+            lines = {"Every 15-20 seconds Vishas sentences a player and after 3 seconds Shared Sentence is applied to that player. Applied every 20 seconds."},
             abilities = {{
                 name = "Shared Sentence",
                 icon = "Interface\\Icons\\Spell_Holy_RighteousFury",
                 warning = true,
                 roles = {"healer"},
-                lines = {"Every 15-20 seconds Vishas sentences a raid member, inflicting roughly 1000-4700 Holy damage to each."},
+                lines = {"Deals ~2000-8000 damage. Pass it by touching another player. Reflectable.",
+                         "If passed EARLY (High time): HIGH damage to YOU / LOW damage to ALLY.",
+                         "If passed LATE (Low time): LOW damage to YOU / HIGH damage to ALLY.",
+                         "If NOT passed (0s left): YOU take MAX damage (8000)."},
                 abilities = {{
                     name = "Recidivism",
                     icon = "Interface\\Icons\\Spell_Holy_FistOfJustice",
