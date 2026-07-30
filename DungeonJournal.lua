@@ -1104,58 +1104,59 @@ local RAIDS = {{
         key = "vishas",
         name = "Vishas",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Vishas",
-        -- NOTE: the entries below were derived from combat logs, so damage
-        -- numbers and timings are observed values rather than tooltip data.
-        -- Anything still marked with "?" needs confirming in-game.
+        -- NOTE: values below come from Spell.dbc (IDs 35880-35900). Percentages
+        -- are the real $s values (DBC stores them as value-1) and tick rates are
+        -- EffectAmplitude in milliseconds. Damage ranges seen in combat logs are
+        -- noted where they add context.
         abilities = {{
             name = "Sear",
-            icon = "Interface\\Icons\\temp",
+            icon = "Interface\\Icons\\Spell_Fire_FlameShock",
             roles = {"tank"},
-            lines = {"Vishas' main attack on his current target, inflicting 40-1360 Fire damage every 1-2 seconds.",
-                     "Heavily reduced by Fire Resistance - most hits in logs were resisted for 3-4x the damage dealt."}
+            lines = {"Vishas' main attack on his current target - a Flame Lash for 550 Fire damage, applied every 1-2 seconds.",
+                     "Heavily reduced by Fire Resistance - most hits in logs landed for 150-250 with 3-4x that amount resisted."}
         }, {
             name = "Shadow Word: Pain",
-            icon = "Interface\\Icons\\temp",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowWordPain",
             warning = true,
             roles = {"dispel"},
-            lines = {"A raid-wide Shadow damage curse - 5 to 10 raid members were afflicted at once, ticking for up to 1100 Shadow damage each.",
-                     "Can be reflected back onto Vishas for very heavy damage (32000+ observed)."}
+            lines = {"A raid-wide curse dealing 5% of a player's health every 3 seconds. 5 to 10 raid members were afflicted at once in logs.",
+                     "Because it scales off health, high-HP players take the most - reflecting it back hit Vishas for 32000+."}
         }, {
             name = "Shared Sentence",
-            icon = "Interface\\Icons\\temp",
+            icon = "Interface\\Icons\\Spell_Holy_RighteousFury",
             warning = true,
             roles = {"healer"},
             lines = {"Every 15-30 seconds Vishas sentences 1-3 raid members, inflicting roughly 1000-4700 Holy damage to each.",
-                     "Can be reflected back onto Vishas for 9000-27000 damage, and each cast applies a stack of Recidivism to him.",
-                     "Damage appears to be split between the targets hit - single targets take noticeably more."}
+                     "The damage is shared between everyone hit, so spreading the sentence over more players lowers the damage each one takes.",
+                     "Reflecting it back at Vishas hits him for 9000-27000, and every cast stacks Recidivism on him."}
+        }, {
+            name = "Impending Sentence",
+            icon = "Interface\\Icons\\Spell_Holy_RetributionAura",
+            warning = true,
+            lines = {"Marks a player with 'You are being prosecuted!' for 3 seconds - the telegraph that a Shared Sentence is incoming.",
+                     "Spread out or prepare to share the damage before it lands."}
         }, {
             name = "Atonement",
-            icon = "Interface\\Icons\\temp",
+            icon = "Interface\\Icons\\INV_Belt_18",
+            warning = true,
             roles = {"healer"},
-            lines = {"A Physical damage-over-time effect on a single raid member, ticking for around 1300-1400 every 2 seconds for about 10 seconds.",
+            lines = {"Stuns a single raid member and deals 20% of their health every 2 seconds while it lasts.",
                      "Vishas then moves it onto a different raid member."}
         }, {
             name = "Recidivism",
-            icon = "Interface\\Icons\\temp",
-            lines = {"A stacking effect Vishas gains on himself - one stack per Shared Sentence cast, seen as high as 7 stacks.",
-                     "Effect not confirmed - possibly increases his damage or the damage he takes."}
+            icon = "Interface\\Icons\\Spell_Holy_FistOfJustice",
+            lines = {"Vishas stacks this on himself - one stack per Shared Sentence cast, up to 10 stacks.",
+                     "Each stack increases the damage he takes from Shared Sentence by 50%, so reflecting sentences back at him snowballs quickly."}
         }, {
             name = "Ordeal Grip",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Lasts 8 seconds and can be reflected back onto Vishas.",
-                     "Effect not confirmed - likely a movement-restricting grip."}
+            icon = "Interface\\Icons\\INV_Gauntlets_04",
+            roles = {"dispel"},
+            lines = {"Slows movement by 60% and increases all damage taken by 50%. Lasts about 8 seconds and is dispellable (Magic).",
+                     "Can be reflected back onto Vishas."}
         }, {
             name = "Pummel",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Strikes a raid member for 600-1600 damage. Presumably also interrupts, as it does for players."}
-        }, {
-            name = "Stoicism",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Hits a raid member for 590-6200 damage. Trigger condition not confirmed."}
-        }, {
-            name = "Impending Sentence",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Seen only once in the logs, where it failed against an immune target. Effect not confirmed."}
+            icon = "Interface\\Icons\\INV_Gauntlets_04",
+            lines = {"Strikes a raid member for around 1150 damage. Presumably also interrupts, as it does for players."}
         }}
     }, {
         key = "herod",
