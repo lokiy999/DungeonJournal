@@ -111,6 +111,13 @@ local BOSS_FLAGS = {
         name = "Not Tauntable",
         desc = "This boss cannot be taunted!",
     },
+    -- CHANGED: for bosses that are normally tauntable but become immune to taunt
+    -- during certain mechanics - check the ability list for the details.
+    notalwaystauntable = {
+        icon = "Interface\\Icons\\spell_nature_reincarnation",
+        name = "Not Always Tauntable",
+        desc = "This boss cannot be taunted at all times - see the abilities for details.",
+    },
     potion_fire = {
         icon = "Interface\\Icons\\INV_Potion_24",
         name = "Fire Protection Potion",
@@ -232,6 +239,10 @@ local ICON_ExplainationS = {{
     icon = BOSS_FLAGS.nottauntable.icon,
     name = BOSS_FLAGS.nottauntable.name,
     desc = BOSS_FLAGS.nottauntable.desc
+}, {
+    icon = BOSS_FLAGS.notalwaystauntable.icon,
+    name = BOSS_FLAGS.notalwaystauntable.name,
+    desc = BOSS_FLAGS.notalwaystauntable.desc
 }, {
     icon = BOSS_FLAGS.potion_fire.icon,
     name = BOSS_FLAGS.potion_fire.name,
@@ -1073,10 +1084,56 @@ local RAIDS = {{
         key = "herod",
         name = "Herod",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Herod",
+        flags = {"notalwaystauntable"},
         abilities = {{
-            name = "Herod's Ability",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Abilities not yet documented."}
+            name = "Rushing Charge",
+            icon = "Interface\\Icons\\ability_warstomp",
+            lines = {"Increases the caster's movement speed by 50% for 4 sec. and causes it to inflict an additional 1 damage on its first attack."}
+        }, {
+            name = "Deep Wound",
+            icon = "Interface\\Icons\\ability_backstab",
+            lines = {"Empty Description"}
+        }, {
+            name = "Cleaving Blow",
+            icon = "Interface\\Icons\\ability_warrior_cleave",
+            lines = {"Cleave AoE MH"}
+        }, {
+            name = "Wound",
+            icon = "Interface\\Icons\\ability_backstab",
+            lines = {"Empty Description"}
+        }, {
+            name = "Echo Clap",
+            icon = "Interface\\Icons\\spell_nature_thunderclap",
+            warning = true,
+            lines = {"Herod interrupts all cast casting within 30? yards every ~10 seconds and prevent spells cast from that school for 5 seconds. Also dealing 300-500 damage."}
+        }, {
+            name = "Death Wish",
+            icon = "Interface\\Icons\\spell_shadow_deathpact",
+            lines = {"After 3 minutes Herod cast Death Wish Increasing his attack speed by 50% and crit chance by 15% for 3 min, but also taking 15% more damage."}
+        }, {
+            name = "Bladestorm",
+            icon = "Interface\\Icons\\ability_whirlwind",
+            warning = true,
+            lines = {"Attacks nearby enemies in a whirlwind of steel that lasts 10 sec., inflicting 50%? weapon damage every 0.5 sec. Herod is immune during this time."}
+        }, {
+            name = "Blades of Light",
+            icon = "Interface\\Icons\\ability_whirlwind",
+            lines = {"Every 10-15 seconds Herod yells something and after 2 seconds deals X damage (and a bleed?) to all enemies within 8 yards."}
+        }, {
+            name = "Enrage",
+            icon = "Interface\\Icons\\spell_shadow_unholyfrenzy",
+            lines = {"Frenzy effect. Melee damage increased by 5%. Stacks to 20."}
+        }, {
+            name = "Demoralized",
+            icon = "Interface\\Icons\\spell_shadow_deathscream",
+            warning = true,
+            lines = {"Reduces damage and healing done by 10% for 1 minute. Triggers Cowardice at 5 stacks.",
+                     "Stacks are removable by doing 4000? damage within 5? seconds."},
+            abilities = {{
+                name = "Cowardice",
+                icon = "Interface\\Icons\\spell_shadow_deathscream",
+                lines = {"Feared for 8 seconds and gains aggro of the boss during that time. Boss also becomes untauntable?"}
+            }}
         }}
     }, {
         key = "brother_michael",
