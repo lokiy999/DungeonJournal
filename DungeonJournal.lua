@@ -10,7 +10,7 @@
 -- the tree. LEFT_WIDTH is sized to hold the longest boss name up to a cap
 -- of MAX_TREE_CHARS characters (roughly 6px each at GameFontHighlightSmall),
 -- plus indentation, so the right panel never gets squeezed too hard.
-local MAX_TREE_CHARS      = 40
+local MAX_TREE_CHARS      = 25
 local LEFT_WIDTH          = 18 + MAX_TREE_CHARS * 6   -- 18px indent + ~6px per char
 local WINDOW_WIDTH        = LEFT_WIDTH + 60 + 340      -- left + gap + right content
 local WINDOW_HEIGHT       = 504  -- CHANGED: +24 to make room for the top nav bar
