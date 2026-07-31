@@ -489,7 +489,7 @@ local RAIDS = {{
         key = "baron_geddon",
         name = "Baron Geddon",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BaronGeddon",
-        stats = {armor = 4922, fire = 0, nature = 86, frost = 66, shadow = 84, arcane = 34},
+        stats = {armor = 4922, fire = "immune", nature = 86, frost = 66, shadow = 84, arcane = 34},
         abilities = {{
             name = "Living Bomb",
             icon = "Interface\\Icons\\inv_enchant_essenceastralsmall",
@@ -815,7 +815,7 @@ local RAIDS = {{
         key = "ragnaros",
         name = "Ragnaros",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Ragnaros",
-        stats = {armor = 5350, fire = 0, nature = 83, frost = 83, shadow = 83, arcane = 68},
+        stats = {armor = 5350, fire = "immune", nature = 83, frost = 83, shadow = 83, arcane = 68},
         abilities = {{
             name = "Wrath of Ragnaros",
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
@@ -2327,7 +2327,7 @@ local RAIDS = {{
         name = "Onyxia",
         icon = "Interface\\Icons\\temp",
         flags = {"potion_fire"},
-        stats = {armor = 5550, fire = 292, nature = 92, frost = 92, shadow = 102, arcane = 88},
+        stats = {armor = 5550, fire = "immune", nature = 92, frost = 92, shadow = 102, arcane = 88},
         abilities = {{
             separator = true,
             name = "Pre-pull & positioning"
@@ -2442,7 +2442,7 @@ local RAIDS = {{
         name = "Azuregos",
         icon = "Interface\\Icons\\temp",
         flags = {"potion_frost"},
-        stats = {armor = 5880, fire = 126, nature = 126, frost = 300, shadow = 126, arcane = 300},
+        stats = {armor = 5880, fire = 126, nature = 126, frost = "immune", shadow = 126, arcane = 300},
         abilities = {{
             name = "Chill",
             icon = "Interface\\Icons\\Spell_Frost_Glacier",
@@ -3425,7 +3425,15 @@ end
 local function FormatBossStats(stats)
     local text = "|cffffd100Armor|r " .. (stats.armor or 0)
     for _, school in ipairs(RESISTANCE_SCHOOLS) do
-        text = text .. "   |c" .. school[3] .. school[2] .. "|r " .. (stats[school[1]] or 0)
+        local val = stats[school[1]]
+        if val == nil then val = 0 end
+        local valText
+        if val == "immune" then
+            valText = "|cffff0000Immune|r"
+        else
+            valText = "|c" .. school[3] .. val .. "|r"
+        end
+        text = text .. "   |c" .. school[3] .. school[2] .. "|r " .. valText
     end
     return text
 end
