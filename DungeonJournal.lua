@@ -1510,95 +1510,96 @@ local RAIDS = {{
             lines = {"Increases the cost of spells and abilities. If you fail to cast three spells or abilities you become insane."}
         }}
     }, {
-        separator = true,
-        name = "Edge of Madness"
-    }, {
-        key = "renataki",
-        name = "Renataki",
+        key = "edge_of_madness",
+        name = "Edge of Madness",
         icon = "Interface\\Icons\\temp",
         abilities = {{
-            name = "Thousand Blades",
-            icon = "Interface\\Icons\\Ability_Whirlwind",
-            warning = true,
-            lines = {"A deadly blade storm."}
-        }, {
-            name = "Gouge",
-            icon = "Interface\\Icons\\Ability_Gouge",
-            warning = true,
-            roles = {"tank"},
-            lines = {"Incapacitates the target."}
-        }, {
-            name = "Ambush",
+            name = "Renataki",
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
-            warning = true,
-            lines = {"Stealths and ambushes a target for heavy damage."}
-        }}
-    }, {
-        key = "grilek",
-        name = "Gri'lek",
-        icon = "Interface\\Icons\\temp",
-        abilities = {{
-            name = "Sweeping Strikes",
-            icon = "Interface\\Icons\\Ability_Rogue_SliceDice",
-            warning = true,
-            lines = {"His most frequent ability - his next strikes hit additional targets."}
+            lines = {"A rogue-style boss. Only one Edge of Madness boss spawns per reset."},
+            abilities = {{
+                name = "Thousand Blades",
+                icon = "Interface\\Icons\\Ability_Whirlwind",
+                warning = true,
+                lines = {"A deadly blade storm."}
+            }, {
+                name = "Gouge",
+                icon = "Interface\\Icons\\Ability_Gouge",
+                warning = true,
+                roles = {"tank"},
+                lines = {"Incapacitates the target."}
+            }, {
+                name = "Ambush",
+                icon = "Interface\\Icons\\Ability_Rogue_Ambush",
+                warning = true,
+                lines = {"Stealths and ambushes a target for heavy damage."}
+            }}
         }, {
-            name = "Entangling Roots",
-            icon = "Interface\\Icons\\Spell_Nature_StrangleVines",
-            warning = true,
-            lines = {"Roots a target in place."}
-        }, {
-            name = "Ground Tremor",
+            name = "Gri'lek",
             icon = "Interface\\Icons\\Ability_WarStomp",
-            warning = true,
-            lines = {"Damages and stuns nearby enemies."}
-        }}
-    }, {
-        key = "hazzarah",
-        name = "Hazza'rah",
-        icon = "Interface\\Icons\\temp",
-        abilities = {{
-            name = "Earth Shock",
-            icon = "Interface\\Icons\\Spell_Nature_EarthShock",
-            warning = true,
-            roles = {"healer"},
-            lines = {"Nature damage that also interrupts casting."}
+            lines = {"A warrior-style boss."},
+            abilities = {{
+                name = "Sweeping Strikes",
+                icon = "Interface\\Icons\\Ability_Rogue_SliceDice",
+                warning = true,
+                lines = {"His most frequent ability - his next strikes hit additional targets."}
+            }, {
+                name = "Entangling Roots",
+                icon = "Interface\\Icons\\Spell_Nature_StrangleVines",
+                warning = true,
+                lines = {"Roots a target in place."}
+            }, {
+                name = "Ground Tremor",
+                icon = "Interface\\Icons\\Ability_WarStomp",
+                warning = true,
+                lines = {"Damages and stuns nearby enemies."}
+            }}
         }, {
-            name = "Chain Burn",
-            icon = "Interface\\Icons\\Spell_Fire_Fireball",
-            warning = true,
-            lines = {"Fire damage that chains to nearby targets - spread out."}
-        }, {
-            name = "Sleep",
+            name = "Hazza'rah",
             icon = "Interface\\Icons\\Spell_Nature_Sleep",
-            warning = true,
-            lines = {"Puts a target to sleep. Any damage will wake them."}
-        }}
-    }, {
-        key = "wushoolay",
-        name = "Wushoolay",
-        icon = "Interface\\Icons\\temp",
-        abilities = {{
-            name = "Lightning Cloud",
-            icon = "Interface\\Icons\\Spell_Nature_CallStorm",
-            warning = true,
-            lines = {"Creates a lightning cloud that damages everyone in it. His most frequent ability - move out."}
+            lines = {"A caster-style boss."},
+            abilities = {{
+                name = "Earth Shock",
+                icon = "Interface\\Icons\\Spell_Nature_EarthShock",
+                warning = true,
+                roles = {"healer"},
+                lines = {"Nature damage that also interrupts casting."}
+            }, {
+                name = "Chain Burn",
+                icon = "Interface\\Icons\\Spell_Fire_Fireball",
+                warning = true,
+                lines = {"Fire damage that chains to nearby targets - spread out."}
+            }, {
+                name = "Sleep",
+                icon = "Interface\\Icons\\Spell_Nature_Sleep",
+                warning = true,
+                lines = {"Puts a target to sleep. Any damage will wake them."}
+            }}
         }, {
-            name = "Forked Lightning",
+            name = "Wushoolay",
             icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
-            warning = true,
-            lines = {"Strikes multiple targets with lightning."}
-        }, {
-            name = "Chain Lightning",
-            icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
-            warning = true,
-            lines = {"Lightning that chains to nearby targets - spread out."}
+            lines = {"A lightning-themed boss."},
+            abilities = {{
+                name = "Lightning Cloud",
+                icon = "Interface\\Icons\\Spell_Nature_CallStorm",
+                warning = true,
+                lines = {"Creates a lightning cloud that damages everyone in it. His most frequent ability - move out."}
+            }, {
+                name = "Forked Lightning",
+                icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
+                warning = true,
+                lines = {"Strikes multiple targets with lightning."}
+            }, {
+                name = "Chain Lightning",
+                icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
+                warning = true,
+                lines = {"Lightning that chains to nearby targets - spread out."}
+            }}
         }}
     }, {
         key = "azus",
         name = "Azus the Bloodseeker",
         icon = "Interface\\Icons\\temp",
-        color = "ffffd100",
         abilities = {{
             name = "Blood Leech",
             icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
@@ -1629,7 +1630,6 @@ local RAIDS = {{
         key = "nameless_hermit",
         name = "Nameless Hermit",
         icon = "Interface\\Icons\\temp",
-        color = "ffffd100",
         abilities = {{
             name = "Nameless Hermit's Ability",
             icon = "Interface\\Icons\\temp",
