@@ -303,9 +303,7 @@ local RAIDS = {{
         name = "Lucifron",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Lucifron",
         flags = {"nottauntable", "potion_fire"}, -- CHANGED: demo of the new boss flag icons
-        -- CHANGED: test of the optional stats line. Values are placeholders -
-        -- fill in the real armor and resistances when they are known.
-        stats = {armor = 0, fire = 0, nature = 0, frost = 0, shadow = 0, arcane = 0},
+        stats = {armor = 5120, fire = 293, nature = 98, frost = 98, shadow = 186, arcane = 68},
         abilities = {{
             name = "Lucifron's Curse",
             icon = "Interface\\Icons\\Spell_Shadow_BlackPlague",
@@ -357,6 +355,7 @@ local RAIDS = {{
         name = "Magmadar",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Magmadar",
         flags = {"tauntable", "potion_fire"},
+        stats = {armor = 5780, fire = 327, nature = 98, frost = 88, shadow = 85, arcane = 55},
         abilities = {{
             name = "Frenzy",
             icon = "Interface\\Icons\\ability_druid_challangingroar",
@@ -394,6 +393,7 @@ local RAIDS = {{
         key = "gehennas",
         name = "Gehennas",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Gehennas",
+        stats = {armor = 5120, fire = 256, nature = 88, frost = 88, shadow = 98, arcane = 68},
         abilities = {{
             name = "Rain of Fire",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
@@ -438,6 +438,7 @@ local RAIDS = {{
         key = "garr",
         name = "Garr",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Garr",
+        stats = {armor = 8280, fire = 168, nature = 128, frost = 82, shadow = 82, arcane = 62},
         abilities = {{
             name = "Magma Shackles",
             icon = "Interface\\Icons\\spell_nature_earthbind",
@@ -488,6 +489,7 @@ local RAIDS = {{
         key = "baron_geddon",
         name = "Baron Geddon",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BaronGeddon",
+        stats = {armor = 4922, fire = 0, nature = 86, frost = 66, shadow = 84, arcane = 34},
         abilities = {{
             name = "Living Bomb",
             icon = "Interface\\Icons\\inv_enchant_essenceastralsmall",
@@ -529,6 +531,7 @@ local RAIDS = {{
         key = "shazzrah",
         name = "Shazzrah",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Shazzrah",
+        stats = {armor = 4800, fire = 203, nature = 124, frost = 124, shadow = 124, arcane = 344},
         abilities = {{
             name = "Arcane Explosion",
             icon = "Interface\\Icons\\spell_nature_wispsplode",
@@ -580,6 +583,7 @@ local RAIDS = {{
         key = "golemagg",
         name = "Golemagg the Incinerator",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Golemagg",
+        stats = {armor = 6200, fire = 422, nature = 137, frost = 98, shadow = 88, arcane = 48},
         abilities = {{
             name = "Magma Splash",
             icon = "Interface\\Icons\\spell_fire_immolation",
@@ -646,6 +650,7 @@ local RAIDS = {{
         key = "sulfuron",
         name = "Sulfuron Harbinger",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Sulfuron",
+        stats = {armor = 5480, fire = 317, nature = 109, frost = 109, shadow = 109, arcane = 69},
         abilities = {{
             name = "Battle Stance",
             icon = "Interface\\Icons\\ability_warrior_offensivestance",
@@ -736,6 +741,7 @@ local RAIDS = {{
         key = "majordomo",
         name = "Majordomo",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Majordomo",
+        stats = {armor = 4500, fire = 300, nature = 87, frost = 87, shadow = 87, arcane = 100},
         abilities = {{
             name = "Blast Wave",
             icon = "Interface\\Icons\\spell_holy_excorcism_02",
@@ -809,6 +815,7 @@ local RAIDS = {{
         key = "ragnaros",
         name = "Ragnaros",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Ragnaros",
+        stats = {armor = 5350, fire = 0, nature = 83, frost = 83, shadow = 83, arcane = 68},
         abilities = {{
             name = "Wrath of Ragnaros",
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
@@ -880,6 +887,7 @@ local RAIDS = {{
         key = "razorgore",
         name = "Razorgore the Untamed",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Razorgore",
+        stats = {armor = 5675, fire = 243, nature = 71, frost = 71, shadow = 71, arcane = 108},
         abilities = {{
             name = "Conflagration",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
@@ -910,6 +918,7 @@ local RAIDS = {{
         key = "elementium_decapitator",
         name = "Elementium Decapitator Mk III",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\ElementiumDecapitator",
+        stats = {armor = 6600, fire = 322, nature = 58, frost = 98, shadow = 78, arcane = 58},
         abilities = {{
             name = "Heavy Thorium Grenade",
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
@@ -927,6 +936,7 @@ local RAIDS = {{
         name = "Broodlord Lashlayer",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Broodlord",
         flags = {"nottauntable"},
+        stats = {armor = 5675, fire = 94, nature = 94, frost = 94, shadow = 94, arcane = 94},
         abilities = {{
             name = "Blast Wave",
             icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
@@ -955,6 +965,7 @@ local RAIDS = {{
         key = "firemaw",
         name = "Firemaw",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Firemaw",
+        stats = {armor = 5280, fire = 384, nature = 76, frost = 31, shadow = 76, arcane = 31},
         abilities = {{
             name = "Flame Buffet",
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
@@ -979,6 +990,7 @@ local RAIDS = {{
         key = "krixix",
         name = "Master Elemental Shaper Krixix",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Krixix",
+        stats = {armor = 5240, fire = 102, nature = 102, frost = 102, shadow = 84, arcane = 31},
         abilities = {{
             name = "Mirrors System",
             icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
@@ -996,6 +1008,7 @@ local RAIDS = {{
         key = "ebonroc_flamegor",
         name = "Ebonroc & Flamegor",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Ebonroc",
+        stats = {armor = 5680, fire = 0, nature = 21, frost = 37, shadow = 188, arcane = 98},
         abilities = {{
             separator = true,
             name = "Shared - both dragons"
@@ -1065,6 +1078,7 @@ local RAIDS = {{
         key = "chromaggus",
         name = "Chromaggus",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Chromaggus",
+        stats = {armor = 6440, fire = 73, nature = 73, frost = 73, shadow = 73, arcane = 73},
         abilities = {{
             name = "Double Bite",
             icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
@@ -1157,6 +1171,7 @@ local RAIDS = {{
         name = "Neferian",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Neferian",
         flags = {"nottauntable"},
+        stats = {armor = 5680, fire = 314, nature = 58, frost = 58, shadow = 114, arcane = 36},
         abilities = {{
             separator = true,
             name = "Phase 1 - Vaelastrasz"
@@ -1237,6 +1252,7 @@ local RAIDS = {{
         key = "jeklik",
         name = "High Priestess Jeklik",
         icon = "Interface\\Icons\\temp",
+        stats = {armor = 4222, fire = 92, nature = 92, frost = 27, shadow = 92, arcane = 27},
         abilities = {{
             name = "Sonic Burst",
             icon = "Interface\\Icons\\Spell_Shadow_Teleport",
@@ -1271,6 +1287,7 @@ local RAIDS = {{
         name = "High Priest Venoxis",
         icon = "Interface\\Icons\\temp",
         flags = {"potion_nature"},
+        stats = {armor = 4691, fire = 23, nature = 270, frost = 23, shadow = 23, arcane = 23},
         abilities = {{
             name = "Holy Wrath",
             icon = "Interface\\Icons\\Spell_Shadow_SiphonMana",
@@ -1307,6 +1324,7 @@ local RAIDS = {{
         name = "High Priestess Mar'li",
         icon = "Interface\\Icons\\temp",
         flags = {"potion_nature"},
+        stats = {armor = 4880, fire = 7, nature = 126, frost = 24, shadow = 126, arcane = 126},
         abilities = {{
             name = "Poison Bolt Volley",
             icon = "Interface\\Icons\\Ability_Poisons",
@@ -1337,6 +1355,7 @@ local RAIDS = {{
         key = "mandokir",
         name = "Bloodlord Mandokir",
         icon = "Interface\\Icons\\temp",
+        stats = {armor = 4950, fire = 44, nature = 75, frost = 12, shadow = 44, arcane = 44},
         abilities = {{
             name = "Whirlwind",
             icon = "Interface\\Icons\\Ability_Whirlwind",
@@ -1455,6 +1474,7 @@ local RAIDS = {{
         key = "gahzranka",
         name = "Gahz'ranka",
         icon = "Interface\\Icons\\temp",
+        stats = {armor = 4400, fire = 15, nature = 15, frost = 15, shadow = 15, arcane = 15},
         abilities = {{
             name = "Frost Breath",
             icon = "Interface\\Icons\\Spell_Frost_FrostNova",
@@ -1486,6 +1506,7 @@ local RAIDS = {{
         key = "thekal",
         name = "High Priest Thekal",
         icon = "Interface\\Icons\\temp",
+        stats = {armor = 4620, fire = 45, nature = 58, frost = 35, shadow = 35, arcane = 35},
         abilities = {{
             name = "Force Punch",
             icon = "Interface\\Icons\\INV_Gauntlets_31",
@@ -1518,6 +1539,7 @@ local RAIDS = {{
         key = "arlokk",
         name = "High Priestess Arlokk",
         icon = "Interface\\Icons\\temp",
+        stats = {armor = 4700, fire = 38, nature = 84, frost = 38, shadow = 84, arcane = 38},
         abilities = {{
             name = "Whirlwind",
             icon = "Interface\\Icons\\Ability_Whirlwind",
@@ -1545,6 +1567,7 @@ local RAIDS = {{
         key = "jindo",
         name = "Jin'do the Hexxer",
         icon = "Interface\\Icons\\temp",
+        stats = {armor = 4950, fire = 44, nature = 168, frost = 30, shadow = 168, arcane = 168},
         abilities = {{
             name = "Hex",
             icon = "Interface\\Icons\\Spell_Nature_Polymorph",
@@ -1577,6 +1600,7 @@ local RAIDS = {{
         key = "hakkar",
         name = "Hakkar",
         icon = "Interface\\Icons\\temp",
+        stats = {armor = 4880, fire = 51, nature = 51, frost = 14, shadow = 141, arcane = 51},
         abilities = {{
             name = "Corrupted Blood",
             icon = "Interface\\Icons\\Spell_Shadow_CorpseExplode",
@@ -1605,6 +1629,7 @@ local RAIDS = {{
         key = "azus",
         name = "Azus the Bloodseeker",
         icon = "Interface\\Icons\\temp",
+        stats = {armor = 4950, fire = 44, nature = 75, frost = 12, shadow = 44, arcane = 44},
         abilities = {{
             name = "Blood Leech",
             icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
@@ -1635,6 +1660,7 @@ local RAIDS = {{
         key = "nameless_hermit",
         name = "Nameless Hermit",
         icon = "Interface\\Icons\\temp",
+        stats = {armor = 4950, fire = 44, nature = 75, frost = 12, shadow = 44, arcane = 44},
         abilities = {{
             name = "Nameless Hermit's Ability",
             icon = "Interface\\Icons\\temp",
@@ -2301,6 +2327,7 @@ local RAIDS = {{
         name = "Onyxia",
         icon = "Interface\\Icons\\temp",
         flags = {"potion_fire"},
+        stats = {armor = 5550, fire = 292, nature = 92, frost = 92, shadow = 102, arcane = 88},
         abilities = {{
             separator = true,
             name = "Pre-pull & positioning"
@@ -2415,6 +2442,7 @@ local RAIDS = {{
         name = "Azuregos",
         icon = "Interface\\Icons\\temp",
         flags = {"potion_frost"},
+        stats = {armor = 5880, fire = 126, nature = 126, frost = 300, shadow = 126, arcane = 300},
         abilities = {{
             name = "Chill",
             icon = "Interface\\Icons\\Spell_Frost_Glacier",
@@ -2463,6 +2491,7 @@ local RAIDS = {{
         name = "Lady Hederine",
         icon = "Interface\\Icons\\temp",
         flags = {"potion_nature"},
+        stats = {armor = 4316, fire = 93, nature = 93, frost = 93, shadow = 93, arcane = 55},
         abilities = {{
             name = "Bloating Toxins",
             icon = "Interface\\Icons\\Ability_Creature_Disease_02",
@@ -2522,6 +2551,7 @@ local RAIDS = {{
         name = "Lord Kazzak",
         icon = "Interface\\Icons\\temp",
         flags = {"potion_shadow"},
+        stats = {armor = 5880, fire = 143, nature = 75, frost = 75, shadow = 143, arcane = 75},
         abilities = {{
             name = "Mark of Kazzak",
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
@@ -2568,6 +2598,7 @@ local RAIDS = {{
         name = "Kurinnaxx",
         icon = "Interface\\Icons\\temp",
         flags = {"potion_nature"},
+        stats = {armor = 6700, fire = 83, nature = 151, frost = 83, shadow = 115, arcane = 115},
         abilities = {{
             name = "Mortal Wound",
             icon = "Interface\\Icons\\Ability_CriticalStrike",
@@ -2802,6 +2833,7 @@ local RAIDS = {{
         name = "Ysondre",
         icon = "Interface\\Icons\\temp",
         flags = {"potion_nature"},
+        stats = {armor = 4691, fire = 126, nature = 126, frost = 126, shadow = 126, arcane = 126},
         abilities = {{
             name = "Lightning Wave",
             icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
@@ -2922,6 +2954,14 @@ portrait:SetTexture(DEFAULT_ICON)
 local bossNameText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
 bossNameText:SetPoint("LEFT", portrait, "RIGHT", 10, 0)
 bossNameText:SetText("Select a boss")
+
+-- CHANGED: the boss stats line (armor + resistances) is rendered above the
+-- "Abilities" header so it sits between the portrait and the ability list.
+-- It is only visible when the current boss has a `stats` table.
+local bossStatsLabel = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+bossStatsLabel:SetPoint("TOPLEFT", portrait, "BOTTOMLEFT", 0, -8)
+bossStatsLabel:SetJustifyH("LEFT")
+bossStatsLabel:Hide()
 
 local abilitiesHeader = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 abilitiesHeader:SetPoint("TOPLEFT", portrait, "BOTTOMLEFT", 0, -16)
@@ -3378,25 +3418,9 @@ local function ConfigureSeparatorRow(btn, entry)
     end
 end
 
--- CHANGED: optional boss stats line, drawn above the ability list. A boss can
--- carry stats = { armor = 0, fire = 0, ... } and the values are rendered as a
--- single row. Missing keys default to 0, so a boss only needs to list what is
--- known. Only one of these is ever visible at a time, so it is a single frame
--- rather than a pool.
-local statsRow = nil
-
-local function GetStatsRow()
-    if not statsRow then
-        statsRow = CreateFrame("Frame", "DungeonJournalStatsRow", abilityScrollChild)
-        statsRow:SetHeight(STATS_ROW_H)
-
-        local label = statsRow:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-        label:SetPoint("LEFT", statsRow, "LEFT", 18, 0)
-        label:SetJustifyH("LEFT")
-        statsRow.label = label
-    end
-    return statsRow
-end
+-- NOTE: the stats line is now rendered via bossStatsLabel (a persistent
+-- FontString above the abilities header) rather than a pooled frame inside
+-- the scroll child. See ShowBossInfo() for the show/hide logic.
 
 local function FormatBossStats(stats)
     local text = "|cffffd100Armor|r " .. (stats.armor or 0)
@@ -3594,21 +3618,6 @@ function RebuildAbilityList(boss)
     local sepIndex = 0
     local phaseVisible = true
 
-    -- CHANGED: draw the boss's armor/resistance line above the abilities. Only
-    -- on the Abilities tab - it describes the boss, not its adds.
-    if boss.stats and activeTab == "abilities" then
-        local row = GetStatsRow()
-        row:ClearAllPoints()
-        row:SetPoint("TOPLEFT", abilityScrollChild, "TOPLEFT", 0, -yOffset)
-        row:SetPoint("TOPRIGHT", abilityScrollChild, "TOPRIGHT", 0, -yOffset)
-        row.label:SetText(FormatBossStats(boss.stats))
-        row:Show()
-
-        yOffset = yOffset + row:GetHeight() + 4
-    elseif statsRow then
-        statsRow:Hide()
-    end
-
     for i, item in ipairs(dataSource) do
         if item.separator then
             sepIndex = sepIndex + 1
@@ -3667,6 +3676,16 @@ local function ShowBossInfo(boss)
 
     -- CHANGED: Dynamically updates the boss flag icons (tauntable, potions, etc)
     RebuildBossFlags(boss)
+
+    -- CHANGED: show armor/resistance line above "Abilities" when the boss has stats
+    if boss.stats then
+        bossStatsLabel:SetText(FormatBossStats(boss.stats))
+        bossStatsLabel:Show()
+        abilitiesHeader:SetPoint("TOPLEFT", portrait, "BOTTOMLEFT", 0, -28)
+    else
+        bossStatsLabel:Hide()
+        abilitiesHeader:SetPoint("TOPLEFT", portrait, "BOTTOMLEFT", 0, -16)
+    end
 
     if boss.adds and table.getn(boss.adds) > 0 then
         tabAbilities:Show()
