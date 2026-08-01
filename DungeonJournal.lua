@@ -1753,7 +1753,7 @@ local RAIDS = {{
     }, {
         key = "brigitte",
         name = "Brigitte Abbendis",
-        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Brigitte",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BrigitteAbbendis",
         flags = {"tauntable"},
         -- NOTE: values from Spell.dbc (IDs 35848-35877). Percentages are the
         -- real $s values (DBC stores them as value-1). Phase 2 is the mounted
@@ -2054,9 +2054,9 @@ local RAIDS = {{
             lines = {"Continually inflicts Fire damage on the raid."}
         }}
     }, {
-        key = "renault_mograine_sally_whitemane",
-        name = "Renault Mograine & Sally Whitemane",
-        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\RenaultMograineSallyWhitemane",
+        key = "renault_mograine",
+        name = "Renault Mograine",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Mograine",
         -- NOTE: values from Spell.dbc (IDs 33456-36021). Percentages are the
         -- real $s values (DBC stores them as value-1).
         abilities = {{
