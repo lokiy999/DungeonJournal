@@ -471,17 +471,17 @@ local RAIDS = {{
                      "For each Firesworn that dies, Garr gains 10% attack speed and loses 300 armor."},
             abilities = {{
                 name = "Eruption",
-                icon = "Interface\\Icons\\temp",
+                icon = "Interface\\Icons\\spell_fire_fire",
                 roles = {"tank", "dps"},
                 warning = true,
                 lines = {"Explodes on death dealing X Fire damage and heavy knockback to nearby players."}
             }, {
                 name = "Immolate",
-                icon = "Interface\\Icons\\temp",
+                icon = "Interface\\Icons\\spell_fire_immolation",
                 lines = {"Inflicts 760 to 840 Fire damage to an enemy and scorches it for an additional 680 to 720 damage every 3 sec. for 21 sec."}
             }, {
                 name = "Separation Anxiety",
-                icon = "Interface\\Icons\\temp",
+                icon = "Interface\\Icons\\spell_fire_volcano",
                 lines = {"Firesworn will deal 300% additional damage if more than X yards away from Garr."}
             }}
         }}
@@ -2020,7 +2020,7 @@ local RAIDS = {{
             lines = {"Kicks a player back 50 yards and sends them to the death realm, causing Disembodied."},
             abilities = {{
                 name = "Disembodied",
-                icon = "Interface\\Icons\\temp",
+                icon = "Interface\\Icons\\ability_vanish",
                 lines = {"The target becomes a ghost and can see mobs that are in the death realm. If caught by the mobs they will die."}
             }}
         }}
@@ -2153,31 +2153,31 @@ local RAIDS = {{
             lines = {"Mograine summons a Pillar of Light every ~15-20 seconds, which disorientates anyone who looks at it for 6 seconds while it's being cast. It deals 500 Holy damage to anyone in its' line of sight every second."}
         }, {
             name = "Purify",
-            icon = "Interface\\Icons\\temp",
+            icon = "Interface\\Icons\\spell_holy_purify",
             lines = {"Mograine purifies a friendly target, removing 1 disease effect and 1 poison effect."}
         }, {
             name = "Aura",
-            icon = "Interface\\Icons\\temp",
+            icon = "Interface\\Icons\\spell_holy_auramastery",
             lines = {"Mograine swaps between 5 auras at random every 20 seconds."},
             abilities = {{
                 name = "Retribution Aura",
-                icon = "Interface\\Icons\\temp",
+                icon = "Interface\\Icons\\spell_holy_auraoflight",
                 lines = {"Does 125 Holy damage to anyone who hits Mograine and doubles the damage of Eye for an Eye."}
             }, {
                 name = "Devotion Aura",
-                icon = "Interface\\Icons\\temp",
+                icon = "Interface\\Icons\\spell_holy_devotionaura",
                 lines = {"Increases his armor by 2100."}
             }, {
                 name = "Fire Resistance Aura",
-                icon = "Interface\\Icons\\temp",
+                icon = "Interface\\Icons\\spell_fire_sealoffire",
                 lines = {"Increases his Fire resistance by 180."}
             }, {
                 name = "Frost Resistance Aura",
-                icon = "Interface\\Icons\\temp",
+                icon = "Interface\\Icons\\spell_frost_wizardmark",
                 lines = {"Increases his Frost resistance by 180."}
             }, {
                 name = "Shadow Resistance Aura",
-                icon = "Interface\\Icons\\temp",
+                icon = "Interface\\Icons\\spell_shadow_sealofkings",
                 lines = {"Increases his Shadow resistance by 180."}
             }}
         }, {
@@ -2222,7 +2222,7 @@ local RAIDS = {{
             lines = {"Shields herself, absorbing 15000 damage."}
         }, {
             name = "Dominate Mind",
-            icon = "Interface\\Icons\\temp",
+            icon = "Interface\\Icons\\spell_shadow_shadowworddominate",
             warning = true,
             roles = {"cc"},
             lines = {"Mind controls a player."}
