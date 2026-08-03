@@ -1978,38 +1978,47 @@ local RAIDS = {{
             name = "Curse of Thorns",
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
             warning = true,
-            roles = {"decurse"},
-            lines = {"The target takes back a portion of the damage they deal. Decurse it or stop attacking until it is removed."}
+            roles = {"dps", "decurse"},
+            lines = {"The target takes twice the damage they deal. Lasts 45 seconds."}
         }, {
             name = "Thorned Roots",
             icon = "Interface\\Icons\\Spell_Nature_StrangleVines",
             warning = true,
             roles = {"healer"},
-            lines = {"Roots a player and deals 20% of their maximum health as Nature damage every second.",
-                     "When the roots collapse, thorns explode outward from the target - spread out before that happens."}
+            lines = {"Roots a player and deals 20% of their maximum health as Nature damage every second for 8 seconds.",
+                     "When the roots collapse, thorns explode outward to all targets in Line of Sight dealing 5380-6180 damage and stunning for 2 seconds."}
         }, {
             name = "Fists of Fire",
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
             roles = {"tank"},
-            lines = {"90% of Brother Michael's Physical damage becomes Fire damage, so armour stops mitigating most of his melee."}
+            lines = {"90% of Brother Michael's Physical damage becomes Fire damage for 25 seconds."}
         }, {
             name = "Four Finger Death Punch",
             icon = "Interface\\Icons\\Spell_Shadow_CorpseExplode",
             warning = true,
-            lines = {"Inflicts one of four wounds on the target. Taking all four hits causes the victim's heart to explode."}
+            roles = {"tank"},
+            lines = {"Every 10 seconds the tank takes receives a stack of Four Finger Death Punch.", 
+                     "Whenever the tank reaches 4 stacks he will explode taking 50000-100000 damage."}
         }, {
             name = "Soulbind",
             icon = "Interface\\Icons\\Spell_Shadow_Haunting",
-            lines = {"Splits 20% of the damage Brother Michael takes onto the bound player."}
+            warning = true,
+            lines = {"Brother Michael casts Soulbind on everyone (including himself) in his line of sight and binds them together for 8 seconds.",
+                     "20% of the damage taken is split among the bound."}
         }, {
             name = "Grip Break",
             icon = "Interface\\Icons\\Ability_Warrior_Disarm",
-            roles = {"tank"},
-            lines = {"Disarms the target."}
+            lines = {"Disarms the target for 6 seconds."}
         }, {
             name = "Kick",
-            icon = "Interface\\Icons\\Ability_Kick",
-            lines = {"Interrupts the target's spellcast."}
+            icon = "Interface\\Icons\\Ability_kick",
+            warning = true,
+            lines = {"Kicks a player back 50 yards and sends them to the death realm, causing Disembodied."},
+            abilities = {{
+                name = "Disembodied",
+                icon = "Interface\\Icons\\temp",
+                lines = {"The target becomes a ghost and can see mobs that are in the death realm. If caught by the mobs they will die."}
+            }}
         }}
     }, {
         key = "doan",
@@ -2021,8 +2030,7 @@ local RAIDS = {{
             name = "Arcane Pulse",
             icon = "Interface\\Icons\\Spell_Arcane_ArcaneResilience",
             warning = true,
-            lines = {"Doan's most frequent ability - pulses the raid for 100 Arcane damage and interrupts spellcasting, locking that school for a few seconds.",
-                     "Logs show 8-12 players hit at once, so casters should expect regular lockouts."}
+            lines = {"Magically pulses the target for 100 Arcane damage and interrupts spellcasting and prevents any spell in that school from being cast for 3 seconds."}
         }, {
             name = "Arcanebolt",
             icon = "Interface\\Icons\\Spell_Nature_StarFall",
