@@ -651,73 +651,77 @@ local RAIDS = {{
         name = "Sulfuron Harbinger",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Sulfuron",
         stats = {armor = 5480, fire = 317, nature = 109, frost = 109, shadow = 109, arcane = 69},
+        -- NOTE: Sulfuron rotates between three warrior stances, each with its
+        -- own abilities. Shared abilities are listed under "All Stances".
         abilities = {{
-            name = "Battle Stance",
-            icon = "Interface\\Icons\\ability_warrior_offensivestance",
-            lines = {"Sulfuron goes into Battle Stance, gaining new abilties."},
-            abilities = {{
-                name = "Rend",
-                icon = "Interface\\Icons\\ability_gouge",
-                lines = {"Inflicts 129 Physical damage to an enemy every 3 sec. for 15 sec."}
-            }, {
-                name = "Retaliation",
-                icon = "Interface\\Icons\\ability_warrior_challange",
-                roles = {"melee"},
-                lines = {"Instantly counterattack any enemy that strikes you in melee for 15 sec."}
-            }, {
-                name = "Unbalancing Strike",
-                icon = "Interface\\Icons\\ability_warrior_decisivestrike",
-                roles = {"tank"},
-                lines = {"Inflicts 350% weapon damage and leaves the target unbalanced, reducing their defense skill by 100 for 6 sec."}
-            }}
-        }, {
-            name = "Defensive Stance",
-            icon = "Interface\\Icons\\ability_warrior_defensivestance",
-            lines = {"Sulfuron goes into Defensive Stance, gaining new abilties."},
-            abilities = {{
-                name = "War Stomp",
-                icon = "Interface\\Icons\\ability_bullrush",
-                roles = {"melee"},
-                lines = {"Inflicts normal damage plus 936 to 1064 to nearby enemies and stunning them for 5 sec. (sometimes more damage; only during defensive stance?)"}
-            }, {
-                name = "Shield Wall",
-                icon = "Interface\\Icons\\ability_warrior_shieldwall",
-                lines = {"Reduces the Physical and magical damage taken by Sulfuron by 75% for 20 sec."}
-            }, {
-                name = "Sunder Armor",
-                icon = "Interface\\Icons\\ability_warrior_sunder",
-                roles = {"tank"},
-                lines = {"Hacks at an enemy's armor, reducing it by X per Sunder Armor. Can be applied up to 5 times. Lasts 30 sec."}
-            }}
-        }, {
-            name = "Berserker Stance",
-            icon = "Interface\\Icons\\ability_racial_avatar",
-            lines = {"Sulfuron goes into Berserker Stance, gaining new abilties."},
-            abilities = {{
-                name = "Flame Charge",
-                icon = "Interface\\Icons\\ability_warrior_charge",
-                roles = {"tank"},
-                lines = {"Charges at an enemy, knocking it back and inflicting normal damage plus 300."}
-            }}
+            separator = true,
+            name = "All Stances"
         }, {
             name = "Inspire",
-            icon = "Interface\\Icons\\ability_warrior_offensivestance",
+            icon = "Interface\\Icons\\Ability_Warrior_OffensiveStance",
             roles = {"tank"},
             lines = {"Increases the Physical damage dealt by an ally by 50% and speeds its attacks by 100% for 10 sec. 45y range."}
         }, {
             name = "Drain Life",
-            icon = "Interface\\Icons\\spell_shadow_lifedrain02",
+            icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
             roles = {"tank"},
             lines = {"Steals 2000 to 3000 life from target enemy. Shadow damage ability."}
         }, {
             name = "Dark Strike",
-            icon = "Interface\\Icons\\ability_thunderbolt",
+            icon = "Interface\\Icons\\Ability_ThunderBolt",
             roles = {"tank"},
             lines = {"Consecrates the caster's weapon, inflicting 570 to 630 additional damage on its next attack. All damage caused is considered Shadow damage."}
         }, {
             name = "Flame Spear",
-            icon = "Interface\\Icons\\ability_throw",
+            icon = "Interface\\Icons\\Ability_Throw",
             lines = {"Tosses a spear of flame, inflicting 1850 to 2450 Fire damage to an enemy, as well as scorching any other enemies in the vicinity of the target."}
+        }, {
+            separator = true,
+            name = "Battle Stance"
+        }, {
+            name = "Rend",
+            icon = "Interface\\Icons\\Ability_Gouge",
+            lines = {"Inflicts 75 Physical damage every 3 seconds for 15 seconds. Also reduces healing effects by 1%."}
+        }, {
+            name = "Retaliation",
+            icon = "Interface\\Icons\\Ability_Warrior_Challange",
+            warning = true,
+            roles = {"melee"},
+            lines = {"Instantly counterattacks any enemy that strikes him in melee for 15 seconds. Melee must stop attacking while this is active."}
+        }, {
+            name = "Unbalancing Strike",
+            icon = "Interface\\Icons\\Ability_Warrior_DecisiveStrike",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts 350% weapon damage and leaves the target unbalanced, reducing their defense skill by 100 for 6 sec."}
+        }, {
+            separator = true,
+            name = "Defensive Stance"
+        }, {
+            name = "War Stomp",
+            icon = "Interface\\Icons\\Ability_BullRush",
+            warning = true,
+            roles = {"melee"},
+            lines = {"Inflicts normal damage plus 936 to 1064 to nearby enemies and stuns them for 5 seconds."}
+        }, {
+            name = "Shield Wall",
+            icon = "Interface\\Icons\\Ability_Warrior_ShieldWall",
+            warning = true,
+            lines = {"Reduces Physical and magical damage taken by 75% for 20 seconds. DPS should switch targets or wait this out."}
+        }, {
+            name = "Sunder Armor",
+            icon = "Interface\\Icons\\Ability_Warrior_Sunder",
+            roles = {"tank"},
+            lines = {"Reduces the target's armor by 1000 per stack. Can be applied up to 5 times, lasting 30 seconds."}
+        }, {
+            separator = true,
+            name = "Berserker Stance"
+        }, {
+            name = "Flame Charge",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Charges at an enemy, knocking them back and inflicting normal damage plus 300."}
         }},
         adds = {{
             name = "Flamewaker Priest",
