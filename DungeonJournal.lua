@@ -2024,17 +2024,89 @@ local RAIDS = {{
         key = "doan",
         name = "Doan",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Doan",
-        -- NOTE: values from Spell.dbc (IDs 35954-35989). Percentages are the
-        -- real $s values (DBC stores them as value-1).
+        -- NOTE: values from Spell.dbc (IDs 35954-35989). Doan rotates between
+        -- three elemental stances (Arcane, Frost, Fire), each with its own set
+        -- of abilities. Shared abilities are listed under "All Phases".
         abilities = {{
+            separator = true,
+            name = "All Phases"
+        }, {
+            name = "Brilliance Aura",
+            icon = "Interface\\Icons\\Spell_Nature_Brilliance",
+            lines = {"Regenerates a percentage of total mana every 5 seconds for all nearby party members."}
+        }, {
             name = "Arcane Pulse",
             icon = "Interface\\Icons\\Spell_Arcane_ArcaneResilience",
             warning = true,
-            lines = {"Magically pulses the target for 100 Arcane damage and interrupts spellcasting and prevents any spell in that school from being cast for 3 seconds."}
+            lines = {"Magically pulses for 100 Arcane damage and interrupts spellcasting, locking that school for a few seconds."}
+        }, {
+            name = "Searing Heat",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            lines = {"Continually inflicts Fire damage on the raid."}
+        }, {
+            name = "Blink",
+            icon = "Interface\\Icons\\Spell_Arcane_Blink",
+            lines = {"Teleports Doan a short distance."}
+        }, {
+            name = "Evocation",
+            icon = "Interface\\Icons\\Spell_Nature_Purge",
+            roles = {"kick"},
+            lines = {"Channels to regenerate 5% of his total mana per second. Interrupt this or he will recover a large amount of mana."}
+        }, {
+            separator = true,
+            name = "Arcane Phase"
         }, {
             name = "Arcanebolt",
             icon = "Interface\\Icons\\Spell_Nature_StarFall",
             lines = {"Blasts an enemy for 1040 Arcane damage."}
+        }, {
+            name = "Greater Polymorph",
+            icon = "Interface\\Icons\\Spell_Nature_Brilliance",
+            warning = true,
+            lines = {"Transforms an enemy into a sheep, forcing them to wander. They cannot attack or cast spells but regenerate health rapidly."}
+        }, {
+            name = "Slow",
+            icon = "Interface\\Icons\\Spell_Nature_Slow",
+            warning = true,
+            roles = {"dispel"},
+            lines = {"Reduces the target's movement speed by 50% and attack speed by 50%."}
+        }, {
+            name = "Siphon Magic",
+            icon = "Interface\\Icons\\Spell_Nature_Purge",
+            lines = {"Purges up to 100 harmful magic effects from himself, restoring mana for each effect removed."}
+        }, {
+            separator = true,
+            name = "Frost Phase"
+        }, {
+            name = "Icebolt",
+            icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
+            roles = {"healer"},
+            lines = {"Launches a bolt of frost for 4200 Frost damage and reduces the next healing effect on the target by 90%."}
+        }, {
+            name = "Ice Blast",
+            icon = "Interface\\Icons\\Spell_Frost_Glacier",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Deals 15% of the target's health every second while it lasts."}
+        }, {
+            name = "Numbing Cold",
+            icon = "Interface\\Icons\\Spell_Frost_FrostArmor",
+            warning = true,
+            lines = {"Reduces attack, movement and casting speed by 40%."}
+        }, {
+            name = "Chilled to the Bone",
+            icon = "Interface\\Icons\\Spell_Frost_FrostNova",
+            warning = true,
+            lines = {"Frozen in place. Attack and casting speed reduced by 50%."}
+        }, {
+            name = "Frozen Solid",
+            icon = "Interface\\Icons\\Ability_Mage_ColdAsIce",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Immobilises the target and inflicts 20 Frost damage every 2 seconds."}
+        }, {
+            separator = true,
+            name = "Fire Phase"
         }, {
             name = "Flamebolt",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
@@ -2050,16 +2122,6 @@ local RAIDS = {{
             warning = true,
             roles = {"tank"},
             lines = {"Inflicts 1850 Fire damage in a cone in front of Doan. Keep him faced away from the raid."}
-        }, {
-            name = "Ice Blast",
-            icon = "Interface\\Icons\\Spell_Frost_Glacier",
-            warning = true,
-            roles = {"healer"},
-            lines = {"Deals 15% of the target's health every second while it lasts."}
-        }, {
-            name = "Searing Heat",
-            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
-            lines = {"Continually inflicts Fire damage on the raid."}
         }}
     }, {
         key = "renault_mograine",
