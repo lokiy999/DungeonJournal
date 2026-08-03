@@ -2037,47 +2037,43 @@ local RAIDS = {{
         }, {
             name = "Brilliance Aura",
             icon = "Interface\\Icons\\Spell_Nature_Brilliance",
-            lines = {"Regenerates a percentage of total mana every 5 seconds for all nearby party members."}
+            lines = {"Regenerates 550 mana every 5 seconds."}
         }, {
             name = "Arcane Pulse",
             icon = "Interface\\Icons\\Spell_Arcane_ArcaneResilience",
             warning = true,
             lines = {"Magically pulses for 100 Arcane damage and interrupts spellcasting, locking that school for a few seconds."}
         }, {
-            name = "Searing Heat",
-            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
-            lines = {"Continually inflicts Fire damage on the raid."}
-        }, {
             name = "Blink",
             icon = "Interface\\Icons\\Spell_Arcane_Blink",
-            lines = {"Teleports Doan a short distance."}
+            lines = {"After phase swap, Doan teleports a short distance."}
         }, {
             name = "Evocation",
             icon = "Interface\\Icons\\Spell_Nature_Purge",
+            warning = true,
             roles = {"kick"},
-            lines = {"Channels to regenerate 5% of his total mana per second. Interrupt this or he will recover a large amount of mana."}
+            lines = {"Channels to regenerate 5% of his total mana per second. Lasts 10 seconds."}
         }, {
             separator = true,
             name = "Arcane Phase"
         }, {
             name = "Arcanebolt",
             icon = "Interface\\Icons\\Spell_Nature_StarFall",
-            lines = {"Blasts an enemy for 1040 Arcane damage."}
+            lines = {"Blasts an enemy for 1040-1390 Arcane damage every 0.5 seconds while channeling."}
         }, {
             name = "Greater Polymorph",
             icon = "Interface\\Icons\\Spell_Nature_Brilliance",
-            warning = true,
-            lines = {"Transforms an enemy into a sheep, forcing them to wander. They cannot attack or cast spells but regenerate health rapidly."}
+            roles = {"dispel"},
+            lines = {"Transforms an enemy into a sheep for 60 seconds."}
         }, {
             name = "Slow",
             icon = "Interface\\Icons\\Spell_Nature_Slow",
-            warning = true,
             roles = {"dispel"},
-            lines = {"Reduces the target's movement speed by 50% and attack speed by 50%."}
+            lines = {"Reduces the target's movement speed by 50% and attack speed by 50% for 20 seconds."}
         }, {
             name = "Siphon Magic",
             icon = "Interface\\Icons\\Spell_Nature_Purge",
-            lines = {"Purges up to 100 harmful magic effects from himself, restoring mana for each effect removed."}
+            lines = {"Purges all harmful magic effects from himself, restoring mana for each effect removed."}
         }, {
             separator = true,
             name = "Frost Phase"
@@ -2085,7 +2081,7 @@ local RAIDS = {{
             name = "Icebolt",
             icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
             roles = {"healer"},
-            lines = {"Launches a bolt of frost for 4200 Frost damage and reduces the next healing effect on the target by 90%."}
+            lines = {"Launches a bolt of frost for 4200-5110 Frost damage and reduces the next healing effect on the target by 90%."}
         }, {
             name = "Ice Blast",
             icon = "Interface\\Icons\\Spell_Frost_Glacier",
@@ -2096,36 +2092,41 @@ local RAIDS = {{
             name = "Numbing Cold",
             icon = "Interface\\Icons\\Spell_Frost_FrostArmor",
             warning = true,
-            lines = {"Reduces attack, movement and casting speed by 40%."}
-        }, {
-            name = "Chilled to the Bone",
-            icon = "Interface\\Icons\\Spell_Frost_FrostNova",
-            warning = true,
-            lines = {"Frozen in place. Attack and casting speed reduced by 50%."}
-        }, {
-            name = "Frozen Solid",
-            icon = "Interface\\Icons\\Ability_Mage_ColdAsIce",
-            warning = true,
-            roles = {"healer"},
-            lines = {"Immobilises the target and inflicts 20 Frost damage every 2 seconds."}
+            lines = {"The ground gets icy. After 3 seconds your attack and movement speed gets reduced by 30%.",
+                     "After 6? seconds your attack, movement and casting speed reduced by 40%.",
+                     "After 10 seconds of standing applies Chilled to the Bone."},
+            abilities = {{
+                name = "Chilled to the Bone",
+                icon = "Interface\\Icons\\spell_frost_frostnova",
+                lines = {"Your unable to move and your attack and casting speed is reduced by 50% and after 5 seconds become Frozen Solid."},
+                abilities = {{
+                    name = "Frozen Solid",
+                    icon = "Interface\\Icons\\spell_frost_frost",
+                    lines = {"Your frozen in place for 10 seconds and get X Frost Damage every X seconds."}
+                }}
+            }}
         }, {
             separator = true,
             name = "Fire Phase"
         }, {
             name = "Flamebolt",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-            lines = {"Hurls a fiery ball for 5750 Fire damage plus 250 Fire damage every 0.5 seconds afterwards."}
+            lines = {"Hurls a fiery ball for 5750-6800 Fire damage plus 250 Fire damage every 0.5 sec. for 8 seconds."}
         }, {
             name = "Flamestrike",
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
-            warning = true,
-            lines = {"Calls down a pillar of fire for 1555 Fire damage, then 575 Fire damage every second to anyone standing in it. Move out."}
+            lines = {"Calls down a pillar of fire for 1555-1840 Fire damage on a random target, then 575 Fire damage every second to anyone standing in it for 8 seconds."}
         }, {
             name = "Dragon Breath",
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             warning = true,
             roles = {"tank"},
-            lines = {"Inflicts 1850 Fire damage in a cone in front of Doan. Keep him faced away from the raid."}
+            lines = {"Inflicts 1850-2230 Fire damage in a cone in front of Doan. This will set any bookshelves ablaze which he hits."},
+            abilities = {{
+                name = "Searing Heat",
+                icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+                lines = {"Continually inflicts Fire damage on the raid."}
+            }}
         }}
     }, {
         key = "renault_mograine",
@@ -2144,12 +2145,41 @@ local RAIDS = {{
         }, {
             name = "Crusader Strike",
             icon = "Interface\\Icons\\Spell_Holy_CrusaderStrike2",
-            roles = {"tank"},
-            lines = {"A weapon strike that also increases his attack speed."}
+            roles = {"tank", "dispel"},
+            lines = {"Inflicts 800 to 1100 damage to an enemy and increases the Holy damage it takes by 20% per Crusader Strike. Can be applied up to 5 times. Lasts 25 seconds.."}
         }, {
-            name = "Searing Light",
+            name = "Pillar of Light",
             icon = "Interface\\Icons\\Spell_Holy_ReviveChampion",
-            lines = {"Increases Holy damage dealt but reduces healing done."}
+            lines = {"Mograine summons a Pillar of Light every ~15-20 seconds, which disorientates anyone who looks at it for 6 seconds while it's being cast. It deals 500 Holy damage to anyone in its' line of sight every second."}
+        }, {
+            name = "Purify",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Mograine purifies a friendly target, removing 1 disease effect and 1 poison effect."}
+        }, {
+            name = "Aura",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Mograine swaps between 5 auras at random every 20 seconds."},
+            abilities = {{
+                name = "Retribution Aura",
+                icon = "Interface\\Icons\\temp",
+                lines = {"Does 125 Holy damage to anyone who hits Mograine and doubles the damage of Eye for an Eye."}
+            }, {
+                name = "Devotion Aura",
+                icon = "Interface\\Icons\\temp",
+                lines = {"Increases his armor by 2100."}
+            }, {
+                name = "Fire Resistance Aura",
+                icon = "Interface\\Icons\\temp",
+                lines = {"Increases his Fire resistance by 180."}
+            }, {
+                name = "Frost Resistance Aura",
+                icon = "Interface\\Icons\\temp",
+                lines = {"Increases his Frost resistance by 180."}
+            }, {
+                name = "Shadow Resistance Aura",
+                icon = "Interface\\Icons\\temp",
+                lines = {"Increases his Shadow resistance by 180."}
+            }}
         }, {
             separator = true,
             name = "Sally Whitemane"
@@ -2157,37 +2187,45 @@ local RAIDS = {{
             name = "Scarlet Resurrection",
             icon = "Interface\\Icons\\Spell_Holy_RighteousFury",
             warning = true,
-            lines = {"When Mograine dies, Whitemane resurrects him and the fight continues. Interrupting or racing this cast is the core of the encounter."}
+            lines = {"When Mograine dies, Whitemane resurrects him and the fight continues."}
         }, {
             name = "Holy Smite",
             icon = "Interface\\Icons\\Spell_Holy_HolySmite",
             roles = {"kick"},
-            lines = {"Whitemane's main cast, smiting a target for 2730 Holy damage."}
+            lines = {"Whitemane's main cast, smiting a target for 2730-3030 Holy damage."}
         }, {
             name = "Holy Fire",
             icon = "Interface\\Icons\\Spell_Holy_SearingLight",
             warning = true,
             roles = {"kick"},
-            lines = {"Inflicts 1275 Holy damage plus 830 Holy damage every 3 seconds, and dispels a beneficial effect from the target on each tick."}
+            lines = {"Inflicts 1275-1650 Holy damage plus 830 Holy damage every 3 seconds, and dispels a positive effect from the target on each periodic damage tick."}
         }, {
             name = "Absolution",
             icon = "Interface\\Icons\\Spell_Holy_RighteousFury",
             warning = true,
             roles = {"kick"},
-            lines = {"A heavy Holy nuke for 4000 damage."}
+            lines = {"Smites an enemy, inflicting 4000-5000 Holy damage."}
         }, {
             name = "Heal",
             icon = "Interface\\Icons\\Spell_Holy_Heal",
+            warning = true,
             roles = {"kick"},
-            lines = {"Whitemane heals herself or Mograine. Interrupt it where possible."}
+            lines = {"Whitemane heals herself (or Mograine) for 90000-100000."}
         }, {
             name = "Dispel Magic",
             icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
-            lines = {"Whitemane repeatedly dispels magic from herself and Mograine, removing your debuffs."}
+            lines = {"Whitemane dispels 2 magic spells from herself."}
         }, {
             name = "Power Word: Shield",
             icon = "Interface\\Icons\\Spell_Holy_PowerWordShield",
-            lines = {"Shields herself, absorbing incoming damage."}
+            roles = {"dispel"},
+            lines = {"Shields herself, absorbing 15000 damage."}
+        }, {
+            name = "Dominate Mind",
+            icon = "Interface\\Icons\\temp",
+            warning = true,
+            roles = {"cc"},
+            lines = {"Mind controls a player."}
         }}
     }, {
         key = "fairbanks",
@@ -2196,23 +2234,41 @@ local RAIDS = {{
         -- NOTE: values from Spell.dbc (IDs 36024-36213). Percentages are the
         -- real $s values (DBC stores them as value-1).
         abilities = {{
-            name = "Stomp",
-            icon = "Interface\\Icons\\Ability_Kick",
-            warning = true,
-            lines = {"Fairbanks' most frequent ability - stomps the ground, damaging everyone nearby and interrupting spellcasting, locking that school for a few seconds.",
-                     "Logs show 7-12 players hit at once."}
-        }, {
             name = "Bile Vomit",
             icon = "Interface\\Icons\\Spell_Shadow_PlagueCloud",
-            warning = true,
             roles = {"tank"},
-            lines = {"Shoots a cloud of bile in a cone in front of him, reducing armour by 650 and inflicting Nature damage every 5 seconds.",
-                     "Keep him faced away from the raid."}
+            lines = {"Shoots a cloud of bile in a cone in front of him, reducing armor by 650 and inflicting 1280-1620 Nature damage and 330 Nature damage every 5 seconds for 30 seconds. Stacks up to 10 times."}
         }, {
             name = "Claustrophobia",
             icon = "Interface\\Icons\\temp",
             warning = true,
-            lines = {"The walls press inward, increasing the damage and radius of Stomp. Rarely seen in logs - likely a soft enrage."}
+            lines = {"The walls press inward, increasing all players in size."}
+        }, {
+            name = "Blasphemous Vitality",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Regenerates 1% of total Health every 5 seconds."}
+        }, {
+            name = "Power Word: Barrier",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Shields himself for 9260-9460 seconds for 15 seconds."}
+        }, {
+            name = "All-Consuming Hatred",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Damage done increased by 50%. Immune to Taunt effects. Not sure when he does this."}
+        }, {
+            name = "Stomp",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Whenever players are too close to each other triggers Stomp, interrupting spellcasting and prevents any spell in that school from being cast for 0.5 seconds."}
+        }, {
+            name = "Panic",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Weakens your spirit, causing Panic to accumulate over time. Upon reaching 10 stacks, triggers Fear."},
+            abilities = {{
+                name = "Fear",
+                icon = "Interface\\Icons\\temp",
+                roles = {"dispel"},
+                lines = {"Become feared for 8 seconds."}
+            }}
         }}
     }}
 }, {
