@@ -113,7 +113,7 @@ end
 -- CHANGED: Boss "flag" icons - shown in a row to the right of the boss
 -- portrait/name, for quick-glance encounter notes like "this boss can/can't
 -- be taunted" or "bring Fire Protection Potions". Tag a boss in the RAIDS
--- database with e.g. flags = { "nottauntable", "potion_fire" } and the
+-- database with e.g. flags = { "nottauntable", "damage_fire" } and the
 -- matching icons will appear automatically - see RebuildBossFlags() below.
 --
 -- To add a new flag type, just add another entry here (icon/name/desc, and
@@ -128,7 +128,7 @@ local BOSS_FLAGS = {
         desc = "This boss can be taunted normally.",
     },
     nottauntable = {
-        icon = "Interface\\Icons\\spell_nature_reincarnation",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\notauntable",
         name = "Not Tauntable",
         desc = "This boss cannot be taunted!",
     },
@@ -139,30 +139,30 @@ local BOSS_FLAGS = {
         name = "Not Always Tauntable",
         desc = "This boss cannot be taunted at all times - see the abilities for details.",
     },
-    potion_fire = {
+    damage_fire = {
         icon = "Interface\\Icons\\INV_Potion_24",
-        name = "Fire Protection Potion",
-        desc = "Consider bringing Fire Protection Potions for this encounter.",
+        name = "Fire damage",
+        desc = "This encounter deals Fire damage.",
     },
-    potion_nature = {
+    damage_nature = {
         icon = "Interface\\Icons\\INV_Potion_22",
-        name = "Nature Protection Potion",
-        desc = "Consider bringing Nature Protection Potions for this encounter.",
+        name = "Nature damage",
+        desc = "This encounter deals Nature damage.",
     },
-    potion_frost = {
+    damage_frost = {
         icon = "Interface\\Icons\\INV_Potion_20",
-        name = "Frost Protection Potion",
-        desc = "Consider bringing Frost Protection Potions for this encounter.",
+        name = "Frost damage",
+        desc = "This encounter deals Frost damage.",
     },
-    potion_shadow = {
+    damage_shadow = {
         icon = "Interface\\Icons\\INV_Potion_23",
-        name = "Shadow Protection Potion",
-        desc = "Consider bringing Shadow Protection Potions for this encounter.",
+        name = "Shadow damage",
+        desc = "This encounter deals Shadow damage.",
     },
-    potion_arcane = {
+    damage_arcane = {
         icon = "Interface\\Icons\\INV_Potion_83",
-        name = "Arcane Protection Potion",
-        desc = "Consider bringing Arcane Protection Potions for this encounter.",
+        name = "Arcane damage",
+        desc = "This encounter deals Arcane damage.",
     },
 }
 
@@ -269,25 +269,25 @@ local ICON_ExplainationS = {{
     name = BOSS_FLAGS.notalwaystauntable.name,
     desc = BOSS_FLAGS.notalwaystauntable.desc
 }, {
-    icon = BOSS_FLAGS.potion_fire.icon,
-    name = BOSS_FLAGS.potion_fire.name,
-    desc = BOSS_FLAGS.potion_fire.desc
+    icon = BOSS_FLAGS.damage_fire.icon,
+    name = BOSS_FLAGS.damage_fire.name,
+    desc = BOSS_FLAGS.damage_fire.desc
 }, {
-    icon = BOSS_FLAGS.potion_nature.icon,
-    name = BOSS_FLAGS.potion_nature.name,
-    desc = BOSS_FLAGS.potion_nature.desc
+    icon = BOSS_FLAGS.damage_nature.icon,
+    name = BOSS_FLAGS.damage_nature.name,
+    desc = BOSS_FLAGS.damage_nature.desc
 }, {
-    icon = BOSS_FLAGS.potion_frost.icon,
-    name = BOSS_FLAGS.potion_frost.name,
-    desc = BOSS_FLAGS.potion_frost.desc
+    icon = BOSS_FLAGS.damage_frost.icon,
+    name = BOSS_FLAGS.damage_frost.name,
+    desc = BOSS_FLAGS.damage_frost.desc
 }, {
-    icon = BOSS_FLAGS.potion_shadow.icon,
-    name = BOSS_FLAGS.potion_shadow.name,
-    desc = BOSS_FLAGS.potion_shadow.desc
+    icon = BOSS_FLAGS.damage_shadow.icon,
+    name = BOSS_FLAGS.damage_shadow.name,
+    desc = BOSS_FLAGS.damage_shadow.desc
 }, {
-    icon = BOSS_FLAGS.potion_arcane.icon,
-    name = BOSS_FLAGS.potion_arcane.name,
-    desc = BOSS_FLAGS.potion_arcane.desc
+    icon = BOSS_FLAGS.damage_arcane.icon,
+    name = BOSS_FLAGS.damage_arcane.name,
+    desc = BOSS_FLAGS.damage_arcane.desc
 }}
 
 ------------------------------------------------------------
@@ -302,7 +302,7 @@ local RAIDS = {{
         key = "lucifron",
         name = "Lucifron",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Lucifron",
-        flags = {"nottauntable", "potion_fire"}, -- CHANGED: demo of the new boss flag icons
+        flags = {"tauntable", "damage_fire"}, -- CHANGED: demo of the new boss flag icons
         stats = {armor = 5120, fire = 293, nature = 98, frost = 98, shadow = 186, arcane = 68},
         abilities = {{
             name = "Lucifron's Curse",
@@ -354,7 +354,7 @@ local RAIDS = {{
         key = "magmadar",
         name = "Magmadar",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Magmadar",
-        flags = {"tauntable", "potion_fire"},
+        flags = {"tauntable", "damage_fire"},
         stats = {armor = 5780, fire = 327, nature = 98, frost = 88, shadow = 85, arcane = 55},
         abilities = {{
             name = "Frenzy",
@@ -393,6 +393,7 @@ local RAIDS = {{
         key = "gehennas",
         name = "Gehennas",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Gehennas",
+        flags = {"tauntable"},
         stats = {armor = 5120, fire = 256, nature = 88, frost = 88, shadow = 98, arcane = 68},
         abilities = {{
             name = "Rain of Fire",
@@ -438,6 +439,7 @@ local RAIDS = {{
         key = "garr",
         name = "Garr",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Garr",
+        flags = {"tauntable"},
         stats = {armor = 8280, fire = 168, nature = 128, frost = 82, shadow = 82, arcane = 62},
         abilities = {{
             name = "Magma Shackles",
@@ -488,6 +490,7 @@ local RAIDS = {{
     }, {
         key = "baron_geddon",
         name = "Baron Geddon",
+        flags = {"tauntable"},
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BaronGeddon",
         stats = {armor = 4922, fire = "immune", nature = 86, frost = 66, shadow = 84, arcane = 34},
         abilities = {{
@@ -530,6 +533,7 @@ local RAIDS = {{
     }, {
         key = "shazzrah",
         name = "Shazzrah",
+        flags = {"tauntable"},
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Shazzrah",
         stats = {armor = 4800, fire = 203, nature = 124, frost = 124, shadow = 124, arcane = 344},
         abilities = {{
@@ -582,6 +586,7 @@ local RAIDS = {{
     }, {
         key = "golemagg",
         name = "Golemagg the Incinerator",
+        flags = {"nottauntable"},
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Golemagg",
         stats = {armor = 6200, fire = 422, nature = 137, frost = 98, shadow = 88, arcane = 48},
         abilities = {{
@@ -650,6 +655,7 @@ local RAIDS = {{
         key = "sulfuron",
         name = "Sulfuron Harbinger",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Sulfuron",
+        flags = {"tauntable"},
         stats = {armor = 5480, fire = 317, nature = 109, frost = 109, shadow = 109, arcane = 69},
         -- NOTE: Sulfuron rotates between three warrior stances, each with its
         -- own abilities. Shared abilities are listed under "All Stances".
@@ -745,6 +751,7 @@ local RAIDS = {{
         key = "majordomo",
         name = "Majordomo",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Majordomo",
+        flags = {"tauntable"},
         stats = {armor = 4500, fire = 300, nature = 87, frost = 87, shadow = 87, arcane = 100},
         abilities = {{
             name = "Blast Wave",
@@ -819,6 +826,7 @@ local RAIDS = {{
         key = "ragnaros",
         name = "Ragnaros",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Ragnaros",
+        flags = {"tauntable"},
         stats = {armor = 5350, fire = "immune", nature = 83, frost = 83, shadow = 83, arcane = 68},
         abilities = {{
             name = "Wrath of Ragnaros",
@@ -891,6 +899,7 @@ local RAIDS = {{
         key = "razorgore",
         name = "Razorgore the Untamed",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Razorgore",
+        flags = {"nottauntable"},
         stats = {armor = 5675, fire = 243, nature = 71, frost = 71, shadow = 71, arcane = 108},
         abilities = {{
             name = "Conflagration",
@@ -922,6 +931,7 @@ local RAIDS = {{
         key = "elementium_decapitator",
         name = "Elementium Decapitator Mk III",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\ElementiumDecapitator",
+        flags = {"nottauntable"},
         stats = {armor = 6600, fire = 322, nature = 58, frost = 98, shadow = 78, arcane = 58},
         abilities = {{
             name = "Heavy Thorium Grenade",
@@ -969,6 +979,7 @@ local RAIDS = {{
         key = "firemaw",
         name = "Firemaw",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Firemaw",
+        flags = {"tauntable"},
         stats = {armor = 5280, fire = 384, nature = 76, frost = 31, shadow = 76, arcane = 31},
         abilities = {{
             name = "Flame Buffet",
@@ -994,6 +1005,7 @@ local RAIDS = {{
         key = "krixix",
         name = "Master Elemental Shaper Krixix",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Krixix",
+        flags = {"tauntable"},
         stats = {armor = 5240, fire = 102, nature = 102, frost = 102, shadow = 84, arcane = 31},
         abilities = {{
             name = "Mirrors System",
@@ -1011,6 +1023,7 @@ local RAIDS = {{
     }, {
         key = "ebonroc_flamegor",
         name = "Ebonroc & Flamegor",
+        flags = {"nottauntable"},
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Ebonroc",
         stats = {armor = 5680, fire = 0, nature = 21, frost = 37, shadow = 188, arcane = 98},
         abilities = {{
@@ -1082,6 +1095,7 @@ local RAIDS = {{
         key = "chromaggus",
         name = "Chromaggus",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Chromaggus",
+        flags = {"tauntable"},
         stats = {armor = 6440, fire = 73, nature = 73, frost = 73, shadow = 73, arcane = 73},
         abilities = {{
             name = "Double Bite",
@@ -1174,7 +1188,7 @@ local RAIDS = {{
         key = "nefarian",
         name = "Neferian",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Neferian",
-        flags = {"nottauntable"},
+        flags = {"tauntable"},
         stats = {armor = 5680, fire = 314, nature = 58, frost = 58, shadow = 114, arcane = 36},
         abilities = {{
             separator = true,
@@ -1290,7 +1304,7 @@ local RAIDS = {{
         key = "venoxis",
         name = "High Priest Venoxis",
         icon = "Interface\\Icons\\temp",
-        flags = {"potion_nature"},
+        flags = {"damage_nature"},
         stats = {armor = 4691, fire = 23, nature = 270, frost = 23, shadow = 23, arcane = 23},
         abilities = {{
             name = "Holy Wrath",
@@ -1327,7 +1341,7 @@ local RAIDS = {{
         key = "marli",
         name = "High Priestess Mar'li",
         icon = "Interface\\Icons\\temp",
-        flags = {"potion_nature"},
+        flags = {"damage_nature"},
         stats = {armor = 4880, fire = 7, nature = 126, frost = 24, shadow = 126, arcane = 126},
         abilities = {{
             name = "Poison Bolt Volley",
@@ -1863,6 +1877,7 @@ local RAIDS = {{
         key = "vishas",
         name = "Vishas",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Vishas",
+        flags = {"tauntable"},
         -- NOTE: values below come from Spell.dbc (IDs 35880-35900). Percentages
         -- are the real $s values (DBC stores them as value-1) and tick rates are
         -- EffectAmplitude in milliseconds. Damage ranges seen in combat logs are
@@ -1976,6 +1991,7 @@ local RAIDS = {{
         key = "brother_michael",
         name = "Brother Michael",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BrotherMichael",
+        flags = {"tauntable"},
         -- NOTE: values from Spell.dbc (IDs 35940-35951). Percentages are the
         -- real $s values (DBC stores them as value-1).
         abilities = {{
@@ -2028,6 +2044,7 @@ local RAIDS = {{
         key = "doan",
         name = "Doan",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Doan",
+        flags = {"tauntable"},
         -- NOTE: values from Spell.dbc (IDs 35954-35989). Doan rotates between
         -- three elemental stances (Arcane, Frost, Fire), each with its own set
         -- of abilities. Shared abilities are listed under "All Phases".
@@ -2132,6 +2149,7 @@ local RAIDS = {{
         key = "renault_mograine",
         name = "Renault Mograine",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Mograine",
+        flags = {"notalwaystauntable"},
         -- NOTE: values from Spell.dbc (IDs 33456-36021). Percentages are the
         -- real $s values (DBC stores them as value-1).
         abilities = {{
@@ -2237,6 +2255,7 @@ local RAIDS = {{
         key = "fairbanks",
         name = "Fairbanks",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Fairbanks",
+        flags = {"tauntable"},
         -- NOTE: values from Spell.dbc (IDs 36024-36213). Percentages are the
         -- real $s values (DBC stores them as value-1).
         abilities = {{
@@ -2462,7 +2481,7 @@ local RAIDS = {{
         key = "onyxia",
         name = "Onyxia",
         icon = "Interface\\Icons\\temp",
-        flags = {"potion_fire"},
+        flags = {"damage_fire"},
         stats = {armor = 5550, fire = "immune", nature = 92, frost = 92, shadow = 102, arcane = 88},
         abilities = {{
             separator = true,
@@ -2577,7 +2596,7 @@ local RAIDS = {{
         key = "azuregos",
         name = "Azuregos",
         icon = "Interface\\Icons\\temp",
-        flags = {"potion_frost"},
+        flags = {"damage_frost"},
         stats = {armor = 5880, fire = 126, nature = 126, frost = "immune", shadow = 126, arcane = 300},
         abilities = {{
             name = "Chill",
@@ -2626,7 +2645,7 @@ local RAIDS = {{
         key = "hederine",
         name = "Lady Hederine",
         icon = "Interface\\Icons\\temp",
-        flags = {"potion_nature"},
+        flags = {"damage_nature"},
         stats = {armor = 4316, fire = 93, nature = 93, frost = 93, shadow = 93, arcane = 55},
         abilities = {{
             name = "Bloating Toxins",
@@ -2686,7 +2705,7 @@ local RAIDS = {{
         key = "kazzak",
         name = "Lord Kazzak",
         icon = "Interface\\Icons\\temp",
-        flags = {"potion_shadow"},
+        flags = {"damage_shadow"},
         stats = {armor = 5880, fire = 143, nature = 75, frost = 75, shadow = 143, arcane = 75},
         abilities = {{
             name = "Mark of Kazzak",
@@ -2733,7 +2752,7 @@ local RAIDS = {{
         key = "kurinnaxx",
         name = "Kurinnaxx",
         icon = "Interface\\Icons\\temp",
-        flags = {"potion_nature"},
+        flags = {"damage_nature"},
         stats = {armor = 6700, fire = 83, nature = 151, frost = 83, shadow = 115, arcane = 115},
         abilities = {{
             name = "Mortal Wound",
@@ -2782,7 +2801,7 @@ local RAIDS = {{
         name = "Teremus the Devourer",
         icon = "Interface\\Icons\\temp",
         color = "ffffd100",
-        flags = {"potion_shadow"},
+        flags = {"damage_shadow"},
         abilities = {{
             name = "Soul Consumption",
             icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
@@ -2861,7 +2880,7 @@ local RAIDS = {{
         key = "emeriss",
         name = "Emeriss",
         icon = "Interface\\Icons\\temp",
-        flags = {"potion_nature"},
+        flags = {"damage_nature"},
         abilities = {{
             name = "Volatile Infection",
             icon = "Interface\\Icons\\Spell_Holy_HarmUndeadAura",
@@ -2896,7 +2915,7 @@ local RAIDS = {{
         key = "lethon",
         name = "Lethon",
         icon = "Interface\\Icons\\temp",
-        flags = {"potion_shadow"},
+        flags = {"damage_shadow"},
         abilities = {{
             name = "Shadow Bolt Whirl",
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
@@ -2929,7 +2948,7 @@ local RAIDS = {{
         key = "taerar",
         name = "Taerar",
         icon = "Interface\\Icons\\temp",
-        flags = {"potion_arcane"},
+        flags = {"damage_arcane"},
         abilities = {{
             name = "Arcane Blast",
             icon = "Interface\\Icons\\Spell_Shadow_DeathPact",
@@ -2968,7 +2987,7 @@ local RAIDS = {{
         key = "ysondre",
         name = "Ysondre",
         icon = "Interface\\Icons\\temp",
-        flags = {"potion_nature"},
+        flags = {"damage_nature"},
         stats = {armor = 4691, fire = 126, nature = 126, frost = 126, shadow = 126, arcane = 126},
         abilities = {{
             name = "Lightning Wave",
