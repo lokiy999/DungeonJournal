@@ -2185,7 +2185,7 @@ local RAIDS = {{
             name = "Sally Whitemane"
         }, {
             name = "Scarlet Resurrection",
-            icon = "Interface\\Icons\\Spell_Holy_RighteousFury",
+            icon = "Interface\\Icons\\spell_holy_resurrection",
             warning = true,
             lines = {"When Mograine dies, Whitemane resurrects him and the fight continues."}
         }, {
