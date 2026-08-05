@@ -2203,8 +2203,14 @@ local RAIDS = {{
             name = "Absolution",
             icon = "Interface\\Icons\\Spell_Holy_RighteousFury",
             warning = true,
-            roles = {"kick"},
+            roles = {"tank"},
             lines = {"Smites an enemy, inflicting 4000-5000 Holy damage."}
+        }, {
+            name = "Eradication",
+            icon = "Interface\\Icons\\spell_holy_righteousfury",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Smites an enemy, inflicting 10000-12000 Holy damage."}
         }, {
             name = "Heal",
             icon = "Interface\\Icons\\Spell_Holy_Heal",
