@@ -2240,32 +2240,32 @@ local RAIDS = {{
             lines = {"Shoots a cloud of bile in a cone in front of him, reducing armor by 650 and inflicting 1280-1620 Nature damage and 330 Nature damage every 5 seconds for 30 seconds. Stacks up to 10 times."}
         }, {
             name = "Claustrophobia",
-            icon = "Interface\\Icons\\temp",
+            icon = "Interface\\Icons\\Spell_Shadow_Shadesofdarkness",
             warning = true,
             lines = {"The walls press inward, increasing all players in size."}
         }, {
             name = "Blasphemous Vitality",
-            icon = "Interface\\Icons\\temp",
+            icon = "Interface\\Icons\\spell_shadow_unholystrength",
             lines = {"Regenerates 1% of total Health every 5 seconds."}
         }, {
             name = "Power Word: Barrier",
-            icon = "Interface\\Icons\\temp",
+            icon = "Interface\\Icons\\spell_holy_powerwordshield",
             lines = {"Shields himself for 9260-9460 seconds for 15 seconds."}
         }, {
             name = "All-Consuming Hatred",
-            icon = "Interface\\Icons\\temp",
+            icon = "Interface\\Icons\\spell_shadow_sacrificialshield",
             lines = {"Damage done increased by 50%. Immune to Taunt effects. Not sure when he does this."}
         }, {
             name = "Stomp",
-            icon = "Interface\\Icons\\temp",
+            icon = "Interface\\Icons\\ability_kick",
             lines = {"Whenever players are too close to each other triggers Stomp, interrupting spellcasting and prevents any spell in that school from being cast for 0.5 seconds."}
         }, {
             name = "Panic",
-            icon = "Interface\\Icons\\temp",
+            icon = "Interface\\Icons\\spell_shadow_auraofdarkness",
             lines = {"Weakens your spirit, causing Panic to accumulate over time. Upon reaching 10 stacks, triggers Fear."},
             abilities = {{
                 name = "Fear",
-                icon = "Interface\\Icons\\temp",
+                icon = "Interface\\Icons\\spell_shadow_possession",
                 roles = {"dispel"},
                 lines = {"Become feared for 8 seconds."}
             }}
