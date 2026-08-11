@@ -28,41 +28,42 @@ local BWL_BOSS_ORDER = {
 }
 
 -- Trash pull order (Trash tab tree): separators + mob keys, in tree
--- order. A plain string is a mob key using BWL_TRASH_COUNTS' default (or
--- no count shown); a table { key = ..., count = ... } overrides the
--- count for that one occurrence (see BWL_TRASH_COUNTS below for why that
--- matters for Death Talon Overseer/Wyrmguard).
+-- order. A plain string is a mob key with no count shown; a table
+-- { key = ..., count = ... } shows a count for that occurrence. There is
+-- deliberately no separate counts table - every count lives right here,
+-- next to the pack it belongs to, even when the same mob's count repeats
+-- across several occurrences (e.g. Blackwing Warlock/Technician below).
 local BWL_TRASH_ORDER = {
-    { separator = true, name = "After Second Boss", color = "ffffd100" },
+    { separator = true, name = "Death Talon Pack", color = "ffffd100" },
+    { key = "death_talon_seether", count = 2 },
+    { key = "death_talon_wyrmkin", count = 2 },
+    { key = "death_talon_flamescale", count = 2 },
     "death_talon_captain",
-    "death_talon_seether",
-    "death_talon_flamescale",
-    "death_talon_wyrmkin",
 
-    { separator = true, name = "Hatcher Pack", color = "ffffd100" },
+    { separator = true, name = "Supression Room", color = "ffffd100" },
     "corrupted_red_whelp",
     "corrupted_green_whelp",
     "corrupted_blue_whelp",
     "death_talon_hatcher",
     "blackwing_taskmaster",
 
-    { separator = true, name = "Warlock Pack", color = "ffffd100" },
-    "blackwing_warlock",
-    "blackwing_technician",
+    { separator = true, name = "Lab Pack", color = "ffffd100" },
+    { key = "blackwing_warlock", count = 2 },
+    { key = "blackwing_technician", count = 8 },
 
-    { separator = true, name = "Warlock Overseer Pack", color = "ffffd100" },
-    "blackwing_warlock",
-    "blackwing_technician",
+    { separator = true, name = "Lab Pack 2", color = "ffffd100" },
+    { key = "blackwing_warlock", count = 2 },
+    { key = "blackwing_technician", count = 8 },
     "death_talon_overseer",
     "blackwing_spellbinder",
 
-    { separator = true, name = "Wyrmguard Overseer Pack", color = "ffffd100" },
+    { separator = true, name = "Firemaw Pack", color = "ffffd100" },
     "death_talon_wyrmguard",
     { key = "death_talon_overseer", count = 3 },
 
-    { separator = true, name = "Spellbinder Warlock Pack", color = "ffffd100" },
-    "blackwing_warlock",
-    "blackwing_technician",
+    { separator = true, name = "Double Spellbinder Pack", color = "ffffd100" },
+    { key = "blackwing_warlock", count = 2 },
+    { key = "blackwing_technician", count = 8 },
     "death_talon_overseer",
     { key = "blackwing_spellbinder", count = 2 },
 
@@ -872,19 +873,6 @@ local BWL_TRASH_MOBS = {
     },
 }
 
--- The one place that lists every mob and how many show up per pull, for
--- mobs whose count is the same everywhere they appear. death_talon_overseer
--- and death_talon_wyrmguard are deliberately absent here - their real
--- count varies by pull group (see the per-occurrence overrides in
--- BWL_TRASH_ORDER above) so a single shared value would be wrong somewhere.
-local BWL_TRASH_COUNTS = {
-    death_talon_seether = 2,
-    death_talon_flamescale = 2,
-    death_talon_wyrmkin = 2,
-    blackwing_warlock = 2,
-    blackwing_technician = 8,
-}
-
 ------------------------------------------------------------
 -- Builders: expand the order lists + registries above into the flat
 -- table shapes the Trash/Bosses views expect (see AGENTS.md "Data
@@ -910,14 +898,14 @@ local function BuildBWLTrash()
         if type(entry) == "table" and entry.separator then
             table.insert(trash, entry)
         else
-            local key, countOverride
+            local key, count
             if type(entry) == "table" then
-                key, countOverride = entry.key, entry.count
+                key, count = entry.key, entry.count
             else
                 key = entry
             end
             local mob = BWL_TRASH_MOBS[key]
-            local pack = { key = key, grouped = true, count = countOverride or BWL_TRASH_COUNTS[key] }
+            local pack = { key = key, grouped = true, count = count }
             for field, value in pairs(mob) do
                 pack[field] = value
             end
