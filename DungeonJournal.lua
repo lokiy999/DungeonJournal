@@ -1532,18 +1532,6 @@ local RAIDS = {{
             lines = {"Casts a bolt of lightning at the target for Nature damage."}
         }}
     }, {
-        key = "death_talon_dragonspawn",
-        name = "Death Talon Dragonspawn",
-        icon = "Interface\\Icons\\Ability_Whirlwind",
-        flags = {"melee"},
-        stats = {armor = 5200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Ring Cleave",
-            icon = "Interface\\Icons\\Ability_Whirlwind",
-            roles = {"tank"},
-            lines = {"Attacks all nearby enemies in a whirlwind, causing weapon damage to each - avoid clumping melee on it."}
-        }}
-    }, {
         key = "death_talon_hatcher",
         name = "Death Talon Hatcher",
         icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
@@ -1699,6 +1687,19 @@ local RAIDS = {{
                 warning = true,
                 roles = {"dispel"},
                 lines = {"Takes control of a humanoid enemy up to level X for X seconds."}
+            }}
+        }, {
+            key = "death_talon_dragonspawn",
+            name = "Death Talon Dragonspawn",
+            icon = "Interface\\Icons\\Ability_Whirlwind",
+            roles = {"tank"},
+            color = "ffcc6600",
+            lines = {"Melee dragonkin add during the Razorgore encounter."},
+            abilities = {{
+                name = "Ring Cleave",
+                icon = "Interface\\Icons\\Ability_Whirlwind",
+                roles = {"tank"},
+                lines = {"Attacks all nearby enemies in a whirlwind, causing weapon damage to each - avoid clumping melee on it."}
             }}
         }}
     }, {
