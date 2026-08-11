@@ -1236,6 +1236,108 @@ local RAIDS = {{
     -- the PR notes.
     trash = {{
         separator = true,
+        name = "After Second Boss",
+        color = "ffffd100",
+    }, {
+        key = "death_talon_captain",
+        name = "Death Talon Captain",
+        icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+        grouped = true,
+        flags = {"melee"},
+        stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "death_talon_seether",
+        name = "Death Talon Seether",
+        icon = "Interface\\Icons\\Spell_Fire_Fire",
+        grouped = true,
+        flags = {"caster"},
+        count = 2,
+        stats = {armor = 4000, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Flame Buffet",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts Fire damage to an enemy and increases the Fire damage it takes - tanks should rotate."}
+        }, {
+            name = "Frenzy",
+            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            warning = true,
+            roles = {"hunter"},
+            lines = {"Enrages, attacking faster - remove with Tranquilizing Shot."}
+        }, {
+            name = "Aura of Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            lines = {"A passive Fire damage aura affecting nearby enemies."}
+        }}
+    }, {
+        key = "death_talon_flamescale",
+        name = "Death Talon Flamescale",
+        icon = "Interface\\Icons\\Ability_Warrior_Charge",
+        grouped = true,
+        flags = {"melee"},
+        count = 2,
+        stats = {armor = 5200, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Flame Shock",
+            icon = "Interface\\Icons\\Spell_Fire_FlameShock",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Instantly sears the target with fire, causing Fire damage plus a burn over time."}
+        }, {
+            name = "Berserker Charge",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Charges at an enemy, knocking it back and inflicting damage."}
+        }, {
+            name = "Aura of Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            lines = {"A passive Fire damage aura affecting nearby enemies."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "death_talon_wyrmkin",
+        name = "Death Talon Wyrmkin",
+        icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+        grouped = true,
+        flags = {"caster"},
+        count = 2,
+        stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Fireball Volley",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            lines = {"Inflicts Fire damage to nearby enemies."}
+        }, {
+            name = "Blast Wave",
+            icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
+            warning = true,
+            lines = {"A wave of flame radiates outward, damaging and dazing nearby enemies."}
+        }, {
+            name = "Aura of Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            lines = {"A passive Fire damage aura affecting nearby enemies."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        separator = true,
         name = "Hatcher Pack",
         color = "ffffd100",
     }, {
@@ -1684,171 +1786,6 @@ local RAIDS = {{
             roles = {"tank"},
             lines = {"A sweeping attack that strikes its target and nearest ally."}
         }}
-    }, {
-        separator = true,
-        name = "After Second Boss",
-        color = "ffffd100",
-    }, {
-        key = "death_talon_captain",
-        name = "Death Talon Captain",
-        icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-        grouped = true,
-        flags = {"melee"},
-        stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Cleave",
-            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-            roles = {"tank"},
-            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
-        }}
-    }, {
-        key = "death_talon_seether",
-        name = "Death Talon Seether",
-        icon = "Interface\\Icons\\Spell_Fire_Fire",
-        grouped = true,
-        flags = {"caster"},
-        count = 2,
-        stats = {armor = 4000, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Flame Buffet",
-            icon = "Interface\\Icons\\Spell_Fire_Fireball",
-            warning = true,
-            roles = {"tank"},
-            lines = {"Inflicts Fire damage to an enemy and increases the Fire damage it takes - tanks should rotate."}
-        }, {
-            name = "Frenzy",
-            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
-            warning = true,
-            roles = {"hunter"},
-            lines = {"Enrages, attacking faster - remove with Tranquilizing Shot."}
-        }, {
-            name = "Aura of Flames",
-            icon = "Interface\\Icons\\Spell_Fire_Fire",
-            lines = {"A passive Fire damage aura affecting nearby enemies."}
-        }}
-    }, {
-        key = "death_talon_flamescale",
-        name = "Death Talon Flamescale",
-        icon = "Interface\\Icons\\Ability_Warrior_Charge",
-        grouped = true,
-        flags = {"melee"},
-        count = 2,
-        stats = {armor = 5200, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Flame Shock",
-            icon = "Interface\\Icons\\Spell_Fire_FlameShock",
-            warning = true,
-            roles = {"tank"},
-            lines = {"Instantly sears the target with fire, causing Fire damage plus a burn over time."}
-        }, {
-            name = "Berserker Charge",
-            icon = "Interface\\Icons\\Ability_Warrior_Charge",
-            warning = true,
-            roles = {"tank"},
-            lines = {"Charges at an enemy, knocking it back and inflicting damage."}
-        }, {
-            name = "Aura of Flames",
-            icon = "Interface\\Icons\\Spell_Fire_Fire",
-            lines = {"A passive Fire damage aura affecting nearby enemies."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
-        }}
-    }, {
-        key = "death_talon_wyrmkin",
-        name = "Death Talon Wyrmkin",
-        icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-        grouped = true,
-        flags = {"caster"},
-        count = 2,
-        stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Fireball Volley",
-            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-            warning = true,
-            lines = {"Inflicts Fire damage to nearby enemies."}
-        }, {
-            name = "Blast Wave",
-            icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
-            warning = true,
-            lines = {"A wave of flame radiates outward, damaging and dazing nearby enemies."}
-        }, {
-            name = "Aura of Flames",
-            icon = "Interface\\Icons\\Spell_Fire_Fire",
-            lines = {"A passive Fire damage aura affecting nearby enemies."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
-        }}
-    }, {
-        key = "blackwing_mage",
-        name = "Blackwing Mage",
-        icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-        flags = {"caster"},
-        stats = {armor = 4000, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Fireball",
-            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-            warning = true,
-            roles = {"kick"},
-            lines = {"Hurls a fiery ball that causes Fire damage plus a burn over time - priority CC or interrupt target."}
-        }, {
-            name = "Arcane Intellect",
-            icon = "Interface\\Icons\\Spell_Holy_MagicalSentry",
-            lines = {"Buffs its own Intellect - kill or CC quickly to limit its casting."}
-        }}
-    }, {
-        key = "chromatic_dragonspawn",
-        name = "Chromatic Dragonspawn",
-        icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-        flags = {"melee"},
-        stats = {armor = 5200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Cleave",
-            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-            roles = {"tank"},
-            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
-        }, {
-            name = "Strike",
-            icon = "Interface\\Icons\\Ability_Rogue_Ambush",
-            roles = {"tank"},
-            lines = {"Strikes at an enemy, inflicting increased melee damage."}
-        }}
-    }, {
-        key = "chromatic_elite_guard",
-        name = "Chromatic Elite Guard",
-        icon = "Interface\\Icons\\Ability_GolemThunderClap",
-        flags = {"melee"},
-        stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Mortal Strike",
-            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
-            warning = true,
-            roles = {"tank", "healer"},
-            lines = {"A vicious strike that wounds the target, reducing the effectiveness of healing on it."}
-        }, {
-            name = "Knockdown",
-            icon = "Interface\\Icons\\Ability_GolemThunderClap",
-            warning = true,
-            roles = {"tank"},
-            lines = {"Knocks an enemy down, stunning it."}
-        }, {
-            name = "Cleave",
-            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-            roles = {"tank"},
-            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
-        }, {
-            name = "Strike",
-            icon = "Interface\\Icons\\Ability_Rogue_Ambush",
-            roles = {"tank"},
-            lines = {"Strikes at an enemy, inflicting increased melee damage."}
-        }}
     }},
     bosses = {{
         key = "razorgore",
@@ -1959,6 +1896,24 @@ local RAIDS = {{
                 icon = "Interface\\Icons\\Ability_Rogue_Ambush",
                 roles = {"tank"},
                 lines = {"Strikes at an enemy, inflicting increased melee damage."}
+            }}
+        }, {
+            key = "blackwing_mage",
+            name = "Blackwing Mage",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            roles = {"kick"},
+            color = "ffcc6600",
+            lines = {"Caster add during the Razorgore encounter - priority CC or interrupt."},
+            abilities = {{
+                name = "Fireball",
+                icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+                warning = true,
+                roles = {"kick"},
+                lines = {"Hurls a fiery ball that causes Fire damage plus a burn over time - priority CC or interrupt target."}
+            }, {
+                name = "Arcane Intellect",
+                icon = "Interface\\Icons\\Spell_Holy_MagicalSentry",
+                lines = {"Buffs its own Intellect - kill or CC quickly to limit its casting."}
             }}
         }}
     }, {
