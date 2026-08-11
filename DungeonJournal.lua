@@ -1337,23 +1337,6 @@ local RAIDS = {{
             lines = {"Buffs nearby allies."}
         }}
     }, {
-        key = "blackwing_legionnaire",
-        name = "Blackwing Legionnaire",
-        icon = "Interface\\Icons\\Ability_Rogue_Ambush",
-        flags = {"melee"},
-        stats = {armor = 5200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Cleave",
-            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-            roles = {"tank"},
-            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
-        }, {
-            name = "Strike",
-            icon = "Interface\\Icons\\Ability_Rogue_Ambush",
-            roles = {"tank"},
-            lines = {"Strikes at an enemy, inflicting increased melee damage."}
-        }}
-    }, {
         key = "blackwing_mage",
         name = "Blackwing Mage",
         icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
@@ -1700,6 +1683,24 @@ local RAIDS = {{
                 icon = "Interface\\Icons\\Ability_Whirlwind",
                 roles = {"tank"},
                 lines = {"Attacks all nearby enemies in a whirlwind, causing weapon damage to each - avoid clumping melee on it."}
+            }}
+        }, {
+            key = "blackwing_legionnaire",
+            name = "Blackwing Legionnaire",
+            icon = "Interface\\Icons\\Ability_Rogue_Ambush",
+            roles = {"tank"},
+            color = "ffcc6600",
+            lines = {"Melee orc add during the Razorgore encounter."},
+            abilities = {{
+                name = "Cleave",
+                icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+                roles = {"tank"},
+                lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+            }, {
+                name = "Strike",
+                icon = "Interface\\Icons\\Ability_Rogue_Ambush",
+                roles = {"tank"},
+                lines = {"Strikes at an enemy, inflicting increased melee damage."}
             }}
         }}
     }, {
