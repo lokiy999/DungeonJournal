@@ -4436,6 +4436,7 @@ local function SelectView(view)
     tabAbilities:Hide()
     tabAdds:Hide()
     RebuildBossFlags(nil)
+    bossStatsLabel:Hide()
 
     trashTreeScrollFrame:Hide()
     trashVSeparator:Hide()
