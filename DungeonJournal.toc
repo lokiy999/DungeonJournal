@@ -3,6 +3,15 @@
 ## Notes: Adventure Guide-style raid/dungeon encounter reference window
 ## Author: Claude
 
+raids\MC.lua
+raids\BWL.lua
+raids\ZG.lua
+raids\SM.lua
+raids\LBRS.lua
+raids\UBRS.lua
+raids\Onyxia.lua
+raids\WorldBosses.lua
+raids\EmeraldDragons.lua
 DungeonJournal.lua
 Icons\Lucifron.blp
 Icons\Magmadar.blp

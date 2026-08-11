@@ -27,7 +27,9 @@ with three views:
 
 ```
 DungeonJournal.toc     Addon manifest: interface version, metadata, file/asset load list
-DungeonJournal.lua     Entire addon (~4.5k lines): config, data, UI, slash command
+DungeonJournal.lua     Config, BOSS_FLAGS, UI, rebuild functions, slash command
+raids/*.lua            One file per raid; each appends its raid table to the
+                        shared DungeonJournal_Raids global (== RAIDS)
 Icons/*.blp            Boss portrait textures actually loaded by the client
 Icons/PNG Files/*.png  Source art (not loaded in-game; keep in sync when adding icons)
 ```
@@ -46,6 +48,10 @@ code in the matching section:
    icon-slot mechanism.
 3. **`ICON_ExplainationS`** — icon legend rows for the Explaination view.
 4. **`RAIDS`** — the content database: `raids -> { bosses, trash } -> abilities / adds -> abilities`.
+   Lives in `raids/*.lua`, one file per raid (loaded via the `.toc` before
+   `DungeonJournal.lua`, each `table.insert`-ing into the shared
+   `DungeonJournal_Raids` global); `DungeonJournal.lua` just does
+   `local RAIDS = DungeonJournal_Raids`.
 5. **UI construction** — main frame, boss tree/panel, trash tree/panel (own scroll
    frames, own row/separator/flag-slot pools, but reuses `CreateAbilityRow` /
    `ConfigureAbilityRow` / `CreateSeparatorRow` / `ConfigureSeparatorRow` /
@@ -58,7 +64,9 @@ code in the matching section:
 
 ### Data model
 
-Add content by editing the `RAIDS` table only; the UI is fully data-driven.
+Add content by editing the relevant raid's file under `raids/` only; the UI is
+fully data-driven. Each file is a `table.insert(DungeonJournal_Raids, { ... })`
+call — edit the `{ ... }` raid table, same shape as before the split:
 
 ```lua
 { key = "MC", name = "Molten Core", expanded = false, bosses = {{
