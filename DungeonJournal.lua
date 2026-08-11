@@ -381,6 +381,24 @@ for _, raid in ipairs(RAIDS) do
             end
         end
     end
+    if raid.trash then
+        -- CHANGED: trash packs use the same ability-list separator
+        -- convention as bosses (see AGENTS.md "Phase separators"), so they
+        -- need the same accordion init - otherwise a trash pack's
+        -- separator (e.g. Ancient Core Hound's "One of Five") never gets
+        -- expanded = true and starts collapsed instead of open.
+        for _, pack in ipairs(raid.trash) do
+            if pack.abilities then
+                for _, ability in ipairs(pack.abilities) do
+                    if ability.separator then
+                        ability.expanded = true
+                    else
+                        ability.expanded = false
+                    end
+                end
+            end
+        end
+    end
 end
 
 ------------------------------------------------------------

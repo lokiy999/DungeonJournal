@@ -91,8 +91,7 @@ local MC_BOSSES = {
             icon = "Interface\\Icons\\Spell_Shadow_SummonFelguard",
             roles = {},
             color = "ffcc0000",
-            lines = {"Two of these accompany Lucifron into battle.",
-                     "They mind control random raid members and must be kept tanked away from Lucifron."},
+            lines = {"Two of these accompany Lucifron into battle."},
             abilities = {{
                 name = "Mind Control",
                 icon = "Interface\\Icons\\Spell_Shadow_ShadowWordDominate",
@@ -175,8 +174,7 @@ local MC_BOSSES = {
             icon = "Interface\\Icons\\temp",
             roles = {},
             color = "ffcc0000",
-            lines = {"Two of these accompany Gehennas into battle.",
-                     "They stun random raid members and must be kept tanked away from Gehennas."},
+            lines = {"Two of these accompany Gehennas into battle."},
             abilities = {{
                 name = "Strike",
                 icon = "Interface\\Icons\\ability_rogue_ambush",
@@ -457,7 +455,7 @@ local MC_BOSSES = {
             icon = "Interface\\Icons\\Ability_Warrior_Challange",
             warning = true,
             roles = {"melee"},
-            lines = {"Instantly counterattacks any enemy that strikes him in melee for 15 seconds. Melee must stop attacking while this is active."}
+            lines = {"Instantly counterattacks any enemy that strikes him in melee for 15 seconds."}
         }, {
             name = "Unbalancing Strike",
             icon = "Interface\\Icons\\Ability_Warrior_DecisiveStrike",
@@ -477,7 +475,7 @@ local MC_BOSSES = {
             name = "Shield Wall",
             icon = "Interface\\Icons\\Ability_Warrior_ShieldWall",
             warning = true,
-            lines = {"Reduces Physical and magical damage taken by 75% for 20 seconds. DPS should switch targets or wait this out."}
+            lines = {"Reduces Physical and magical damage taken by 75% for 20 seconds."}
         }, {
             name = "Sunder Armor",
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
@@ -503,12 +501,13 @@ local MC_BOSSES = {
             abilities = {{
                 name = "Power Word: Shield",
                 icon = "Interface\\Icons\\Spell_Holy_PowerWordShield",
-                warning = true,
-                lines = {"Shields Sulfuron, absorbing a large amount of damage. Interrupt or kill the priests quickly."}
+                lines = {"Shields an ally, absorbing X damage."}
             }, {
                 name = "Greater Heal",
                 icon = "Interface\\Icons\\Spell_Holy_GreaterHeal",
-                lines = {"Heals Sulfuron for a significant amount; interrupt this cast when possible."}
+                warning = true,
+                roles = {"kick"},
+                lines = {"Heals an ally for X."}
             }}
         }}
     },
@@ -555,8 +554,7 @@ local MC_BOSSES = {
             icon = "Interface\\Icons\\temp",
             roles = {"tank", "dps"},
             color = "ffcc0000",
-            lines = {"Waves of Flamewaker Elites spawn and must be tanked and killed before Majordomo can be damaged.",
-                     "Focus these down as a priority - Majordomo cannot be hurt while any remain."},
+            lines = {"Four of these accompany Gehennas into battle."},
             abilities = {{
                 name = "Silence",
                 icon = "Interface\\Icons\\spell_holy_silence",
@@ -567,6 +565,7 @@ local MC_BOSSES = {
                 lines = {"Hurls a bolt of dark magic at an enemy, inflicting 2000 to 2450 Shadow damage."}
             }, {
                 name = "Dark Mending",
+                roles = {"kick"},
                 icon = "Interface\\Icons\\spell_shadow_chilltouch",
                 lines = {"Uses dark magic to heal an ally for 127750 to 142250 damage."}
             }}
@@ -575,8 +574,7 @@ local MC_BOSSES = {
             icon = "Interface\\Icons\\temp",
             roles = {"dps", "dispel"},
             color = "ffffaa00",
-            lines = {"Accompanies the Flamewaker Elites and heals them.",
-                     "Kill or interrupt these first so the Elites go down faster."},
+            lines = {"Four of these accompany Gehennas into battle."},
             abilities = {{
                 name = "Fireball",
                 icon = "Interface\\Icons\\spell_fire_flamebolt",
@@ -637,23 +635,23 @@ local MC_BOSSES = {
             lines = {"Every 3 minutes Ragnaros submerges into the lava, becoming untargetable and summoning 8 Sons of Flame to attack the raid.",
                      "Ragnaros will resurface after 90 seconds or until all Sons of Flame are dead, whichever comes first.",
                      "Ragnaros heals 1% of his maximum health every 2 seconds while submerged."}
+        }, {
+            name = "Intense Heat",
+            icon = "Interface\\Icons\\spell_fire_fire",
+            warning = true,
+            lines = {"Deals 1500-2000 damage to enemies? unknown when"}
         }},
         adds = {{
-            name = "Sons of Flame",
+            name = "Son of Flame",
             icon = "Interface\\Icons\\Spell_Fire_Elemental_Totem",
             roles = {"tank", "dps"},
             color = "ffff4500",
-            lines = {"Eight Sons of Flame emerge while Ragnaros is submerged and swarm the raid.",
-                     "Tanks should pick these up quickly while the raid focuses them down before Ragnaros resurfaces."},
+            lines = {"Eight Sons of Flame emerge while Ragnaros is submerged and swarm the raid."},
             abilities = {{
-                name = "Melee Swing",
-                icon = "Interface\\Icons\\Ability_MeleeDamage",
-                roles = {"tank"},
-                lines = {"Deals moderate melee damage; keep them controlled and away from squishy players."}
-            }, {
-                name = "Intense Heat",
-                icon = "Interface\\Icons\\spell_fire_selfdestruct",
-                lines = {"Mana burn nearby enemies? 2000 damage? (not confirmed)"}
+                name = "Lava Shield",
+                icon = "Interface\\Icons\\spell_fire_immolation",
+                warning = true,
+                lines = {"Burns 250 to 350 mana of nearby enemies, and half of the mana burned is dealt as fire damage."}
             }}
         }}
     },
@@ -772,17 +770,15 @@ local MC_TRASH_MOBS = {
             name = "Lava Breath",
             icon = "Interface\\Icons\\Spell_Fire_WindsofWoe",
             warning = true,
-            lines = {"Inflicts X Fire damage to enemies in front of the caster - do not stand in front unless tanking."}
+            lines = {"Inflicts 1557 to 2043 Fire damage to enemies in front of the caster."}
         }, {
             name = "Serrated Bite",
             icon = "Interface\\Icons\\Ability_Gouge",
-            roles = {"tank"},
-            lines = {"Inflicts X Physical damage to an enemy over X seconds."}
+            lines = {"Inflicts 1500 Physical damage to an enemy over 30 seconds. Stacks to 50."}
         }, {
             name = "Piercing Howl",
             icon = "Interface\\Icons\\Ability_Druid_ChallangingRoar",
-            warning = true,
-            lines = {"Causes all enemies near the hound to be dazed for X seconds."}
+            lines = {"Causes all enemies near the hound to be dazed for 20 seconds."}
         }}
     },
 
@@ -794,27 +790,44 @@ local MC_TRASH_MOBS = {
         abilities = {{
             name = "Vicious Bite",
             icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
-            warning = true,
-            roles = {"tank", "healer"},
-            lines = {"Bites an enemy, inflicting Physical damage - a hateful-strike-style hit that cannot be avoided or dodged; heavy armor/stamina needed on offtanks."}
+            lines = {"Bites an enemy, inflicting (weapon damage) Physical damage."}
         }, {
             name = "Cone of Fire",
             icon = "Interface\\Icons\\Spell_Fire_WindsofWoe",
             warning = true,
-            lines = {"Inflicts X Fire damage to enemies in a cone in front of the caster - only the tank should be in front."}
-        }, {
-            name = "Withering Heat",
-            icon = "Interface\\Icons\\Spell_Fire_Fire",
-            lines = {"Maximum health reduced by X%. Takes X% health damage every X sec. Stuns and deals heavy damage over X seconds on dispel."}
-        }, {
-            name = "Cauterizing Flames",
-            icon = "Interface\\Icons\\Spell_Fire_Volcano",
-            lines = {"Increases Fire damage taken by nearby enemies by X for X seconds."}
+            lines = {"Inflicts 2388 to 3812 Fire damage to enemies in a cone in front of the caster."}
         }, {
             name = "Serrated Bite",
             icon = "Interface\\Icons\\Ability_Gouge",
             roles = {"tank"},
-            lines = {"Inflicts X Physical damage to an enemy over X seconds."}
+            lines = {"Inflicts 1500 Physical damage to an enemy over 30 seconds. Stacks to 50."}
+        }, {
+            separator = true,
+            name = "One of Five (fixed per hound)",
+        }, {
+            name = "Withering Heat",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            roles = {"dispel"},
+            lines = {"Maximum health reduced by 40%. Taking 1% health damage every 1 sec. Stuns and deals heavy damage over 5 seconds on dispel. Each hound only ever casts one of these five abilities, recasting it if not killed in time."}
+        }, {
+            name = "Ground Stomp",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Stomps the ground, stunning enemies within 30 yards for 8 seconds. Each hound only ever casts one of these five abilities, recasting it if not killed in time."}
+        }, {
+            name = "Ancient Dread",
+            icon = "Interface\\Icons\\temp",
+            roles = {"decurse"},
+            lines = {"Attack and casting speed reduced by 100%. Fears on dispel. Each hound only ever casts one of these five abilities, recasting it if not killed in time."}
+        }, {
+            name = "Cauterizing Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Volcano",
+            roles = {"dispel"},
+            lines = {"Increases Fire damage taken by 50%. Deals 350 to 2075 damage to nearby allies on dispel. Each hound only ever casts one of these five abilities, recasting it if not killed in time."}
+        }, {
+            name = "Ancient Dispair",
+            icon = "Interface\\Icons\\Spell_Fire_Volcano",
+            roles = {"dispel"},
+            lines = {"Disorients enemies within 45 yards, causing them to stop attacking their targets and wander around for 15 seconds. Each hound only ever casts one of these five abilities, recasting it if not killed in time."}
         }}
     },
 

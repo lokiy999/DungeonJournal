@@ -4,6 +4,17 @@ WoW 1.12.1 (Vanilla) addon, plain Lua 5.0 + Blizzard FrameXML, no build step.
 See [AGENTS.md](AGENTS.md) for the full architecture reference (data model,
 patterns, known issues) — this file is just quick orientation.
 
+## Scope
+
+Content is purely mechanics: what a boss/mob does (abilities, damage
+school, resistances/stats, tauntability, timers) — not strategy, lore, or
+raid-lead commentary. `lines` describe what an ability does, not how to
+play around it beyond a short factual note (e.g. "move out of it" on a
+ground-effect ability is mechanical; "assign your best healer to Blue"
+is strategy and doesn't belong). Trash separators exist to group packs
+that mechanically pull together, not to carry pull-order/CC-assignment
+advice.
+
 ## Key files
 
 - `DungeonJournal.lua` — config, `BOSS_FLAGS`, UI construction, rebuild functions.
