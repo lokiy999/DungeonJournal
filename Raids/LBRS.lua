@@ -4,14 +4,35 @@
 
 DungeonJournal_Raids = DungeonJournal_Raids or {}
 
-table.insert(DungeonJournal_Raids, {
-    -- CHANGED: LBRS and UBRS bosses are listed for navigation only - their
-    -- abilities still need documenting. Boss list confirmed against combat logs.
-    key = "LBRS",
-    name = "Lower Blackrock Spire",
-    expanded = false,
-    bosses = {{
-        key = "omokk",
+------------------------------------------------------------
+-- LBRS order list - START HERE to reorder bosses.
+--
+-- LBRS_BOSS_ORDER is the only thing you should need to touch to change
+-- what order bosses appear in the Bosses tab. Just a flat list of keys -
+-- actual boss data (icon/flags/stats/abilities) lives further down in
+-- LBRS_BOSSES, defined once per key and looked up from here.
+------------------------------------------------------------
+
+-- Boss encounter order (Bosses tab tree, top to bottom).
+local LBRS_BOSS_ORDER = {
+    "omokk",
+    "voshgajin",
+    "voone",
+    "smolderweb",
+    "urok",
+    "zigris",
+    "halycon",
+    "gizrul",
+    "wyrmthalak",
+}
+
+------------------------------------------------------------
+-- Boss registry - one entry per boss (icon/flags/stats/abilities/adds),
+-- referenced by key from LBRS_BOSS_ORDER above. Defined once each; add a
+-- new boss here and add its key to LBRS_BOSS_ORDER to place it.
+------------------------------------------------------------
+local LBRS_BOSSES = {
+    omokk = {
         name = "Highlord Omokk",
         icon = "Interface\\Icons\\temp",
         abilities = {{
@@ -19,8 +40,9 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Abilities not yet documented."}
         }}
-    }, {
-        key = "voshgajin",
+    },
+
+    voshgajin = {
         name = "Shadow Hunter Vosh'gajin",
         icon = "Interface\\Icons\\temp",
         abilities = {{
@@ -28,8 +50,9 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Abilities not yet documented."}
         }}
-    }, {
-        key = "voone",
+    },
+
+    voone = {
         name = "War Master Voone",
         icon = "Interface\\Icons\\temp",
         abilities = {{
@@ -37,8 +60,9 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Abilities not yet documented."}
         }}
-    }, {
-        key = "smolderweb",
+    },
+
+    smolderweb = {
         name = "Mother Smolderweb",
         icon = "Interface\\Icons\\temp",
         abilities = {{
@@ -46,8 +70,9 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Abilities not yet documented."}
         }}
-    }, {
-        key = "urok",
+    },
+
+    urok = {
         name = "Urok Doomhowl",
         icon = "Interface\\Icons\\temp",
         abilities = {{
@@ -55,8 +80,9 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Abilities not yet documented."}
         }}
-    }, {
-        key = "zigris",
+    },
+
+    zigris = {
         name = "Quartermaster Zigris",
         icon = "Interface\\Icons\\temp",
         abilities = {{
@@ -64,8 +90,9 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Abilities not yet documented."}
         }}
-    }, {
-        key = "halycon",
+    },
+
+    halycon = {
         name = "Halycon",
         icon = "Interface\\Icons\\temp",
         abilities = {{
@@ -73,8 +100,9 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Abilities not yet documented."}
         }}
-    }, {
-        key = "gizrul",
+    },
+
+    gizrul = {
         name = "Gizrul the Slavener",
         icon = "Interface\\Icons\\temp",
         abilities = {{
@@ -82,8 +110,9 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Abilities not yet documented."}
         }}
-    }, {
-        key = "wyrmthalak",
+    },
+
+    wyrmthalak = {
         name = "Overlord Wyrmthalak",
         icon = "Interface\\Icons\\temp",
         abilities = {{
@@ -91,6 +120,33 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Abilities not yet documented."}
         }}
-    }}
+    },
+}
 
+------------------------------------------------------------
+-- Builder: expands the order list + registry above into the flat table
+-- shape the Bosses view expects (see AGENTS.md "Data model"). Nothing
+-- below this point encodes raid content - only edit it if the addon's
+-- expected data shape changes.
+------------------------------------------------------------
+
+local function BuildLBRSBosses()
+    local bosses = {}
+    for _, key in ipairs(LBRS_BOSS_ORDER) do
+        local boss = { key = key }
+        for field, value in pairs(LBRS_BOSSES[key]) do
+            boss[field] = value
+        end
+        table.insert(bosses, boss)
+    end
+    return bosses
+end
+
+table.insert(DungeonJournal_Raids, {
+    -- CHANGED: LBRS and UBRS bosses are listed for navigation only - their
+    -- abilities still need documenting. Boss list confirmed against combat logs.
+    key = "LBRS",
+    name = "Lower Blackrock Spire",
+    expanded = false,
+    bosses = BuildLBRSBosses(),
 })

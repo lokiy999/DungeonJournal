@@ -4,14 +4,32 @@
 
 DungeonJournal_Raids = DungeonJournal_Raids or {}
 
-table.insert(DungeonJournal_Raids, {
-    -- CHANGED: World bosses. Mechanics come from Spell.dbc plus the raid-lead
-    -- tips document, with cast frequencies observed in combat logs.
-    key = "WORLD",
-    name = "World Bosses",
-    expanded = false,
-    bosses = {{
-        key = "azuregos",
+------------------------------------------------------------
+-- WORLD order list - START HERE to reorder bosses.
+--
+-- WORLD_BOSS_ORDER is the only thing you should need to touch to change
+-- what order bosses appear in the Bosses tab. Just a flat list of keys -
+-- actual boss data (icon/flags/stats/abilities) lives further down in
+-- WORLD_BOSSES, defined once per key and looked up from here.
+------------------------------------------------------------
+
+-- Boss encounter order (Bosses tab tree, top to bottom).
+local WORLD_BOSS_ORDER = {
+    "azuregos",
+    "hederine",
+    "kazzak",
+    "kurinnaxx",
+    "teremus",
+    "king_mosh",
+}
+
+------------------------------------------------------------
+-- Boss registry - one entry per boss (icon/flags/stats/abilities/adds),
+-- referenced by key from WORLD_BOSS_ORDER above. Defined once each; add a
+-- new boss here and add its key to WORLD_BOSS_ORDER to place it.
+------------------------------------------------------------
+local WORLD_BOSSES = {
+    azuregos = {
         name = "Azuregos",
         icon = "Interface\\Icons\\temp",
         flags = {"damage_frost"},
@@ -59,8 +77,9 @@ table.insert(DungeonJournal_Raids, {
             lines = {"A 15 minute undispellable debuff applied on death - it freezes you in place if you release while Azuregos is nearby.",
                      "He is immune to Arcane and has very high Frost resistance."}
         }}
-    }, {
-        key = "hederine",
+    },
+
+    hederine = {
         name = "Lady Hederine",
         icon = "Interface\\Icons\\temp",
         flags = {"damage_nature"},
@@ -119,8 +138,9 @@ table.insert(DungeonJournal_Raids, {
             lines = {"Requires 5 tanks total: a main tank plus 2 tanks for each add. Off tanks must pull.",
                      "Tanks taunt off each other at 3 stacks of Sunder Armor, and must taunt immediately when adds charge the main tank."}
         }}
-    }, {
-        key = "kazzak",
+    },
+
+    kazzak = {
         name = "Lord Kazzak",
         icon = "Interface\\Icons\\temp",
         flags = {"damage_shadow"},
@@ -166,8 +186,9 @@ table.insert(DungeonJournal_Raids, {
             lines = {"Every player OR pet that dies heals Kazzak for 70000+ health - including hunter pets and Eskhandar.",
                      "Any player or pet outside the raid also heals him if they are near or in combat with him. Do not die."}
         }}
-    }, {
-        key = "kurinnaxx",
+    },
+
+    kurinnaxx = {
         name = "Kurinnaxx",
         icon = "Interface\\Icons\\temp",
         flags = {"damage_nature"},
@@ -214,8 +235,9 @@ table.insert(DungeonJournal_Raids, {
             lines = {"Enrages at 30% health. Save damage cooldowns for this phase.",
                      "He should be disarmed as much as possible while enraged."}
         }}
-    }, {
-        key = "teremus",
+    },
+
+    teremus = {
         name = "Teremus the Devourer",
         icon = "Interface\\Icons\\temp",
         color = "ffffd100",
@@ -257,8 +279,9 @@ table.insert(DungeonJournal_Raids, {
             roles = {"tank", "melee"},
             lines = {"Strikes his target and its nearest allies, knocking them back."}
         }}
-    }, {
-        key = "king_mosh",
+    },
+
+    king_mosh = {
         name = "King Mosh",
         icon = "Interface\\Icons\\temp",
         color = "ffffd100",
@@ -287,6 +310,33 @@ table.insert(DungeonJournal_Raids, {
             warning = true,
             lines = {"Regenerates a percentage of his total health every 3 seconds - the raid must out-damage the regeneration."}
         }}
-    }}
+    },
+}
 
+------------------------------------------------------------
+-- Builder: expands the order list + registry above into the flat table
+-- shape the Bosses view expects (see AGENTS.md "Data model"). Nothing
+-- below this point encodes raid content - only edit it if the addon's
+-- expected data shape changes.
+------------------------------------------------------------
+
+local function BuildWORLDBosses()
+    local bosses = {}
+    for _, key in ipairs(WORLD_BOSS_ORDER) do
+        local boss = { key = key }
+        for field, value in pairs(WORLD_BOSSES[key]) do
+            boss[field] = value
+        end
+        table.insert(bosses, boss)
+    end
+    return bosses
+end
+
+table.insert(DungeonJournal_Raids, {
+    -- CHANGED: World bosses. Mechanics come from Spell.dbc plus the raid-lead
+    -- tips document, with cast frequencies observed in combat logs.
+    key = "WORLD",
+    name = "World Bosses",
+    expanded = false,
+    bosses = BuildWORLDBosses(),
 })

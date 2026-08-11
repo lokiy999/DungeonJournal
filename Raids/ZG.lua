@@ -4,13 +4,39 @@
 
 DungeonJournal_Raids = DungeonJournal_Raids or {}
 
-table.insert(DungeonJournal_Raids, {
-    -- CHANGED: Zul'Gurub 20-man raid. Mechanics from Spell.dbc and combat logs.
-    key = "ZG",
-    name = "Zul'Gurub",
-    expanded = false,
-    bosses = {{
-        key = "jeklik",
+------------------------------------------------------------
+-- ZG order list - START HERE to reorder bosses.
+--
+-- ZG_BOSS_ORDER is the only thing you should need to touch to change
+-- what order bosses appear in the Bosses tab. It is just a flat list of
+-- keys - actual boss data (icon/flags/stats/abilities/adds) lives
+-- further down in ZG_BOSSES, defined once per key and looked up from
+-- here.
+------------------------------------------------------------
+
+-- Boss encounter order (Bosses tab tree, top to bottom).
+local ZG_BOSS_ORDER = {
+    "jeklik",
+    "venoxis",
+    "marli",
+    "mandokir",
+    "edge_of_madness",
+    "gahzranka",
+    "thekal",
+    "arlokk",
+    "jindo",
+    "hakkar",
+    "azus",
+    "nameless_hermit",
+}
+
+------------------------------------------------------------
+-- Boss registry - one entry per boss (icon/flags/stats/abilities/adds),
+-- referenced by key from ZG_BOSS_ORDER above. Defined once each; add a
+-- new boss here and add its key to ZG_BOSS_ORDER to place it.
+------------------------------------------------------------
+local ZG_BOSSES = {
+    jeklik = {
         name = "High Priestess Jeklik",
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4222, fire = 92, nature = 92, frost = 27, shadow = 92, arcane = 27},
@@ -43,8 +69,9 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             lines = {"Charges a distant target."}
         }}
-    }, {
-        key = "venoxis",
+    },
+
+    venoxis = {
         name = "High Priest Venoxis",
         icon = "Interface\\Icons\\temp",
         flags = {"damage_nature"},
@@ -80,8 +107,9 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
             lines = {"Venoxis dispels magic from himself, removing your debuffs."}
         }}
-    }, {
-        key = "marli",
+    },
+
+    marli = {
         name = "High Priestess Mar'li",
         icon = "Interface\\Icons\\temp",
         flags = {"damage_nature"},
@@ -112,8 +140,9 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             lines = {"Charges a distant target."}
         }}
-    }, {
-        key = "mandokir",
+    },
+
+    mandokir = {
         name = "Bloodlord Mandokir",
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4950, fire = 44, nature = 75, frost = 12, shadow = 44, arcane = 44},
@@ -144,8 +173,9 @@ table.insert(DungeonJournal_Raids, {
             warning = true,
             lines = {"Fears enemies near the target."}
         }}
-    }, {
-        key = "edge_of_madness",
+    },
+
+    edge_of_madness = {
         name = "Edge of Madness",
         icon = "Interface\\Icons\\temp",
         abilities = {{
@@ -231,8 +261,9 @@ table.insert(DungeonJournal_Raids, {
                 lines = {"Lightning that chains to nearby targets - spread out."}
             }}
         }}
-    }, {
-        key = "gahzranka",
+    },
+
+    gahzranka = {
         name = "Gahz'ranka",
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4400, fire = 15, nature = 15, frost = 15, shadow = 15, arcane = 15},
@@ -263,8 +294,9 @@ table.insert(DungeonJournal_Raids, {
             warning = true,
             lines = {"Damages and knocks back enemies behind him. Do not stand behind."}
         }}
-    }, {
-        key = "thekal",
+    },
+
+    thekal = {
         name = "High Priest Thekal",
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4620, fire = 45, nature = 58, frost = 35, shadow = 35, arcane = 35},
@@ -296,8 +328,9 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             lines = {"Charges a distant target."}
         }}
-    }, {
-        key = "arlokk",
+    },
+
+    arlokk = {
         name = "High Priestess Arlokk",
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4700, fire = 38, nature = 84, frost = 38, shadow = 84, arcane = 38},
@@ -324,8 +357,9 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\Ability_BackStab",
             lines = {"Backstabs a target for heavy damage. Keep her faced away from the raid."}
         }}
-    }, {
-        key = "jindo",
+    },
+
+    jindo = {
         name = "Jin'do the Hexxer",
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4950, fire = 44, nature = 168, frost = 30, shadow = 168, arcane = 168},
@@ -357,8 +391,9 @@ table.insert(DungeonJournal_Raids, {
             warning = true,
             lines = {"Charms a player - damage increased by 300%, spells cast instantly, and resistances boosted. They must be crowd-controlled, not killed."}
         }}
-    }, {
-        key = "hakkar",
+    },
+
+    hakkar = {
         name = "Hakkar",
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4880, fire = 51, nature = 51, frost = 14, shadow = 141, arcane = 51},
@@ -386,8 +421,9 @@ table.insert(DungeonJournal_Raids, {
             warning = true,
             lines = {"Increases the cost of spells and abilities. If you fail to cast three spells or abilities you become insane."}
         }}
-    }, {
-        key = "azus",
+    },
+
+    azus = {
         name = "Azus the Bloodseeker",
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4950, fire = 44, nature = 75, frost = 12, shadow = 44, arcane = 44},
@@ -417,8 +453,9 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             lines = {"Charges a distant target."}
         }}
-    }, {
-        key = "nameless_hermit",
+    },
+
+    nameless_hermit = {
         name = "Nameless Hermit",
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4950, fire = 44, nature = 75, frost = 12, shadow = 44, arcane = 44},
@@ -427,6 +464,32 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\temp",
             lines = {"Placeholder. Abilities not yet documented - the Hermit has a Transform mechanic but no offensive abilities appeared in the combat log."}
         }}
-    }}
+    },
+}
 
+------------------------------------------------------------
+-- Builder: expand the order list + registry above into the flat table
+-- shape the Bosses view expects (see AGENTS.md "Data model"). Nothing
+-- below this point encodes raid content - only edit it if the addon's
+-- expected data shape changes.
+------------------------------------------------------------
+
+local function BuildZGBosses()
+    local bosses = {}
+    for _, key in ipairs(ZG_BOSS_ORDER) do
+        local boss = { key = key }
+        for field, value in pairs(ZG_BOSSES[key]) do
+            boss[field] = value
+        end
+        table.insert(bosses, boss)
+    end
+    return bosses
+end
+
+table.insert(DungeonJournal_Raids, {
+    -- CHANGED: Zul'Gurub 20-man raid. Mechanics from Spell.dbc and combat logs.
+    key = "ZG",
+    name = "Zul'Gurub",
+    expanded = false,
+    bosses = BuildZGBosses(),
 })

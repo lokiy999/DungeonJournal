@@ -4,14 +4,30 @@
 
 DungeonJournal_Raids = DungeonJournal_Raids or {}
 
-table.insert(DungeonJournal_Raids, {
-    -- CHANGED: the four Dragons of Nightmare. They share a common ability set
-    -- (Noxious Breath, Tail Sweep) plus one signature mechanic each.
-    key = "GREEN",
-    name = "Green Dragons",
-    expanded = false,
-    bosses = {{
-        key = "emeriss",
+------------------------------------------------------------
+-- GREEN order list - START HERE to reorder bosses.
+--
+-- GREEN_BOSS_ORDER is the only thing you should need to touch to change
+-- what order bosses appear in the Bosses tab. Just a flat list of keys -
+-- actual boss data (icon/flags/stats/abilities) lives further down in
+-- GREEN_BOSSES, defined once per key and looked up from here.
+------------------------------------------------------------
+
+-- Boss encounter order (Bosses tab tree, top to bottom).
+local GREEN_BOSS_ORDER = {
+    "emeriss",
+    "lethon",
+    "taerar",
+    "ysondre",
+}
+
+------------------------------------------------------------
+-- Boss registry - one entry per boss (icon/flags/stats/abilities/adds),
+-- referenced by key from GREEN_BOSS_ORDER above. Defined once each; add a
+-- new boss here and add its key to GREEN_BOSS_ORDER to place it.
+------------------------------------------------------------
+local GREEN_BOSSES = {
+    emeriss = {
         name = "Emeriss",
         icon = "Interface\\Icons\\temp",
         flags = {"damage_nature"},
@@ -45,8 +61,9 @@ table.insert(DungeonJournal_Raids, {
             warning = true,
             lines = {"Applied on death - you are weakened and susceptible to her Aura of Nature if you release nearby."}
         }}
-    }, {
-        key = "lethon",
+    },
+
+    lethon = {
         name = "Lethon",
         icon = "Interface\\Icons\\temp",
         flags = {"damage_shadow"},
@@ -78,8 +95,9 @@ table.insert(DungeonJournal_Raids, {
             warning = true,
             lines = {"Applied on death - you are weakened and susceptible to his aura if you release nearby."}
         }}
-    }, {
-        key = "taerar",
+    },
+
+    taerar = {
         name = "Taerar",
         icon = "Interface\\Icons\\temp",
         flags = {"damage_arcane"},
@@ -117,8 +135,9 @@ table.insert(DungeonJournal_Raids, {
             warning = true,
             lines = {"Applied on death - you are weakened and susceptible to his aura if you release nearby."}
         }}
-    }, {
-        key = "ysondre",
+    },
+
+    ysondre = {
         name = "Ysondre",
         icon = "Interface\\Icons\\temp",
         flags = {"damage_nature"},
@@ -151,6 +170,33 @@ table.insert(DungeonJournal_Raids, {
             warning = true,
             lines = {"Applied on death - you are weakened and susceptible to her aura if you release nearby."}
         }}
-    }}
+    },
+}
 
+------------------------------------------------------------
+-- Builder: expands the order list + registry above into the flat table
+-- shape the Bosses view expects (see AGENTS.md "Data model"). Nothing
+-- below this point encodes raid content - only edit it if the addon's
+-- expected data shape changes.
+------------------------------------------------------------
+
+local function BuildGREENBosses()
+    local bosses = {}
+    for _, key in ipairs(GREEN_BOSS_ORDER) do
+        local boss = { key = key }
+        for field, value in pairs(GREEN_BOSSES[key]) do
+            boss[field] = value
+        end
+        table.insert(bosses, boss)
+    end
+    return bosses
+end
+
+table.insert(DungeonJournal_Raids, {
+    -- CHANGED: the four Dragons of Nightmare. They share a common ability set
+    -- (Noxious Breath, Tail Sweep) plus one signature mechanic each.
+    key = "GREEN",
+    name = "Green Dragons",
+    expanded = false,
+    bosses = BuildGREENBosses(),
 })

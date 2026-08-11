@@ -4,15 +4,27 @@
 
 DungeonJournal_Raids = DungeonJournal_Raids or {}
 
-table.insert(DungeonJournal_Raids, {
-    -- CHANGED: Onyxia. Phases are driven by separators; mechanics come from
-    -- Spell.dbc plus the raid-lead tips document, with cast frequencies from
-    -- combat logs. Trash is deliberately not documented yet.
-    key = "ONY",
-    name = "Onyxia's Lair",
-    expanded = false,
-    bosses = {{
-        key = "onyxia",
+------------------------------------------------------------
+-- ONY order list - START HERE to reorder bosses.
+--
+-- ONY_BOSS_ORDER is the only thing you should need to touch to change
+-- what order bosses appear in the Bosses tab. Just a flat list of keys -
+-- actual boss data (icon/flags/stats/abilities) lives further down in
+-- ONY_BOSSES, defined once per key and looked up from here.
+------------------------------------------------------------
+
+-- Boss encounter order (Bosses tab tree, top to bottom).
+local ONY_BOSS_ORDER = {
+    "onyxia",
+}
+
+------------------------------------------------------------
+-- Boss registry - one entry per boss (icon/flags/stats/abilities/adds),
+-- referenced by key from ONY_BOSS_ORDER above. Defined once each; add a
+-- new boss here and add its key to ONY_BOSS_ORDER to place it.
+------------------------------------------------------------
+local ONY_BOSSES = {
+    onyxia = {
         name = "Onyxia",
         icon = "Interface\\Icons\\temp",
         flags = {"damage_fire"},
@@ -119,6 +131,34 @@ table.insert(DungeonJournal_Raids, {
             lines = {"Slow DPS as she lands and let the main tank reposition to the phase 1 tanking spot.",
                      "Be careful with damage-over-time aggro during the phase change."}
         }}
-    }}
+    },
+}
 
+------------------------------------------------------------
+-- Builder: expands the order list + registry above into the flat table
+-- shape the Bosses view expects (see AGENTS.md "Data model"). Nothing
+-- below this point encodes raid content - only edit it if the addon's
+-- expected data shape changes.
+------------------------------------------------------------
+
+local function BuildONYBosses()
+    local bosses = {}
+    for _, key in ipairs(ONY_BOSS_ORDER) do
+        local boss = { key = key }
+        for field, value in pairs(ONY_BOSSES[key]) do
+            boss[field] = value
+        end
+        table.insert(bosses, boss)
+    end
+    return bosses
+end
+
+table.insert(DungeonJournal_Raids, {
+    -- CHANGED: Onyxia. Phases are driven by separators; mechanics come from
+    -- Spell.dbc plus the raid-lead tips document, with cast frequencies from
+    -- combat logs. Trash is deliberately not documented yet.
+    key = "ONY",
+    name = "Onyxia's Lair",
+    expanded = false,
+    bosses = BuildONYBosses(),
 })

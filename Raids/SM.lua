@@ -4,12 +4,34 @@
 
 DungeonJournal_Raids = DungeonJournal_Raids or {}
 
-table.insert(DungeonJournal_Raids, {
-    key = "SM",
-    name = "Scarlet Monastery",
-    expanded = false,
-    bosses = {{
-        key = "loksey",
+------------------------------------------------------------
+-- SM order list - START HERE to reorder bosses.
+--
+-- SM_BOSS_ORDER is the only thing you should need to touch to change
+-- what order bosses appear in the Bosses tab. It's just a flat list of
+-- keys - actual boss data (icon/flags/stats/abilities) lives further
+-- down in SM_BOSSES, defined once per key and looked up from here.
+------------------------------------------------------------
+
+-- Boss encounter order (Bosses tab tree, top to bottom).
+local SM_BOSS_ORDER = {
+    "loksey",
+    "brigitte",
+    "vishas",
+    "herod",
+    "brother_michael",
+    "doan",
+    "renault_mograine",
+    "fairbanks",
+}
+
+------------------------------------------------------------
+-- Boss registry - one entry per boss (icon/flags/stats/abilities/adds),
+-- referenced by key from SM_BOSS_ORDER above. Defined once each; add a
+-- new boss here and add its key to SM_BOSS_ORDER to place it.
+------------------------------------------------------------
+local SM_BOSSES = {
+    loksey = {
         name = "Loksey",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Loksey",
         flags = {"tauntable"},
@@ -87,8 +109,9 @@ table.insert(DungeonJournal_Raids, {
                 lines = {"Hounds apply a stacking debuff which increases physical damage taken by 3 per stack up to 99 stacks."}
             }}
         }}
-    }, {
-        key = "brigitte",
+    },
+
+    brigitte = {
         name = "Brigitte Abbendis",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BrigitteAbbendis",
         flags = {"tauntable"},
@@ -192,8 +215,9 @@ table.insert(DungeonJournal_Raids, {
                 lines = {"Continuously fires a volley of ammo at the target area, inflicting 500 to 550 Arcane damage every second to enemies within 8 yards for 12 seconds."}
             }}
         }}
-    }, {
-        key = "vishas",
+    },
+
+    vishas = {
         name = "Vishas",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Vishas",
         flags = {"tauntable"},
@@ -249,8 +273,9 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\INV_Gauntlets_04",
             lines = {"Pummel the target for 1150 to 1450 damage. It also interrupts spellcasting and prevents any spell in that school from being cast for 5 seconds."}
         }}
-    }, {
-        key = "herod",
+    },
+
+    herod = {
         name = "Herod",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Herod",
         flags = {"notalwaystauntable"},
@@ -306,8 +331,9 @@ table.insert(DungeonJournal_Raids, {
                 lines = {"Feared for 8 seconds and gains aggro of the boss during that time. Boss also becomes untauntable?"}
             }}
         }}
-    }, {
-        key = "brother_michael",
+    },
+
+    brother_michael = {
         name = "Brother Michael",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BrotherMichael",
         flags = {"tauntable"},
@@ -336,7 +362,7 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\Spell_Shadow_CorpseExplode",
             warning = true,
             roles = {"tank"},
-            lines = {"Every 10 seconds the tank takes receives a stack of Four Finger Death Punch.", 
+            lines = {"Every 10 seconds the tank takes receives a stack of Four Finger Death Punch.",
                      "Whenever the tank reaches 4 stacks he will explode taking 50000-100000 damage."}
         }, {
             name = "Soulbind",
@@ -359,8 +385,9 @@ table.insert(DungeonJournal_Raids, {
                 lines = {"The target becomes a ghost and can see mobs that are in the death realm. If caught by the mobs they will die."}
             }}
         }}
-    }, {
-        key = "doan",
+    },
+
+    doan = {
         name = "Doan",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Doan",
         flags = {"tauntable"},
@@ -464,8 +491,9 @@ table.insert(DungeonJournal_Raids, {
                 lines = {"Continually inflicts Fire damage on the raid."}
             }}
         }}
-    }, {
-        key = "renault_mograine",
+    },
+
+    renault_mograine = {
         name = "Renault Mograine",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Mograine",
         flags = {"notalwaystauntable"},
@@ -570,8 +598,9 @@ table.insert(DungeonJournal_Raids, {
             roles = {"cc"},
             lines = {"Mind controls a player."}
         }}
-    }, {
-        key = "fairbanks",
+    },
+
+    fairbanks = {
         name = "Fairbanks",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Fairbanks",
         flags = {"tauntable"},
@@ -614,6 +643,31 @@ table.insert(DungeonJournal_Raids, {
                 lines = {"Become feared for 8 seconds."}
             }}
         }}
-    }}
+    },
+}
 
+------------------------------------------------------------
+-- Builder: expand the order list + registry above into the flat table
+-- shape the Bosses view expects (see AGENTS.md "Data model"). Nothing
+-- below this point encodes raid content - only edit it if the addon's
+-- expected data shape changes.
+------------------------------------------------------------
+
+local function BuildSMBosses()
+    local bosses = {}
+    for _, key in ipairs(SM_BOSS_ORDER) do
+        local boss = { key = key }
+        for field, value in pairs(SM_BOSSES[key]) do
+            boss[field] = value
+        end
+        table.insert(bosses, boss)
+    end
+    return bosses
+end
+
+table.insert(DungeonJournal_Raids, {
+    key = "SM",
+    name = "Scarlet Monastery",
+    expanded = false,
+    bosses = BuildSMBosses(),
 })
