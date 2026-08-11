@@ -1236,6 +1236,456 @@ local RAIDS = {{
     -- the PR notes.
     trash = {{
         separator = true,
+        name = "Hatcher Pack",
+        color = "ffffd100",
+    }, {
+        key = "chromatic_whelp_p1",
+        name = "Chromatic Whelp",
+        icon = "Interface\\Icons\\Spell_Nature_Lightning",
+        grouped = true,
+        flags = {"caster"},
+        stats = {armor = 3200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Fireball Volley",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            lines = {"Inflicts Fire damage to nearby enemies."}
+        }, {
+            name = "Frostbolt",
+            icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Launches a bolt of frost, causing Frost damage and slowing movement speed."}
+        }, {
+            name = "Lightning Bolt",
+            icon = "Interface\\Icons\\Spell_Nature_Lightning",
+            roles = {"kick"},
+            lines = {"Casts a bolt of lightning at the target for Nature damage."}
+        }}
+    }, {
+        key = "death_talon_hatcher_p1",
+        name = "Death Talon Hatcher",
+        icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+        grouped = true,
+        flags = {"caster"},
+        stats = {armor = 4200, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Flamestrike",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"Calls down a pillar of fire, burning the area plus an additional burn over time - move out of it."}
+        }, {
+            name = "Growing Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            warning = true,
+            lines = {"A stacking Fire-damage effect that intensifies over time."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "blackwing_taskmaster_p1",
+        name = "Blackwing Taskmaster",
+        icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+        grouped = true,
+        flags = {"caster", "healer"},
+        stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Shadow Shock",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Instantly lashes an enemy with dark magic, inflicting Shadow damage."}
+        }, {
+            name = "Healing Circle",
+            icon = "Interface\\Icons\\Spell_Holy_PrayerOfHealing02",
+            lines = {"Heals nearby allies - kill or interrupt to limit its support."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        separator = true,
+        name = "Warlock Pack",
+        color = "ffffd100",
+    }, {
+        key = "blackwing_warlock_p2",
+        name = "Blackwing Warlock",
+        icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
+        grouped = true,
+        flags = {"caster"},
+        count = 2,
+        stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Shadow Bolt",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Sends a shadowy bolt at the enemy, causing Shadow damage."}
+        }, {
+            name = "Rain of Fire",
+            icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
+            warning = true,
+            lines = {"Calls down a fiery rain, burning enemies in the area over time - move out."}
+        }, {
+            name = "Curse of Rot",
+            icon = "Interface\\Icons\\Spell_Holy_NullifyDisease",
+            roles = {"decurse"},
+            lines = {"Curses the target, reducing Nature resistance, increasing Nature damage taken, and dealing damage over time."}
+        }, {
+            name = "Howl of Terror",
+            icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
+            warning = true,
+            lines = {"Causes nearby enemies to flee in terror - damage may interrupt the effect."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "blackwing_technician_p2",
+        name = "Blackwing Technician",
+        icon = "Interface\\Icons\\INV_Misc_Bomb_08",
+        grouped = true,
+        flags = {"ranged"},
+        count = 8,
+        stats = {armor = 3800, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Bomb",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"Bombs an area, inflicting Fire damage to enemies within it."}
+        }, {
+            name = "Bottle of Poison",
+            icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
+            roles = {"poison"},
+            lines = {"Tosses a bottle of poison at an enemy, inflicting Nature damage over time."}
+        }}
+    }, {
+        separator = true,
+        name = "Warlock Overseer Pack",
+        color = "ffffd100",
+    }, {
+        key = "blackwing_warlock_p3",
+        name = "Blackwing Warlock",
+        icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
+        grouped = true,
+        flags = {"caster"},
+        count = 2,
+        stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Shadow Bolt",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Sends a shadowy bolt at the enemy, causing Shadow damage."}
+        }, {
+            name = "Rain of Fire",
+            icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
+            warning = true,
+            lines = {"Calls down a fiery rain, burning enemies in the area over time - move out."}
+        }, {
+            name = "Curse of Rot",
+            icon = "Interface\\Icons\\Spell_Holy_NullifyDisease",
+            roles = {"decurse"},
+            lines = {"Curses the target, reducing Nature resistance, increasing Nature damage taken, and dealing damage over time."}
+        }, {
+            name = "Howl of Terror",
+            icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
+            warning = true,
+            lines = {"Causes nearby enemies to flee in terror - damage may interrupt the effect."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "blackwing_technician_p3",
+        name = "Blackwing Technician",
+        icon = "Interface\\Icons\\INV_Misc_Bomb_08",
+        grouped = true,
+        flags = {"ranged"},
+        count = 8,
+        stats = {armor = 3800, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Bomb",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"Bombs an area, inflicting Fire damage to enemies within it."}
+        }, {
+            name = "Bottle of Poison",
+            icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
+            roles = {"poison"},
+            lines = {"Tosses a bottle of poison at an enemy, inflicting Nature damage over time."}
+        }}
+    }, {
+        key = "death_talon_overseer_p3",
+        name = "Death Talon Overseer",
+        icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
+        grouped = true,
+        flags = {"melee"},
+        stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Mortal Strike",
+            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"A vicious strike that wounds the target, reducing the effectiveness of healing on it."}
+        }, {
+            name = "Fire Blast",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            roles = {"kick"},
+            lines = {"Blasts the enemy for Fire damage."}
+        }, {
+            name = "Retaliation",
+            icon = "Interface\\Icons\\Ability_Warrior_Challange",
+            warning = true,
+            roles = {"melee"},
+            lines = {"Instantly counterattacks any enemy that strikes it in melee - melee should stop attacking while this is active."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "blackwing_spellbinder_p3",
+        name = "Blackwing Spellbinder",
+        icon = "Interface\\Icons\\Spell_Fire_Fireball",
+        grouped = true,
+        flags = {"caster"},
+        stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Arcane Blast",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Blasts a target for Arcane damage - priority CC or interrupt target."}
+        }, {
+            name = "Flamestrike",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"Calls down a pillar of fire, burning the area plus an additional burn over time - move out of it."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies - consider interrupting or killing casters first."}
+        }}
+    }, {
+        separator = true,
+        name = "Wyrmguard Overseer Pack",
+        color = "ffffd100",
+    }, {
+        key = "death_talon_wyrmguard_p4",
+        name = "Death Talon Wyrmguard",
+        icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+        grouped = true,
+        flags = {"melee"},
+        stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Mortal Strike",
+            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"A vicious strike that wounds the target, reducing the effectiveness of healing on it."}
+        }, {
+            name = "War Stomp",
+            icon = "Interface\\Icons\\Ability_BullRush",
+            warning = true,
+            lines = {"Knocks nearby enemies back, stunning them - melee should not clump on it."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"A sweeping attack that strikes its target and nearest ally."}
+        }}
+    }, {
+        key = "death_talon_overseer_p4",
+        name = "Death Talon Overseer",
+        icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
+        grouped = true,
+        flags = {"melee"},
+        count = 3,
+        stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Mortal Strike",
+            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"A vicious strike that wounds the target, reducing the effectiveness of healing on it."}
+        }, {
+            name = "Fire Blast",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            roles = {"kick"},
+            lines = {"Blasts the enemy for Fire damage."}
+        }, {
+            name = "Retaliation",
+            icon = "Interface\\Icons\\Ability_Warrior_Challange",
+            warning = true,
+            roles = {"melee"},
+            lines = {"Instantly counterattacks any enemy that strikes it in melee - melee should stop attacking while this is active."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        separator = true,
+        name = "Spellbinder Warlock Pack",
+        color = "ffffd100",
+    }, {
+        key = "blackwing_warlock_p5",
+        name = "Blackwing Warlock",
+        icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
+        grouped = true,
+        flags = {"caster"},
+        count = 2,
+        stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Shadow Bolt",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Sends a shadowy bolt at the enemy, causing Shadow damage."}
+        }, {
+            name = "Rain of Fire",
+            icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
+            warning = true,
+            lines = {"Calls down a fiery rain, burning enemies in the area over time - move out."}
+        }, {
+            name = "Curse of Rot",
+            icon = "Interface\\Icons\\Spell_Holy_NullifyDisease",
+            roles = {"decurse"},
+            lines = {"Curses the target, reducing Nature resistance, increasing Nature damage taken, and dealing damage over time."}
+        }, {
+            name = "Howl of Terror",
+            icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
+            warning = true,
+            lines = {"Causes nearby enemies to flee in terror - damage may interrupt the effect."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "blackwing_technician_p5",
+        name = "Blackwing Technician",
+        icon = "Interface\\Icons\\INV_Misc_Bomb_08",
+        grouped = true,
+        flags = {"ranged"},
+        count = 8,
+        stats = {armor = 3800, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Bomb",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"Bombs an area, inflicting Fire damage to enemies within it."}
+        }, {
+            name = "Bottle of Poison",
+            icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
+            roles = {"poison"},
+            lines = {"Tosses a bottle of poison at an enemy, inflicting Nature damage over time."}
+        }}
+    }, {
+        key = "death_talon_overseer_p5",
+        name = "Death Talon Overseer",
+        icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
+        grouped = true,
+        flags = {"melee"},
+        stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Mortal Strike",
+            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"A vicious strike that wounds the target, reducing the effectiveness of healing on it."}
+        }, {
+            name = "Fire Blast",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            roles = {"kick"},
+            lines = {"Blasts the enemy for Fire damage."}
+        }, {
+            name = "Retaliation",
+            icon = "Interface\\Icons\\Ability_Warrior_Challange",
+            warning = true,
+            roles = {"melee"},
+            lines = {"Instantly counterattacks any enemy that strikes it in melee - melee should stop attacking while this is active."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "blackwing_spellbinder_p5",
+        name = "Blackwing Spellbinder",
+        icon = "Interface\\Icons\\Spell_Fire_Fireball",
+        grouped = true,
+        flags = {"caster"},
+        count = 2,
+        stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Arcane Blast",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Blasts a target for Arcane damage - priority CC or interrupt target."}
+        }, {
+            name = "Flamestrike",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"Calls down a pillar of fire, burning the area plus an additional burn over time - move out of it."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies - consider interrupting or killing casters first."}
+        }}
+    }, {
+        separator = true,
+        name = "Wyrmguard Pack",
+        color = "ffffd100",
+    }, {
+        key = "death_talon_wyrmguard_p6",
+        name = "Death Talon Wyrmguard",
+        icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+        grouped = true,
+        flags = {"melee"},
+        count = "3/4",
+        stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Mortal Strike",
+            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"A vicious strike that wounds the target, reducing the effectiveness of healing on it."}
+        }, {
+            name = "War Stomp",
+            icon = "Interface\\Icons\\Ability_BullRush",
+            warning = true,
+            lines = {"Knocks nearby enemies back, stunning them - melee should not clump on it."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"A sweeping attack that strikes its target and nearest ally."}
+        }}
+    }, {
+        separator = true,
         name = "After Second Boss",
         color = "ffffd100",
     }, {
@@ -1354,98 +1804,6 @@ local RAIDS = {{
             lines = {"Buffs its own Intellect - kill or CC quickly to limit its casting."}
         }}
     }, {
-        key = "blackwing_spellbinder",
-        name = "Blackwing Spellbinder",
-        icon = "Interface\\Icons\\Spell_Fire_Fireball",
-        flags = {"caster"},
-        stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Arcane Blast",
-            icon = "Interface\\Icons\\Spell_Fire_Fireball",
-            warning = true,
-            roles = {"kick"},
-            lines = {"Blasts a target for Arcane damage - priority CC or interrupt target."}
-        }, {
-            name = "Flamestrike",
-            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
-            warning = true,
-            lines = {"Calls down a pillar of fire, burning the area plus an additional burn over time - move out of it."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies - consider interrupting or killing casters first."}
-        }}
-    }, {
-        key = "blackwing_taskmaster",
-        name = "Blackwing Taskmaster",
-        icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
-        flags = {"caster", "healer"},
-        stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Shadow Shock",
-            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
-            warning = true,
-            roles = {"kick"},
-            lines = {"Instantly lashes an enemy with dark magic, inflicting Shadow damage."}
-        }, {
-            name = "Healing Circle",
-            icon = "Interface\\Icons\\Spell_Holy_PrayerOfHealing02",
-            lines = {"Heals nearby allies - kill or interrupt to limit its support."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
-        }}
-    }, {
-        key = "blackwing_technician",
-        name = "Blackwing Technician",
-        icon = "Interface\\Icons\\INV_Misc_Bomb_08",
-        flags = {"ranged"},
-        stats = {armor = 3800, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Bomb",
-            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
-            warning = true,
-            lines = {"Bombs an area, inflicting Fire damage to enemies within it."}
-        }, {
-            name = "Bottle of Poison",
-            icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
-            roles = {"poison"},
-            lines = {"Tosses a bottle of poison at an enemy, inflicting Nature damage over time."}
-        }}
-    }, {
-        key = "blackwing_warlock",
-        name = "Blackwing Warlock",
-        icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
-        flags = {"caster"},
-        stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Shadow Bolt",
-            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
-            warning = true,
-            roles = {"kick"},
-            lines = {"Sends a shadowy bolt at the enemy, causing Shadow damage."}
-        }, {
-            name = "Rain of Fire",
-            icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
-            warning = true,
-            lines = {"Calls down a fiery rain, burning enemies in the area over time - move out."}
-        }, {
-            name = "Curse of Rot",
-            icon = "Interface\\Icons\\Spell_Holy_NullifyDisease",
-            roles = {"decurse"},
-            lines = {"Curses the target, reducing Nature resistance, increasing Nature damage taken, and dealing damage over time."}
-        }, {
-            name = "Howl of Terror",
-            icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
-            warning = true,
-            lines = {"Causes nearby enemies to flee in terror - damage may interrupt the effect."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
-        }}
-    }, {
         key = "chromatic_dragonspawn",
         name = "Chromatic Dragonspawn",
         icon = "Interface\\Icons\\Ability_Warrior_Cleave",
@@ -1490,106 +1848,6 @@ local RAIDS = {{
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             roles = {"tank"},
             lines = {"Strikes at an enemy, inflicting increased melee damage."}
-        }}
-    }, {
-        key = "chromatic_whelp",
-        name = "Chromatic Whelp",
-        icon = "Interface\\Icons\\Spell_Nature_Lightning",
-        flags = {"caster"},
-        stats = {armor = 3200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Fireball Volley",
-            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-            warning = true,
-            lines = {"Inflicts Fire damage to nearby enemies."}
-        }, {
-            name = "Frostbolt",
-            icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
-            warning = true,
-            roles = {"kick"},
-            lines = {"Launches a bolt of frost, causing Frost damage and slowing movement speed."}
-        }, {
-            name = "Lightning Bolt",
-            icon = "Interface\\Icons\\Spell_Nature_Lightning",
-            roles = {"kick"},
-            lines = {"Casts a bolt of lightning at the target for Nature damage."}
-        }}
-    }, {
-        key = "death_talon_hatcher",
-        name = "Death Talon Hatcher",
-        icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
-        flags = {"caster"},
-        stats = {armor = 4200, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Flamestrike",
-            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
-            warning = true,
-            lines = {"Calls down a pillar of fire, burning the area plus an additional burn over time - move out of it."}
-        }, {
-            name = "Growing Flames",
-            icon = "Interface\\Icons\\Spell_Fire_Fire",
-            warning = true,
-            lines = {"A stacking Fire-damage effect that intensifies over time."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
-        }}
-    }, {
-        key = "death_talon_overseer",
-        name = "Death Talon Overseer",
-        icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
-        flags = {"melee"},
-        stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Mortal Strike",
-            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
-            warning = true,
-            roles = {"tank", "healer"},
-            lines = {"A vicious strike that wounds the target, reducing the effectiveness of healing on it."}
-        }, {
-            name = "Fire Blast",
-            icon = "Interface\\Icons\\Spell_Fire_Fireball",
-            roles = {"kick"},
-            lines = {"Blasts the enemy for Fire damage."}
-        }, {
-            name = "Retaliation",
-            icon = "Interface\\Icons\\Ability_Warrior_Challange",
-            warning = true,
-            roles = {"melee"},
-            lines = {"Instantly counterattacks any enemy that strikes it in melee - melee should stop attacking while this is active."}
-        }, {
-            name = "Cleave",
-            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-            roles = {"tank"},
-            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
-        }}
-    }, {
-        key = "death_talon_wyrmguard",
-        name = "Death Talon Wyrmguard",
-        icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
-        flags = {"melee"},
-        stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Mortal Strike",
-            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
-            warning = true,
-            roles = {"tank", "healer"},
-            lines = {"A vicious strike that wounds the target, reducing the effectiveness of healing on it."}
-        }, {
-            name = "War Stomp",
-            icon = "Interface\\Icons\\Ability_BullRush",
-            warning = true,
-            lines = {"Knocks nearby enemies back, stunning them - melee should not clump on it."}
-        }, {
-            name = "Cleave",
-            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-            roles = {"tank"},
-            lines = {"A sweeping attack that strikes its target and nearest ally."}
         }}
     }},
     bosses = {{
