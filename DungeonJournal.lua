@@ -1235,6 +1235,108 @@ local RAIDS = {{
     -- Flags/roles/stats are otherwise general knowledge / best-guess - see
     -- the PR notes.
     trash = {{
+        separator = true,
+        name = "After Second Boss",
+        color = "ffffd100",
+    }, {
+        key = "death_talon_captain",
+        name = "Death Talon Captain",
+        icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+        grouped = true,
+        flags = {"melee"},
+        stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "death_talon_seether",
+        name = "Death Talon Seether",
+        icon = "Interface\\Icons\\Spell_Fire_Fire",
+        grouped = true,
+        flags = {"caster"},
+        count = 2,
+        stats = {armor = 4000, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Flame Buffet",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts Fire damage to an enemy and increases the Fire damage it takes - tanks should rotate."}
+        }, {
+            name = "Frenzy",
+            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            warning = true,
+            roles = {"hunter"},
+            lines = {"Enrages, attacking faster - remove with Tranquilizing Shot."}
+        }, {
+            name = "Aura of Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            lines = {"A passive Fire damage aura affecting nearby enemies."}
+        }}
+    }, {
+        key = "death_talon_flamescale",
+        name = "Death Talon Flamescale",
+        icon = "Interface\\Icons\\Ability_Warrior_Charge",
+        grouped = true,
+        flags = {"melee"},
+        count = 2,
+        stats = {armor = 5200, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Flame Shock",
+            icon = "Interface\\Icons\\Spell_Fire_FlameShock",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Instantly sears the target with fire, causing Fire damage plus a burn over time."}
+        }, {
+            name = "Berserker Charge",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Charges at an enemy, knocking it back and inflicting damage."}
+        }, {
+            name = "Aura of Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            lines = {"A passive Fire damage aura affecting nearby enemies."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "death_talon_wyrmkin",
+        name = "Death Talon Wyrmkin",
+        icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+        grouped = true,
+        flags = {"caster"},
+        count = 2,
+        stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Fireball Volley",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            lines = {"Inflicts Fire damage to nearby enemies."}
+        }, {
+            name = "Blast Wave",
+            icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
+            warning = true,
+            lines = {"A wave of flame radiates outward, damaging and dazing nearby enemies."}
+        }, {
+            name = "Aura of Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            lines = {"A passive Fire damage aura affecting nearby enemies."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
         key = "blackwing_legionnaire",
         name = "Blackwing Legionnaire",
         icon = "Interface\\Icons\\Ability_Rogue_Ambush",
@@ -1430,22 +1532,6 @@ local RAIDS = {{
             lines = {"Casts a bolt of lightning at the target for Nature damage."}
         }}
     }, {
-        key = "death_talon_captain",
-        name = "Death Talon Captain",
-        icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-        flags = {"melee"},
-        stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Cleave",
-            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-            roles = {"tank"},
-            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
-        }}
-    }, {
         key = "death_talon_dragonspawn",
         name = "Death Talon Dragonspawn",
         icon = "Interface\\Icons\\Ability_Whirlwind",
@@ -1456,33 +1542,6 @@ local RAIDS = {{
             icon = "Interface\\Icons\\Ability_Whirlwind",
             roles = {"tank"},
             lines = {"Attacks all nearby enemies in a whirlwind, causing weapon damage to each - avoid clumping melee on it."}
-        }}
-    }, {
-        key = "death_talon_flamescale",
-        name = "Death Talon Flamescale",
-        icon = "Interface\\Icons\\Ability_Warrior_Charge",
-        flags = {"melee"},
-        stats = {armor = 5200, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Flame Shock",
-            icon = "Interface\\Icons\\Spell_Fire_FlameShock",
-            warning = true,
-            roles = {"tank"},
-            lines = {"Instantly sears the target with fire, causing Fire damage plus a burn over time."}
-        }, {
-            name = "Berserker Charge",
-            icon = "Interface\\Icons\\Ability_Warrior_Charge",
-            warning = true,
-            roles = {"tank"},
-            lines = {"Charges at an enemy, knocking it back and inflicting damage."}
-        }, {
-            name = "Aura of Flames",
-            icon = "Interface\\Icons\\Spell_Fire_Fire",
-            lines = {"A passive Fire damage aura affecting nearby enemies."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
         }}
     }, {
         key = "death_talon_hatcher",
@@ -1539,29 +1598,6 @@ local RAIDS = {{
             lines = {"Buffs nearby allies."}
         }}
     }, {
-        key = "death_talon_seether",
-        name = "Death Talon Seether",
-        icon = "Interface\\Icons\\Spell_Fire_Fire",
-        flags = {"caster"},
-        stats = {armor = 4000, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Flame Buffet",
-            icon = "Interface\\Icons\\Spell_Fire_Fireball",
-            warning = true,
-            roles = {"tank"},
-            lines = {"Inflicts Fire damage to an enemy and increases the Fire damage it takes - tanks should rotate."}
-        }, {
-            name = "Frenzy",
-            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
-            warning = true,
-            roles = {"hunter"},
-            lines = {"Enrages, attacking faster - remove with Tranquilizing Shot."}
-        }, {
-            name = "Aura of Flames",
-            icon = "Interface\\Icons\\Spell_Fire_Fire",
-            lines = {"A passive Fire damage aura affecting nearby enemies."}
-        }}
-    }, {
         key = "death_talon_wyrmguard",
         name = "Death Talon Wyrmguard",
         icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
@@ -1583,31 +1619,6 @@ local RAIDS = {{
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
             lines = {"A sweeping attack that strikes its target and nearest ally."}
-        }}
-    }, {
-        key = "death_talon_wyrmkin",
-        name = "Death Talon Wyrmkin",
-        icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-        flags = {"caster"},
-        stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Fireball Volley",
-            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-            warning = true,
-            lines = {"Inflicts Fire damage to nearby enemies."}
-        }, {
-            name = "Blast Wave",
-            icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
-            warning = true,
-            lines = {"A wave of flame radiates outward, damaging and dazing nearby enemies."}
-        }, {
-            name = "Aura of Flames",
-            icon = "Interface\\Icons\\Spell_Fire_Fire",
-            lines = {"A passive Fire damage aura affecting nearby enemies."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
         }}
     }},
     bosses = {{
@@ -4277,8 +4288,30 @@ local function BuildTrashEntries()
     for _, raid in ipairs(RAIDS) do
         table.insert(entries, { entryType = "header", raid = raid })
         if raid.trashExpanded and raid.trash then
+            -- CHANGED: a separator entry in a raid's trash list (e.g. "Death
+            -- Talon Hall" before a run of packs that always spawn together)
+            -- is rendered as a clickable, collapsible grouping label -
+            -- clicking it hides/shows every pack listed after it, up to the
+            -- next separator, the same way ability-list phase separators
+            -- collapse abilities in RebuildAbilityList(). Separators default
+            -- to expanded (see ConfigureSeparatorRow's convention).
+            local groupVisible = true
+            local inGroup = false
             for _, pack in ipairs(raid.trash) do
-                table.insert(entries, { entryType = "pack", raid = raid, pack = pack })
+                if pack.separator then
+                    table.insert(entries, { entryType = "separator", pack = pack })
+                    groupVisible = (pack.expanded ~= false)
+                    inGroup = true
+                elseif inGroup and not pack.grouped then
+                    inGroup = false
+                    table.insert(entries, { entryType = "pack", raid = raid, pack = pack, grouped = false })
+                elseif inGroup then
+                    if groupVisible then
+                        table.insert(entries, { entryType = "pack", raid = raid, pack = pack, grouped = true })
+                    end
+                else
+                    table.insert(entries, { entryType = "pack", raid = raid, pack = pack, grouped = false })
+                end
             end
         end
     end
@@ -4300,6 +4333,16 @@ local function CreateTrashTreeRow(index)
         local entry = this.entry
         if entry.entryType == "header" then
             entry.raid.trashExpanded = not entry.raid.trashExpanded
+            RebuildTrashTree()
+        elseif entry.entryType == "separator" then
+            -- CHANGED: click to collapse/expand the group of packs listed
+            -- under this separator (default true, so the first click reads
+            -- as "false" rather than nil - see BuildTrashEntries()).
+            if entry.pack.expanded == nil then
+                entry.pack.expanded = false
+            else
+                entry.pack.expanded = not entry.pack.expanded
+            end
             RebuildTrashTree()
         else
             ShowTrashPack(entry.pack)
@@ -4325,9 +4368,24 @@ function RebuildTrashTree()
             btn.label:SetText(prefix .. entry.raid.name)
             btn.label:SetPoint("LEFT", btn, "LEFT", 4, 0)
             btn.label:SetFontObject(GameFontNormalSmall)
-        else
-            btn.label:SetText(entry.pack.name)
+        elseif entry.entryType == "separator" then
+            -- CHANGED: clickable grouping label with a +/- expand indicator,
+            -- e.g. "- --- Death Talon Hall ---". Collapsed hides every pack
+            -- listed under it (see BuildTrashEntries()).
+            local isExpanded = (entry.pack.expanded ~= false)
+            local prefix = isExpanded and "- " or "+ "
+            local sepColor = entry.pack.color or "ffffd100"
+            btn.label:SetText(prefix .. "|c" .. sepColor .. "--- " .. entry.pack.name .. " ---|r")
             btn.label:SetPoint("LEFT", btn, "LEFT", 18, 0)
+            btn.label:SetFontObject(GameFontNormalSmall)
+        else
+            local text = entry.pack.name
+            if entry.pack.count then
+                text = text .. " (" .. entry.pack.count .. ")"
+            end
+            btn.label:SetText(text)
+            local indent = entry.grouped and 32 or 18
+            btn.label:SetPoint("LEFT", btn, "LEFT", indent, 0)
             btn.label:SetFontObject(GameFontHighlightSmall)
         end
 
@@ -4970,7 +5028,11 @@ end
 
 function ShowTrashPack(pack)
     currentTrashPack = pack
-    trashNameText:SetText(pack.name)
+    if pack.count then
+        trashNameText:SetText(pack.name .. " (" .. pack.count .. ")")
+    else
+        trashNameText:SetText(pack.name)
+    end
     trashPortrait:SetTexture(pack.icon or DEFAULT_ICON)
 
     RebuildTrashFlags(pack)

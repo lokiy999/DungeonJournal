@@ -96,6 +96,22 @@ content as separator-grouped abilities (e.g. `{ separator = true, name = "Pull O
 followed by plain entries) rather than inventing new pack fields, unless a real need
 for structured fields comes up.
 
+**Trash tree separators.** A raid's `trash` list also supports `separator = true`
+entries, rendered as a non-clickable grouping label in the Trash tab's left tree -
+`RebuildTrashTree()` / `BuildTrashEntries()` in `DungeonJournal.lua` - the same pattern
+as `RAIDS[].bosses`'s boss-list separators. Use this to mark packs that always spawn/
+pull together (e.g. a mixed hallway group), purely by inserting a separator entry
+before the run of packs it labels:
+
+```lua
+trash = {
+    { separator = true, name = "Always pulled together" }, -- optional color = "ffRRGGBB"
+    { key = "...", name = "Mob A", ... },
+    { key = "...", name = "Mob B", ... },
+    { key = "...", name = "Mob C", ... },
+}
+```
+
 **Boss stats line.** A boss may carry an optional `stats` table, rendered as a
 single armor/resistance line above its ability list (Abilities tab only). Omitted
 keys default to `0`, and Holy is deliberately unsupported — 1.12 has no
