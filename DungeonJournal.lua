@@ -933,8 +933,17 @@ function RebuildTrashTree()
             -- listed under it until clicked open (see BuildTrashEntries()).
             local isExpanded = (entry.pack.expanded == true)
             local prefix = isExpanded and "- " or "+ "
-            local sepColor = entry.pack.color or "ffffd100"
-            btn.label:SetText(prefix .. "|c" .. sepColor .. entry.pack.name .. "|r")
+            -- CHANGED: no fallback gold here - GameFontNormalSmall is
+            -- already gold by default, so a hardcoded gold color code was
+            -- just duplicating it. Per-raid separator colors are set
+            -- explicitly on the data (see BWL_TRASH_ORDER/MC_TRASH_ORDER);
+            -- if a raid doesn't set one, its separators just use the font's
+            -- default gold.
+            if entry.pack.color then
+                btn.label:SetText(prefix .. "|c" .. entry.pack.color .. entry.pack.name .. "|r")
+            else
+                btn.label:SetText(prefix .. entry.pack.name)
+            end
             btn.label:SetPoint("LEFT", btn, "LEFT", 18, 0)
             btn.label:SetFontObject(GameFontNormalSmall)
         else

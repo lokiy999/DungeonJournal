@@ -34,40 +34,40 @@ local BWL_BOSS_ORDER = {
 -- next to the pack it belongs to, even when the same mob's count repeats
 -- across several occurrences (e.g. Blackwing Warlock/Technician below).
 local BWL_TRASH_ORDER = {
-    { separator = true, name = "Death Talon Pack", color = "ffffd100" },
+    { separator = true, name = "Death Talon Pack", color = "ffcc6600" },
     { key = "death_talon_seether", count = 2 },
     { key = "death_talon_wyrmkin", count = 2 },
     { key = "death_talon_flamescale", count = 2 },
     "death_talon_captain",
 
-    { separator = true, name = "Supression Room", color = "ffffd100" },
+    { separator = true, name = "Supression Room", color = "ff999999" },
     "corrupted_red_whelp",
     "corrupted_green_whelp",
     "corrupted_blue_whelp",
     "death_talon_hatcher",
     "blackwing_taskmaster",
 
-    { separator = true, name = "Lab Pack", color = "ffffd100" },
+    { separator = true, name = "Lab Pack", color = "ffcc6600" },
     { key = "blackwing_warlock", count = 2 },
     { key = "blackwing_technician", count = 8 },
 
-    { separator = true, name = "Lab Pack 2", color = "ffffd100" },
+    { separator = true, name = "Lab Pack 2", color = "ff999999" },
     { key = "blackwing_warlock", count = 2 },
     { key = "blackwing_technician", count = 8 },
     "death_talon_overseer",
     "blackwing_spellbinder",
 
-    { separator = true, name = "Firemaw Pack", color = "ffffd100" },
+    { separator = true, name = "Firemaw Pack", color = "ffcc6600" },
     "death_talon_wyrmguard",
     { key = "death_talon_overseer", count = 3 },
 
-    { separator = true, name = "Double Spellbinder Pack", color = "ffffd100" },
+    { separator = true, name = "Double Spellbinder Pack", color = "ff999999" },
     { key = "blackwing_warlock", count = 2 },
     { key = "blackwing_technician", count = 8 },
     "death_talon_overseer",
     { key = "blackwing_spellbinder", count = 2 },
 
-    { separator = true, name = "Wyrmguard Pack", color = "ffffd100" },
+    { separator = true, name = "Wyrmguard Pack", color = "ffcc6600" },
     { key = "death_talon_wyrmguard", count = "3/4" },
 }
 
