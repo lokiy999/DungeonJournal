@@ -5,10 +5,16 @@ You are an experienced, pragmatic software engineering AI agent. Do not over-eng
 ## Project Overview
 
 DungeonJournal is a **World of Warcraft 1.12.1 (Vanilla) addon** that provides an
-"Adventure Guide"-style window for raid/dungeon encounters: a collapsible
-raid → boss tree on the left, and a boss header plus a tabbed accordion list of
-abilities and adds on the right. A second top-level view ("Explaination") lists an
-icon legend.
+"Adventure Guide"-style window for raid/dungeon encounters, driven by a top nav bar
+with three views:
+
+1. **Bosses** — a collapsible raid → boss tree on the left, and a boss header plus
+   a tabbed accordion list of abilities and adds on the right.
+2. **Trash** — a *separate* collapsible raid → trash-pack tree and its own right
+   panel. Deliberately mirrors the Bosses panel's rendering (portrait, flag row,
+   armor/resistance line, accordion ability list with separators) rather than a
+   bespoke layout — see "Data model" below.
+3. **Icon Guide** ("Explaination") — a full-width icon legend.
 
 - **Language:** Lua 5.0 as embedded in the 1.12.1 client (no external runtime, no
   package manager, no build step).
@@ -21,23 +27,33 @@ icon legend.
 
 ```
 DungeonJournal.toc     Addon manifest: interface version, metadata, file/asset load list
-DungeonJournal.lua     Entire addon (~1.8k lines): config, data, UI, slash command
+DungeonJournal.lua     Entire addon (~4.5k lines): config, data, UI, slash command
 Icons/*.blp            Boss portrait textures actually loaded by the client
 Icons/PNG Files/*.png  Source art (not loaded in-game; keep in sync when adding icons)
 ```
+
+See "External reference files" below for spreadsheets/logs/notes kept in the repo for
+research purposes only — none of them are loaded by the addon or listed in the `.toc`.
 
 `DungeonJournal.lua` is organized top-to-bottom in labeled comment banners; keep new
 code in the matching section:
 
 1. **Config** — window/row dimensions, `CLASS_ICON_TEXTURE` + `CLASS_ICON_COORDS`,
    `UTILITY_ICONS`, `ApplyUtilityIcon()`.
-2. **`BOSS_FLAGS`** — per-encounter quick-glance flags (tauntable, protection potions).
+2. **`BOSS_FLAGS`** — per-encounter/per-trash-pack quick-glance flags (tauntable,
+   damage school, mob "type" tags like Caster/Melee/Immune to X). Shared by both the
+   Bosses view and the Trash view via the same `flags` field and the same
+   icon-slot mechanism.
 3. **`ICON_ExplainationS`** — icon legend rows for the Explaination view.
-4. **`RAIDS`** (line ~261) — the content database: `raids -> bosses -> abilities / adds -> abilities`.
-5. **UI construction** — main frame, tree scroll frame, boss header, ability scroll
-   frame, tabs, nav bar, Explaination panel.
+4. **`RAIDS`** — the content database: `raids -> { bosses, trash } -> abilities / adds -> abilities`.
+5. **UI construction** — main frame, boss tree/panel, trash tree/panel (own scroll
+   frames, own row/separator/flag-slot pools, but reuses `CreateAbilityRow` /
+   `ConfigureAbilityRow` / `CreateSeparatorRow` / `ConfigureSeparatorRow` /
+   `FormatBossStats`), tabs, nav bar, Explaination panel.
 6. **Rebuild functions** — `RebuildTree()`, `RebuildAbilityList()`, `RebuildBossFlags()`,
-   `RebuildExplainationList()`, `ShowBossInfo()`, `SelectTab()`, `SelectView()`.
+   `RebuildTrashTree()`, `RebuildTrashAbilityList()`, `RebuildTrashFlags()`,
+   `RebuildExplainationList()`, `ShowBossInfo()`, `ShowTrashPack()`, `SelectTab()`,
+   `SelectView()`.
 7. **Slash command** — `/clicky` toggles the window.
 
 ### Data model
@@ -60,8 +76,25 @@ Add content by editing the `RAIDS` table only; the UI is fully data-driven.
         lines = { "Description line one.", "Line two." },
     }},
     adds = {{ name = "...", lines = {...}, abilities = {...} }}, -- adds may nest abilities
+}}, trash = {{
+    key = "core_hound",
+    name = "Core Hound",
+    icon = "Interface\\Icons\\Ability_Hunter_Pet_Wolf",
+    flags = { "melee", "immune_fire" },   -- same BOSS_FLAGS keys as bosses; also
+                                           -- doubles as the "mob type" tag row
+    stats = { armor = 3400, fire = "immune", nature = 50, frost = 50, shadow = 50, arcane = 50 },
+    abilities = {{ name = "Fast Melee", icon = "...", roles = {"tank"}, lines = {"..."} }},
+    -- adds/tabs are NOT supported on trash packs (single flat abilities list only)
 }} }
 ```
+
+A trash pack is **intentionally the same shape as a boss** (`icon`/`flags`/`stats`/
+`abilities`, including `separator = true` phase bars) so the Trash view's rendering
+can reuse the boss panel's functions wholesale instead of a bespoke layout. There is
+currently no dedicated field for CC priority / patrol path / pull order — add that
+content as separator-grouped abilities (e.g. `{ separator = true, name = "Pull Order" }`
+followed by plain entries) rather than inventing new pack fields, unless a real need
+for structured fields comes up.
 
 **Boss stats line.** A boss may carry an optional `stats` table, rendered as a
 single armor/resistance line above its ability list (Abilities tab only). Omitted
@@ -130,6 +163,19 @@ scroll frames with the mouse wheel and the scrollbar.
   code changes should be needed.
 - **New boss portraits** must be added as `.blp` in `Icons/`, listed in
   `DungeonJournal.toc`, and referenced without the file extension.
+- **Shared row widgets branch on `currentView`.** `CreateAbilityRow` and
+  `CreateSeparatorRow` are generic (parent passed in) and reused by both the boss
+  panel (`abilityScrollChild`, `abilityRowPool`) and the trash panel
+  (`trashAbilityScrollChild`, `trashAbilityRowPool`). Their `OnClick` handlers must
+  check `currentView == "trash"` and call `RebuildTrashAbilityList(currentTrashPack)`
+  instead of `RebuildAbilityList(currentBoss)` — forgetting this makes rows in
+  whichever panel didn't get the branch silently unclickable (toggles `expanded` but
+  rebuilds the wrong list). Apply the same check to any *new* shared row type.
+- **`SelectView()` must run only after every widget it touches exists.** It's a
+  `local function` that references trash-panel globals (`trashPortrait`,
+  `RebuildTrashFlags`, `trashAbilityScrollFrame`, ...) defined later in the file, near
+  `ShowBossInfo()`. Do not call `SelectView(...)` for the initial view until the very
+  end of the file (after `RebuildTree()`), or those globals will still be `nil`.
 
 ## Anti-patterns
 
@@ -152,8 +198,59 @@ Fix these deliberately, not incidentally, and mention them in the commit message
 - Blackwing Lair and the newer Scarlet Monastery bosses currently have only a single
   placeholder ability each ("Placeholder. Abilities not yet documented.") — real
   ability data still needs to be filled in.
+- Trash coverage is Molten Core (14 packs) and Blackwing Lair (18 packs) - every
+  distinct mob name that logged an ability in that raid per `mob_abilities_summary.txt`;
+  no other raid has a `trash` table yet. Ability *names* are sourced from that file
+  (real combat-log data, filtered to drop entries that were clearly nearby-player
+  heals/buffs mis-attributed to the mob - see the comment above each raid's `trash`
+  table). Ability *icons/descriptions* are sourced from `Spell.xlsx` (Blizzard's spell
+  data, matched by name - strip the `$s1`/`$o1`/`$d` tokens in `Description_enUS`, they're
+  formula placeholders Blizzard's client fills in at runtime, not literal text). `stats`
+  armor/resistance numbers are real (from `V+ Lists.xlsx` "Resistances Data") only for
+  `flamewaker` (exact match: "Gehennas Adds") and `flamewaker_elite` (approximate match:
+  "Melee Adds" near Majordomo) - that sheet only covers bosses and their in-encounter
+  adds, not hallway trash, so every other pack's `stats` is still an estimate. `flags`
+  (mob type tags) are general-knowledge guesses throughout.
+- Resistance-school immunity is shown once, on the `stats` line (e.g. `fire = "immune"`) -
+  do not also add a `BOSS_FLAGS` entry like `immune_fire` for it; that flag type was
+  removed as redundant. `immune_poly` is the one exception (Polymorph immunity isn't a
+  resistance school, so `stats` can't express it).
 
 The slash command remains `/clicky` (unchanged, not currently considered an issue).
+
+## External reference files (not loaded by the addon)
+
+These live alongside `DungeonJournal.lua` for research/content purposes only — none are
+referenced by the `.toc` or read at runtime. Use them to source real ability
+names/icons, resistance values, and trash/patrol notes when filling in `RAIDS`, then
+throw the derived Lua data into the normal `RAIDS` table; don't have the addon read
+these files itself.
+
+- **`Spell.xlsx`** — spell names, icons, and descriptions. Single "Spell" sheet, ~12MB.
+  Good for looking up an ability's real icon path/tooltip text by name.
+- **`mob_abilities_summary.txt`** — a pre-generated, human-readable summary of every
+  spell/ability name seen in `WoWCombatLog.txt`, grouped by source mob (~8.7MB text).
+  **Prefer this over the raw combat log** for "what abilities does mob X use" —
+  it's already the distilled answer.
+- **`WoWCombatLog.txt`** — the raw combat log the summary above was generated from.
+  **~4.2GB — do not read or grep this without explicitly confirming with the user
+  first**, even for a narrow search; it can burn an enormous number of tokens or time
+  out. If `mob_abilities_summary.txt` doesn't answer the question, ask before touching
+  this file, and even then scope the search as tightly as possible (e.g. `grep` for one
+  exact mob/spell name, never a broad scan).
+- **`V+ Lists.xlsx`** — multi-sheet raid-organizer workbook. Sheets include `Resistances
+  Data` / `Resistances Testing` (source for boss/trash `stats` armor+resistance values),
+  `Threat Data`, `Debuff List`, `Class BuffsDebuffs`, `Group Comp`, and a WIP MC tanking
+  assignments sheet. `.xlsx` is a zip of XML — either use the `xlsx` skill or
+  `unzip -o "V+ Lists.xlsx" -d <dir>` and read `xl/worksheets/sheetN.xml` +
+  `xl/sharedStrings.xml` directly for a quick peek without loading the whole workbook.
+- **`Tips_Tricks about 40-man content for RL.docx`** — raid-lead strategy notes: pre-pull
+  checklists, mechanics, and (for at least Molten Core) a "Patrols" section with
+  trash-pack-specific notes (e.g. Lava Surger, Ancient Core Hound) — a good direct
+  source for the CC-priority/patrol-path/pull-order content the Trash view is designed
+  to hold via separator-grouped abilities (see "Data model" above). `.docx` is also a
+  zip of XML; `unzip` + strip tags from `word/document.xml` for a quick peek, or use the
+  `docx` skill for a full clean read.
 
 ## Commit and Pull Request Guidelines
 

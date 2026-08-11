@@ -114,7 +114,7 @@ end
 -- boss or trash-pack portrait/name, for quick-glance notes like "this can/
 -- can't be taunted" or "this pack is immune to Fire". Tag a boss OR a trash
 -- pack in the RAIDS database with e.g. flags = { "nottauntable", "damage_fire" }
--- or flags = { "caster", "immune_fire" } and the matching icons will appear
+-- or flags = { "caster", "melee" } and the matching icons will appear
 -- automatically - see RebuildBossFlags() below. Same table, same mechanism,
 -- used by both the Bosses view and the Trash view.
 --
@@ -184,31 +184,11 @@ local BOSS_FLAGS = {
         name = "Ranged",
         desc = "This mob attacks from range with physical ranged attacks.",
     },
-    immune_fire = {
-        icon = "Interface\\Icons\\Spell_Fire_Immolation",
-        name = "Immune: Fire",
-        desc = "This mob is immune to Fire damage and Fire-school crowd control.",
-    },
-    immune_nature = {
-        icon = "Interface\\Icons\\Spell_Nature_ResistNature",
-        name = "Immune: Nature",
-        desc = "This mob is immune to Nature damage and Nature-school crowd control.",
-    },
-    immune_frost = {
-        icon = "Interface\\Icons\\Spell_Frost_FrostArmor02",
-        name = "Immune: Frost",
-        desc = "This mob is immune to Frost damage and Frost-school crowd control.",
-    },
-    immune_shadow = {
-        icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
-        name = "Immune: Shadow",
-        desc = "This mob is immune to Shadow damage and Shadow-school crowd control.",
-    },
-    immune_arcane = {
-        icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
-        name = "Immune: Arcane",
-        desc = "This mob is immune to Arcane damage and Arcane-school crowd control.",
-    },
+    -- CHANGED: NOT flags for immune_fire/nature/frost/shadow/arcane - a
+    -- resistance-school immunity is already shown on the stats line (e.g.
+    -- fire = "immune"), so a matching flag icon would just be a redundant
+    -- second way of saying the same thing. Only immune_poly stays, since
+    -- Polymorph immunity isn't a resistance school and has no other home.
     immune_poly = {
         icon = "Interface\\Icons\\Spell_Nature_Polymorph",
         name = "Immune: Polymorph",
@@ -351,26 +331,6 @@ local ICON_ExplainationS = {{
     name = BOSS_FLAGS.ranged.name,
     desc = BOSS_FLAGS.ranged.desc
 }, {
-    icon = BOSS_FLAGS.immune_fire.icon,
-    name = BOSS_FLAGS.immune_fire.name,
-    desc = BOSS_FLAGS.immune_fire.desc
-}, {
-    icon = BOSS_FLAGS.immune_nature.icon,
-    name = BOSS_FLAGS.immune_nature.name,
-    desc = BOSS_FLAGS.immune_nature.desc
-}, {
-    icon = BOSS_FLAGS.immune_frost.icon,
-    name = BOSS_FLAGS.immune_frost.name,
-    desc = BOSS_FLAGS.immune_frost.desc
-}, {
-    icon = BOSS_FLAGS.immune_shadow.icon,
-    name = BOSS_FLAGS.immune_shadow.name,
-    desc = BOSS_FLAGS.immune_shadow.desc
-}, {
-    icon = BOSS_FLAGS.immune_arcane.icon,
-    name = BOSS_FLAGS.immune_arcane.name,
-    desc = BOSS_FLAGS.immune_arcane.desc
-}, {
     icon = BOSS_FLAGS.immune_poly.icon,
     name = BOSS_FLAGS.immune_poly.name,
     desc = BOSS_FLAGS.immune_poly.desc
@@ -389,6 +349,21 @@ local RAIDS = {{
     -- flags, stats, abilities with optional separators) so the Trash view can
     -- reuse the boss panel's rendering wholesale. CC priority / patrol path /
     -- pull order notes can be added later as separator-grouped ability entries.
+    -- CHANGED: ability names below are sourced from mob_abilities_summary.txt
+    -- (real server combat-log data). Icons, descriptions, roles, and stats are
+    -- otherwise general knowledge / best-guess - see the PR notes.
+    -- CHANGED: full real trash roster, cross-verified against a public
+    -- Chronicle Vanilla+ combat-log report for this raid (see PR notes for
+    -- the link) on top of mob_abilities_summary.txt. Ability description
+    -- "lines" now reuse Spell.xlsx's own Description_enUS text as closely as
+    -- possible, with Blizzard's $s1/$o1/$d/etc numeric placeholders swapped
+    -- for literal "X damage"/"X seconds"/"X%" text to be filled in later -
+    -- NOT real numbers. A few abilities the log confirmed (e.g. "Shield Toss
+    -- Return", "Hate to 50%", "Low Threat Target") were dropped rather than
+    -- added: they recur identically across many unrelated mobs with no
+    -- matching Spell.xlsx entry, which is the same signature as the
+    -- Stoicism/Assault Blessing noise already filtered out elsewhere - they
+    -- read as server-script/attribution artifacts, not real mob abilities.
     trash = {{
         key = "molten_giant",
         name = "Molten Giant",
@@ -397,68 +372,258 @@ local RAIDS = {{
         stats = {armor = 4200, fire = 60, nature = 60, frost = 60, shadow = 60, arcane = 60},
         abilities = {{
             name = "Knock Away",
-            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+            icon = "Interface\\Icons\\INV_Gauntlets_05",
             roles = {"tank"},
-            lines = {"Knocks the target back, potentially scattering melee near the lava."}
+            lines = {"Inflicts normal damage plus X to an enemy and knocks it back."}
         }, {
-            name = "Trample",
-            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            name = "Smash",
+            icon = "Interface\\Icons\\Ability_ThunderBolt",
             roles = {"tank"},
-            lines = {"A heavy melee strike on its current target."}
+            lines = {"A heavy melee strike, inflicting X damage."}
+        }}
+    }, {
+        key = "molten_destroyer",
+        name = "Molten Destroyer",
+        icon = "Interface\\Icons\\Ability_Smash",
+        flags = {"melee"},
+        stats = {armor = 4200, fire = 60, nature = 60, frost = 60, shadow = 60, arcane = 60},
+        abilities = {{
+            name = "Hateful Strike",
+            icon = "Interface\\Icons\\Temp",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"X damage to target - whichever raid member holds second-highest threat, not necessarily the tank."}
+        }, {
+            name = "Massive Tremor",
+            icon = "Interface\\Icons\\Ability_Smash",
+            warning = true,
+            lines = {"Causes a massive ground tremor, inflicting X damage to nearby enemies and interrupting any spell being cast for X seconds."}
+        }, {
+            name = "Pyroblast",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball02",
+            warning = true,
+            lines = {"Hurls an immense fiery boulder that causes X Fire damage and an additional X Fire damage over X seconds."}
+        }}
+    }, {
+        key = "molten_elemental",
+        name = "Molten Elemental",
+        icon = "Interface\\Icons\\Spell_Fire_Immolation",
+        flags = {"melee"},
+        stats = {armor = 3400, fire = "immune", nature = 50, frost = 50, shadow = 50, arcane = 50},
+        abilities = {{
+            name = "Fire Shield",
+            icon = "Interface\\Icons\\Spell_Fire_Immolation",
+            roles = {"tank"},
+            lines = {"Surrounds itself with a shield of flame that inflicts X Fire damage to nearby enemies every X sec, lasting X seconds."}
         }}
     }, {
         key = "firelord",
         name = "Firelord",
         icon = "Interface\\Icons\\Spell_Fire_Elemental_Totem",
-        flags = {"caster", "immune_fire"},
+        flags = {"caster"},
         stats = {armor = 3600, fire = "immune", nature = 60, frost = 60, shadow = 60, arcane = 60},
         abilities = {{
-            name = "Fire Nova",
-            icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
+            name = "Soul Burn",
+            icon = "Interface\\Icons\\Spell_Fire_SoulBurn",
             warning = true,
-            lines = {"Inflicts Fire damage to nearby enemies - move out."}
+            lines = {"Inflicts X Fire damage to an enemy over X seconds, preventing it from casting spells and reducing the Physical damage it deals by X%."}
         }, {
-            name = "Fire Blast",
-            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-            roles = {"kick"},
-            lines = {"A direct Fire bolt at a random target - interrupt or kill on sight."}
-        }}
-    }, {
-        key = "flamewaker_legionnaire",
-        name = "Flamewaker Legionnaire",
-        icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-        flags = {"melee"},
-        stats = {armor = 3200, fire = 60, nature = 40, frost = 40, shadow = 40, arcane = 40},
-        abilities = {{
-            name = "Cleave",
-            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-            roles = {"tank"},
-            lines = {"Strikes its target and nearby allies - do not stack melee on it."}
-        }}
-    }, {
-        key = "flamewaker_technician",
-        name = "Flamewaker Technician",
-        icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-        flags = {"caster"},
-        stats = {armor = 2600, fire = 80, nature = 40, frost = 40, shadow = 40, arcane = 40},
-        abilities = {{
-            name = "Fire Bolt",
-            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            -- CHANGED: no usable Description_enUS match in Spell.xlsx for
+            -- this "Incinerate" (only unrelated talent-passive entries) -
+            -- text below is a guess, icon reused from the thematically
+            -- matching Spell_Fire_Incinerate.
+            name = "Incinerate",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
-            roles = {"kick"},
-            lines = {"A high-damage Fire bolt - priority CC or interrupt target."}
+            lines = {"Burns the target for X Fire damage."}
+        }, {
+            name = "Conflagration",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            lines = {"Sets an enemy aflame, inflicting X Fire damage over X seconds and sending it into a state of panic. While affected, the flames periodically scorch nearby allies for X damage as well."}
+        }, {
+            name = "Spawn Lava Spawn",
+            icon = "Interface\\Icons\\Spell_Shadow_SealOfKings",
+            warning = true,
+            lines = {"Summons a Lava Spawn to aid it in battle."},
+            abilities = {{
+                name = "Fireball",
+                icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+                warning = true,
+                roles = {"kick"},
+                lines = {"Hurls a fiery ball that causes X Fire damage and an additional X Fire damage over X seconds."}
+            }, {
+                name = "Split",
+                icon = "Interface\\Icons\\Spell_Shadow_SealOfKings",
+                warning = true,
+                lines = {"The Lava Spawn splits into two, each inheriting a portion of its remaining health."}
+            }}
         }}
     }, {
         key = "core_hound",
         name = "Core Hound",
         icon = "Interface\\Icons\\Ability_Hunter_Pet_Wolf",
-        flags = {"melee", "immune_fire"},
+        flags = {"melee"},
         stats = {armor = 3400, fire = "immune", nature = 50, frost = 50, shadow = 50, arcane = 50},
         abilities = {{
-            name = "Fast Melee",
-            icon = "Interface\\Icons\\Ability_MeleeDamage",
+            name = "Lava Breath",
+            icon = "Interface\\Icons\\Spell_Fire_WindsofWoe",
+            warning = true,
+            lines = {"Inflicts X Fire damage to enemies in front of the caster - do not stand in front unless tanking."}
+        }, {
+            name = "Serrated Bite",
+            icon = "Interface\\Icons\\Ability_Gouge",
             roles = {"tank"},
-            lines = {"Attacks quickly - keep the group stacked for AoE healing."}
+            lines = {"Inflicts X Physical damage to an enemy over X seconds."}
+        }, {
+            name = "Piercing Howl",
+            icon = "Interface\\Icons\\Ability_Druid_ChallangingRoar",
+            warning = true,
+            lines = {"Causes all enemies near the hound to be dazed for X seconds."}
+        }}
+    }, {
+        key = "ancient_core_hound",
+        name = "Ancient Core Hound",
+        icon = "Interface\\Icons\\Ability_Hunter_Pet_Wolf",
+        flags = {"melee"},
+        stats = {armor = 3800, fire = "immune", nature = 60, frost = 60, shadow = 60, arcane = 60},
+        abilities = {{
+            name = "Vicious Bite",
+            icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"Bites an enemy, inflicting Physical damage - a hateful-strike-style hit that cannot be avoided or dodged; heavy armor/stamina needed on offtanks."}
+        }, {
+            name = "Cone of Fire",
+            icon = "Interface\\Icons\\Spell_Fire_WindsofWoe",
+            warning = true,
+            lines = {"Inflicts X Fire damage to enemies in a cone in front of the caster - only the tank should be in front."}
+        }, {
+            name = "Withering Heat",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            lines = {"Maximum health reduced by X%. Takes X% health damage every X sec. Stuns and deals heavy damage over X seconds on dispel."}
+        }, {
+            name = "Cauterizing Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Volcano",
+            lines = {"Increases Fire damage taken by nearby enemies by X for X seconds."}
+        }, {
+            name = "Serrated Bite",
+            icon = "Interface\\Icons\\Ability_Gouge",
+            roles = {"tank"},
+            lines = {"Inflicts X Physical damage to an enemy over X seconds."}
+        }}
+    }, {
+        key = "lava_surger",
+        name = "Lava Surger",
+        icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+        flags = {"melee"},
+        stats = {armor = 3000, fire = "immune", nature = 60, frost = 60, shadow = 60, arcane = 60},
+        abilities = {{
+            name = "Magma Strike",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"Calls down a pillar of fire, burning all enemies within the area for X Fire damage and an additional X Fire damage over X seconds."}
+        }, {
+            name = "Surge",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            warning = true,
+            lines = {"Charges an enemy, inflicting X damage to the target and any of its nearby allies, as well as knocking them all back."}
+        }, {
+            -- CHANGED: reuses the same real ability already documented on
+            -- Garr (see the Garr boss entry).
+            name = "Magma Shackles",
+            icon = "Interface\\Icons\\spell_nature_earthbind",
+            lines = {"Reduces the movement speed of nearby enemies by X% for X seconds."}
+        }}
+    }, {
+        key = "lava_elemental",
+        name = "Lava Elemental",
+        icon = "Interface\\Icons\\Spell_Fire_Fireball02",
+        flags = {"caster"},
+        stats = {armor = 3600, fire = "immune", nature = 55, frost = 55, shadow = 55, arcane = 55},
+        abilities = {{
+            name = "Pyroclast Barrage",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball02",
+            warning = true,
+            lines = {"Inflicts X Fire damage to enemies in a cone in front of it, stunning them for X seconds."}
+        }, {
+            -- CHANGED: no usable Description_enUS match in Spell.xlsx -
+            -- text below is a guess.
+            name = "Lava Explosion",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"An explosive burst dealing X Fire damage to nearby enemies."}
+        }}
+    }, {
+        key = "lava_reaver",
+        name = "Lava Reaver",
+        icon = "Interface\\Icons\\Ability_Rogue_Ambush",
+        flags = {"melee"},
+        stats = {armor = 3400, fire = "immune", nature = 50, frost = 50, shadow = 50, arcane = 50},
+        abilities = {{
+            name = "Strike",
+            icon = "Interface\\Icons\\Ability_Rogue_Ambush",
+            roles = {"tank"},
+            lines = {"Strikes at an enemy, inflicting weapon damage plus X."}
+        }, {
+            -- CHANGED: no usable Description_enUS match in Spell.xlsx (and
+            -- the sourced icon, "phoenix", looks like a placeholder rather
+            -- than a real match) - text and icon below are both guesses.
+            name = "Lava Grasp",
+            icon = "Interface\\Icons\\Spell_Nature_StrangleVines",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Grasps an enemy, inflicting X Nature damage and rooting it in place for X seconds."}
+        }}
+    }, {
+        key = "lava_annihilator",
+        name = "Lava Annihilator",
+        icon = "Interface\\Icons\\stoneskinz_3",
+        flags = {"melee"},
+        stats = {armor = 4000, fire = "immune", nature = 60, frost = 60, shadow = 60, arcane = 60},
+        abilities = {{
+            name = "Annihilate",
+            icon = "Interface\\Icons\\stoneskinz_3",
+            roles = {"tank"},
+            lines = {"Increases the Physical damage taken by an enemy by X for X seconds. Stacks indefinitely."}
+        }, {
+            name = "Flurry",
+            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            warning = true,
+            lines = {"Increases its own attack speed by X% for its next X swings after dealing a melee critical strike."}
+        }}
+    }, {
+        -- CHANGED: confirmed real trash from a public Chronicle Vanilla+
+        -- run log, alongside the packs already sourced from
+        -- mob_abilities_summary.txt - see the PR notes.
+        key = "flame_imp",
+        name = "Flame Imp",
+        icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
+        flags = {"melee"},
+        stats = {armor = 2400, fire = "immune", nature = 40, frost = 40, shadow = 40, arcane = 40},
+        abilities = {{
+            -- CHANGED: no usable Description_enUS match in Spell.xlsx -
+            -- text below is a guess.
+            name = "Fire Nova",
+            icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
+            warning = true,
+            lines = {"Inflicts X Fire damage to nearby enemies."}
+        }}
+    }, {
+        key = "firewalker",
+        name = "Firewalker",
+        icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+        flags = {"melee"},
+        stats = {armor = 3600, fire = "immune", nature = 55, frost = 55, shadow = 55, arcane = 55},
+        abilities = {{
+            name = "Fire Blossom",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            lines = {"Immobilizes the caster and periodically inflicts X Fire damage to an enemy for X seconds."}
+        }, {
+            name = "Incite Flames",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBlades",
+            lines = {"Reduces the Fire resistance of nearby enemies by X for X seconds."}
         }}
     }},
     bosses = {{
@@ -1059,9 +1224,145 @@ local RAIDS = {{
     name = "Blackwing Lair",
     expanded = false,
     trashExpanded = false,
+    -- CHANGED: full real trash roster per mob_abilities_summary.txt (every
+    -- distinct mob name that logged an ability in BWL on this server).
+    -- Ability icons/descriptions are from Spell.xlsx (Blizzard's spell data,
+    -- matched by name), filtered to drop entries that were clearly nearby-
+    -- player heals/buffs mis-attributed to the mob in the log (e.g.
+    -- Rejuvenation/Hibernate mana refunds, and "Assault Blessing" /
+    -- "Dragonbane" / "Dragonslayer" which recur identically across many
+    -- unrelated mobs - almost certainly player buffs, not mob abilities).
+    -- Flags/roles/stats are otherwise general knowledge / best-guess - see
+    -- the PR notes.
     trash = {{
-        key = "blackwing_guardsman",
-        name = "Blackwing Guardsman",
+        key = "blackwing_legionnaire",
+        name = "Blackwing Legionnaire",
+        icon = "Interface\\Icons\\Ability_Rogue_Ambush",
+        flags = {"melee"},
+        stats = {armor = 5200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+        }, {
+            name = "Strike",
+            icon = "Interface\\Icons\\Ability_Rogue_Ambush",
+            roles = {"tank"},
+            lines = {"Strikes at an enemy, inflicting increased melee damage."}
+        }}
+    }, {
+        key = "blackwing_mage",
+        name = "Blackwing Mage",
+        icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+        flags = {"caster"},
+        stats = {armor = 4000, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Fireball",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Hurls a fiery ball that causes Fire damage plus a burn over time - priority CC or interrupt target."}
+        }, {
+            name = "Arcane Intellect",
+            icon = "Interface\\Icons\\Spell_Holy_MagicalSentry",
+            lines = {"Buffs its own Intellect - kill or CC quickly to limit its casting."}
+        }}
+    }, {
+        key = "blackwing_spellbinder",
+        name = "Blackwing Spellbinder",
+        icon = "Interface\\Icons\\Spell_Fire_Fireball",
+        flags = {"caster"},
+        stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Arcane Blast",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Blasts a target for Arcane damage - priority CC or interrupt target."}
+        }, {
+            name = "Flamestrike",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"Calls down a pillar of fire, burning the area plus an additional burn over time - move out of it."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies - consider interrupting or killing casters first."}
+        }}
+    }, {
+        key = "blackwing_taskmaster",
+        name = "Blackwing Taskmaster",
+        icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+        flags = {"caster", "healer"},
+        stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Shadow Shock",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Instantly lashes an enemy with dark magic, inflicting Shadow damage."}
+        }, {
+            name = "Healing Circle",
+            icon = "Interface\\Icons\\Spell_Holy_PrayerOfHealing02",
+            lines = {"Heals nearby allies - kill or interrupt to limit its support."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "blackwing_technician",
+        name = "Blackwing Technician",
+        icon = "Interface\\Icons\\INV_Misc_Bomb_08",
+        flags = {"ranged"},
+        stats = {armor = 3800, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Bomb",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"Bombs an area, inflicting Fire damage to enemies within it."}
+        }, {
+            name = "Bottle of Poison",
+            icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
+            roles = {"poison"},
+            lines = {"Tosses a bottle of poison at an enemy, inflicting Nature damage over time."}
+        }}
+    }, {
+        key = "blackwing_warlock",
+        name = "Blackwing Warlock",
+        icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
+        flags = {"caster"},
+        stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Shadow Bolt",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Sends a shadowy bolt at the enemy, causing Shadow damage."}
+        }, {
+            name = "Rain of Fire",
+            icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
+            warning = true,
+            lines = {"Calls down a fiery rain, burning enemies in the area over time - move out."}
+        }, {
+            name = "Curse of Rot",
+            icon = "Interface\\Icons\\Spell_Holy_NullifyDisease",
+            roles = {"decurse"},
+            lines = {"Curses the target, reducing Nature resistance, increasing Nature damage taken, and dealing damage over time."}
+        }, {
+            name = "Howl of Terror",
+            icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
+            warning = true,
+            lines = {"Causes nearby enemies to flee in terror - damage may interrupt the effect."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "chromatic_dragonspawn",
+        name = "Chromatic Dragonspawn",
         icon = "Interface\\Icons\\Ability_Warrior_Cleave",
         flags = {"melee"},
         stats = {armor = 5200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
@@ -1069,20 +1370,196 @@ local RAIDS = {{
             name = "Cleave",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
-            lines = {"Strikes its target and nearby allies - avoid clumping melee on it."}
+            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+        }, {
+            name = "Strike",
+            icon = "Interface\\Icons\\Ability_Rogue_Ambush",
+            roles = {"tank"},
+            lines = {"Strikes at an enemy, inflicting increased melee damage."}
         }}
     }, {
-        key = "blackwing_mage",
-        name = "Blackwing Mage",
-        icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-        flags = {"caster", "immune_fire"},
-        stats = {armor = 4000, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
+        key = "chromatic_elite_guard",
+        name = "Chromatic Elite Guard",
+        icon = "Interface\\Icons\\Ability_GolemThunderClap",
+        flags = {"melee"},
+        stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
-            name = "Fireball",
+            name = "Mortal Strike",
+            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"A vicious strike that wounds the target, reducing the effectiveness of healing on it."}
+        }, {
+            name = "Knockdown",
+            icon = "Interface\\Icons\\Ability_GolemThunderClap",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Knocks an enemy down, stunning it."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+        }, {
+            name = "Strike",
+            icon = "Interface\\Icons\\Ability_Rogue_Ambush",
+            roles = {"tank"},
+            lines = {"Strikes at an enemy, inflicting increased melee damage."}
+        }}
+    }, {
+        key = "chromatic_whelp",
+        name = "Chromatic Whelp",
+        icon = "Interface\\Icons\\Spell_Nature_Lightning",
+        flags = {"caster"},
+        stats = {armor = 3200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Fireball Volley",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
+            lines = {"Inflicts Fire damage to nearby enemies."}
+        }, {
+            name = "Frostbolt",
+            icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
+            warning = true,
             roles = {"kick"},
-            lines = {"A high-damage Fireball - priority CC or interrupt target."}
+            lines = {"Launches a bolt of frost, causing Frost damage and slowing movement speed."}
+        }, {
+            name = "Lightning Bolt",
+            icon = "Interface\\Icons\\Spell_Nature_Lightning",
+            roles = {"kick"},
+            lines = {"Casts a bolt of lightning at the target for Nature damage."}
+        }}
+    }, {
+        key = "death_talon_captain",
+        name = "Death Talon Captain",
+        icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+        flags = {"melee"},
+        stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "death_talon_dragonspawn",
+        name = "Death Talon Dragonspawn",
+        icon = "Interface\\Icons\\Ability_Whirlwind",
+        flags = {"melee"},
+        stats = {armor = 5200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Ring Cleave",
+            icon = "Interface\\Icons\\Ability_Whirlwind",
+            roles = {"tank"},
+            lines = {"Attacks all nearby enemies in a whirlwind, causing weapon damage to each - avoid clumping melee on it."}
+        }}
+    }, {
+        key = "death_talon_flamescale",
+        name = "Death Talon Flamescale",
+        icon = "Interface\\Icons\\Ability_Warrior_Charge",
+        flags = {"melee"},
+        stats = {armor = 5200, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Flame Shock",
+            icon = "Interface\\Icons\\Spell_Fire_FlameShock",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Instantly sears the target with fire, causing Fire damage plus a burn over time."}
+        }, {
+            name = "Berserker Charge",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Charges at an enemy, knocking it back and inflicting damage."}
+        }, {
+            name = "Aura of Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            lines = {"A passive Fire damage aura affecting nearby enemies."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "death_talon_hatcher",
+        name = "Death Talon Hatcher",
+        icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+        flags = {"caster"},
+        stats = {armor = 4200, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Flamestrike",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"Calls down a pillar of fire, burning the area plus an additional burn over time - move out of it."}
+        }, {
+            name = "Growing Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            warning = true,
+            lines = {"A stacking Fire-damage effect that intensifies over time."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "death_talon_overseer",
+        name = "Death Talon Overseer",
+        icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
+        flags = {"melee"},
+        stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Mortal Strike",
+            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"A vicious strike that wounds the target, reducing the effectiveness of healing on it."}
+        }, {
+            name = "Fire Blast",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            roles = {"kick"},
+            lines = {"Blasts the enemy for Fire damage."}
+        }, {
+            name = "Retaliation",
+            icon = "Interface\\Icons\\Ability_Warrior_Challange",
+            warning = true,
+            roles = {"melee"},
+            lines = {"Instantly counterattacks any enemy that strikes it in melee - melee should stop attacking while this is active."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
+        }}
+    }, {
+        key = "death_talon_seether",
+        name = "Death Talon Seether",
+        icon = "Interface\\Icons\\Spell_Fire_Fire",
+        flags = {"caster"},
+        stats = {armor = 4000, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Flame Buffet",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts Fire damage to an enemy and increases the Fire damage it takes - tanks should rotate."}
+        }, {
+            name = "Frenzy",
+            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            warning = true,
+            roles = {"hunter"},
+            lines = {"Enrages, attacking faster - remove with Tranquilizing Shot."}
+        }, {
+            name = "Aura of Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            lines = {"A passive Fire damage aura affecting nearby enemies."}
         }}
     }, {
         key = "death_talon_wyrmguard",
@@ -1091,35 +1568,46 @@ local RAIDS = {{
         flags = {"melee"},
         stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
-            name = "Heavy Strike",
-            icon = "Interface\\Icons\\Ability_MeleeDamage",
-            roles = {"tank"},
-            lines = {"Hits hard - keep an offtank ready if multiple are pulled."}
-        }}
-    }, {
-        key = "death_talon_seether",
-        name = "Death Talon Seether",
-        icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
-        flags = {"caster", "immune_shadow"},
-        stats = {armor = 4000, fire = 90, nature = 90, frost = 90, shadow = "immune", arcane = 90},
-        abilities = {{
-            name = "Shadow Bolt",
-            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            name = "Mortal Strike",
+            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             warning = true,
-            roles = {"kick"},
-            lines = {"A sizeable Shadow Bolt - CC or interrupt if left un-CC'd."}
+            roles = {"tank", "healer"},
+            lines = {"A vicious strike that wounds the target, reducing the effectiveness of healing on it."}
+        }, {
+            name = "War Stomp",
+            icon = "Interface\\Icons\\Ability_BullRush",
+            warning = true,
+            lines = {"Knocks nearby enemies back, stunning them - melee should not clump on it."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"A sweeping attack that strikes its target and nearest ally."}
         }}
     }, {
-        key = "blackwing_dragonspawn",
-        name = "Blackwing Dragonspawn",
-        icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
-        flags = {"melee"},
-        stats = {armor = 5200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        key = "death_talon_wyrmkin",
+        name = "Death Talon Wyrmkin",
+        icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+        flags = {"caster"},
+        stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
-            name = "Melee Swing",
-            icon = "Interface\\Icons\\Ability_MeleeDamage",
-            roles = {"tank"},
-            lines = {"Straightforward tank-and-spank trash - use ranged pulls, packs are close together."}
+            name = "Fireball Volley",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            lines = {"Inflicts Fire damage to nearby enemies."}
+        }, {
+            name = "Blast Wave",
+            icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
+            warning = true,
+            lines = {"A wave of flame radiates outward, damaging and dazing nearby enemies."}
+        }, {
+            name = "Aura of Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            lines = {"A passive Fire damage aura affecting nearby enemies."}
+        }, {
+            name = "Commanding Shout",
+            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
+            lines = {"Buffs nearby allies."}
         }}
     }},
     bosses = {{
@@ -1153,6 +1641,54 @@ local RAIDS = {{
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank", "melee"},
             lines = {"Strikes his target and its nearest allies."}
+        }},
+        -- CHANGED: orc handlers that guard Razorgore's eggs during the egg
+        -- phase - moved here from the Trash view since they're specific to
+        -- this encounter rather than hallway trash.
+        adds = {{
+            key = "blackwing_guardsman",
+            name = "Blackwing Guardsman",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            color = "ffcc6600",
+            lines = {"Guards the eggs during the egg-destruction phase alongside Grethok the Controller."},
+            abilities = {{
+                name = "Cleave",
+                icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+                roles = {"tank"},
+                lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+            }, {
+                name = "Concussion Blow",
+                icon = "Interface\\Icons\\Ability_ThunderBolt",
+                warning = true,
+                roles = {"tank"},
+                lines = {"A brutal strike that stuns its target."}
+            }}
+        }, {
+            -- CHANGED: real ability names (Arcane Missiles, Dominate Mind)
+            -- sourced from mob_abilities_summary.txt; descriptions from
+            -- Spell.xlsx with numeric tokens replaced by X placeholders.
+            -- "Retribution Aura"/"Sanctity Aura" also logged under this mob
+            -- were dropped as nearby-Paladin buff noise, same as elsewhere.
+            key = "grethok",
+            name = "Grethok the Controller",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowWordDominate",
+            roles = {"kick", "dispel"},
+            color = "ffcc6600",
+            lines = {"Guards the eggs during the egg-destruction phase - if left alive too long it can Dominate Mind a raid member. Kill or interrupt it quickly."},
+            abilities = {{
+                name = "Arcane Missiles",
+                icon = "Interface\\Icons\\Spell_Nature_StarFall",
+                warning = true,
+                roles = {"kick"},
+                lines = {"Launches Arcane Missiles at the enemy over X seconds, each missile causing X Arcane damage."}
+            }, {
+                name = "Dominate Mind",
+                icon = "Interface\\Icons\\Spell_Shadow_ShadowWordDominate",
+                warning = true,
+                roles = {"dispel"},
+                lines = {"Takes control of a humanoid enemy up to level X for X seconds."}
+            }}
         }}
     }, {
         key = "elementium_decapitator",
