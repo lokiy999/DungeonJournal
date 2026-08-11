@@ -194,6 +194,13 @@ local BOSS_FLAGS = {
         name = "Immune: Polymorph",
         desc = "This mob cannot be Polymorphed.",
     },
+    -- CHANGED: for mobs that flat-out ignore spells/abilities (e.g. Blackwing
+    -- Spellbinder) - only melee damage lands on them.
+    immune_spells = {
+        icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
+        name = "Immune: Spells",
+        desc = "This mob is immune to all spells and abilities - only melee damage affects it.",
+    },
 }
 
 ------------------------------------------------------------
@@ -334,6 +341,10 @@ local ICON_ExplainationS = {{
     icon = BOSS_FLAGS.immune_poly.icon,
     name = BOSS_FLAGS.immune_poly.name,
     desc = BOSS_FLAGS.immune_poly.desc
+}, {
+    icon = BOSS_FLAGS.immune_spells.icon,
+    name = BOSS_FLAGS.immune_spells.name,
+    desc = BOSS_FLAGS.immune_spells.desc
 }}
 
 ------------------------------------------------------------
@@ -1251,6 +1262,11 @@ local RAIDS = {{
             roles = {"tank"},
             lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
         }, {
+            name = "Mark of Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            warning = true,
+            lines = {"Placeholder. Ability not yet documented."}
+        }, {
             name = "Commanding Shout",
             icon = "Interface\\Icons\\Spell_Magic_MageArmor",
             lines = {"Buffs nearby allies."}
@@ -1300,14 +1316,6 @@ local RAIDS = {{
             warning = true,
             roles = {"tank"},
             lines = {"Charges at an enemy, knocking it back and inflicting damage."}
-        }, {
-            name = "Aura of Flames",
-            icon = "Interface\\Icons\\Spell_Fire_Fire",
-            lines = {"A passive Fire damage aura affecting nearby enemies."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
         }}
     }, {
         key = "death_talon_wyrmkin",
@@ -1327,43 +1335,35 @@ local RAIDS = {{
             icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
             warning = true,
             lines = {"A wave of flame radiates outward, damaging and dazing nearby enemies."}
-        }, {
-            name = "Aura of Flames",
-            icon = "Interface\\Icons\\Spell_Fire_Fire",
-            lines = {"A passive Fire damage aura affecting nearby enemies."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
         }}
     }, {
         separator = true,
         name = "Hatcher Pack",
         color = "ffffd100",
     }, {
-        key = "chromatic_whelp_p1",
-        name = "Chromatic Whelp",
-        icon = "Interface\\Icons\\Spell_Nature_Lightning",
+        key = "corrupted_red_whelp_p1",
+        name = "Corrupted Red Whelp",
+        icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
         grouped = true,
         flags = {"caster"},
         stats = {armor = 3200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Fireball Volley",
-            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-            warning = true,
-            lines = {"Inflicts Fire damage to nearby enemies."}
-        }, {
-            name = "Frostbolt",
-            icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
-            warning = true,
-            roles = {"kick"},
-            lines = {"Launches a bolt of frost, causing Frost damage and slowing movement speed."}
-        }, {
-            name = "Lightning Bolt",
-            icon = "Interface\\Icons\\Spell_Nature_Lightning",
-            roles = {"kick"},
-            lines = {"Casts a bolt of lightning at the target for Nature damage."}
-        }}
+        abilities = {}
+    }, {
+        key = "corrupted_green_whelp_p1",
+        name = "Corrupted Green Whelp",
+        icon = "Interface\\Icons\\Spell_Nature_NullifyPoison",
+        grouped = true,
+        flags = {"caster"},
+        stats = {armor = 3200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {}
+    }, {
+        key = "corrupted_blue_whelp_p1",
+        name = "Corrupted Blue Whelp",
+        icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
+        grouped = true,
+        flags = {"caster"},
+        stats = {armor = 3200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {}
     }, {
         key = "death_talon_hatcher_p1",
         name = "Death Talon Hatcher",
@@ -1381,10 +1381,6 @@ local RAIDS = {{
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             warning = true,
             lines = {"A stacking Fire-damage effect that intensifies over time."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
         }}
     }, {
         key = "blackwing_taskmaster_p1",
@@ -1403,10 +1399,6 @@ local RAIDS = {{
             name = "Healing Circle",
             icon = "Interface\\Icons\\Spell_Holy_PrayerOfHealing02",
             lines = {"Heals nearby allies - kill or interrupt to limit its support."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
         }}
     }, {
         separator = true,
@@ -1442,9 +1434,15 @@ local RAIDS = {{
             warning = true,
             lines = {"Causes nearby enemies to flee in terror - damage may interrupt the effect."}
         }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
+            name = "Incineration Curse",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            lines = {"Curses the target, causing Fire damage over time."}
+        }, {
+            name = "Summon Felguard Portal",
+            icon = "Interface\\Icons\\Spell_Shadow_SummonFelGuard",
+            warning = true,
+            lines = {"Opens a portal that summons a Felguard - destroy the portal quickly."}
         }}
     }, {
         key = "blackwing_technician_p2",
@@ -1458,12 +1456,12 @@ local RAIDS = {{
             name = "Bomb",
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
-            lines = {"Bombs an area, inflicting Fire damage to enemies within it."}
+            lines = {"Used when its aggro target is not in melee range - bombs an area, inflicting Fire damage to enemies within it."}
         }, {
             name = "Bottle of Poison",
             icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
             roles = {"poison"},
-            lines = {"Tosses a bottle of poison at an enemy, inflicting Nature damage over time."}
+            lines = {"Used when its aggro target is in melee range - tosses a bottle of poison at an enemy, inflicting Nature damage over time."}
         }}
     }, {
         separator = true,
@@ -1499,9 +1497,15 @@ local RAIDS = {{
             warning = true,
             lines = {"Causes nearby enemies to flee in terror - damage may interrupt the effect."}
         }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
+            name = "Incineration Curse",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            lines = {"Curses the target, causing Fire damage over time."}
+        }, {
+            name = "Summon Felguard Portal",
+            icon = "Interface\\Icons\\Spell_Shadow_SummonFelGuard",
+            warning = true,
+            lines = {"Opens a portal that summons a Felguard - destroy the portal quickly."}
         }}
     }, {
         key = "blackwing_technician_p3",
@@ -1515,12 +1519,12 @@ local RAIDS = {{
             name = "Bomb",
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
-            lines = {"Bombs an area, inflicting Fire damage to enemies within it."}
+            lines = {"Used when its aggro target is not in melee range - bombs an area, inflicting Fire damage to enemies within it."}
         }, {
             name = "Bottle of Poison",
             icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
             roles = {"poison"},
-            lines = {"Tosses a bottle of poison at an enemy, inflicting Nature damage over time."}
+            lines = {"Used when its aggro target is in melee range - tosses a bottle of poison at an enemy, inflicting Nature damage over time."}
         }}
     }, {
         key = "death_talon_overseer_p3",
@@ -1551,17 +1555,13 @@ local RAIDS = {{
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
             lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
         }}
     }, {
         key = "blackwing_spellbinder_p3",
         name = "Blackwing Spellbinder",
         icon = "Interface\\Icons\\Spell_Fire_Fireball",
         grouped = true,
-        flags = {"caster"},
+        flags = {"caster", "immune_spells"},
         stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
             name = "Arcane Blast",
@@ -1575,9 +1575,10 @@ local RAIDS = {{
             warning = true,
             lines = {"Calls down a pillar of fire, burning the area plus an additional burn over time - move out of it."}
         }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies - consider interrupting or killing casters first."}
+            name = "Greatest Polymorph",
+            icon = "Interface\\Icons\\Spell_Nature_Polymorph",
+            warning = true,
+            lines = {"Transforms a random raid member into a critter for X seconds, unable to act."}
         }}
     }, {
         separator = true,
@@ -1606,6 +1607,35 @@ local RAIDS = {{
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
             lines = {"A sweeping attack that strikes its target and nearest ally."}
+        }, {
+            separator = true,
+            name = "Brood Powers",
+            expanded = true,
+        }, {
+            name = "Black Brood Power",
+            icon = "Interface\\Icons\\Spell_Shadow_CorpseExplode",
+            warning = true,
+            lines = {"Placeholder. Ability not yet documented."}
+        }, {
+            name = "Blue Brood Power",
+            icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
+            warning = true,
+            lines = {"Placeholder. Ability not yet documented."}
+        }, {
+            name = "Bronze Brood Power",
+            icon = "Interface\\Icons\\Spell_Nature_TimeStop",
+            warning = true,
+            lines = {"Placeholder. Ability not yet documented."}
+        }, {
+            name = "Green Brood Power",
+            icon = "Interface\\Icons\\Spell_Nature_NullifyPoison",
+            warning = true,
+            lines = {"Placeholder. Ability not yet documented."}
+        }, {
+            name = "Red Brood Power",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            lines = {"Placeholder. Ability not yet documented."}
         }}
     }, {
         key = "death_talon_overseer_p4",
@@ -1637,10 +1667,6 @@ local RAIDS = {{
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
             lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
         }}
     }, {
         separator = true,
@@ -1676,9 +1702,15 @@ local RAIDS = {{
             warning = true,
             lines = {"Causes nearby enemies to flee in terror - damage may interrupt the effect."}
         }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
+            name = "Incineration Curse",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            lines = {"Curses the target, causing Fire damage over time."}
+        }, {
+            name = "Summon Felguard Portal",
+            icon = "Interface\\Icons\\Spell_Shadow_SummonFelGuard",
+            warning = true,
+            lines = {"Opens a portal that summons a Felguard - destroy the portal quickly."}
         }}
     }, {
         key = "blackwing_technician_p5",
@@ -1692,12 +1724,12 @@ local RAIDS = {{
             name = "Bomb",
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
-            lines = {"Bombs an area, inflicting Fire damage to enemies within it."}
+            lines = {"Used when its aggro target is not in melee range - bombs an area, inflicting Fire damage to enemies within it."}
         }, {
             name = "Bottle of Poison",
             icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
             roles = {"poison"},
-            lines = {"Tosses a bottle of poison at an enemy, inflicting Nature damage over time."}
+            lines = {"Used when its aggro target is in melee range - tosses a bottle of poison at an enemy, inflicting Nature damage over time."}
         }}
     }, {
         key = "death_talon_overseer_p5",
@@ -1728,17 +1760,13 @@ local RAIDS = {{
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
             lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
-        }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies."}
         }}
     }, {
         key = "blackwing_spellbinder_p5",
         name = "Blackwing Spellbinder",
         icon = "Interface\\Icons\\Spell_Fire_Fireball",
         grouped = true,
-        flags = {"caster"},
+        flags = {"caster", "immune_spells"},
         count = 2,
         stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
@@ -1753,9 +1781,10 @@ local RAIDS = {{
             warning = true,
             lines = {"Calls down a pillar of fire, burning the area plus an additional burn over time - move out of it."}
         }, {
-            name = "Commanding Shout",
-            icon = "Interface\\Icons\\Spell_Magic_MageArmor",
-            lines = {"Buffs nearby allies - consider interrupting or killing casters first."}
+            name = "Greatest Polymorph",
+            icon = "Interface\\Icons\\Spell_Nature_Polymorph",
+            warning = true,
+            lines = {"Transforms a random raid member into a critter for X seconds, unable to act."}
         }}
     }, {
         separator = true,
@@ -1785,6 +1814,35 @@ local RAIDS = {{
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
             lines = {"A sweeping attack that strikes its target and nearest ally."}
+        }, {
+            separator = true,
+            name = "Brood Powers",
+            expanded = true,
+        }, {
+            name = "Black Brood Power",
+            icon = "Interface\\Icons\\Spell_Shadow_CorpseExplode",
+            warning = true,
+            lines = {"Placeholder. Ability not yet documented."}
+        }, {
+            name = "Blue Brood Power",
+            icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
+            warning = true,
+            lines = {"Placeholder. Ability not yet documented."}
+        }, {
+            name = "Bronze Brood Power",
+            icon = "Interface\\Icons\\Spell_Nature_TimeStop",
+            warning = true,
+            lines = {"Placeholder. Ability not yet documented."}
+        }, {
+            name = "Green Brood Power",
+            icon = "Interface\\Icons\\Spell_Nature_NullifyPoison",
+            warning = true,
+            lines = {"Placeholder. Ability not yet documented."}
+        }, {
+            name = "Red Brood Power",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            lines = {"Placeholder. Ability not yet documented."}
         }}
     }},
     bosses = {{
