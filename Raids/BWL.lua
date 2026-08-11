@@ -4,30 +4,35 @@
 
 DungeonJournal_Raids = DungeonJournal_Raids or {}
 
-table.insert(DungeonJournal_Raids, {
-    key = "BWL",
-    name = "Blackwing Lair",
-    expanded = false,
-    trashExpanded = false,
-    -- CHANGED: full real trash roster per mob_abilities_summary.txt (every
-    -- distinct mob name that logged an ability in BWL on this server).
-    -- Ability icons/descriptions are from Spell.xlsx (Blizzard's spell data,
-    -- matched by name), filtered to drop entries that were clearly nearby-
-    -- player heals/buffs mis-attributed to the mob in the log (e.g.
-    -- Rejuvenation/Hibernate mana refunds, and "Assault Blessing" /
-    -- "Dragonbane" / "Dragonslayer" which recur identically across many
-    -- unrelated mobs - almost certainly player buffs, not mob abilities).
-    -- Flags/roles/stats are otherwise general knowledge / best-guess - see
-    -- the PR notes.
-    trash = {{
-        separator = true,
-        name = "After Second Boss",
-        color = "ffffd100",
-    }, {
-        key = "death_talon_captain",
+------------------------------------------------------------
+-- BWL trash: mob registry + pull order
+--
+-- The old layout wrote out a full pack table (name/icon/flags/stats/
+-- abilities/count) for every pull-group a mob appears in, so mobs that
+-- patrol in more than one group (Blackwing Warlock, Death Talon Overseer,
+-- ...) had their whole ability list duplicated 2-3 times. This layout
+-- defines each distinct mob exactly once in BWL_TRASH_MOBS, then
+-- BWL_TRASH_ORDER is just a flat, reorderable list of separators and mob
+-- keys (rearranging pull groups is now editing this list, not moving
+-- table blocks around). BWL_TRASH_COUNTS holds the typical pack size per
+-- mob; BWL_TRASH_ORDER can override count for one specific occurrence
+-- when the real number differs there (see comments below).
+------------------------------------------------------------
+
+-- CHANGED: full real trash roster per mob_abilities_summary.txt (every
+-- distinct mob name that logged an ability in BWL on this server).
+-- Ability icons/descriptions are from Spell.xlsx (Blizzard's spell data,
+-- matched by name), filtered to drop entries that were clearly nearby-
+-- player heals/buffs mis-attributed to the mob in the log (e.g.
+-- Rejuvenation/Hibernate mana refunds, and "Assault Blessing" /
+-- "Dragonbane" / "Dragonslayer" which recur identically across many
+-- unrelated mobs - almost certainly player buffs, not mob abilities).
+-- Flags/roles/stats are otherwise general knowledge / best-guess - see
+-- the PR notes.
+local BWL_TRASH_MOBS = {
+    death_talon_captain = {
         name = "Death Talon Captain",
         icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-        grouped = true,
         flags = {"melee"},
         stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
@@ -45,13 +50,12 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\Spell_Magic_MageArmor",
             lines = {"Buffs nearby allies."}
         }}
-    }, {
-        key = "death_talon_seether",
+    },
+
+    death_talon_seether = {
         name = "Death Talon Seether",
         icon = "Interface\\Icons\\Spell_Fire_Fire",
-        grouped = true,
         flags = {"caster"},
-        count = 2,
         stats = {armor = 4000, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
             name = "Flame Buffet",
@@ -70,13 +74,12 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             lines = {"A passive Fire damage aura affecting nearby enemies."}
         }}
-    }, {
-        key = "death_talon_flamescale",
+    },
+
+    death_talon_flamescale = {
         name = "Death Talon Flamescale",
         icon = "Interface\\Icons\\Ability_Warrior_Charge",
-        grouped = true,
         flags = {"melee"},
-        count = 2,
         stats = {armor = 5200, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
             name = "Flame Shock",
@@ -91,13 +94,12 @@ table.insert(DungeonJournal_Raids, {
             roles = {"tank"},
             lines = {"Charges at an enemy, knocking it back and inflicting damage."}
         }}
-    }, {
-        key = "death_talon_wyrmkin",
+    },
+
+    death_talon_wyrmkin = {
         name = "Death Talon Wyrmkin",
         icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-        grouped = true,
         flags = {"caster"},
-        count = 2,
         stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
             name = "Fireball Volley",
@@ -110,39 +112,35 @@ table.insert(DungeonJournal_Raids, {
             warning = true,
             lines = {"A wave of flame radiates outward, damaging and dazing nearby enemies."}
         }}
-    }, {
-        separator = true,
-        name = "Hatcher Pack",
-        color = "ffffd100",
-    }, {
-        key = "corrupted_red_whelp",
+    },
+
+    corrupted_red_whelp = {
         name = "Corrupted Red Whelp",
         icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-        grouped = true,
         flags = {"caster"},
         stats = {armor = 3200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {}
-    }, {
-        key = "corrupted_green_whelp",
+    },
+
+    corrupted_green_whelp = {
         name = "Corrupted Green Whelp",
         icon = "Interface\\Icons\\Spell_Nature_NullifyPoison",
-        grouped = true,
         flags = {"caster"},
         stats = {armor = 3200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {}
-    }, {
-        key = "corrupted_blue_whelp",
+    },
+
+    corrupted_blue_whelp = {
         name = "Corrupted Blue Whelp",
         icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
-        grouped = true,
         flags = {"caster"},
         stats = {armor = 3200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {}
-    }, {
-        key = "death_talon_hatcher",
+    },
+
+    death_talon_hatcher = {
         name = "Death Talon Hatcher",
         icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
-        grouped = true,
         flags = {"caster"},
         stats = {armor = 4200, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
@@ -156,11 +154,11 @@ table.insert(DungeonJournal_Raids, {
             warning = true,
             lines = {"A stacking Fire-damage effect that intensifies over time."}
         }}
-    }, {
-        key = "blackwing_taskmaster",
+    },
+
+    blackwing_taskmaster = {
         name = "Blackwing Taskmaster",
         icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
-        grouped = true,
         flags = {"caster", "healer"},
         stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
@@ -174,17 +172,12 @@ table.insert(DungeonJournal_Raids, {
             icon = "Interface\\Icons\\Spell_Holy_PrayerOfHealing02",
             lines = {"Heals nearby allies - kill or interrupt to limit its support."}
         }}
-    }, {
-        separator = true,
-        name = "Warlock Pack",
-        color = "ffffd100",
-    }, {
-        key = "blackwing_warlock",
+    },
+
+    blackwing_warlock = {
         name = "Blackwing Warlock",
         icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
-        grouped = true,
         flags = {"caster"},
-        count = 2,
         stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
             name = "Shadow Bolt",
@@ -218,13 +211,12 @@ table.insert(DungeonJournal_Raids, {
             warning = true,
             lines = {"Opens a portal that summons a Felguard - destroy the portal quickly."}
         }}
-    }, {
-        key = "blackwing_technician",
+    },
+
+    blackwing_technician = {
         name = "Blackwing Technician",
         icon = "Interface\\Icons\\INV_Misc_Bomb_08",
-        grouped = true,
         flags = {"ranged"},
-        count = 8,
         stats = {armor = 3800, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
             name = "Bomb",
@@ -237,74 +229,11 @@ table.insert(DungeonJournal_Raids, {
             roles = {"poison"},
             lines = {"Used when its aggro target is in melee range - tosses a bottle of poison at an enemy, inflicting Nature damage over time."}
         }}
-    }, {
-        separator = true,
-        name = "Warlock Overseer Pack",
-        color = "ffffd100",
-    }, {
-        key = "blackwing_warlock",
-        name = "Blackwing Warlock",
-        icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
-        grouped = true,
-        flags = {"caster"},
-        count = 2,
-        stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Shadow Bolt",
-            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
-            warning = true,
-            roles = {"kick"},
-            lines = {"Sends a shadowy bolt at the enemy, causing Shadow damage."}
-        }, {
-            name = "Rain of Fire",
-            icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
-            warning = true,
-            lines = {"Calls down a fiery rain, burning enemies in the area over time - move out."}
-        }, {
-            name = "Curse of Rot",
-            icon = "Interface\\Icons\\Spell_Holy_NullifyDisease",
-            roles = {"decurse"},
-            lines = {"Curses the target, reducing Nature resistance, increasing Nature damage taken, and dealing damage over time."}
-        }, {
-            name = "Howl of Terror",
-            icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
-            warning = true,
-            lines = {"Causes nearby enemies to flee in terror - damage may interrupt the effect."}
-        }, {
-            name = "Incineration Curse",
-            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
-            warning = true,
-            lines = {"Curses the target, causing Fire damage over time."}
-        }, {
-            name = "Summon Felguard Portal",
-            icon = "Interface\\Icons\\Spell_Shadow_SummonFelGuard",
-            warning = true,
-            lines = {"Opens a portal that summons a Felguard - destroy the portal quickly."}
-        }}
-    }, {
-        key = "blackwing_technician",
-        name = "Blackwing Technician",
-        icon = "Interface\\Icons\\INV_Misc_Bomb_08",
-        grouped = true,
-        flags = {"ranged"},
-        count = 8,
-        stats = {armor = 3800, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Bomb",
-            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
-            warning = true,
-            lines = {"Used when its aggro target is not in melee range - bombs an area, inflicting Fire damage to enemies within it."}
-        }, {
-            name = "Bottle of Poison",
-            icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
-            roles = {"poison"},
-            lines = {"Used when its aggro target is in melee range - tosses a bottle of poison at an enemy, inflicting Nature damage over time."}
-        }}
-    }, {
-        key = "death_talon_overseer",
+    },
+
+    death_talon_overseer = {
         name = "Death Talon Overseer",
         icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
-        grouped = true,
         flags = {"melee"},
         stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
@@ -330,11 +259,11 @@ table.insert(DungeonJournal_Raids, {
             roles = {"tank"},
             lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
         }}
-    }, {
-        key = "blackwing_spellbinder",
+    },
+
+    blackwing_spellbinder = {
         name = "Blackwing Spellbinder",
         icon = "Interface\\Icons\\Spell_Fire_Fireball",
-        grouped = true,
         flags = {"caster", "immune_spells"},
         stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
@@ -354,15 +283,11 @@ table.insert(DungeonJournal_Raids, {
             warning = true,
             lines = {"Transforms a random raid member into a critter for X seconds, unable to act."}
         }}
-    }, {
-        separator = true,
-        name = "Wyrmguard Overseer Pack",
-        color = "ffffd100",
-    }, {
-        key = "death_talon_wyrmguard",
+    },
+
+    death_talon_wyrmguard = {
         name = "Death Talon Wyrmguard",
         icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
-        grouped = true,
         flags = {"melee"},
         stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
@@ -411,214 +336,99 @@ table.insert(DungeonJournal_Raids, {
             warning = true,
             lines = {"Placeholder. Ability not yet documented."}
         }}
-    }, {
-        key = "death_talon_overseer",
-        name = "Death Talon Overseer",
-        icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
-        grouped = true,
-        flags = {"melee"},
-        count = 3,
-        stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Mortal Strike",
-            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
-            warning = true,
-            roles = {"tank", "healer"},
-            lines = {"A vicious strike that wounds the target, reducing the effectiveness of healing on it."}
-        }, {
-            name = "Fire Blast",
-            icon = "Interface\\Icons\\Spell_Fire_Fireball",
-            roles = {"kick"},
-            lines = {"Blasts the enemy for Fire damage."}
-        }, {
-            name = "Retaliation",
-            icon = "Interface\\Icons\\Ability_Warrior_Challange",
-            warning = true,
-            roles = {"melee"},
-            lines = {"Instantly counterattacks any enemy that strikes it in melee - melee should stop attacking while this is active."}
-        }, {
-            name = "Cleave",
-            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-            roles = {"tank"},
-            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
-        }}
-    }, {
-        separator = true,
-        name = "Spellbinder Warlock Pack",
-        color = "ffffd100",
-    }, {
-        key = "blackwing_warlock",
-        name = "Blackwing Warlock",
-        icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
-        grouped = true,
-        flags = {"caster"},
-        count = 2,
-        stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Shadow Bolt",
-            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
-            warning = true,
-            roles = {"kick"},
-            lines = {"Sends a shadowy bolt at the enemy, causing Shadow damage."}
-        }, {
-            name = "Rain of Fire",
-            icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
-            warning = true,
-            lines = {"Calls down a fiery rain, burning enemies in the area over time - move out."}
-        }, {
-            name = "Curse of Rot",
-            icon = "Interface\\Icons\\Spell_Holy_NullifyDisease",
-            roles = {"decurse"},
-            lines = {"Curses the target, reducing Nature resistance, increasing Nature damage taken, and dealing damage over time."}
-        }, {
-            name = "Howl of Terror",
-            icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
-            warning = true,
-            lines = {"Causes nearby enemies to flee in terror - damage may interrupt the effect."}
-        }, {
-            name = "Incineration Curse",
-            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
-            warning = true,
-            lines = {"Curses the target, causing Fire damage over time."}
-        }, {
-            name = "Summon Felguard Portal",
-            icon = "Interface\\Icons\\Spell_Shadow_SummonFelGuard",
-            warning = true,
-            lines = {"Opens a portal that summons a Felguard - destroy the portal quickly."}
-        }}
-    }, {
-        key = "blackwing_technician",
-        name = "Blackwing Technician",
-        icon = "Interface\\Icons\\INV_Misc_Bomb_08",
-        grouped = true,
-        flags = {"ranged"},
-        count = 8,
-        stats = {armor = 3800, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Bomb",
-            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
-            warning = true,
-            lines = {"Used when its aggro target is not in melee range - bombs an area, inflicting Fire damage to enemies within it."}
-        }, {
-            name = "Bottle of Poison",
-            icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
-            roles = {"poison"},
-            lines = {"Used when its aggro target is in melee range - tosses a bottle of poison at an enemy, inflicting Nature damage over time."}
-        }}
-    }, {
-        key = "death_talon_overseer",
-        name = "Death Talon Overseer",
-        icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
-        grouped = true,
-        flags = {"melee"},
-        stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Mortal Strike",
-            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
-            warning = true,
-            roles = {"tank", "healer"},
-            lines = {"A vicious strike that wounds the target, reducing the effectiveness of healing on it."}
-        }, {
-            name = "Fire Blast",
-            icon = "Interface\\Icons\\Spell_Fire_Fireball",
-            roles = {"kick"},
-            lines = {"Blasts the enemy for Fire damage."}
-        }, {
-            name = "Retaliation",
-            icon = "Interface\\Icons\\Ability_Warrior_Challange",
-            warning = true,
-            roles = {"melee"},
-            lines = {"Instantly counterattacks any enemy that strikes it in melee - melee should stop attacking while this is active."}
-        }, {
-            name = "Cleave",
-            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-            roles = {"tank"},
-            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
-        }}
-    }, {
-        key = "blackwing_spellbinder",
-        name = "Blackwing Spellbinder",
-        icon = "Interface\\Icons\\Spell_Fire_Fireball",
-        grouped = true,
-        flags = {"caster", "immune_spells"},
-        count = 2,
-        stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Arcane Blast",
-            icon = "Interface\\Icons\\Spell_Fire_Fireball",
-            warning = true,
-            roles = {"kick"},
-            lines = {"Blasts a target for Arcane damage - priority CC or interrupt target."}
-        }, {
-            name = "Flamestrike",
-            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
-            warning = true,
-            lines = {"Calls down a pillar of fire, burning the area plus an additional burn over time - move out of it."}
-        }, {
-            name = "Greatest Polymorph",
-            icon = "Interface\\Icons\\Spell_Nature_Polymorph",
-            warning = true,
-            lines = {"Transforms a random raid member into a critter for X seconds, unable to act."}
-        }}
-    }, {
-        separator = true,
-        name = "Wyrmguard Pack",
-        color = "ffffd100",
-    }, {
-        key = "death_talon_wyrmguard",
-        name = "Death Talon Wyrmguard",
-        icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
-        grouped = true,
-        flags = {"melee"},
-        count = "3/4",
-        stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
-        abilities = {{
-            name = "Mortal Strike",
-            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
-            warning = true,
-            roles = {"tank", "healer"},
-            lines = {"A vicious strike that wounds the target, reducing the effectiveness of healing on it."}
-        }, {
-            name = "War Stomp",
-            icon = "Interface\\Icons\\Ability_BullRush",
-            warning = true,
-            lines = {"Knocks nearby enemies back, stunning them - melee should not clump on it."}
-        }, {
-            name = "Cleave",
-            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
-            roles = {"tank"},
-            lines = {"A sweeping attack that strikes its target and nearest ally."}
-        }, {
-            separator = true,
-            name = "Brood Powers",
-            expanded = true,
-        }, {
-            name = "Black Brood Power",
-            icon = "Interface\\Icons\\Spell_Shadow_CorpseExplode",
-            warning = true,
-            lines = {"Placeholder. Ability not yet documented."}
-        }, {
-            name = "Blue Brood Power",
-            icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
-            warning = true,
-            lines = {"Placeholder. Ability not yet documented."}
-        }, {
-            name = "Bronze Brood Power",
-            icon = "Interface\\Icons\\Spell_Nature_TimeStop",
-            warning = true,
-            lines = {"Placeholder. Ability not yet documented."}
-        }, {
-            name = "Green Brood Power",
-            icon = "Interface\\Icons\\Spell_Nature_NullifyPoison",
-            warning = true,
-            lines = {"Placeholder. Ability not yet documented."}
-        }, {
-            name = "Red Brood Power",
-            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-            warning = true,
-            lines = {"Placeholder. Ability not yet documented."}
-        }}
-    }},
+    },
+}
+
+-- The one place that lists every mob and how many show up per pull, for
+-- mobs whose count is the same everywhere they appear. death_talon_overseer
+-- and death_talon_wyrmguard are deliberately absent here - their real
+-- count varies by pull group (see the per-occurrence overrides in
+-- BWL_TRASH_ORDER below) so a single shared value would be wrong somewhere.
+local BWL_TRASH_COUNTS = {
+    death_talon_seether = 2,
+    death_talon_flamescale = 2,
+    death_talon_wyrmkin = 2,
+    blackwing_warlock = 2,
+    blackwing_technician = 8,
+}
+
+-- Pull order: a flat list of separators (pull-group labels) and mob keys,
+-- in tree order. Reordering/regrouping trash is just editing this list -
+-- no need to move ability-table blocks around. A plain string is a mob key
+-- using its BWL_TRASH_COUNTS default (or no count shown); a table
+-- { key = ..., count = ... } overrides the count for that one occurrence.
+local BWL_TRASH_ORDER = {
+    { separator = true, name = "After Second Boss", color = "ffffd100" },
+    "death_talon_captain",
+    "death_talon_seether",
+    "death_talon_flamescale",
+    "death_talon_wyrmkin",
+
+    { separator = true, name = "Hatcher Pack", color = "ffffd100" },
+    "corrupted_red_whelp",
+    "corrupted_green_whelp",
+    "corrupted_blue_whelp",
+    "death_talon_hatcher",
+    "blackwing_taskmaster",
+
+    { separator = true, name = "Warlock Pack", color = "ffffd100" },
+    "blackwing_warlock",
+    "blackwing_technician",
+
+    { separator = true, name = "Warlock Overseer Pack", color = "ffffd100" },
+    "blackwing_warlock",
+    "blackwing_technician",
+    "death_talon_overseer",
+    "blackwing_spellbinder",
+
+    { separator = true, name = "Wyrmguard Overseer Pack", color = "ffffd100" },
+    "death_talon_wyrmguard",
+    { key = "death_talon_overseer", count = 3 },
+
+    { separator = true, name = "Spellbinder Warlock Pack", color = "ffffd100" },
+    "blackwing_warlock",
+    "blackwing_technician",
+    "death_talon_overseer",
+    { key = "blackwing_spellbinder", count = 2 },
+
+    { separator = true, name = "Wyrmguard Pack", color = "ffffd100" },
+    { key = "death_talon_wyrmguard", count = "3/4" },
+}
+
+-- Expands BWL_TRASH_ORDER into the flat pack-table list the Trash view
+-- expects (see AGENTS.md "Data model"): separators pass through as-is,
+-- mob keys are resolved against BWL_TRASH_MOBS and given a fresh wrapper
+-- table per occurrence (grouped = true, matching every entry here being
+-- part of its preceding pull-group separator).
+local function BuildBWLTrash()
+    local trash = {}
+    for _, entry in ipairs(BWL_TRASH_ORDER) do
+        if type(entry) == "table" and entry.separator then
+            table.insert(trash, entry)
+        else
+            local key, countOverride
+            if type(entry) == "table" then
+                key, countOverride = entry.key, entry.count
+            else
+                key = entry
+            end
+            local mob = BWL_TRASH_MOBS[key]
+            local pack = { key = key, grouped = true, count = countOverride or BWL_TRASH_COUNTS[key] }
+            for field, value in pairs(mob) do
+                pack[field] = value
+            end
+            table.insert(trash, pack)
+        end
+    end
+    return trash
+end
+
+table.insert(DungeonJournal_Raids, {
+    key = "BWL",
+    name = "Blackwing Lair",
+    expanded = false,
+    trashExpanded = false,
+    trash = BuildBWLTrash(),
     bosses = {{
         key = "razorgore",
         name = "Razorgore the Untamed",
