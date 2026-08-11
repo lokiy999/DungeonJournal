@@ -856,13 +856,13 @@ local function BuildTrashEntries()
             -- clicking it hides/shows every pack listed after it, up to the
             -- next separator, the same way ability-list phase separators
             -- collapse abilities in RebuildAbilityList(). Separators default
-            -- to expanded (see ConfigureSeparatorRow's convention).
-            local groupVisible = true
+            -- to collapsed so trash packs start hidden until opened.
+            local groupVisible = false
             local inGroup = false
             for _, pack in ipairs(raid.trash) do
                 if pack.separator then
                     table.insert(entries, { entryType = "separator", pack = pack })
-                    groupVisible = (pack.expanded ~= false)
+                    groupVisible = (pack.expanded == true)
                     inGroup = true
                 elseif inGroup and not pack.grouped then
                     inGroup = false
@@ -898,13 +898,10 @@ local function CreateTrashTreeRow(index)
             RebuildTrashTree()
         elseif entry.entryType == "separator" then
             -- CHANGED: click to collapse/expand the group of packs listed
-            -- under this separator (default true, so the first click reads
-            -- as "false" rather than nil - see BuildTrashEntries()).
-            if entry.pack.expanded == nil then
-                entry.pack.expanded = false
-            else
-                entry.pack.expanded = not entry.pack.expanded
-            end
+            -- under this separator (default nil/collapsed - see
+            -- BuildTrashEntries() - so "not expanded" flips nil straight to
+            -- true on the first click).
+            entry.pack.expanded = not entry.pack.expanded
             RebuildTrashTree()
         else
             ShowTrashPack(entry.pack)
@@ -932,12 +929,12 @@ function RebuildTrashTree()
             btn.label:SetFontObject(GameFontNormalSmall)
         elseif entry.entryType == "separator" then
             -- CHANGED: clickable grouping label with a +/- expand indicator,
-            -- e.g. "- --- Death Talon Hall ---". Collapsed hides every pack
-            -- listed under it (see BuildTrashEntries()).
-            local isExpanded = (entry.pack.expanded ~= false)
+            -- e.g. "+ Death Talon Hall". Starts collapsed, hiding every pack
+            -- listed under it until clicked open (see BuildTrashEntries()).
+            local isExpanded = (entry.pack.expanded == true)
             local prefix = isExpanded and "- " or "+ "
             local sepColor = entry.pack.color or "ffffd100"
-            btn.label:SetText(prefix .. "|c" .. sepColor .. "--- " .. entry.pack.name .. " ---|r")
+            btn.label:SetText(prefix .. "|c" .. sepColor .. entry.pack.name .. "|r")
             btn.label:SetPoint("LEFT", btn, "LEFT", 18, 0)
             btn.label:SetFontObject(GameFontNormalSmall)
         else
