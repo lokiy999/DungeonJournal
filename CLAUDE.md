@@ -50,4 +50,8 @@ grep -o '}' raids/MC.lua | wc -l
   no other code changes needed.
 - Always state at the end of a task which data is real (from the reference
   files) vs. guessed/placeholder.
+- Never prepend `cd "<this repo>" &&` to git commands — the working directory
+  is already this repo, and the prefix breaks the `Bash(git commit:*)` /
+  `Bash(git add:*)` auto-allow rules in `.claude/settings.json` (they match
+  on the start of the command string).
 
