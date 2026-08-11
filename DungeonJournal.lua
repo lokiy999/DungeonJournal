@@ -6,13 +6,31 @@
 ------------------------------------------------------------
 -- Config
 ------------------------------------------------------------
-local WINDOW_WIDTH        = 520
+-- CHANGED: the window and left panel are wider so boss names always fit in
+-- the tree. LEFT_WIDTH is sized to hold the longest boss name up to a cap
+-- of MAX_TREE_CHARS characters (roughly 6px each at GameFontHighlightSmall),
+-- plus indentation, so the right panel never gets squeezed too hard.
+local MAX_TREE_CHARS      = 25
+local LEFT_WIDTH          = 18 + MAX_TREE_CHARS * 6   -- 18px indent + ~6px per char
+local WINDOW_WIDTH        = LEFT_WIDTH + 60 + 340      -- left + gap + right content
 local WINDOW_HEIGHT       = 504  -- CHANGED: +24 to make room for the top nav bar
-local LEFT_WIDTH          = WINDOW_WIDTH * 0.2   -- 20% of the window
 local RIGHT_CONTENT_WIDTH = WINDOW_WIDTH - LEFT_WIDTH - 60
 local TREE_ROW_HEIGHT     = 22
 local ABILITY_ROW_TOP_H   = 26   -- height of the icon/name/icons line
 local ABILITY_ICON_SIZE   = 20
+local SEPARATOR_ROW_H     = 20   -- CHANGED: height of a phase separator bar
+local STATS_ROW_H         = 18   -- CHANGED: height of the boss armor/resistance line
+
+-- CHANGED: schools shown on a boss's optional stats line, in display order.
+-- Holy is deliberately omitted - 1.12 has no meaningful Holy resistance.
+-- Each entry is { data key, label, ARGB colour }.
+local RESISTANCE_SCHOOLS = {
+    {"fire",   "Fire",   "ffff4400"},
+    {"nature", "Nature", "ff4dc94d"},
+    {"frost",  "Frost",  "ff4dc9ff"},
+    {"shadow", "Shadow", "ffa335ee"},
+    {"arcane", "Arcane", "ffff80ff"},
+}
 
 -- CHANGED: top nav bar ("Bosses" / "Explaination") and the full-width panel
 -- used by the Explaination view.
@@ -58,6 +76,9 @@ local UTILITY_ICONS = {
     poison  = "Interface\\Icons\\Spell_Nature_NullifyPoison",
     disease = "Interface\\Icons\\Spell_Nature_NullifyDisease",
     kick = "Interface\\Icons\\Ability_Kick",
+    -- CHANGED: reflect - abilities worth turning back on the caster (this
+    -- server's bosses take heavy self-damage from reflected spells).
+    reflect = "Interface\\Icons\\Spell_Frost_WindWalkOn",
 
     -- CHANGED: Per-class icons. All nine share the same CLASS_ICON_TEXTURE
     -- atlas; CLASS_ICON_COORDS (above) picks out the right square for each.
@@ -89,11 +110,13 @@ local function ApplyUtilityIcon(texture, key)
 end
 
 ------------------------------------------------------------
--- CHANGED: Boss "flag" icons - shown in a row to the right of the boss
--- portrait/name, for quick-glance encounter notes like "this boss can/can't
--- be taunted" or "bring Fire Protection Potions". Tag a boss in the RAIDS
--- database with e.g. flags = { "nottauntable", "potion_fire" } and the
--- matching icons will appear automatically - see RebuildBossFlags() below.
+-- CHANGED: Boss/trash "flag" icons - shown in a row to the right of the
+-- boss or trash-pack portrait/name, for quick-glance notes like "this can/
+-- can't be taunted" or "this pack is immune to Fire". Tag a boss OR a trash
+-- pack in the RAIDS database with e.g. flags = { "nottauntable", "damage_fire" }
+-- or flags = { "caster", "immune_fire" } and the matching icons will appear
+-- automatically - see RebuildBossFlags() below. Same table, same mechanism,
+-- used by both the Bosses view and the Trash view.
 --
 -- To add a new flag type, just add another entry here (icon/name/desc, and
 -- optionally positive/negative to color the border). Nothing else needs to
@@ -107,34 +130,89 @@ local BOSS_FLAGS = {
         desc = "This boss can be taunted normally.",
     },
     nottauntable = {
-        icon = "Interface\\Icons\\spell_nature_reincarnation",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\notauntable",
         name = "Not Tauntable",
         desc = "This boss cannot be taunted!",
     },
-    potion_fire = {
+    -- CHANGED: for bosses that are normally tauntable but become immune to taunt
+    -- during certain mechanics - check the ability list for the details.
+    notalwaystauntable = {
+        icon = "Interface\\Icons\\spell_nature_reincarnation",
+        name = "Not Always Tauntable",
+        desc = "This boss cannot be taunted at all times - see the abilities for details.",
+    },
+    damage_fire = {
         icon = "Interface\\Icons\\INV_Potion_24",
-        name = "Fire Protection Potion",
-        desc = "Consider bringing Fire Protection Potions for this encounter.",
+        name = "Fire damage",
+        desc = "This encounter deals Fire damage.",
     },
-    potion_nature = {
+    damage_nature = {
         icon = "Interface\\Icons\\INV_Potion_22",
-        name = "Nature Protection Potion",
-        desc = "Consider bringing Nature Protection Potions for this encounter.",
+        name = "Nature damage",
+        desc = "This encounter deals Nature damage.",
     },
-    potion_frost = {
+    damage_frost = {
         icon = "Interface\\Icons\\INV_Potion_20",
-        name = "Frost Protection Potion",
-        desc = "Consider bringing Frost Protection Potions for this encounter.",
+        name = "Frost damage",
+        desc = "This encounter deals Frost damage.",
     },
-    potion_shadow = {
+    damage_shadow = {
         icon = "Interface\\Icons\\INV_Potion_23",
-        name = "Shadow Protection Potion",
-        desc = "Consider bringing Shadow Protection Potions for this encounter.",
+        name = "Shadow damage",
+        desc = "This encounter deals Shadow damage.",
     },
-    potion_arcane = {
+    damage_arcane = {
         icon = "Interface\\Icons\\INV_Potion_83",
-        name = "Arcane Protection Potion",
-        desc = "Consider bringing Arcane Protection Potions for this encounter.",
+        name = "Arcane damage",
+        desc = "This encounter deals Arcane damage.",
+    },
+
+    -- CHANGED: trash mob "type" tags - reuse the same flag mechanism as the
+    -- boss tauntable/damage flags above so trash packs get the same icon row.
+    caster = {
+        icon = "Interface\\Icons\\Spell_Nature_StarFall",
+        name = "Caster",
+        desc = "This mob casts spells - consider interrupting or CC'ing it.",
+    },
+    melee = {
+        icon = "Interface\\Icons\\Ability_BackStab",
+        name = "Melee",
+        desc = "This mob attacks in melee range.",
+    },
+    ranged = {
+        icon = "Interface\\Icons\\Ability_TheBlackArrow",
+        name = "Ranged",
+        desc = "This mob attacks from range with physical ranged attacks.",
+    },
+    immune_fire = {
+        icon = "Interface\\Icons\\Spell_Fire_Immolation",
+        name = "Immune: Fire",
+        desc = "This mob is immune to Fire damage and Fire-school crowd control.",
+    },
+    immune_nature = {
+        icon = "Interface\\Icons\\Spell_Nature_ResistNature",
+        name = "Immune: Nature",
+        desc = "This mob is immune to Nature damage and Nature-school crowd control.",
+    },
+    immune_frost = {
+        icon = "Interface\\Icons\\Spell_Frost_FrostArmor02",
+        name = "Immune: Frost",
+        desc = "This mob is immune to Frost damage and Frost-school crowd control.",
+    },
+    immune_shadow = {
+        icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
+        name = "Immune: Shadow",
+        desc = "This mob is immune to Shadow damage and Shadow-school crowd control.",
+    },
+    immune_arcane = {
+        icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
+        name = "Immune: Arcane",
+        desc = "This mob is immune to Arcane damage and Arcane-school crowd control.",
+    },
+    immune_poly = {
+        icon = "Interface\\Icons\\Spell_Nature_Polymorph",
+        name = "Immune: Polymorph",
+        desc = "This mob cannot be Polymorphed.",
     },
 }
 
@@ -175,6 +253,10 @@ local ICON_ExplainationS = {{
     icon = UTILITY_ICONS.kick,
     name = "Kick / Interrupt",
     desc = "Interrupt a spell cast."
+}, {
+    icon = UTILITY_ICONS.reflect,
+    name = "Reflect",
+    desc = "This spell can be reflected back at the caster, often for very heavy damage."
 }, {
     icon = WARNING_ICON,
     name = "Warning",
@@ -233,25 +315,65 @@ local ICON_ExplainationS = {{
     name = BOSS_FLAGS.nottauntable.name,
     desc = BOSS_FLAGS.nottauntable.desc
 }, {
-    icon = BOSS_FLAGS.potion_fire.icon,
-    name = BOSS_FLAGS.potion_fire.name,
-    desc = BOSS_FLAGS.potion_fire.desc
+    icon = BOSS_FLAGS.notalwaystauntable.icon,
+    name = BOSS_FLAGS.notalwaystauntable.name,
+    desc = BOSS_FLAGS.notalwaystauntable.desc
 }, {
-    icon = BOSS_FLAGS.potion_nature.icon,
-    name = BOSS_FLAGS.potion_nature.name,
-    desc = BOSS_FLAGS.potion_nature.desc
+    icon = BOSS_FLAGS.damage_fire.icon,
+    name = BOSS_FLAGS.damage_fire.name,
+    desc = BOSS_FLAGS.damage_fire.desc
 }, {
-    icon = BOSS_FLAGS.potion_frost.icon,
-    name = BOSS_FLAGS.potion_frost.name,
-    desc = BOSS_FLAGS.potion_frost.desc
+    icon = BOSS_FLAGS.damage_nature.icon,
+    name = BOSS_FLAGS.damage_nature.name,
+    desc = BOSS_FLAGS.damage_nature.desc
 }, {
-    icon = BOSS_FLAGS.potion_shadow.icon,
-    name = BOSS_FLAGS.potion_shadow.name,
-    desc = BOSS_FLAGS.potion_shadow.desc
+    icon = BOSS_FLAGS.damage_frost.icon,
+    name = BOSS_FLAGS.damage_frost.name,
+    desc = BOSS_FLAGS.damage_frost.desc
 }, {
-    icon = BOSS_FLAGS.potion_arcane.icon,
-    name = BOSS_FLAGS.potion_arcane.name,
-    desc = BOSS_FLAGS.potion_arcane.desc
+    icon = BOSS_FLAGS.damage_shadow.icon,
+    name = BOSS_FLAGS.damage_shadow.name,
+    desc = BOSS_FLAGS.damage_shadow.desc
+}, {
+    icon = BOSS_FLAGS.damage_arcane.icon,
+    name = BOSS_FLAGS.damage_arcane.name,
+    desc = BOSS_FLAGS.damage_arcane.desc
+}, {
+    icon = BOSS_FLAGS.caster.icon,
+    name = BOSS_FLAGS.caster.name,
+    desc = BOSS_FLAGS.caster.desc
+}, {
+    icon = BOSS_FLAGS.melee.icon,
+    name = BOSS_FLAGS.melee.name,
+    desc = BOSS_FLAGS.melee.desc
+}, {
+    icon = BOSS_FLAGS.ranged.icon,
+    name = BOSS_FLAGS.ranged.name,
+    desc = BOSS_FLAGS.ranged.desc
+}, {
+    icon = BOSS_FLAGS.immune_fire.icon,
+    name = BOSS_FLAGS.immune_fire.name,
+    desc = BOSS_FLAGS.immune_fire.desc
+}, {
+    icon = BOSS_FLAGS.immune_nature.icon,
+    name = BOSS_FLAGS.immune_nature.name,
+    desc = BOSS_FLAGS.immune_nature.desc
+}, {
+    icon = BOSS_FLAGS.immune_frost.icon,
+    name = BOSS_FLAGS.immune_frost.name,
+    desc = BOSS_FLAGS.immune_frost.desc
+}, {
+    icon = BOSS_FLAGS.immune_shadow.icon,
+    name = BOSS_FLAGS.immune_shadow.name,
+    desc = BOSS_FLAGS.immune_shadow.desc
+}, {
+    icon = BOSS_FLAGS.immune_arcane.icon,
+    name = BOSS_FLAGS.immune_arcane.name,
+    desc = BOSS_FLAGS.immune_arcane.desc
+}, {
+    icon = BOSS_FLAGS.immune_poly.icon,
+    name = BOSS_FLAGS.immune_poly.name,
+    desc = BOSS_FLAGS.immune_poly.desc
 }}
 
 ------------------------------------------------------------
@@ -262,11 +384,89 @@ local RAIDS = {{
     key = "MC",
     name = "Molten Core",
     expanded = false,
+    trashExpanded = false,
+    -- CHANGED: trash packs use the exact same shape as bosses below (icon,
+    -- flags, stats, abilities with optional separators) so the Trash view can
+    -- reuse the boss panel's rendering wholesale. CC priority / patrol path /
+    -- pull order notes can be added later as separator-grouped ability entries.
+    trash = {{
+        key = "molten_giant",
+        name = "Molten Giant",
+        icon = "Interface\\Icons\\INV_Misc_MonsterClaw_04",
+        flags = {"melee"},
+        stats = {armor = 4200, fire = 60, nature = 60, frost = 60, shadow = 60, arcane = 60},
+        abilities = {{
+            name = "Knock Away",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+            roles = {"tank"},
+            lines = {"Knocks the target back, potentially scattering melee near the lava."}
+        }, {
+            name = "Trample",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            roles = {"tank"},
+            lines = {"A heavy melee strike on its current target."}
+        }}
+    }, {
+        key = "firelord",
+        name = "Firelord",
+        icon = "Interface\\Icons\\Spell_Fire_Elemental_Totem",
+        flags = {"caster", "immune_fire"},
+        stats = {armor = 3600, fire = "immune", nature = 60, frost = 60, shadow = 60, arcane = 60},
+        abilities = {{
+            name = "Fire Nova",
+            icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
+            warning = true,
+            lines = {"Inflicts Fire damage to nearby enemies - move out."}
+        }, {
+            name = "Fire Blast",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            roles = {"kick"},
+            lines = {"A direct Fire bolt at a random target - interrupt or kill on sight."}
+        }}
+    }, {
+        key = "flamewaker_legionnaire",
+        name = "Flamewaker Legionnaire",
+        icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+        flags = {"melee"},
+        stats = {armor = 3200, fire = 60, nature = 40, frost = 40, shadow = 40, arcane = 40},
+        abilities = {{
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"Strikes its target and nearby allies - do not stack melee on it."}
+        }}
+    }, {
+        key = "flamewaker_technician",
+        name = "Flamewaker Technician",
+        icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+        flags = {"caster"},
+        stats = {armor = 2600, fire = 80, nature = 40, frost = 40, shadow = 40, arcane = 40},
+        abilities = {{
+            name = "Fire Bolt",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            roles = {"kick"},
+            lines = {"A high-damage Fire bolt - priority CC or interrupt target."}
+        }}
+    }, {
+        key = "core_hound",
+        name = "Core Hound",
+        icon = "Interface\\Icons\\Ability_Hunter_Pet_Wolf",
+        flags = {"melee", "immune_fire"},
+        stats = {armor = 3400, fire = "immune", nature = 50, frost = 50, shadow = 50, arcane = 50},
+        abilities = {{
+            name = "Fast Melee",
+            icon = "Interface\\Icons\\Ability_MeleeDamage",
+            roles = {"tank"},
+            lines = {"Attacks quickly - keep the group stacked for AoE healing."}
+        }}
+    }},
     bosses = {{
         key = "lucifron",
         name = "Lucifron",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Lucifron",
-        flags = {"nottauntable", "potion_fire"}, -- CHANGED: demo of the new boss flag icons
+        flags = {"tauntable", "damage_fire"}, -- CHANGED: demo of the new boss flag icons
+        stats = {armor = 5120, fire = 293, nature = 98, frost = 98, shadow = 186, arcane = 68},
         abilities = {{
             name = "Lucifron's Curse",
             icon = "Interface\\Icons\\Spell_Shadow_BlackPlague",
@@ -317,7 +517,8 @@ local RAIDS = {{
         key = "magmadar",
         name = "Magmadar",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Magmadar",
-        flags = {"tauntable", "potion_fire"},
+        flags = {"tauntable", "damage_fire"},
+        stats = {armor = 5780, fire = 327, nature = 98, frost = 88, shadow = 85, arcane = 55},
         abilities = {{
             name = "Frenzy",
             icon = "Interface\\Icons\\ability_druid_challangingroar",
@@ -355,6 +556,8 @@ local RAIDS = {{
         key = "gehennas",
         name = "Gehennas",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Gehennas",
+        flags = {"tauntable"},
+        stats = {armor = 5120, fire = 256, nature = 88, frost = 88, shadow = 98, arcane = 68},
         abilities = {{
             name = "Rain of Fire",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
@@ -399,6 +602,8 @@ local RAIDS = {{
         key = "garr",
         name = "Garr",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Garr",
+        flags = {"tauntable"},
+        stats = {armor = 8280, fire = 168, nature = 128, frost = 82, shadow = 82, arcane = 62},
         abilities = {{
             name = "Magma Shackles",
             icon = "Interface\\Icons\\spell_nature_earthbind",
@@ -431,24 +636,26 @@ local RAIDS = {{
                      "For each Firesworn that dies, Garr gains 10% attack speed and loses 300 armor."},
             abilities = {{
                 name = "Eruption",
-                icon = "Interface\\Icons\\temp",
+                icon = "Interface\\Icons\\spell_fire_fire",
                 roles = {"tank", "dps"},
                 warning = true,
                 lines = {"Explodes on death dealing X Fire damage and heavy knockback to nearby players."}
             }, {
                 name = "Immolate",
-                icon = "Interface\\Icons\\temp",
+                icon = "Interface\\Icons\\spell_fire_immolation",
                 lines = {"Inflicts 760 to 840 Fire damage to an enemy and scorches it for an additional 680 to 720 damage every 3 sec. for 21 sec."}
             }, {
                 name = "Separation Anxiety",
-                icon = "Interface\\Icons\\temp",
+                icon = "Interface\\Icons\\spell_fire_volcano",
                 lines = {"Firesworn will deal 300% additional damage if more than X yards away from Garr."}
             }}
         }}
     }, {
         key = "baron_geddon",
         name = "Baron Geddon",
+        flags = {"tauntable"},
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BaronGeddon",
+        stats = {armor = 4922, fire = "immune", nature = 86, frost = 66, shadow = 84, arcane = 34},
         abilities = {{
             name = "Living Bomb",
             icon = "Interface\\Icons\\inv_enchant_essenceastralsmall",
@@ -489,7 +696,9 @@ local RAIDS = {{
     }, {
         key = "shazzrah",
         name = "Shazzrah",
+        flags = {"tauntable"},
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Shazzrah",
+        stats = {armor = 4800, fire = 203, nature = 124, frost = 124, shadow = 124, arcane = 344},
         abilities = {{
             name = "Arcane Explosion",
             icon = "Interface\\Icons\\spell_nature_wispsplode",
@@ -540,7 +749,9 @@ local RAIDS = {{
     }, {
         key = "golemagg",
         name = "Golemagg the Incinerator",
+        flags = {"nottauntable"},
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Golemagg",
+        stats = {armor = 6200, fire = 422, nature = 137, frost = 98, shadow = 88, arcane = 48},
         abilities = {{
             name = "Magma Splash",
             icon = "Interface\\Icons\\spell_fire_immolation",
@@ -607,73 +818,79 @@ local RAIDS = {{
         key = "sulfuron",
         name = "Sulfuron Harbinger",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Sulfuron",
+        flags = {"tauntable"},
+        stats = {armor = 5480, fire = 317, nature = 109, frost = 109, shadow = 109, arcane = 69},
+        -- NOTE: Sulfuron rotates between three warrior stances, each with its
+        -- own abilities. Shared abilities are listed under "All Stances".
         abilities = {{
-            name = "Battle Stance",
-            icon = "Interface\\Icons\\ability_warrior_offensivestance",
-            lines = {"Sulfuron goes into Battle Stance, gaining new abilties."},
-            abilities = {{
-                name = "Rend",
-                icon = "Interface\\Icons\\ability_gouge",
-                lines = {"Inflicts 129 Physical damage to an enemy every 3 sec. for 15 sec."}
-            }, {
-                name = "Retaliation",
-                icon = "Interface\\Icons\\ability_warrior_challange",
-                roles = {"melee"},
-                lines = {"Instantly counterattack any enemy that strikes you in melee for 15 sec."}
-            }, {
-                name = "Unbalancing Strike",
-                icon = "Interface\\Icons\\ability_warrior_decisivestrike",
-                roles = {"tank"},
-                lines = {"Inflicts 350% weapon damage and leaves the target unbalanced, reducing their defense skill by 100 for 6 sec."}
-            }}
-        }, {
-            name = "Defensive Stance",
-            icon = "Interface\\Icons\\ability_warrior_defensivestance",
-            lines = {"Sulfuron goes into Defensive Stance, gaining new abilties."},
-            abilities = {{
-                name = "War Stomp",
-                icon = "Interface\\Icons\\ability_bullrush",
-                roles = {"melee"},
-                lines = {"Inflicts normal damage plus 936 to 1064 to nearby enemies and stunning them for 5 sec. (sometimes more damage; only during defensive stance?)"}
-            }, {
-                name = "Shield Wall",
-                icon = "Interface\\Icons\\ability_warrior_shieldwall",
-                lines = {"Reduces the Physical and magical damage taken by Sulfuron by 75% for 20 sec."}
-            }, {
-                name = "Sunder Armor",
-                icon = "Interface\\Icons\\ability_warrior_sunder",
-                roles = {"tank"},
-                lines = {"Hacks at an enemy's armor, reducing it by X per Sunder Armor. Can be applied up to 5 times. Lasts 30 sec."}
-            }}
-        }, {
-            name = "Berserker Stance",
-            icon = "Interface\\Icons\\ability_racial_avatar",
-            lines = {"Sulfuron goes into Berserker Stance, gaining new abilties."},
-            abilities = {{
-                name = "Flame Charge",
-                icon = "Interface\\Icons\\ability_warrior_charge",
-                roles = {"tank"},
-                lines = {"Charges at an enemy, knocking it back and inflicting normal damage plus 300."}
-            }}
+            separator = true,
+            name = "All Stances"
         }, {
             name = "Inspire",
-            icon = "Interface\\Icons\\ability_warrior_offensivestance",
+            icon = "Interface\\Icons\\Ability_Warrior_OffensiveStance",
             roles = {"tank"},
             lines = {"Increases the Physical damage dealt by an ally by 50% and speeds its attacks by 100% for 10 sec. 45y range."}
         }, {
             name = "Drain Life",
-            icon = "Interface\\Icons\\spell_shadow_lifedrain02",
+            icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
             roles = {"tank"},
             lines = {"Steals 2000 to 3000 life from target enemy. Shadow damage ability."}
         }, {
             name = "Dark Strike",
-            icon = "Interface\\Icons\\ability_thunderbolt",
+            icon = "Interface\\Icons\\Ability_ThunderBolt",
             roles = {"tank"},
             lines = {"Consecrates the caster's weapon, inflicting 570 to 630 additional damage on its next attack. All damage caused is considered Shadow damage."}
         }, {
             name = "Flame Spear",
-            icon = "Interface\\Icons\\ability_throw",
+            icon = "Interface\\Icons\\Ability_Throw",
             lines = {"Tosses a spear of flame, inflicting 1850 to 2450 Fire damage to an enemy, as well as scorching any other enemies in the vicinity of the target."}
+        }, {
+            separator = true,
+            name = "Battle Stance"
+        }, {
+            name = "Rend",
+            icon = "Interface\\Icons\\Ability_Gouge",
+            lines = {"Inflicts 75 Physical damage every 3 seconds for 15 seconds. Also reduces healing effects by 1%."}
+        }, {
+            name = "Retaliation",
+            icon = "Interface\\Icons\\Ability_Warrior_Challange",
+            warning = true,
+            roles = {"melee"},
+            lines = {"Instantly counterattacks any enemy that strikes him in melee for 15 seconds. Melee must stop attacking while this is active."}
+        }, {
+            name = "Unbalancing Strike",
+            icon = "Interface\\Icons\\Ability_Warrior_DecisiveStrike",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts 350% weapon damage and leaves the target unbalanced, reducing their defense skill by 100 for 6 sec."}
+        }, {
+            separator = true,
+            name = "Defensive Stance"
+        }, {
+            name = "War Stomp",
+            icon = "Interface\\Icons\\Ability_BullRush",
+            warning = true,
+            roles = {"melee"},
+            lines = {"Inflicts normal damage plus 936 to 1064 to nearby enemies and stuns them for 5 seconds."}
+        }, {
+            name = "Shield Wall",
+            icon = "Interface\\Icons\\Ability_Warrior_ShieldWall",
+            warning = true,
+            lines = {"Reduces Physical and magical damage taken by 75% for 20 seconds. DPS should switch targets or wait this out."}
+        }, {
+            name = "Sunder Armor",
+            icon = "Interface\\Icons\\Ability_Warrior_Sunder",
+            roles = {"tank"},
+            lines = {"Reduces the target's armor by 1000 per stack. Can be applied up to 5 times, lasting 30 seconds."}
+        }, {
+            separator = true,
+            name = "Berserker Stance"
+        }, {
+            name = "Flame Charge",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Charges at an enemy, knocking them back and inflicting normal damage plus 300."}
         }},
         adds = {{
             name = "Flamewaker Priest",
@@ -697,6 +914,8 @@ local RAIDS = {{
         key = "majordomo",
         name = "Majordomo",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Majordomo",
+        flags = {"tauntable"},
+        stats = {armor = 4500, fire = 300, nature = 87, frost = 87, shadow = 87, arcane = 100},
         abilities = {{
             name = "Blast Wave",
             icon = "Interface\\Icons\\spell_holy_excorcism_02",
@@ -770,6 +989,8 @@ local RAIDS = {{
         key = "ragnaros",
         name = "Ragnaros",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Ragnaros",
+        flags = {"tauntable"},
+        stats = {armor = 5350, fire = "immune", nature = 83, frost = 83, shadow = 83, arcane = 68},
         abilities = {{
             name = "Wrath of Ragnaros",
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
@@ -831,6 +1052,864 @@ local RAIDS = {{
                 icon = "Interface\\Icons\\spell_fire_selfdestruct",
                 lines = {"Mana burn nearby enemies? 2000 damage? (not confirmed)"}
             }}
+        }}
+    }}
+}, {
+    key = "BWL",
+    name = "Blackwing Lair",
+    expanded = false,
+    trashExpanded = false,
+    trash = {{
+        key = "blackwing_guardsman",
+        name = "Blackwing Guardsman",
+        icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+        flags = {"melee"},
+        stats = {armor = 5200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"Strikes its target and nearby allies - avoid clumping melee on it."}
+        }}
+    }, {
+        key = "blackwing_mage",
+        name = "Blackwing Mage",
+        icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+        flags = {"caster", "immune_fire"},
+        stats = {armor = 4000, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Fireball",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            roles = {"kick"},
+            lines = {"A high-damage Fireball - priority CC or interrupt target."}
+        }}
+    }, {
+        key = "death_talon_wyrmguard",
+        name = "Death Talon Wyrmguard",
+        icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+        flags = {"melee"},
+        stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Heavy Strike",
+            icon = "Interface\\Icons\\Ability_MeleeDamage",
+            roles = {"tank"},
+            lines = {"Hits hard - keep an offtank ready if multiple are pulled."}
+        }}
+    }, {
+        key = "death_talon_seether",
+        name = "Death Talon Seether",
+        icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+        flags = {"caster", "immune_shadow"},
+        stats = {armor = 4000, fire = 90, nature = 90, frost = 90, shadow = "immune", arcane = 90},
+        abilities = {{
+            name = "Shadow Bolt",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            warning = true,
+            roles = {"kick"},
+            lines = {"A sizeable Shadow Bolt - CC or interrupt if left un-CC'd."}
+        }}
+    }, {
+        key = "blackwing_dragonspawn",
+        name = "Blackwing Dragonspawn",
+        icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
+        flags = {"melee"},
+        stats = {armor = 5200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Melee Swing",
+            icon = "Interface\\Icons\\Ability_MeleeDamage",
+            roles = {"tank"},
+            lines = {"Straightforward tank-and-spank trash - use ranged pulls, packs are close together."}
+        }}
+    }},
+    bosses = {{
+        key = "razorgore",
+        name = "Razorgore the Untamed",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Razorgore",
+        flags = {"nottauntable"},
+        stats = {armor = 5675, fire = 243, nature = 71, frost = 71, shadow = 71, arcane = 108},
+        abilities = {{
+            name = "Conflagration",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Razorgore's most frequent ability by far - burns the target for 100 Fire damage every second."}
+        }, {
+            name = "Fireball Volley",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            lines = {"Inflicts 455 Fire damage to nearby enemies and slows their movement speed by 50%."}
+        }, {
+            name = "Untamed Strike",
+            icon = "Interface\\Icons\\temp",
+            roles = {"tank"},
+            lines = {"A heavy strike on his current target."}
+        }, {
+            name = "Eternal Livingflame",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            lines = {"Heals his allies but burns enemies, ticking every second."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank", "melee"},
+            lines = {"Strikes his target and its nearest allies."}
+        }}
+    }, {
+        key = "elementium_decapitator",
+        name = "Elementium Decapitator Mk III",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\ElementiumDecapitator",
+        flags = {"nottauntable"},
+        stats = {armor = 6600, fire = 322, nature = 58, frost = 98, shadow = 78, arcane = 58},
+        abilities = {{
+            name = "Heavy Thorium Grenade",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"Lobs grenades at the raid - by far its most frequent ability (26000+ log entries)."}
+        }, {
+            name = "Coke Ejection",
+            icon = "Interface\\Icons\\Spell_Fire_MeteorStorm",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts 3000-6000 Fire damage to enemies in a cone in front of it. Keep it faced away from the raid."}
+        }}
+    }, {
+        key = "broodlord",
+        name = "Broodlord Lashlayer",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Broodlord",
+        flags = {"nottauntable"},
+        stats = {armor = 5675, fire = 94, nature = 94, frost = 94, shadow = 94, arcane = 94},
+        abilities = {{
+            name = "Blast Wave",
+            icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
+            warning = true,
+            lines = {"A wave of flame radiates outward, inflicting heavy Fire damage to everyone within roughly 10 yards, knocking them back and slowing them.",
+                     "His signature ability - by far his most common log entry."}
+        }, {
+            name = "Knock Back",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Resets or reduces threat. Any DPS who pulls threat must run towards the boss so the tanks can recover him - the tanks are slowed and cannot chase."}
+        }, {
+            name = "Mortal Strike",
+            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"A brutal strike that also reduces healing received on the target. Tank healing must account for this."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank", "melee"},
+            lines = {"Strikes his target and its nearest allies."}
+        }}
+    }, {
+        key = "firemaw",
+        name = "Firemaw",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Firemaw",
+        flags = {"tauntable"},
+        stats = {armor = 5280, fire = 384, nature = 76, frost = 31, shadow = 76, arcane = 31},
+        abilities = {{
+            name = "Flame Buffet",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Firemaw's defining mechanic and his most frequent ability by an enormous margin (37000+ log entries).",
+                     "Increases Fire damage taken and stacks indefinitely. It CANNOT be removed with Vial of Elune's Light.",
+                     "Tanks never run away to reset stacks - maximum threat is required, so healers must rotate to keep them alive. Ensure only one tank is hit by Wing Buffet at a time."}
+        }, {
+            name = "Shadow Flame",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            lines = {"Inflicts heavy Shadow damage to enemies in a cone in front of him. Do not stand in front."}
+        }, {
+            name = "Wing Buffet",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Knocks nearby enemies back for around 1500 damage, shedding threat."}
+        }}
+    }, {
+        key = "krixix",
+        name = "Master Elemental Shaper Krixix",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Krixix",
+        flags = {"tauntable"},
+        stats = {armor = 5240, fire = 102, nature = 102, frost = 102, shadow = 84, arcane = 31},
+        abilities = {{
+            name = "Mirrors System",
+            icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
+            warning = true,
+            roles = {"caster"},
+            lines = {"Reflects the next several direct damage spells back at everyone around him.",
+                     "This is why the combat log shows him 'casting' the raid's own spells - stop casting while it is up."}
+        }, {
+            name = "Elemental Blast",
+            icon = "Interface\\Icons\\Spell_Nature_EarthShock",
+            warning = true,
+            lines = {"Inflicts around 1100 damage of a rotating school (Nature, Fire or Frost). The cast cannot be interrupted by damage."}
+        }}
+    }, {
+        key = "ebonroc_flamegor",
+        name = "Ebonroc & Flamegor",
+        flags = {"nottauntable"},
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Ebonroc",
+        stats = {armor = 5680, fire = 0, nature = 21, frost = 37, shadow = 188, arcane = 98},
+        abilities = {{
+            separator = true,
+            name = "Shared - both dragons"
+        }, {
+            name = "Positioning",
+            icon = "Interface\\Icons\\Ability_Hunter_Pet_Dragonhawk",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Both dragons are active at once and must be tanked far apart with casters in between, so their auras do not overlap."}
+        }, {
+            name = "Shadow Flame",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            lines = {"Inflicts heavy Shadow damage to enemies in a cone in front of the dragon. Both use it."}
+        }, {
+            name = "Wing Buffet",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+            roles = {"tank"},
+            lines = {"Knocks nearby enemies back for around 1500 damage, shedding threat.",
+                     "High threat players drop threat with a timed Wing Buffet - Shadow Flame follows 2 seconds after."}
+        }, {
+            name = "Frenzy",
+            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            warning = true,
+            roles = {"hunter"},
+            lines = {"Both dragons enrage, causing heavy raid-wide damage. MUST be removed with Tranquilizing Shot - ideally 2 hunters per dragon."}
+        }, {
+            separator = true,
+            name = "Ebonroc"
+        }, {
+            name = "Shadow Nova",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadeTrueSight",
+            warning = true,
+            lines = {"An explosion of Shadow around Ebonroc, inflicting around 500 Shadow damage to everyone nearby. His most frequent ability."}
+        }, {
+            name = "Embrace of Shadows",
+            icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Increases the Shadow damage the target takes from Embrace of Shadows by 500, stacking as the fight goes on."}
+        }, {
+            name = "Shadows of Ebonroc",
+            icon = "Interface\\Icons\\Spell_Shadow_GatherShadows",
+            warning = true,
+            roles = {"healer"},
+            lines = {"When Ebonroc deals damage he heals himself for a multiple of the damage dealt."}
+        }, {
+            separator = true,
+            name = "Flamegor"
+        }, {
+            name = "Fire Nova",
+            icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
+            warning = true,
+            lines = {"Inflicts around 955 Fire damage to nearby enemies. His most frequent ability."}
+        }, {
+            name = "Embrace of Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Immolation",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Increases the Fire damage the target takes from Embrace of Flames by 500, stacking as the fight goes on."}
+        }, {
+            name = "Flames of Flamegor",
+            icon = "Interface\\Icons\\Spell_Fire_MoltenBlood",
+            lines = {"When Flamegor deals damage he also damages himself for a portion of it."}
+        }}
+    }, {
+        key = "chromaggus",
+        name = "Chromaggus",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Chromaggus",
+        flags = {"tauntable"},
+        stats = {armor = 6440, fire = 73, nature = 73, frost = 73, shadow = 73, arcane = 73},
+        abilities = {{
+            name = "Double Bite",
+            icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
+            roles = {"tank"},
+            lines = {"Chromaggus bites twice, hitting a second enemy as well. His most frequent melee ability."}
+        }, {
+            name = "Enrage",
+            icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
+            warning = true,
+            lines = {"Enrages at 20% health. Cannot be removed - time your damage so he reaches enrage just after a breath to maximise DPS."}
+        }, {
+            name = "Frenzy",
+            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            warning = true,
+            roles = {"hunter"},
+            lines = {"Must be removed with Tranquilizing Shot. Still occurs during the enrage phase - the Frenzy can be removed even though the Enrage cannot."}
+        }, {
+            separator = true,
+            name = "Brood Afflictions - dispel assignments"
+        }, {
+            name = "Brood Affliction: Black",
+            icon = "Interface\\Icons\\INV_Misc_Head_Dragon_01",
+            warning = true,
+            roles = {"decurse", "dps"},
+            lines = {"Curse. Increases all damage you cause by 10% but magical damage taken by 100%.",
+                     "All DPS keep this one and remove the rest."}
+        }, {
+            name = "Brood Affliction: Blue",
+            icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Blue",
+            warning = true,
+            roles = {"dispel", "tank"},
+            lines = {"Magic. Burns 1% mana every second, reduces casting speed by 100% and increases armour by 3000.",
+                     "All tanks keep this one and remove the rest. Do not dispel Blue from tanks."}
+        }, {
+            name = "Brood Affliction: Green",
+            icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Green",
+            warning = true,
+            roles = {"poison", "healer"},
+            lines = {"Poison. Deals 300 damage every 5 seconds, reduces healing received by 50% and increases healing done by 20%.",
+                     "All healers keep this one and remove the rest."}
+        }, {
+            name = "Brood Affliction: Red",
+            icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Red",
+            warning = true,
+            roles = {"disease", "healer"},
+            lines = {"Disease. Deals 3% health damage every 3 seconds and increases melee attack speed by 10%.",
+                     "Heals Chromaggus when the afflicted player dies."}
+        }, {
+            name = "Brood Affliction: Bronze",
+            icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Bronze",
+            warning = true,
+            roles = {"dispel"},
+            lines = {"Increases movement speed by 40%, then periodically stops time - stunning the target and reducing magical damage taken by 100%.",
+                     "Removed with a Free Action Potion (Sand)."}
+        }, {
+            separator = true,
+            name = "Breaths"
+        }, {
+            name = "Breath rotation",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            warning = true,
+            lines = {"He uses all five breath attacks in a single encounter rather than only two.",
+                     "Everyone except the current tank must hide for a breath - including off tanks, who need to pick him up afterwards.",
+                     "Stack tightly against the wall so dispels stay in line of sight."}
+        }, {
+            name = "Caustic Breath",
+            icon = "Interface\\Icons\\Spell_Nature_Acid_01",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"'Caustic Pain!' - deals 475-700 damage every 3 seconds, reduces armour by 8000-9000 and increases casting speed by 33%.",
+                     "Off tanks must avoid this. During the enrage phase only one tank should ever carry it."}
+        }, {
+            name = "Ignite Flesh",
+            icon = "Interface\\Icons\\Spell_Fire_FlameShock",
+            warning = true,
+            lines = {"Deals 5% health damage every 3 seconds and increases physical damage done by 5%."}
+        }, {
+            name = "Incinerate",
+            icon = "Interface\\Icons\\Spell_Fire_FlameShock",
+            warning = true,
+            lines = {"One of Chromaggus' breath attacks."}
+        }, {
+            name = "Frost Burn",
+            icon = "Interface\\Icons\\Spell_Frost_ChillingBlast",
+            warning = true,
+            lines = {"A Frost breath that increases the time between the target's attacks."}
+        }}
+    }, {
+        key = "nefarian",
+        name = "Neferian",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Neferian",
+        flags = {"tauntable"},
+        stats = {armor = 5680, fire = 314, nature = 58, frost = 58, shadow = 114, arcane = 36},
+        abilities = {{
+            separator = true,
+            name = "Phase 1 - Vaelastrasz"
+        }, {
+            name = "Essence of the Red",
+            icon = "Interface\\Icons\\Spell_Fire_FelFireNova",
+            lines = {"A beneficial effect granting mana, energy and rage regeneration. Applied once at the start and lasts 3 minutes.",
+                     "Killing Vaelastrasz removes it, so he must be kept alive for the full 3 minutes and then killed swiftly."}
+        }, {
+            name = "Burning Adrenaline",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball02",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Lasts 20 seconds. Damage done increased by 100% and all spell casts become instant, but damage taken increases by 5% every second.",
+                     "On death the victim deals 6250-8100 damage to surrounding allies - run out before dying."}
+        }, {
+            name = "Tail Swipe",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Tanks position front and back, away from the raid during phase 1."}
+        }, {
+            name = "Tunnel adds",
+            icon = "Interface\\Icons\\Ability_Hunter_Pet_Dragonhawk",
+            warning = true,
+            lines = {"Tunnel mobs spawn continuously and are the number one priority - they overwhelm the raid quickly.",
+                     "Roughly 42-84 must die to enter phase 2. Green Drakonid stun (dispellable), Red deal Fire damage, Blue reduce attack speed."}
+        }, {
+            separator = true,
+            name = "Phase 2 - Nefarian"
+        }, {
+            name = "Class Calls",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowWordDominate",
+            warning = true,
+            lines = {"Nefarian periodically targets a whole class. None of these can be avoided with line of sight.",
+                     "Hunters lose their ranged weapons, Warlocks summon infernals to banish, Priests' heals damage their targets, Shamans spawn four totems to kill, Paladins heal Nefarian unless they keep moving, Rogues are teleported and rooted in front of him, Warriors are forced into Berserker Stance, Druids are forced out of form, Mages are polymorphed."}
+        }, {
+            name = "Tail Lash",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+            warning = true,
+            lines = {"Strikes enemies behind Nefarian, knocking them back and stunning them. His most frequent ability - do not stand behind him."}
+        }, {
+            name = "Shadow Flame",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            lines = {"Inflicts very heavy Shadow damage in a cone in front of him."}
+        }, {
+            name = "Bellowing Roar",
+            icon = "Interface\\Icons\\Spell_Shadow_Charm",
+            warning = true,
+            roles = {"shaman"},
+            lines = {"Fears the raid, sending everyone fleeing. The main tank requires a Tremor Totem."}
+        }, {
+            name = "Curse of Nefarius",
+            icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
+            warning = true,
+            roles = {"decurse", "healer"},
+            lines = {"A curse reducing healing received by 75%. Decurse it as a priority."}
+        }, {
+            name = "Dropped Weapon",
+            icon = "Interface\\Icons\\Ability_Warrior_Disarm",
+            warning = true,
+            roles = {"warrior", "tank"},
+            lines = {"Disarms the target, leaving them unable to wield a weapon until it is picked back up."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank", "melee"},
+            lines = {"Strikes his target and its nearest allies."}
+        }}
+    }}
+}, {
+    -- CHANGED: Zul'Gurub 20-man raid. Mechanics from Spell.dbc and combat logs.
+    key = "ZG",
+    name = "Zul'Gurub",
+    expanded = false,
+    bosses = {{
+        key = "jeklik",
+        name = "High Priestess Jeklik",
+        icon = "Interface\\Icons\\temp",
+        stats = {armor = 4222, fire = 92, nature = 92, frost = 27, shadow = 92, arcane = 27},
+        abilities = {{
+            name = "Sonic Burst",
+            icon = "Interface\\Icons\\Spell_Shadow_Teleport",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Inflicts around 1950 damage to nearby enemies and prevents them from casting spells. Her most frequent ability."}
+        }, {
+            name = "Swoop",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts 500 damage in a cone in front of her and stuns the targets."}
+        }, {
+            name = "Terrifying Screech",
+            icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
+            warning = true,
+            roles = {"shaman"},
+            lines = {"Fears nearby enemies. Keep a Tremor Totem down."}
+        }, {
+            name = "Curse of Blood",
+            icon = "Interface\\Icons\\Spell_Shadow_RitualOfSacrifice",
+            warning = true,
+            roles = {"decurse"},
+            lines = {"Increases Physical damage taken by 500. Decurse the tanks."}
+        }, {
+            name = "Charge",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            lines = {"Charges a distant target."}
+        }}
+    }, {
+        key = "venoxis",
+        name = "High Priest Venoxis",
+        icon = "Interface\\Icons\\temp",
+        flags = {"damage_nature"},
+        stats = {armor = 4691, fire = 23, nature = 270, frost = 23, shadow = 23, arcane = 23},
+        abilities = {{
+            name = "Holy Wrath",
+            icon = "Interface\\Icons\\Spell_Shadow_SiphonMana",
+            warning = true,
+            lines = {"His second most frequent ability. Chains to nearby targets."}
+        }, {
+            name = "Holy Smite",
+            icon = "Interface\\Icons\\Spell_Holy_HolySmite",
+            roles = {"kick"},
+            lines = {"Smites a target for Holy damage. His most frequent cast."}
+        }, {
+            name = "Holy Nova",
+            icon = "Interface\\Icons\\Spell_Holy_HolyNova",
+            warning = true,
+            lines = {"AoE Holy damage to everyone nearby."}
+        }, {
+            name = "Venom Spit",
+            icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
+            warning = true,
+            roles = {"poison"},
+            lines = {"Spits poison at nearby enemies for 850 Nature damage plus 200 Nature damage every 5 seconds."}
+        }, {
+            name = "Poison Cloud",
+            icon = "Interface\\Icons\\Spell_Nature_NatureTouchDecay",
+            warning = true,
+            lines = {"Inflicts 575 Nature damage every second and slows movement by 50%. Move out of the cloud."}
+        }, {
+            name = "Dispel Magic",
+            icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
+            lines = {"Venoxis dispels magic from himself, removing your debuffs."}
+        }}
+    }, {
+        key = "marli",
+        name = "High Priestess Mar'li",
+        icon = "Interface\\Icons\\temp",
+        flags = {"damage_nature"},
+        stats = {armor = 4880, fire = 7, nature = 126, frost = 24, shadow = 126, arcane = 126},
+        abilities = {{
+            name = "Poison Bolt Volley",
+            icon = "Interface\\Icons\\Ability_Poisons",
+            warning = true,
+            roles = {"poison"},
+            lines = {"Her most frequent ability by far - a volley of poison bolts hitting multiple targets."}
+        }, {
+            name = "Enveloping Webs",
+            icon = "Interface\\Icons\\Spell_Nature_EarthBind",
+            warning = true,
+            lines = {"Immobilises the target, increases the time between their attacks, and prevents casting."}
+        }, {
+            name = "Corrosive Poison",
+            icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
+            warning = true,
+            roles = {"poison", "tank"},
+            lines = {"Reduces armour by 9000 and inflicts 2660 Nature damage every 5 seconds. Cleanse from the tank immediately."}
+        }, {
+            name = "Enlarge",
+            icon = "Interface\\Icons\\Spell_Nature_Strength",
+            lines = {"Buffs an ally, increasing their Physical damage by 50."}
+        }, {
+            name = "Charge",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            lines = {"Charges a distant target."}
+        }}
+    }, {
+        key = "mandokir",
+        name = "Bloodlord Mandokir",
+        icon = "Interface\\Icons\\temp",
+        stats = {armor = 4950, fire = 44, nature = 75, frost = 12, shadow = 44, arcane = 44},
+        abilities = {{
+            name = "Whirlwind",
+            icon = "Interface\\Icons\\Ability_Whirlwind",
+            warning = true,
+            roles = {"melee"},
+            lines = {"Spins in a whirlwind, hitting all nearby enemies. His most frequent ability."}
+        }, {
+            name = "Threatening Gaze",
+            icon = "Interface\\Icons\\Ability_Hunter_AspectMastery",
+            warning = true,
+            lines = {"Mandokir watches a target closely - they must STOP ALL ACTIONS or they will pull aggro and be killed."}
+        }, {
+            name = "Charge",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            warning = true,
+            lines = {"Charges a distant target, dealing heavy damage."}
+        }, {
+            name = "Mortal Strike",
+            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
+            roles = {"tank", "healer"},
+            lines = {"A heavy strike that reduces healing received."}
+        }, {
+            name = "Intimidating Shout",
+            icon = "Interface\\Icons\\Ability_GolemThunderClap",
+            warning = true,
+            lines = {"Fears enemies near the target."}
+        }}
+    }, {
+        key = "edge_of_madness",
+        name = "Edge of Madness",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Renataki",
+            icon = "Interface\\Icons\\Ability_Rogue_Ambush",
+            lines = {"A rogue-style boss. Only one Edge of Madness boss spawns per reset."},
+            abilities = {{
+                name = "Thousand Blades",
+                icon = "Interface\\Icons\\Ability_Whirlwind",
+                warning = true,
+                lines = {"A deadly blade storm."}
+            }, {
+                name = "Gouge",
+                icon = "Interface\\Icons\\Ability_Gouge",
+                warning = true,
+                roles = {"tank"},
+                lines = {"Incapacitates the target."}
+            }, {
+                name = "Ambush",
+                icon = "Interface\\Icons\\Ability_Rogue_Ambush",
+                warning = true,
+                lines = {"Stealths and ambushes a target for heavy damage."}
+            }}
+        }, {
+            name = "Gri'lek",
+            icon = "Interface\\Icons\\Ability_WarStomp",
+            lines = {"A warrior-style boss."},
+            abilities = {{
+                name = "Sweeping Strikes",
+                icon = "Interface\\Icons\\Ability_Rogue_SliceDice",
+                warning = true,
+                lines = {"His most frequent ability - his next strikes hit additional targets."}
+            }, {
+                name = "Entangling Roots",
+                icon = "Interface\\Icons\\Spell_Nature_StrangleVines",
+                warning = true,
+                lines = {"Roots a target in place."}
+            }, {
+                name = "Ground Tremor",
+                icon = "Interface\\Icons\\Ability_WarStomp",
+                warning = true,
+                lines = {"Damages and stuns nearby enemies."}
+            }}
+        }, {
+            name = "Hazza'rah",
+            icon = "Interface\\Icons\\Spell_Nature_Sleep",
+            lines = {"A caster-style boss."},
+            abilities = {{
+                name = "Earth Shock",
+                icon = "Interface\\Icons\\Spell_Nature_EarthShock",
+                warning = true,
+                roles = {"healer"},
+                lines = {"Nature damage that also interrupts casting."}
+            }, {
+                name = "Chain Burn",
+                icon = "Interface\\Icons\\Spell_Fire_Fireball",
+                warning = true,
+                lines = {"Fire damage that chains to nearby targets - spread out."}
+            }, {
+                name = "Sleep",
+                icon = "Interface\\Icons\\Spell_Nature_Sleep",
+                warning = true,
+                lines = {"Puts a target to sleep. Any damage will wake them."}
+            }}
+        }, {
+            name = "Wushoolay",
+            icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
+            lines = {"A lightning-themed boss."},
+            abilities = {{
+                name = "Lightning Cloud",
+                icon = "Interface\\Icons\\Spell_Nature_CallStorm",
+                warning = true,
+                lines = {"Creates a lightning cloud that damages everyone in it. His most frequent ability - move out."}
+            }, {
+                name = "Forked Lightning",
+                icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
+                warning = true,
+                lines = {"Strikes multiple targets with lightning."}
+            }, {
+                name = "Chain Lightning",
+                icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
+                warning = true,
+                lines = {"Lightning that chains to nearby targets - spread out."}
+            }}
+        }}
+    }, {
+        key = "gahzranka",
+        name = "Gahz'ranka",
+        icon = "Interface\\Icons\\temp",
+        stats = {armor = 4400, fire = 15, nature = 15, frost = 15, shadow = 15, arcane = 15},
+        abilities = {{
+            name = "Frost Breath",
+            icon = "Interface\\Icons\\Spell_Frost_FrostNova",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts Frost damage in a cone in front of him and stuns the targets."}
+        }, {
+            name = "Mighty Slam",
+            icon = "Interface\\Icons\\Ability_Devour",
+            warning = true,
+            lines = {"Inflicts around 950 damage to nearby enemies and knocks them back."}
+        }, {
+            name = "Double Bite",
+            icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
+            roles = {"tank"},
+            lines = {"Bites twice, hitting a second enemy as well."}
+        }, {
+            name = "Triple Bite",
+            icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
+            roles = {"tank"},
+            lines = {"Bites three times, hitting additional enemies."}
+        }, {
+            name = "Tail Sweep",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Damages and knocks back enemies behind him. Do not stand behind."}
+        }}
+    }, {
+        key = "thekal",
+        name = "High Priest Thekal",
+        icon = "Interface\\Icons\\temp",
+        stats = {armor = 4620, fire = 45, nature = 58, frost = 35, shadow = 35, arcane = 35},
+        abilities = {{
+            name = "Force Punch",
+            icon = "Interface\\Icons\\INV_Gauntlets_31",
+            warning = true,
+            roles = {"tank"},
+            lines = {"His most frequent ability - a heavy melee strike."}
+        }, {
+            name = "Mortal Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"Inflicts weapon damage and reduces healing effectiveness on the target by 75%."}
+        }, {
+            name = "Panic",
+            icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
+            warning = true,
+            roles = {"shaman"},
+            lines = {"Fears nearby enemies. Keep a Tremor Totem down."}
+        }, {
+            name = "Silence",
+            icon = "Interface\\Icons\\Spell_Frost_IceShock",
+            warning = true,
+            lines = {"Silences a target, preventing them from casting."}
+        }, {
+            name = "Charge",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            lines = {"Charges a distant target."}
+        }}
+    }, {
+        key = "arlokk",
+        name = "High Priestess Arlokk",
+        icon = "Interface\\Icons\\temp",
+        stats = {armor = 4700, fire = 38, nature = 84, frost = 38, shadow = 84, arcane = 38},
+        abilities = {{
+            name = "Whirlwind",
+            icon = "Interface\\Icons\\Ability_Whirlwind",
+            warning = true,
+            roles = {"melee"},
+            lines = {"Spins in a whirlwind, hitting all nearby enemies. Her most frequent ability - melee watch out."}
+        }, {
+            name = "Ravage",
+            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts 500 damage and stuns the target."}
+        }, {
+            name = "Gouge",
+            icon = "Interface\\Icons\\Ability_Gouge",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Gouges the target, incapacitating them. Another player must attack her to break the gouge."}
+        }, {
+            name = "Backstab",
+            icon = "Interface\\Icons\\Ability_BackStab",
+            lines = {"Backstabs a target for heavy damage. Keep her faced away from the raid."}
+        }}
+    }, {
+        key = "jindo",
+        name = "Jin'do the Hexxer",
+        icon = "Interface\\Icons\\temp",
+        stats = {armor = 4950, fire = 44, nature = 168, frost = 30, shadow = 168, arcane = 168},
+        abilities = {{
+            name = "Hex",
+            icon = "Interface\\Icons\\Spell_Nature_Polymorph",
+            warning = true,
+            lines = {"Transforms nearby enemies into frogs, preventing them from attacking or casting. His signature mechanic."}
+        }, {
+            name = "Delusions of Jin'do",
+            icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
+            warning = true,
+            roles = {"healer"},
+            lines = {"'Your eyes tingle...' - inflicts around 175 damage every 2 seconds. His most frequent ability."}
+        }, {
+            name = "Shadow Beam",
+            icon = "Interface\\Icons\\Spell_Shadow_SiphonMana",
+            warning = true,
+            lines = {"A heavy Shadow bolt for around 1825 damage."}
+        }, {
+            name = "Touch of Shadow",
+            icon = "Interface\\Icons\\Spell_Nature_Drowsy",
+            warning = true,
+            roles = {"dispel"},
+            lines = {"Increases Shadow damage taken by 300%. Dispel it promptly."}
+        }, {
+            name = "Call of Jin'do",
+            icon = "Interface\\Icons\\Spell_Nature_AstralRecal",
+            warning = true,
+            lines = {"Charms a player - damage increased by 300%, spells cast instantly, and resistances boosted. They must be crowd-controlled, not killed."}
+        }}
+    }, {
+        key = "hakkar",
+        name = "Hakkar",
+        icon = "Interface\\Icons\\temp",
+        stats = {armor = 4880, fire = 51, nature = 51, frost = 14, shadow = 141, arcane = 51},
+        abilities = {{
+            name = "Corrupted Blood",
+            icon = "Interface\\Icons\\Spell_Shadow_CorpseExplode",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Deals 263 damage every 2 seconds and spreads to nearby players. His most frequent ability - spread out to limit the chain."}
+        }, {
+            name = "Blood Siphon",
+            icon = "Interface\\Icons\\Spell_Shadow_LifeDrain",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Drains 700 health per second from the raid and feeds Hakkar health in return."}
+        }, {
+            name = "Curse of Nemesis",
+            icon = "Interface\\Icons\\Spell_Shadow_CurseOfTounges",
+            warning = true,
+            roles = {"decurse"},
+            lines = {"Deals 20% health damage every 2 seconds. If dispelled it causes instant Shadow damage, so only decurse when the target can survive the burst."}
+        }, {
+            name = "Hysteria",
+            icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
+            warning = true,
+            lines = {"Increases the cost of spells and abilities. If you fail to cast three spells or abilities you become insane."}
+        }}
+    }, {
+        key = "azus",
+        name = "Azus the Bloodseeker",
+        icon = "Interface\\Icons\\temp",
+        stats = {armor = 4950, fire = 44, nature = 75, frost = 12, shadow = 44, arcane = 44},
+        abilities = {{
+            name = "Blood Leech",
+            icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Drains health from nearby enemies and heals himself for up to three times the amount stolen. His most frequent ability by far."}
+        }, {
+            name = "Lacerate",
+            icon = "Interface\\Icons\\Spell_Shadow_LifeDrain",
+            warning = true,
+            lines = {"'The blood seeps through your skin. It hurts to move.'"}
+        }, {
+            name = "Blood Cloud",
+            icon = "Interface\\Icons\\Spell_Nature_NatureTouchDecay",
+            warning = true,
+            lines = {"Inflicts 375 damage every second to nearby enemies and slows movement. Move out."}
+        }, {
+            name = "Blood Tide",
+            icon = "Interface\\Icons\\Spell_Holy_HolyBolt",
+            warning = true,
+            lines = {"A massive burst of 2875 damage."}
+        }, {
+            name = "Charge",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            lines = {"Charges a distant target."}
+        }}
+    }, {
+        key = "nameless_hermit",
+        name = "Nameless Hermit",
+        icon = "Interface\\Icons\\temp",
+        stats = {armor = 4950, fire = 44, nature = 75, frost = 12, shadow = 44, arcane = 44},
+        abilities = {{
+            name = "Nameless Hermit's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented - the Hermit has a Transform mechanic but no offensive abilities appeared in the combat log."}
         }}
     }}
 }, {
@@ -918,61 +1997,1252 @@ local RAIDS = {{
         }}
     }, {
         key = "brigitte",
-        name = "Brigitte",
-        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Brigitte",
+        name = "Brigitte Abbendis",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BrigitteAbbendis",
         flags = {"tauntable"},
+        -- NOTE: values from Spell.dbc (IDs 35848-35877). Percentages are the
+        -- real $s values (DBC stores them as value-1). Phase 2 is the mounted
+        -- phase - she summons the Scarlet Charger and swaps to its abilities.
         abilities = {{
+            separator = true,
+            name = "Phase 1"
+        }, {
             name = "Command Gesture",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\Ability_Hunter_KillCommand",
+            lines = {"Used at the pull while she is still at range. No damage or debuff recorded in logs - it appears to be the flavour cast before she closes to melee."}
         }, {
             name = "Righteous Charge",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\Ability_Warrior_VictoryRush",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Charges an enemy, inflicting normal damage plus 500, gaining aggro and stunning them."}
         }, {
             name = "Shield Bash",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\INV_Shield_05",
+            warning = true,
+            lines = {"Slam the target with your shield, causing 1794 to 2170 damage, and dispels 1 magic effect on the target."}
         }, {
             name = "Consecration",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\Spell_Holy_InnerFire",
+            warning = true,
+            lines = {"Consecrates the ground on the closest and furthest target, dealing Holy damage every second to anyone standing in the area. Won't be cast if mana is empty."}
         }, {
-            name = "Provocation(taunt)",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            name = "Provocation",
+            icon = "Interface\\Icons\\Ability_Warrior_InnerRage",
+            lines = {"Taunts and forces all nearby enemies within 10 yards to focus attacks on her for 8 seconds."}
         }, {
-            name = "Fist of Justice (Phase 2 transition abilities below)",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            separator = true,
+            name = "Phase 2"
+        }, {
+            name = "Fist of Justice",
+            icon = "Interface\\Icons\\Spell_Holy_SealOfMight",
+            warning = true,
+            lines = {"Casts at 20% health left. Stuns nearby enemies for up to 10 seconds."}
         }, {
             name = "Lay on Hands",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\Spell_Holy_LayOnHands",
+            warning = true,
+            lines = {"Casts at 20% health left. Heals to full health."}
         }, {
             name = "Scarlet Charger",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\mount_scarlet_charger",
+            lines = {"Casts at 20% health left. She summons her mount, increasing her speed by 100%."}
         }, {
             name = "Stormbolt",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\Ability_ThunderClap",
+            roles = {"healer", "tank", "reflect"},
+            lines = {"Hurls a hammer that strikes an enemy for 1897 to 2327 Holy damage every 1.5 seconds. Reflectable"}
         }, {
             name = "Hoof Kick",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
-        }, {
-            name = "Crash",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
-        }, {
-            name = "Consecration (phase 2)",
-            icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Inflicts 1500 to 2050 damage on enemies in a cone behind the caster, knocking them back."}
         }, {
             name = "Trampling Charge",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Inflicts 1800 to 2298 damage to enemies in a cone in front of the caster, knocking them back."}
+        }, {
+            name = "Crash",
+            icon = "Interface\\Icons\\Ability_WarStomp",
+            warning = true,
+            lines = {"Inflicts 400% weapon damage to an already wounded enemy and stuns them."}
+        }, {
+            name = "Consecration (phase 2)",
+            icon = "Interface\\Icons\\Spell_Holy_InnerFire",
+            lines = {"Consecrates the ground on the closest and furthest target, dealing 1150-1520 Holy damage instantly and 10% health damage per 0.95s to anyone standing in the area. Lasts 8 seconds. Won't be cast if mana is empty."}
+        }, {
+            name = "Close Quarters Combat Experience",
+            icon = "Interface\\Icons\\Ability_Warrior_OffensiveStance",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Increases her attack speed by 100% and the Physical damage she deals by 100% for 10 seconds."}
+        }},
+        adds = {{
+            name = "Scarlet Sharpshooter",
             icon = "Interface\\Icons\\temp",
-            lines = {"Placeholder. Not sure if this ability does anything, boss does this at the start while being ranged until she yells and goes melee."}
+            color = "ffcc0000",
+            lines = {"Four of these accompany Brigitte Abbendis into battle."},
+            abilities = {{
+                name = "Longshot",
+                icon = "Interface\\Icons\\inv_spear_07",
+                color = "ff00ccff",
+                lines = {"Shoots an enemy, inflicting an additional 100 ranged damage and slowing its movement speed by 60% for 3 seconds."}
+            }, {
+                name = "Explosive Shot",
+                icon = "Interface\\Icons\\inv_musket_03",
+                color = "ff00ccff",
+                lines = {"Inflicts X Fire damage and knocks the target back, applying Concussed, Dazed and Silenced."}
+            }, {
+                name = "Volley",
+                icon = "Interface\\Icons\\ability_marksmanship",
+                color = "ff00ccff",
+                lines = {"Continuously fires a volley of ammo at the target area, inflicting 500 to 550 Arcane damage every second to enemies within 8 yards for 12 seconds."}
+            }}
+        }}
+    }, {
+        key = "vishas",
+        name = "Vishas",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Vishas",
+        flags = {"tauntable"},
+        -- NOTE: values below come from Spell.dbc (IDs 35880-35900). Percentages
+        -- are the real $s values (DBC stores them as value-1) and tick rates are
+        -- EffectAmplitude in milliseconds. Damage ranges seen in combat logs are
+        -- noted where they add context.
+        abilities = {{
+            name = "Sear",
+            icon = "Interface\\Icons\\Spell_Fire_FlameShock",
+            roles = {"tank"},
+            lines = {"Vishas' main attack on his current target - a Flame Lash for 550-650 Fire damage."}
+        }, {
+            name = "Shadow Word: Pain",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowWordPain",
+            warning = true,
+            roles = {"dispel"},
+            lines = {"A raid-wide curse dealing 5% of a player's health every 3 seconds. Applied every 5-10 seconds."}
+        }, {
+            name = "Impending Sentence",
+            icon = "Interface\\Icons\\Spell_Holy_RetributionAura",
+            warning = true,
+            lines = {"Every 15-20 seconds Vishas sentences a player and after 3 seconds Shared Sentence is applied to that player. Applied every 20 seconds."},
+            abilities = {{
+                name = "Shared Sentence",
+                icon = "Interface\\Icons\\Spell_Holy_RighteousFury",
+                warning = true,
+                roles = {"healer"},
+                lines = {"Deals ~2000-8000 damage. Pass it by touching another player. Reflectable.",
+                         "If passed EARLY (High time): HIGH damage to YOU / LOW damage to ALLY.",
+                         "If passed LATE (Low time): LOW damage to YOU / HIGH damage to ALLY.",
+                         "If NOT passed (0s left): YOU take MAX damage (8000)."},
+                abilities = {{
+                    name = "Recidivism",
+                    icon = "Interface\\Icons\\Spell_Holy_FistOfJustice",
+                    lines = {"Increase damage taken from Shared Sentence by 50%. Acquired by being dealt damage by Shared Sentence. Stacks up to 10. Lasts for 30 seconds."}
+                }}
+            }}
+        }, {
+            name = "Atonement",
+            icon = "Interface\\Icons\\INV_Belt_18",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Teleports a raid member to one of three 'sacrifice' benches and stuns them, dealing 20% of their health every 2 seconds for 12 seconds. Applied every 20 seconds."}
+        }, {
+            name = "Ordeal Grip",
+            icon = "Interface\\Icons\\INV_Gauntlets_04",
+            roles = {"dispel"},
+            lines = {"Slows movement by 60% and increases all damage taken by 50%. Lasts 8 seconds.",
+                     "Can be reflected back onto Vishas? Applied every 12-15 seconds."}
+        }, {
+            name = "Pummel",
+            icon = "Interface\\Icons\\INV_Gauntlets_04",
+            lines = {"Pummel the target for 1150 to 1450 damage. It also interrupts spellcasting and prevents any spell in that school from being cast for 5 seconds."}
+        }}
+    }, {
+        key = "herod",
+        name = "Herod",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Herod",
+        flags = {"notalwaystauntable"},
+        abilities = {{
+            name = "Rushing Charge",
+            icon = "Interface\\Icons\\ability_warstomp",
+            lines = {"At the start of the fight and after each Bladestorm, Herod charges towards the highest threat target.",
+                     "Increasing his movement speed by 50% for 4 sec. and causes it to inflict an additional 1? damage on its first attack."}
+        }, {
+            name = "Deep Wound",
+            icon = "Interface\\Icons\\ability_backstab",
+            lines = {"Bleeding for 10% health damage every 3 sec. Healing effects reduced by 10%. Lasts for 21 seconds. Stacks up to 5 times."}
+        }, {
+            name = "Cleaving Blow",
+            icon = "Interface\\Icons\\ability_warrior_cleave",
+            roles = {"melee"},
+            lines = {"Herod sometimes cleaves in a 90 degree frontal arc."}
+        }, {
+            name = "Wound",
+            icon = "Interface\\Icons\\ability_backstab",
+            lines = {"Bleeding for 550 damage every 3 sec. Lasts 21 seconds."}
+        }, {
+            name = "Echo Clap",
+            icon = "Interface\\Icons\\spell_nature_thunderclap",
+            warning = true,
+            lines = {"Herod interrupts all cast casting within 30? yards every ~10 seconds and prevent spells cast from that school for 5 seconds. Also dealing 300-500 damage."}
+        }, {
+            name = "Death Wish",
+            icon = "Interface\\Icons\\spell_shadow_deathpact",
+            lines = {"After 3 minutes Herod cast Death Wish Increasing his attack speed by 50% and crit chance by 15% for 3 min, but also taking 15% more damage."}
+        }, {
+            name = "Bladestorm",
+            icon = "Interface\\Icons\\ability_whirlwind",
+            warning = true,
+            lines = {"Attacks nearby enemies in a whirlwind of steel that lasts 10 sec., inflicting 50%? weapon damage every 0.5 sec. Herod is immune during this time."}
+        }, {
+            name = "Blades of Light",
+            icon = "Interface\\Icons\\ability_whirlwind",
+            lines = {"Every 10-15 seconds Herod yells 'Blades of Light' and after 2 seconds deals 125% weapon damage (and a bleed?) to all enemies within 8 yards."}
+        }, {
+            name = "Enrage",
+            icon = "Interface\\Icons\\spell_shadow_unholyfrenzy",
+            lines = {"Frenzy effect. Melee damage increased by 5%. Stacks to 20."}
+        }, {
+            name = "Demoralized",
+            icon = "Interface\\Icons\\spell_shadow_deathscream",
+            warning = true,
+            lines = {"Reduces damage and healing done by 10% for 1 minute. Triggers Cowardice at 5 stacks.",
+                     "Stacks are removable by doing 4000? damage within 5? seconds."},
+            abilities = {{
+                name = "Cowardice",
+                icon = "Interface\\Icons\\ability_cheapshot",
+                lines = {"Feared for 8 seconds and gains aggro of the boss during that time. Boss also becomes untauntable?"}
+            }}
+        }}
+    }, {
+        key = "brother_michael",
+        name = "Brother Michael",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BrotherMichael",
+        flags = {"tauntable"},
+        -- NOTE: values from Spell.dbc (IDs 35940-35951). Percentages are the
+        -- real $s values (DBC stores them as value-1).
+        abilities = {{
+            name = "Curse of Thorns",
+            icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
+            warning = true,
+            roles = {"dps", "decurse"},
+            lines = {"The target takes twice the damage they deal. Lasts 45 seconds."}
+        }, {
+            name = "Thorned Roots",
+            icon = "Interface\\Icons\\Spell_Nature_StrangleVines",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Roots a player and deals 20% of their maximum health as Nature damage every second for 8 seconds.",
+                     "When the roots collapse, thorns explode outward to all targets in Line of Sight dealing 5380-6180 damage and stunning for 2 seconds."}
+        }, {
+            name = "Fists of Fire",
+            icon = "Interface\\Icons\\Spell_Fire_Immolation",
+            roles = {"tank"},
+            lines = {"90% of Brother Michael's Physical damage becomes Fire damage for 25 seconds."}
+        }, {
+            name = "Four Finger Death Punch",
+            icon = "Interface\\Icons\\Spell_Shadow_CorpseExplode",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Every 10 seconds the tank takes receives a stack of Four Finger Death Punch.", 
+                     "Whenever the tank reaches 4 stacks he will explode taking 50000-100000 damage."}
+        }, {
+            name = "Soulbind",
+            icon = "Interface\\Icons\\Spell_Shadow_Haunting",
+            warning = true,
+            lines = {"Brother Michael casts Soulbind on everyone (including himself) in his line of sight and binds them together for 8 seconds.",
+                     "20% of the damage taken is split among the bound."}
+        }, {
+            name = "Grip Break",
+            icon = "Interface\\Icons\\Ability_Warrior_Disarm",
+            lines = {"Disarms the target for 6 seconds."}
+        }, {
+            name = "Kick",
+            icon = "Interface\\Icons\\Ability_kick",
+            warning = true,
+            lines = {"Kicks a player back 50 yards and sends them to the death realm, causing Disembodied."},
+            abilities = {{
+                name = "Disembodied",
+                icon = "Interface\\Icons\\ability_vanish",
+                lines = {"The target becomes a ghost and can see mobs that are in the death realm. If caught by the mobs they will die."}
+            }}
+        }}
+    }, {
+        key = "doan",
+        name = "Doan",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Doan",
+        flags = {"tauntable"},
+        -- NOTE: values from Spell.dbc (IDs 35954-35989). Doan rotates between
+        -- three elemental stances (Arcane, Frost, Fire), each with its own set
+        -- of abilities. Shared abilities are listed under "All Phases".
+        abilities = {{
+            separator = true,
+            name = "All Phases"
+        }, {
+            name = "Brilliance Aura",
+            icon = "Interface\\Icons\\Spell_Nature_Brilliance",
+            lines = {"Regenerates 550 mana every 5 seconds."}
+        }, {
+            name = "Arcane Pulse",
+            icon = "Interface\\Icons\\Spell_Arcane_ArcaneResilience",
+            warning = true,
+            lines = {"Magically pulses for 100 Arcane damage and interrupts spellcasting, locking that school for a few seconds."}
+        }, {
+            name = "Blink",
+            icon = "Interface\\Icons\\Spell_Arcane_Blink",
+            lines = {"After phase swap, Doan teleports a short distance."}
+        }, {
+            name = "Evocation",
+            icon = "Interface\\Icons\\Spell_Nature_Purge",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Channels to regenerate 5% of his total mana per second. Lasts 10 seconds."}
+        }, {
+            separator = true,
+            name = "Arcane Phase"
+        }, {
+            name = "Arcanebolt",
+            icon = "Interface\\Icons\\Spell_Nature_StarFall",
+            lines = {"Blasts an enemy for 1040-1390 Arcane damage every 0.5 seconds while channeling."}
+        }, {
+            name = "Greater Polymorph",
+            icon = "Interface\\Icons\\Spell_Nature_Brilliance",
+            roles = {"dispel"},
+            lines = {"Transforms an enemy into a sheep for 60 seconds."}
+        }, {
+            name = "Slow",
+            icon = "Interface\\Icons\\Spell_Nature_Slow",
+            roles = {"dispel"},
+            lines = {"Reduces the target's movement speed by 50% and attack speed by 50% for 20 seconds."}
+        }, {
+            name = "Siphon Magic",
+            icon = "Interface\\Icons\\Spell_Nature_Purge",
+            lines = {"Purges all harmful magic effects from himself, restoring mana for each effect removed."}
+        }, {
+            separator = true,
+            name = "Frost Phase"
+        }, {
+            name = "Icebolt",
+            icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
+            roles = {"healer"},
+            lines = {"Launches a bolt of frost for 4200-5110 Frost damage and reduces the next healing effect on the target by 90%."}
+        }, {
+            name = "Ice Blast",
+            icon = "Interface\\Icons\\Spell_Frost_Glacier",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Deals 15% of the target's health every second while it lasts."}
+        }, {
+            name = "Numbing Cold",
+            icon = "Interface\\Icons\\Spell_Frost_FrostArmor",
+            warning = true,
+            lines = {"The ground gets icy. After 3 seconds your attack and movement speed gets reduced by 30%.",
+                     "After 6? seconds your attack, movement and casting speed reduced by 40%.",
+                     "After 10 seconds of standing applies Chilled to the Bone."},
+            abilities = {{
+                name = "Chilled to the Bone",
+                icon = "Interface\\Icons\\spell_frost_frostnova",
+                lines = {"Your unable to move and your attack and casting speed is reduced by 50% and after 5 seconds become Frozen Solid."},
+                abilities = {{
+                    name = "Frozen Solid",
+                    icon = "Interface\\Icons\\spell_frost_frost",
+                    lines = {"Your frozen in place for 10 seconds and get X Frost Damage every X seconds."}
+                }}
+            }}
+        }, {
+            separator = true,
+            name = "Fire Phase"
+        }, {
+            name = "Flamebolt",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            lines = {"Hurls a fiery ball for 5750-6800 Fire damage plus 250 Fire damage every 0.5 sec. for 8 seconds."}
+        }, {
+            name = "Flamestrike",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            lines = {"Calls down a pillar of fire for 1555-1840 Fire damage on a random target, then 575 Fire damage every second to anyone standing in it for 8 seconds."}
+        }, {
+            name = "Dragon Breath",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts 1850-2230 Fire damage in a cone in front of Doan. This will set any bookshelves ablaze which he hits."},
+            abilities = {{
+                name = "Searing Heat",
+                icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+                lines = {"Continually inflicts Fire damage on the raid."}
+            }}
+        }}
+    }, {
+        key = "renault_mograine",
+        name = "Renault Mograine",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Mograine",
+        flags = {"notalwaystauntable"},
+        -- NOTE: values from Spell.dbc (IDs 33456-36021). Percentages are the
+        -- real $s values (DBC stores them as value-1).
+        abilities = {{
+            separator = true,
+            name = "Renault Mograine"
+        }, {
+            name = "Eye for an Eye",
+            icon = "Interface\\Icons\\Spell_Holy_EyeforanEye",
+            warning = true,
+            lines = {"All of the damage dealt to him is reflected back at the raid, divided between each member."}
+        }, {
+            name = "Crusader Strike",
+            icon = "Interface\\Icons\\Spell_Holy_CrusaderStrike2",
+            roles = {"tank", "dispel"},
+            lines = {"Inflicts 800 to 1100 damage to an enemy and increases the Holy damage it takes by 20% per Crusader Strike. Can be applied up to 5 times. Lasts 25 seconds.."}
+        }, {
+            name = "Pillar of Light",
+            icon = "Interface\\Icons\\Spell_Holy_ReviveChampion",
+            lines = {"Mograine summons a Pillar of Light every ~15-20 seconds, which disorientates anyone who looks at it for 6 seconds while it's being cast. It deals 500 Holy damage to anyone in its' line of sight every second."}
+        }, {
+            name = "Purify",
+            icon = "Interface\\Icons\\spell_holy_purify",
+            lines = {"Mograine purifies a friendly target, removing 1 disease effect and 1 poison effect."}
+        }, {
+            name = "Aura",
+            icon = "Interface\\Icons\\spell_holy_auramastery",
+            lines = {"Mograine swaps between 5 auras at random every 20 seconds."},
+            abilities = {{
+                name = "Retribution Aura",
+                icon = "Interface\\Icons\\spell_holy_auraoflight",
+                lines = {"Does 125 Holy damage to anyone who hits Mograine and doubles the damage of Eye for an Eye."}
+            }, {
+                name = "Devotion Aura",
+                icon = "Interface\\Icons\\spell_holy_devotionaura",
+                lines = {"Increases his armor by 2100."}
+            }, {
+                name = "Fire Resistance Aura",
+                icon = "Interface\\Icons\\spell_fire_sealoffire",
+                lines = {"Increases his Fire resistance by 180."}
+            }, {
+                name = "Frost Resistance Aura",
+                icon = "Interface\\Icons\\spell_frost_wizardmark",
+                lines = {"Increases his Frost resistance by 180."}
+            }, {
+                name = "Shadow Resistance Aura",
+                icon = "Interface\\Icons\\spell_shadow_sealofkings",
+                lines = {"Increases his Shadow resistance by 180."}
+            }}
+        }, {
+            separator = true,
+            name = "Sally Whitemane"
+        }, {
+            name = "Scarlet Resurrection",
+            icon = "Interface\\Icons\\spell_holy_resurrection",
+            warning = true,
+            lines = {"When Mograine dies, Whitemane resurrects him and the fight continues."}
+        }, {
+            name = "Holy Smite",
+            icon = "Interface\\Icons\\Spell_Holy_HolySmite",
+            roles = {"kick"},
+            lines = {"Whitemane's main cast, smiting a target for 2730-3030 Holy damage."}
+        }, {
+            name = "Holy Fire",
+            icon = "Interface\\Icons\\Spell_Holy_SearingLight",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Inflicts 1275-1650 Holy damage plus 830 Holy damage every 3 seconds, and dispels a positive effect from the target on each periodic damage tick."}
+        }, {
+            name = "Absolution",
+            icon = "Interface\\Icons\\Spell_Holy_RighteousFury",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Smites an enemy, inflicting 4000-5000 Holy damage."}
+        }, {
+            name = "Eradication",
+            icon = "Interface\\Icons\\spell_holy_righteousfury",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Smites an enemy, inflicting 10000-12000 Holy damage."}
+        }, {
+            name = "Heal",
+            icon = "Interface\\Icons\\Spell_Holy_Heal",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Whitemane heals herself (or Mograine) for 90000-100000."}
+        }, {
+            name = "Dispel Magic",
+            icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
+            lines = {"Whitemane dispels 2 magic spells from herself."}
+        }, {
+            name = "Power Word: Shield",
+            icon = "Interface\\Icons\\Spell_Holy_PowerWordShield",
+            roles = {"dispel"},
+            lines = {"Shields herself, absorbing 15000 damage."}
+        }, {
+            name = "Dominate Mind",
+            icon = "Interface\\Icons\\spell_shadow_shadowworddominate",
+            warning = true,
+            roles = {"cc"},
+            lines = {"Mind controls a player."}
+        }}
+    }, {
+        key = "fairbanks",
+        name = "Fairbanks",
+        icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Fairbanks",
+        flags = {"tauntable"},
+        -- NOTE: values from Spell.dbc (IDs 36024-36213). Percentages are the
+        -- real $s values (DBC stores them as value-1).
+        abilities = {{
+            name = "Bile Vomit",
+            icon = "Interface\\Icons\\Spell_Shadow_PlagueCloud",
+            roles = {"tank"},
+            lines = {"Shoots a cloud of bile in a cone in front of him, reducing armor by 650 and inflicting 1280-1620 Nature damage and 330 Nature damage every 5 seconds for 30 seconds. Stacks up to 10 times."}
+        }, {
+            name = "Claustrophobia",
+            icon = "Interface\\Icons\\Spell_Shadow_Shadesofdarkness",
+            warning = true,
+            lines = {"The walls press inward, increasing all players in size."}
+        }, {
+            name = "Blasphemous Vitality",
+            icon = "Interface\\Icons\\spell_shadow_unholystrength",
+            lines = {"Regenerates 1% of total Health every 5 seconds."}
+        }, {
+            name = "Power Word: Barrier",
+            icon = "Interface\\Icons\\spell_holy_powerwordshield",
+            lines = {"Shields himself for 9260-9460 seconds for 15 seconds."}
+        }, {
+            name = "All-Consuming Hatred",
+            icon = "Interface\\Icons\\spell_shadow_sacrificialshield",
+            lines = {"Damage done increased by 50%. Immune to Taunt effects. Not sure when he does this."}
+        }, {
+            name = "Stomp",
+            icon = "Interface\\Icons\\ability_kick",
+            lines = {"Whenever players are too close to each other triggers Stomp, interrupting spellcasting and prevents any spell in that school from being cast for 0.5 seconds."}
+        }, {
+            name = "Panic",
+            icon = "Interface\\Icons\\spell_shadow_auraofdarkness",
+            lines = {"Weakens your spirit, causing Panic to accumulate over time. Upon reaching 10 stacks, triggers Fear."},
+            abilities = {{
+                name = "Fear",
+                icon = "Interface\\Icons\\spell_shadow_possession",
+                roles = {"dispel"},
+                lines = {"Become feared for 8 seconds."}
+            }}
+        }}
+    }}
+}, {
+    -- CHANGED: LBRS and UBRS bosses are listed for navigation only - their
+    -- abilities still need documenting. Boss list confirmed against combat logs.
+    key = "LBRS",
+    name = "Lower Blackrock Spire",
+    expanded = false,
+    bosses = {{
+        key = "omokk",
+        name = "Highlord Omokk",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Highlord Omokk's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "voshgajin",
+        name = "Shadow Hunter Vosh'gajin",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Shadow Hunter Vosh'gajin's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "voone",
+        name = "War Master Voone",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "War Master Voone's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "smolderweb",
+        name = "Mother Smolderweb",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Mother Smolderweb's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "urok",
+        name = "Urok Doomhowl",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Urok Doomhowl's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "zigris",
+        name = "Quartermaster Zigris",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Quartermaster Zigris' Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "halycon",
+        name = "Halycon",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Halycon's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "gizrul",
+        name = "Gizrul the Slavener",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Gizrul's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "wyrmthalak",
+        name = "Overlord Wyrmthalak",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Overlord Wyrmthalak's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }}
+}, {
+    key = "UBRS",
+    name = "Upper Blackrock Spire",
+    expanded = false,
+    bosses = {{
+        key = "emberseer",
+        name = "Pyroguard Emberseer",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Pyroguard Emberseer's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "solakar",
+        name = "Solakar Flamewreath",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Solakar Flamewreath's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "goraluk",
+        name = "Goraluk Anvilcrack",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Goraluk Anvilcrack's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "jed",
+        name = "Jed Runewatcher",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Jed Runewatcher's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "rend",
+        name = "Warchief Rend Blackhand",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Warchief Rend Blackhand's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "gyth",
+        name = "Gyth",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Gyth's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "the_beast",
+        name = "The Beast",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "The Beast's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "drakkisath",
+        name = "General Drakkisath",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "General Drakkisath's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }, {
+        key = "valthalak",
+        name = "Lord Valthalak",
+        icon = "Interface\\Icons\\temp",
+        abilities = {{
+            name = "Lord Valthalak's Ability",
+            icon = "Interface\\Icons\\temp",
+            lines = {"Placeholder. Abilities not yet documented."}
+        }}
+    }}
+}, {
+    -- CHANGED: Onyxia. Phases are driven by separators; mechanics come from
+    -- Spell.dbc plus the raid-lead tips document, with cast frequencies from
+    -- combat logs. Trash is deliberately not documented yet.
+    key = "ONY",
+    name = "Onyxia's Lair",
+    expanded = false,
+    bosses = {{
+        key = "onyxia",
+        name = "Onyxia",
+        icon = "Interface\\Icons\\temp",
+        flags = {"damage_fire"},
+        stats = {armor = 5550, fire = "immune", nature = 92, frost = 92, shadow = 102, arcane = 88},
+        abilities = {{
+            separator = true,
+            name = "Pre-pull & positioning"
+        }, {
+            name = "Preparation",
+            icon = "Interface\\Icons\\INV_Potion_24",
+            lines = {"Stack and buff OUTSIDE the instance - spells are more expensive inside.",
+                     "Use Greater Fire Protection Potions. Tremor Totem, Fire Resistance Totem and Devotion Aura in the main tank's group.",
+                     "Stack on one side if possible; otherwise keep at least a tank and healer on the other side. Mark a star to move to on the pull."}
+        }, {
+            name = "Tail Sweep",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Damages and knocks back enemies behind her. Never stand behind Onyxia."}
+        }, {
+            name = "Flame Breath",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts Fire damage in a cone in front of her plus a damage-over-time effect. Do not stand in front unless you are tanking."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank", "melee"},
+            lines = {"Strikes her target and its nearest allies, knocking them back."}
+        }, {
+            name = "Knock Away",
+            icon = "Interface\\Icons\\INV_Gauntlets_05",
+            roles = {"tank"},
+            lines = {"Inflicts damage to nearby enemies and knocks them back, shedding threat."}
+        }, {
+            separator = true,
+            name = "Phase 1 (100% - 66%)"
+        }, {
+            name = "Threatening Gaze",
+            icon = "Interface\\Icons\\Ability_Hunter_AspectMastery",
+            warning = true,
+            lines = {"'Onyxia is watching you closely...' - the target must STOP ALL ACTIONS or they will pull her aggro.",
+                     "Track this debuff. It appears in both phase 1 and phase 3."}
+        }, {
+            name = "Opening rotation",
+            icon = "Interface\\Icons\\Ability_Warrior_BattleShout",
+            lines = {"Slow DPS until everyone is positioned. Set up debuffs while moving - Expose Armor, curses and DoTs.",
+                     "Save damage cooldowns for 66% when she begins to move, then use everything."}
+        }, {
+            separator = true,
+            name = "Phase 2 (66% - 40%) - airborne"
+        }, {
+            name = "Deep Breath",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            warning = true,
+            lines = {"The phase 2 wipe mechanic. Call out safe spots when she moves to a new position and never stand in the middle of the room."}
+        }, {
+            name = "Fireball",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            roles = {"healer"},
+            lines = {"An AoE conflagration - spread out so it cannot chain through the raid.",
+                     "She telegraphs the target, who receives a mark roughly 3 seconds before impact, so it can be dodged or avoided with defensive abilities."}
+        }, {
+            name = "Whelps",
+            icon = "Interface\\Icons\\Ability_Hunter_Pet_Dragonhawk",
+            warning = true,
+            roles = {"tank", "dps"},
+            lines = {"Assign a dedicated whelp tank and kill every whelp that spawns.",
+                     "Make sure healers do not pick up whelp aggro."}
+        }, {
+            name = "Eruption",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            warning = true,
+            lines = {"Damage from the erupting floor as she takes flight and repositions."}
+        }, {
+            name = "Wing Buffet",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts damage in a cone in front of her and knocks enemies back."}
+        }, {
+            separator = true,
+            name = "Phase 3 (40% - 0%) - landed"
+        }, {
+            name = "Bellowing Roar",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            warning = true,
+            roles = {"shaman", "tank"},
+            lines = {"An AoE fear - a TREMOR TOTEM must be up.",
+                     "Druid tanks can spec Enrage to avoid every fear, warriors can stance dance most of them, and paladins can spec Improved Morale."}
+        }, {
+            name = "Engulfing Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Sets enemies aflame with a Fire damage-over-time effect and sends them into a panic.",
+                     "By far her most frequent ability in logs (16000+ entries) - track this debuff."}
+        }, {
+            name = "Landing",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Slow DPS as she lands and let the main tank reposition to the phase 1 tanking spot.",
+                     "Be careful with damage-over-time aggro during the phase change."}
+        }}
+    }}
+}, {
+    -- CHANGED: World bosses. Mechanics come from Spell.dbc plus the raid-lead
+    -- tips document, with cast frequencies observed in combat logs.
+    key = "WORLD",
+    name = "World Bosses",
+    expanded = false,
+    bosses = {{
+        key = "azuregos",
+        name = "Azuregos",
+        icon = "Interface\\Icons\\temp",
+        flags = {"damage_frost"},
+        stats = {armor = 5880, fire = 126, nature = 126, frost = "immune", shadow = 126, arcane = 300},
+        abilities = {{
+            name = "Chill",
+            icon = "Interface\\Icons\\Spell_Frost_Glacier",
+            warning = true,
+            roles = {"dispel", "tank"},
+            lines = {"Blasts nearby enemies with ice, increasing the time between their attacks and slowing movement. His most frequent ability.",
+                     "Dispel tanks first, then melee - skip the rest."}
+        }, {
+            name = "Frost Breath",
+            icon = "Interface\\Icons\\Spell_Frost_FrostNova",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts Frost damage in a cone in front of him, steals mana and stuns. Do not stand in front unless you are tanking.",
+                     "Unlike most dragons he does NOT tail swipe, so standing behind him is safe."}
+        }, {
+            name = "Manastorm",
+            icon = "Interface\\Icons\\Spell_Frost_IceStorm",
+            warning = true,
+            lines = {"Calls down a mana storm inflicting Frost damage and draining mana every second in a selected area. Move out of it."}
+        }, {
+            name = "Deep Freeze",
+            icon = "Interface\\Icons\\Spell_Frost_ChainsOfIce",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Freezes the target in place with a large damage-over-time effect. Assign 1-2 resto druids to heal these targets."}
+        }, {
+            name = "Magic Reflection",
+            icon = "Interface\\Icons\\Spell_Frost_WindWalkOn",
+            warning = true,
+            roles = {"reflect", "caster"},
+            lines = {"Casters must stop all spell damage while this is up or it will be reflected back."}
+        }, {
+            name = "Teleport",
+            icon = "Interface\\Icons\\Spell_Arcane_PortalIronForge",
+            warning = true,
+            lines = {"Stop DPS when he teleports - he resets threat and will otherwise kill the raid."}
+        }, {
+            name = "Mark of Frost",
+            icon = "Interface\\Icons\\Spell_Frost_ChainsOfIce",
+            warning = true,
+            lines = {"A 15 minute undispellable debuff applied on death - it freezes you in place if you release while Azuregos is nearby.",
+                     "He is immune to Arcane and has very high Frost resistance."}
+        }}
+    }, {
+        key = "hederine",
+        name = "Lady Hederine",
+        icon = "Interface\\Icons\\temp",
+        flags = {"damage_nature"},
+        stats = {armor = 4316, fire = 93, nature = 93, frost = 93, shadow = 93, arcane = 55},
+        abilities = {{
+            name = "Bloating Toxins",
+            icon = "Interface\\Icons\\Ability_Creature_Disease_02",
+            warning = true,
+            roles = {"poison"},
+            lines = {"The defining mechanic - the target's flesh bloats and explodes, firing a poison bolt volley at everyone in their line of sight, including themselves.",
+                     "Targets must break line of sight with the whole raid. Each cast marks 2 players: the furthest raid member and someone in the top 3 threat."}
+        }, {
+            name = "Flesh Explosion",
+            icon = "Interface\\Icons\\Ability_Poisons",
+            warning = true,
+            roles = {"poison", "healer"},
+            lines = {"Nature damage every second after Bloating Toxins expires. Cleanse poison to remove it. Her most frequent log entry."}
+        }, {
+            name = "Tears of the Hederine",
+            icon = "Interface\\Icons\\Ability_Mage_ColdAsIce",
+            warning = true,
+            lines = {"Green gas on the ground - standing in it too long freezes you, applies a heavy damage-over-time effect and prevents healing. Move out."}
+        }, {
+            name = "Curse of Weakness",
+            icon = "Interface\\Icons\\Spell_Shadow_CurseOfMannoroth",
+            warning = true,
+            roles = {"decurse", "tank"},
+            lines = {"Reduces Physical damage dealt. Decurse tanks first, then hunters and melee DPS - skip the rest."}
+        }, {
+            name = "Impotence",
+            icon = "Interface\\Icons\\Spell_Shadow_ChillTouch",
+            warning = true,
+            roles = {"dispel"},
+            lines = {"Reduces magical damage dealt by 90%. Dispel priority: shaman/paladin tank, then DPS shaman/warlock, then mages and boomkins.",
+                     "DPS priests and paladins should dispel themselves."}
+        }, {
+            name = "Sonic Lash",
+            icon = "Interface\\Icons\\Spell_Shadow_Curse",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Nature damage in a cone in front of her, knocking enemies back and wiping aggro. Keep a Nature Resistance totem in the main tank's group."}
+        }, {
+            name = "Lash of Pain",
+            icon = "Interface\\Icons\\Spell_Shadow_Curse",
+            lines = {"Shadow damage lash. Fire damage component - keep a Fire Resistance totem in the main tank's group."}
+        }, {
+            name = "Mind Control",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowWordDominate",
+            warning = true,
+            lines = {"Crowd control the mind controlled player - do NOT kill them."}
+        }, {
+            name = "Adds",
+            icon = "Interface\\Icons\\Ability_Hunter_Pet_Bat",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Requires 5 tanks total: a main tank plus 2 tanks for each add. Off tanks must pull.",
+                     "Tanks taunt off each other at 3 stacks of Sunder Armor, and must taunt immediately when adds charge the main tank."}
+        }}
+    }, {
+        key = "kazzak",
+        name = "Lord Kazzak",
+        icon = "Interface\\Icons\\temp",
+        flags = {"damage_shadow"},
+        stats = {armor = 5880, fire = 143, nature = 75, frost = 75, shadow = 143, arcane = 75},
+        abilities = {{
+            name = "Mark of Kazzak",
+            icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
+            warning = true,
+            roles = {"decurse"},
+            lines = {"A curse draining mana over time. If the target runs out of mana while afflicted they explode.",
+                     "Decurse it, and never let your mana fall below 2000."}
+        }, {
+            name = "Shadow Bolt Volley",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            warning = true,
+            lines = {"Hurls Shadow bolts at everyone, ignoring line of sight. By far his most frequent ability (25000+ log entries)."}
+        }, {
+            name = "Twisted Reflection",
+            icon = "Interface\\Icons\\Spell_Arcane_PortalDarnassus",
+            warning = true,
+            roles = {"dispel"},
+            lines = {"Heals Kazzak whenever damage is dealt to the affected target. Dispel it promptly."}
+        }, {
+            name = "Thunderclap",
+            icon = "Interface\\Icons\\Spell_Nature_ThunderClap",
+            warning = true,
+            roles = {"dispel", "tank"},
+            lines = {"Nature damage that slows attack speed and movement. Dispel from the main tank and assign a dedicated dispeller for high value melee DPS."}
+        }, {
+            name = "A Falling Star (Meteor)",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball02",
+            warning = true,
+            roles = {"melee"},
+            lines = {"An AoE knockback that can also hit the tank. Melee must stay at maximum range behind him to avoid this and the frontal Cleave."}
+        }, {
+            name = "Void Bolt",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            lines = {"A single-target bolt of dark magic."}
+        }, {
+            name = "Capture Soul",
+            icon = "Interface\\Icons\\Spell_Shadow_SoulGem",
+            warning = true,
+            lines = {"Every player OR pet that dies heals Kazzak for 70000+ health - including hunter pets and Eskhandar.",
+                     "Any player or pet outside the raid also heals him if they are near or in combat with him. Do not die."}
+        }}
+    }, {
+        key = "kurinnaxx",
+        name = "Kurinnaxx",
+        icon = "Interface\\Icons\\temp",
+        flags = {"damage_nature"},
+        stats = {armor = 6700, fire = 83, nature = 151, frost = 83, shadow = 115, arcane = 115},
+        abilities = {{
+            name = "Mortal Wound",
+            icon = "Interface\\Icons\\Ability_CriticalStrike",
+            warning = true,
+            roles = {"tank", "healer"},
+            lines = {"Reduces healing taken by 10% per stack. Tanks must taunt off each other at three to five stacks."}
+        }, {
+            name = "Poison Bolt Volley",
+            icon = "Interface\\Icons\\Ability_Poisons",
+            warning = true,
+            roles = {"poison"},
+            lines = {"Shoots poison at enemies in a cone in front of him. Keep a Poison Cleansing Totem in the tank group.",
+                     "Do not stand in front of him unless you are tanking. His most frequent ability."}
+        }, {
+            name = "Tail Sweep",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Damages and knocks back enemies behind him. Do not stand behind Kurinnaxx.",
+                     "All DPS and healers should be positioned at his left or right side."}
+        }, {
+            name = "Sand Trap",
+            icon = "Interface\\Icons\\INV_Misc_Dust_02",
+            warning = true,
+            lines = {"Move away from the sand trap or you will be silenced and unable to cast for 20 seconds."}
+        }, {
+            name = "Sand Reaver's Rush (Charge)",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            warning = true,
+            lines = {"Stop DPS when he charges."}
+        }, {
+            name = "Wide Slash",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"Inflicts normal damage plus extra to enemies in a cone in front of him."}
+        }, {
+            name = "Enrage",
+            icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
+            warning = true,
+            roles = {"warrior"},
+            lines = {"Enrages at 30% health. Save damage cooldowns for this phase.",
+                     "He should be disarmed as much as possible while enraged."}
+        }}
+    }, {
+        key = "teremus",
+        name = "Teremus the Devourer",
+        icon = "Interface\\Icons\\temp",
+        color = "ffffd100",
+        flags = {"damage_shadow"},
+        abilities = {{
+            name = "Soul Consumption",
+            icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Drains health from everyone nearby and heals himself for a multiple of the amount stolen.",
+                     "His most frequent ability by a wide margin - spread out and keep the raid topped up so he gains as little as possible."}
+        }, {
+            name = "Devour Essence",
+            icon = "Interface\\Icons\\Spell_Shadow_SummonFelHunter",
+            warning = true,
+            roles = {"healer"},
+            lines = {"'Feeding the Devourer...' - devours the target's flesh, dealing damage every second, stunning them and healing himself."}
+        }, {
+            name = "Unrestrained Corruption",
+            icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Black",
+            warning = true,
+            roles = {"tank"},
+            lines = {"A self-buff increasing his Physical damage by 30% and his armour by 45%.",
+                     "Tank damage spikes and your damage output drops while this is up."}
+        }, {
+            name = "Shadow Flame",
+            icon = "Interface\\Icons\\Spell_Fire_Incinerate",
+            warning = true,
+            lines = {"Inflicts heavy Shadow damage to enemies in a cone in front of him. Do not stand in front."}
+        }, {
+            name = "Knock Away",
+            icon = "Interface\\Icons\\INV_Gauntlets_05",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts damage to nearby enemies and knocks them back, shedding threat."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank", "melee"},
+            lines = {"Strikes his target and its nearest allies, knocking them back."}
+        }}
+    }, {
+        key = "king_mosh",
+        name = "King Mosh",
+        icon = "Interface\\Icons\\temp",
+        color = "ffffd100",
+        abilities = {{
+            name = "Trample",
+            icon = "Interface\\Icons\\Spell_Nature_NaturesWrath",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Inflicts Physical damage to everyone nearby. His most frequent ability - melee should expect constant incoming damage."}
+        }, {
+            name = "Terrifying Roar",
+            icon = "Interface\\Icons\\Stampede",
+            warning = true,
+            roles = {"shaman", "tank"},
+            lines = {"Paralyses the target with terror and sends nearby raid members fleeing in fear.",
+                     "Keep a Tremor Totem down for the main tank."}
+        }, {
+            name = "Vicious Rend",
+            icon = "Interface\\Icons\\Ability_Gouge",
+            warning = true,
+            roles = {"healer"},
+            lines = {"A bleed inflicting Physical damage every 3 seconds on the tank."}
+        }, {
+            name = "Primal Vitality",
+            icon = "Interface\\Icons\\INV_Relics_IdolofRejuvenation",
+            warning = true,
+            lines = {"Regenerates a percentage of his total health every 3 seconds - the raid must out-damage the regeneration."}
+        }}
+    }}
+}, {
+    -- CHANGED: the four Dragons of Nightmare. They share a common ability set
+    -- (Noxious Breath, Tail Sweep) plus one signature mechanic each.
+    key = "GREEN",
+    name = "Green Dragons",
+    expanded = false,
+    bosses = {{
+        key = "emeriss",
+        name = "Emeriss",
+        icon = "Interface\\Icons\\temp",
+        flags = {"damage_nature"},
+        abilities = {{
+            name = "Volatile Infection",
+            icon = "Interface\\Icons\\Spell_Holy_HarmUndeadAura",
+            warning = true,
+            roles = {"dispel", "healer"},
+            lines = {"Emeriss' signature mechanic - infects a player so they inflict Nature damage to nearby allies.",
+                     "The infected player must move away from the raid. Her most frequent ability."}
+        }, {
+            name = "Corruption of the Earth",
+            icon = "Interface\\Icons\\Ability_Creature_Cursed_03",
+            warning = true,
+            roles = {"healer"},
+            lines = {"Deals a percentage of maximum health as damage every few seconds to the entire raid."}
+        }, {
+            name = "Noxious Breath",
+            icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Frontal breath dealing damage over time and increasing ability cooldowns. Do not stand in front."}
+        }, {
+            name = "Tail Sweep",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Damages and knocks back enemies behind her. Do not stand behind."}
+        }, {
+            name = "Mark of Nature",
+            icon = "Interface\\Icons\\Spell_Nature_SpiritArmor",
+            warning = true,
+            lines = {"Applied on death - you are weakened and susceptible to her Aura of Nature if you release nearby."}
+        }}
+    }, {
+        key = "lethon",
+        name = "Lethon",
+        icon = "Interface\\Icons\\temp",
+        flags = {"damage_shadow"},
+        abilities = {{
+            name = "Shadow Bolt Whirl",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            warning = true,
+            lines = {"Spinning bolts of Shadow magic radiate outward from him. His most frequent ability by a wide margin - keep moving to avoid them."}
+        }, {
+            name = "Draw Spirit",
+            icon = "Interface\\Icons\\Spell_Shadow_SummonInfernal",
+            warning = true,
+            roles = {"dps"},
+            lines = {"Lethon draws spirits out of the raid. The spirit shades travel back to him and heal him if they reach him - intercept and kill them."}
+        }, {
+            name = "Noxious Breath",
+            icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Frontal breath dealing damage over time and increasing ability cooldowns. Do not stand in front."}
+        }, {
+            name = "Tail Sweep",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Damages and knocks back enemies behind him. Do not stand behind."}
+        }, {
+            name = "Mark of Nature",
+            icon = "Interface\\Icons\\Spell_Nature_SpiritArmor",
+            warning = true,
+            lines = {"Applied on death - you are weakened and susceptible to his aura if you release nearby."}
+        }}
+    }, {
+        key = "taerar",
+        name = "Taerar",
+        icon = "Interface\\Icons\\temp",
+        flags = {"damage_arcane"},
+        abilities = {{
+            name = "Arcane Blast",
+            icon = "Interface\\Icons\\Spell_Shadow_DeathPact",
+            warning = true,
+            lines = {"Blasts an enemy with Arcane magic for normal damage plus extra, knocking them back."}
+        }, {
+            name = "Bellowing Roar",
+            icon = "Interface\\Icons\\Spell_Shadow_Charm",
+            warning = true,
+            roles = {"shaman"},
+            lines = {"Fears the raid. Keep a Tremor Totem down for the main tank."}
+        }, {
+            name = "Shades of Taerar",
+            icon = "Interface\\Icons\\Spell_Shadow_SummonInfernal",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Taerar splits into shades partway through the fight - they must be tanked and killed before he becomes vulnerable again."}
+        }, {
+            name = "Noxious Breath",
+            icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Frontal breath dealing damage over time and increasing ability cooldowns. Do not stand in front."}
+        }, {
+            name = "Tail Sweep",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Damages and knocks back enemies behind him. His most frequent ability - do not stand behind."}
+        }, {
+            name = "Mark of Nature",
+            icon = "Interface\\Icons\\Spell_Nature_SpiritArmor",
+            warning = true,
+            lines = {"Applied on death - you are weakened and susceptible to his aura if you release nearby."}
+        }}
+    }, {
+        key = "ysondre",
+        name = "Ysondre",
+        icon = "Interface\\Icons\\temp",
+        flags = {"damage_nature"},
+        stats = {armor = 4691, fire = 126, nature = 126, frost = 126, shadow = 126, arcane = 126},
+        abilities = {{
+            name = "Lightning Wave",
+            icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
+            warning = true,
+            lines = {"Strikes an enemy with lightning that arcs to nearby enemies, dealing greater Nature damage to each. Her most frequent ability - spread out."}
+        }, {
+            name = "Summon Druids",
+            icon = "Interface\\Icons\\Spell_Nature_ForceOfNature",
+            warning = true,
+            roles = {"kick", "tank"},
+            lines = {"Ysondre summons Demented Druids that cast Moonfire and heal her. Interrupt and kill them quickly."}
+        }, {
+            name = "Noxious Breath",
+            icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
+            warning = true,
+            roles = {"tank"},
+            lines = {"Frontal breath dealing damage over time and increasing ability cooldowns. Do not stand in front."}
+        }, {
+            name = "Tail Sweep",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
+            warning = true,
+            lines = {"Damages and knocks back enemies behind her. Do not stand behind."}
+        }, {
+            name = "Mark of Nature",
+            icon = "Interface\\Icons\\Spell_Nature_SpiritArmor",
+            warning = true,
+            lines = {"Applied on death - you are weakened and susceptible to her aura if you release nearby."}
         }}
     }}
 }}
@@ -980,8 +3250,15 @@ local RAIDS = {{
 -- Setup accordion initial states
 for _, raid in ipairs(RAIDS) do
     for _, boss in ipairs(raid.bosses) do
+        if not boss.abilities then boss.abilities = {} end
         for _, ability in ipairs(boss.abilities) do
-            ability.expanded = false
+            -- CHANGED: phase separators start expanded so all abilities are
+            -- visible by default; normal ability rows start collapsed.
+            if ability.separator then
+                ability.expanded = true
+            else
+                ability.expanded = false
+            end
         end
         if boss.adds then
             for _, add in ipairs(boss.adds) do
@@ -1020,7 +3297,7 @@ frame:SetBackdrop({
 
 local title = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 title:SetPoint("TOP", frame, "TOP", 0, -15)
-title:SetText("Boss Mechanics Demo")
+title:SetText("Dungeon Journal")
 
 local closeBtn = CreateFrame("Button", "DungeonJournalCloseButton", frame, "UIPanelCloseButton")
 closeBtn:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -3, -3)
@@ -1059,6 +3336,14 @@ portrait:SetTexture(DEFAULT_ICON)
 local bossNameText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
 bossNameText:SetPoint("LEFT", portrait, "RIGHT", 10, 0)
 bossNameText:SetText("Select a boss")
+
+-- CHANGED: the boss stats line (armor + resistances) is rendered above the
+-- "Abilities" header so it sits between the portrait and the ability list.
+-- It is only visible when the current boss has a `stats` table.
+local bossStatsLabel = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+bossStatsLabel:SetPoint("TOPLEFT", portrait, "BOTTOMLEFT", 0, -8)
+bossStatsLabel:SetJustifyH("LEFT")
+bossStatsLabel:Hide()
 
 local abilitiesHeader = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 abilitiesHeader:SetPoint("TOPLEFT", portrait, "BOTTOMLEFT", 0, -16)
@@ -1199,6 +3484,7 @@ EnableMouseWheelScroll(scrollFrame)
 EnableMouseWheelScroll(abilityScrollFrame)
 
 local currentBoss = nil
+local currentTrashPack = nil
 local activeTab = "abilities"
 local abilityRowPool = {}
 
@@ -1291,10 +3577,28 @@ local navBossesText = navBosses:CreateFontString(nil, "OVERLAY", "GameFontNormal
 navBossesText:SetPoint("CENTER", navBosses, "CENTER", 0, 0)
 navBossesText:SetText("Bosses")
 
+-- CHANGED: "Trash" nav tab - own tree + own right panel, kept fully separate
+-- from the boss browsing view so trash lists (CC priorities, patrol paths,
+-- pull order notes) can grow long without crowding the boss UI.
+local navTrash = CreateFrame("Button", "DungeonJournalNavTrash", frame)
+navTrash:SetWidth(130)
+navTrash:SetHeight(NAV_BAR_HEIGHT)
+navTrash:SetPoint("LEFT", navBosses, "RIGHT", 6, 0)
+navTrash:SetBackdrop({
+    bgFile = "Interface\\Buttons\\WHITE8X8",
+    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+    tile = true, tileSize = 16, edgeSize = 8,
+    insets = { left = 2, right = 2, top = 2, bottom = 2 }
+})
+
+local navTrashText = navTrash:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+navTrashText:SetPoint("CENTER", navTrash, "CENTER", 0, 0)
+navTrashText:SetText("Trash")
+
 local navExplaination = CreateFrame("Button", "DungeonJournalNavExplaination", frame)
 navExplaination:SetWidth(130)
 navExplaination:SetHeight(NAV_BAR_HEIGHT)
-navExplaination:SetPoint("LEFT", navBosses, "RIGHT", 6, 0)
+navExplaination:SetPoint("LEFT", navTrash, "RIGHT", 6, 0)
 navExplaination:SetBackdrop({
     bgFile = "Interface\\Buttons\\WHITE8X8",
     edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -1402,23 +3706,158 @@ function RebuildExplainationList()
 end
 
 ------------------------------------------------------------
+-- CHANGED: Trash view - its own left tree (raid -> trash pack). The tree
+-- lives here; the right-hand detail panel is built further down (after
+-- CreateAbilityRow/ConfigureAbilityRow/RebuildBossFlags exist) since it
+-- reuses that same boss-panel rendering wholesale - see ShowTrashPack() and
+-- RebuildTrashAbilityList() below the boss panel code. ShowTrashPack is only
+-- ever *called* from a click, by which point the whole file has loaded, so
+-- it's fine to reference it here before it's defined.
+------------------------------------------------------------
+local trashTreeScrollFrame = CreateFrame("ScrollFrame", "DungeonJournalTrashTreeScrollFrame", frame, "UIPanelScrollFrameTemplate")
+trashTreeScrollFrame:SetPoint("TOPLEFT", frame, "TOPLEFT", 12, -64)
+trashTreeScrollFrame:SetPoint("BOTTOMRIGHT", frame, "BOTTOMLEFT", LEFT_WIDTH + 4, 15)
+trashTreeScrollFrame:Hide()
+
+local trashTreeScrollChild = CreateFrame("Frame", "DungeonJournalTrashTreeScrollChild", trashTreeScrollFrame)
+trashTreeScrollChild:SetHeight(1)
+trashTreeScrollFrame:SetScrollChild(trashTreeScrollChild)
+trashTreeScrollChild:SetWidth(LEFT_WIDTH - 10)
+
+EnableMouseWheelScroll(trashTreeScrollFrame)
+
+local trashVSeparator = frame:CreateTexture(nil, "ARTWORK")
+trashVSeparator:SetTexture("Interface\\Buttons\\WHITE8X8")
+trashVSeparator:SetVertexColor(0.5, 0.5, 0.5, 0.8)
+trashVSeparator:SetWidth(1)
+trashVSeparator:SetPoint("TOP", frame, "TOPLEFT", LEFT_WIDTH + 14, -64)
+trashVSeparator:SetPoint("BOTTOM", frame, "BOTTOMLEFT", LEFT_WIDTH + 14, 15)
+trashVSeparator:Hide()
+
+local trashTreeButtonPool = {}
+
+local function BuildTrashEntries()
+    local entries = {}
+    for _, raid in ipairs(RAIDS) do
+        table.insert(entries, { entryType = "header", raid = raid })
+        if raid.trashExpanded and raid.trash then
+            for _, pack in ipairs(raid.trash) do
+                table.insert(entries, { entryType = "pack", raid = raid, pack = pack })
+            end
+        end
+    end
+    return entries
+end
+
+local function CreateTrashTreeRow(index)
+    local btn = CreateFrame("Button", "DungeonJournalTrashTreeRow"..index, trashTreeScrollChild)
+    btn:SetWidth(LEFT_WIDTH - 10)
+    btn:SetHeight(TREE_ROW_HEIGHT)
+    btn:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight", "ADD")
+
+    local label = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    label:SetPoint("LEFT", btn, "LEFT", 4, 0)
+    label:SetJustifyH("LEFT")
+    btn.label = label
+
+    btn:SetScript("OnClick", function()
+        local entry = this.entry
+        if entry.entryType == "header" then
+            entry.raid.trashExpanded = not entry.raid.trashExpanded
+            RebuildTrashTree()
+        else
+            ShowTrashPack(entry.pack)
+        end
+    end)
+
+    return btn
+end
+
+function RebuildTrashTree()
+    local entries = BuildTrashEntries()
+
+    for i, entry in ipairs(entries) do
+        local btn = trashTreeButtonPool[i]
+        if not btn then
+            btn = CreateTrashTreeRow(i)
+            trashTreeButtonPool[i] = btn
+        end
+
+        btn.entry = entry
+        if entry.entryType == "header" then
+            local prefix = entry.raid.trashExpanded and "- " or "+ "
+            btn.label:SetText(prefix .. entry.raid.name)
+            btn.label:SetPoint("LEFT", btn, "LEFT", 4, 0)
+            btn.label:SetFontObject(GameFontNormalSmall)
+        else
+            btn.label:SetText(entry.pack.name)
+            btn.label:SetPoint("LEFT", btn, "LEFT", 18, 0)
+            btn.label:SetFontObject(GameFontHighlightSmall)
+        end
+
+        btn:ClearAllPoints()
+        btn:SetPoint("TOPLEFT", trashTreeScrollChild, "TOPLEFT", 0, -(i - 1) * TREE_ROW_HEIGHT)
+        btn:Show()
+    end
+
+    for i = table.getn(entries) + 1, table.getn(trashTreeButtonPool) do
+        trashTreeButtonPool[i]:Hide()
+    end
+
+    trashTreeScrollChild:SetHeight(table.getn(entries) * TREE_ROW_HEIGHT)
+    UpdateScrollBarRange(trashTreeScrollFrame)
+end
+
+RebuildTrashTree()
+
+------------------------------------------------------------
 -- CHANGED: SelectView() toggles between the "Bosses" view (tree + boss
--- detail, the window's original content) and the new "Explaination" view.
+-- detail, the window's original content), the new "Trash" view, and the
+-- "Explaination" view.
 ------------------------------------------------------------
 local function SelectView(view)
     currentView = view
+
+    -- CHANGED: reset all three nav buttons, then re-highlight the active one
+    -- below - avoids repeating the "un-highlight the other two" dance per branch.
+    local navButtons = {
+        {btn = navBosses, text = navBossesText},
+        {btn = navTrash, text = navTrashText},
+        {btn = navExplaination, text = navExplainationText},
+    }
+    for _, nb in ipairs(navButtons) do
+        nb.btn:SetBackdropColor(0, 0, 0, 0.5)
+        nb.btn:SetBackdropBorderColor(0.5, 0.5, 0.5, 0.5)
+        nb.text:SetTextColor(0.8, 0.8, 0.8)
+    end
+
+    -- Hide everything view-specific; the branch below re-shows what's needed.
+    scrollFrame:Hide()
+    vSeparator:Hide()
+    portrait:Hide()
+    bossNameText:Hide()
+    abilitiesHeader:Hide()
+    abilityScrollFrame:Hide()
+    tabAbilities:Hide()
+    tabAdds:Hide()
+    RebuildBossFlags(nil)
+
+    trashTreeScrollFrame:Hide()
+    trashVSeparator:Hide()
+    trashPortrait:Hide()
+    trashNameText:Hide()
+    trashStatsLabel:Hide()
+    trashAbilitiesHeader:Hide()
+    trashAbilityScrollFrame:Hide()
+    RebuildTrashFlags(nil)
+
+    ExplainationHeader:Hide()
+    ExplainationScrollFrame:Hide()
 
     if view == "bosses" then
         navBosses:SetBackdropColor(0, 0, 0, 0.8)
         navBosses:SetBackdropBorderColor(1, 0.82, 0, 1)
         navBossesText:SetTextColor(1, 0.82, 0)
-
-        navExplaination:SetBackdropColor(0, 0, 0, 0.5)
-        navExplaination:SetBackdropBorderColor(0.5, 0.5, 0.5, 0.5)
-        navExplainationText:SetTextColor(0.8, 0.8, 0.8)
-
-        ExplainationHeader:Hide()
-        ExplainationScrollFrame:Hide()
 
         scrollFrame:Show()
         vSeparator:Show()
@@ -1431,24 +3870,26 @@ local function SelectView(view)
             tabAbilities:Show()
             tabAdds:Show()
         end
+    elseif view == "trash" then
+        navTrash:SetBackdropColor(0, 0, 0, 0.8)
+        navTrash:SetBackdropBorderColor(1, 0.82, 0, 1)
+        navTrashText:SetTextColor(1, 0.82, 0)
+
+        trashTreeScrollFrame:Show()
+        trashVSeparator:Show()
+        trashPortrait:Show()
+        trashNameText:Show()
+        trashAbilitiesHeader:Show()
+        trashAbilityScrollFrame:Show()
+        if currentTrashPack then
+            ShowTrashPack(currentTrashPack) -- CHANGED: refresh icon/name/flags/stats/abilities for the current pack
+        else
+            RebuildTrashFlags(nil)
+        end
     else
         navExplaination:SetBackdropColor(0, 0, 0, 0.8)
         navExplaination:SetBackdropBorderColor(1, 0.82, 0, 1)
         navExplainationText:SetTextColor(1, 0.82, 0)
-
-        navBosses:SetBackdropColor(0, 0, 0, 0.5)
-        navBosses:SetBackdropBorderColor(0.5, 0.5, 0.5, 0.5)
-        navBossesText:SetTextColor(0.8, 0.8, 0.8)
-
-        scrollFrame:Hide()
-        vSeparator:Hide()
-        portrait:Hide()
-        bossNameText:Hide()
-        abilitiesHeader:Hide()
-        abilityScrollFrame:Hide()
-        tabAbilities:Hide()
-        tabAdds:Hide()
-        RebuildBossFlags(nil) -- CHANGED: clear the flag icon row while on the Explanation view
 
         ExplainationHeader:Show()
         ExplainationScrollFrame:Show()
@@ -1457,13 +3898,94 @@ local function SelectView(view)
 end
 
 navBosses:SetScript("OnClick", function() SelectView("bosses") end)
+navTrash:SetScript("OnClick", function() SelectView("trash") end)
 navExplaination:SetScript("OnClick", function() SelectView("Explaination") end)
 
-SelectView("bosses")
+-- CHANGED: NOT called here - SelectView() also touches the trash panel
+-- globals (trashPortrait, RebuildTrashFlags, etc.), which aren't created
+-- until further down the file (after ShowBossInfo). The initial call is
+-- deferred to the very end of the file, once everything exists.
 
 ------------------------------------------------------------
 -- List Item Creation and configuration
 ------------------------------------------------------------
+-- CHANGED: phase separator bars. An entry in a boss's `abilities` list that
+-- carries `separator = true` is rendered as a full-width labelled bar instead
+-- of an ability row. Every ability listed after it belongs to that phase,
+-- until the next separator - so the grouping is driven purely by where the
+-- separator sits in the data. Clicking the bar collapses/expands that phase.
+-- Separators are only handled at the top level of the list (not inside an
+-- add's nested `abilities`).
+local separatorRowPool = {}
+
+local function CreateSeparatorRow(parent, index)
+    local btn = CreateFrame("Button", "DungeonJournalPhaseRow" .. index, parent)
+    btn:SetHeight(SEPARATOR_ROW_H)
+
+    local bg = btn:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints(btn)
+    bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    bg:SetVertexColor(0.15, 0.15, 0.3, 1)
+    btn.bg = bg
+
+    btn:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight", "ADD")
+
+    local expandLabel = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    expandLabel:SetPoint("LEFT", btn, "LEFT", 6, 0)
+    expandLabel:SetWidth(12)
+    expandLabel:SetJustifyH("LEFT")
+    btn.expandLabel = expandLabel
+
+    local nameLabel = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    nameLabel:SetPoint("LEFT", expandLabel, "RIGHT", 2, 0)
+    nameLabel:SetJustifyH("LEFT")
+    btn.nameLabel = nameLabel
+
+    btn:SetScript("OnClick", function()
+        this.separatorData.expanded = not this.separatorData.expanded
+        -- CHANGED: shared between the boss and trash panels - see the same
+        -- fix in CreateAbilityRow's OnClick above.
+        if currentView == "trash" then
+            RebuildTrashAbilityList(currentTrashPack)
+        else
+            RebuildAbilityList(currentBoss)
+        end
+    end)
+
+    return btn
+end
+
+local function ConfigureSeparatorRow(btn, entry)
+    btn.separatorData = entry
+    btn.expandLabel:SetText(entry.expanded and "-" or "+")
+
+    if entry.color then
+        btn.nameLabel:SetText("|c" .. entry.color .. entry.name .. "|r")
+    else
+        btn.nameLabel:SetText(entry.name)
+    end
+end
+
+-- NOTE: the stats line is now rendered via bossStatsLabel (a persistent
+-- FontString above the abilities header) rather than a pooled frame inside
+-- the scroll child. See ShowBossInfo() for the show/hide logic.
+
+local function FormatBossStats(stats)
+    local text = "|cffffd100Armor|r " .. (stats.armor or 0)
+    for _, school in ipairs(RESISTANCE_SCHOOLS) do
+        local val = stats[school[1]]
+        if val == nil then val = 0 end
+        local valText
+        if val == "immune" then
+            valText = "|cffff0000Immune|r"
+        else
+            valText = "|c" .. school[3] .. val .. "|r"
+        end
+        text = text .. "   |c" .. school[3] .. school[2] .. "|r " .. valText
+    end
+    return text
+end
+
 -- CHANGED: now generic - takes a parent, indent, and optional frame-name prefix.
 -- This lets the same row "widget" be used both for the top-level list (abilities
 -- or adds) AND for a nested sub-list of abilities belonging to a single add.
@@ -1512,7 +4034,14 @@ local function CreateAbilityRow(parent, index, indent, namePrefix)
 
     btn:SetScript("OnClick", function()
         this.ability.expanded = not this.ability.expanded
-        RebuildAbilityList(currentBoss)
+        -- CHANGED: this row widget is shared between the boss panel and the
+        -- trash panel, so it must rebuild whichever list is actually on
+        -- screen rather than always assuming the boss list.
+        if currentView == "trash" then
+            RebuildTrashAbilityList(currentTrashPack)
+        else
+            RebuildAbilityList(currentBoss)
+        end
     end)
 
     return btn
@@ -1644,25 +4173,57 @@ function RebuildAbilityList(boss)
     end
 
     local yOffset = 0
+    -- CHANGED: separators and abilities are drawn from two different pools, so
+    -- each needs its own running index. `phaseVisible` tracks whether the most
+    -- recent separator is expanded; abilities under a collapsed phase are
+    -- skipped entirely (and therefore contribute no height).
+    local rowIndex = 0
+    local sepIndex = 0
+    local phaseVisible = true
+
     for i, item in ipairs(dataSource) do
-        local btn = abilityRowPool[i]
-        if not btn then
-            btn = CreateAbilityRow(abilityScrollChild, i, 18, "DungeonJournalAbilityRow")
-            abilityRowPool[i] = btn
+        if item.separator then
+            sepIndex = sepIndex + 1
+            local sep = separatorRowPool[sepIndex]
+            if not sep then
+                sep = CreateSeparatorRow(abilityScrollChild, sepIndex)
+                separatorRowPool[sepIndex] = sep
+            end
+
+            sep:ClearAllPoints()
+            sep:SetPoint("TOPLEFT", abilityScrollChild, "TOPLEFT", 0, -yOffset)
+            sep:SetPoint("TOPRIGHT", abilityScrollChild, "TOPRIGHT", 0, -yOffset)
+
+            ConfigureSeparatorRow(sep, item)
+            sep:Show()
+
+            phaseVisible = item.expanded
+            yOffset = yOffset + sep:GetHeight() + 4
+        elseif phaseVisible then
+            rowIndex = rowIndex + 1
+            local btn = abilityRowPool[rowIndex]
+            if not btn then
+                btn = CreateAbilityRow(abilityScrollChild, rowIndex, 18, "DungeonJournalAbilityRow")
+                abilityRowPool[rowIndex] = btn
+            end
+
+            btn:ClearAllPoints()
+            btn:SetPoint("TOPLEFT", abilityScrollChild, "TOPLEFT", 0, -yOffset)
+            btn:SetPoint("TOPRIGHT", abilityScrollChild, "TOPRIGHT", 0, -yOffset)
+
+            ConfigureAbilityRow(btn, item, 18, RIGHT_CONTENT_WIDTH - 24)
+            btn:Show()
+
+            yOffset = yOffset + btn:GetHeight() + 4
         end
-
-        btn:ClearAllPoints()
-        btn:SetPoint("TOPLEFT", abilityScrollChild, "TOPLEFT", 0, -yOffset)
-        btn:SetPoint("TOPRIGHT", abilityScrollChild, "TOPRIGHT", 0, -yOffset)
-
-        ConfigureAbilityRow(btn, item, 18, RIGHT_CONTENT_WIDTH - 24)
-        btn:Show()
-
-        yOffset = yOffset + btn:GetHeight() + 4
     end
 
-    for i = table.getn(dataSource) + 1, table.getn(abilityRowPool) do
+    for i = rowIndex + 1, table.getn(abilityRowPool) do
         abilityRowPool[i]:Hide()
+    end
+
+    for i = sepIndex + 1, table.getn(separatorRowPool) do
+        separatorRowPool[i]:Hide()
     end
 
     abilityScrollChild:SetHeight(yOffset)
@@ -1679,6 +4240,16 @@ local function ShowBossInfo(boss)
     -- CHANGED: Dynamically updates the boss flag icons (tauntable, potions, etc)
     RebuildBossFlags(boss)
 
+    -- CHANGED: show armor/resistance line above "Abilities" when the boss has stats
+    if boss.stats then
+        bossStatsLabel:SetText(FormatBossStats(boss.stats))
+        bossStatsLabel:Show()
+        abilitiesHeader:SetPoint("TOPLEFT", portrait, "BOTTOMLEFT", 0, -28)
+    else
+        bossStatsLabel:Hide()
+        abilitiesHeader:SetPoint("TOPLEFT", portrait, "BOTTOMLEFT", 0, -16)
+    end
+
     if boss.adds and table.getn(boss.adds) > 0 then
         tabAbilities:Show()
         tabAdds:Show()
@@ -1693,6 +4264,196 @@ local function ShowBossInfo(boss)
 end
 
 ------------------------------------------------------------
+-- CHANGED: Trash panel (right side) - deliberately mirrors the boss panel
+-- above (portrait, flag row, stats line, accordion ability list with
+-- separators) instead of a bespoke layout, so trash and bosses look and
+-- behave the same. Trash packs use the exact same data shape as bosses
+-- (icon/flags/stats/abilities), just without adds/tabs.
+------------------------------------------------------------
+-- CHANGED: intentionally NOT `local` - SelectView() above already refers to
+-- these by name (as globals, since they didn't exist as locals yet at that
+-- point in the file), so they're declared as globals here to match.
+trashPortrait = frame:CreateTexture(nil, "ARTWORK")
+trashPortrait:SetWidth(64)
+trashPortrait:SetHeight(64)
+trashPortrait:SetPoint("TOPLEFT", frame, "TOPLEFT", LEFT_WIDTH + 26, -70)
+trashPortrait:SetTexture(DEFAULT_ICON)
+trashPortrait:Hide()
+
+trashNameText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+trashNameText:SetPoint("LEFT", trashPortrait, "RIGHT", 10, 0)
+trashNameText:SetText("Select a trash pack")
+trashNameText:Hide()
+
+trashStatsLabel = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+trashStatsLabel:SetPoint("TOPLEFT", trashPortrait, "BOTTOMLEFT", 0, -8)
+trashStatsLabel:SetJustifyH("LEFT")
+trashStatsLabel:Hide()
+
+trashAbilitiesHeader = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+trashAbilitiesHeader:SetPoint("TOPLEFT", trashPortrait, "BOTTOMLEFT", 0, -16)
+trashAbilitiesHeader:SetText("Abilities")
+trashAbilitiesHeader:Hide()
+
+-- CHANGED: the mob "type" flag row (Caster / Melee / Immune to X / etc) -
+-- same slot mechanism as bossFlagAnchor/CreateBossFlagSlot, just its own
+-- anchor/pool so the two views don't fight over the same slots.
+local trashFlagAnchor = CreateFrame("Frame", "DungeonJournalTrashFlagAnchor", frame)
+trashFlagAnchor:SetWidth(1)
+trashFlagAnchor:SetHeight(1)
+trashFlagAnchor:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -34, -74)
+
+local trashFlagSlots = {}
+
+local function CreateTrashFlagSlot(index)
+    local slot = CreateFrame("Button", "DungeonJournalTrashFlag"..index, frame)
+    slot:SetWidth(30)
+    slot:SetHeight(30)
+
+    local tex = slot:CreateTexture(nil, "ARTWORK")
+    tex:SetAllPoints(slot)
+    slot.texture = tex
+
+    slot:SetScript("OnEnter", function()
+        GameTooltip:SetOwner(this, "ANCHOR_TOP")
+        GameTooltip:SetText(this.flagDef.name, 1, 1, 1)
+        GameTooltip:AddLine(this.flagDef.desc, 0.9, 0.9, 0.9, true)
+        GameTooltip:Show()
+    end)
+    slot:SetScript("OnLeave", function()
+        GameTooltip:Hide()
+    end)
+
+    return slot
+end
+
+function RebuildTrashFlags(pack)
+    local flags = (pack and pack.flags) or {}
+
+    local anchorTo = trashFlagAnchor
+    for i, flagKey in ipairs(flags) do
+        local def = BOSS_FLAGS[flagKey]
+        if def then
+            local slot = trashFlagSlots[i]
+            if not slot then
+                slot = CreateTrashFlagSlot(i)
+                trashFlagSlots[i] = slot
+            end
+
+            slot.texture:SetTexture(def.icon or DEFAULT_ICON)
+            slot.flagDef = def
+
+            slot:ClearAllPoints()
+            slot:SetPoint("TOPRIGHT", anchorTo, "TOPLEFT", -6, 0)
+            slot:Show()
+            anchorTo = slot
+        end
+    end
+
+    for i = table.getn(flags) + 1, table.getn(trashFlagSlots) do
+        trashFlagSlots[i]:Hide()
+    end
+end
+
+trashAbilityScrollFrame = CreateFrame("ScrollFrame", "DungeonJournalTrashAbilityScrollFrame", frame, "UIPanelScrollFrameTemplate")
+trashAbilityScrollFrame:SetPoint("TOPLEFT", trashAbilitiesHeader, "BOTTOMLEFT", 0, -8)
+trashAbilityScrollFrame:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -34, 15)
+trashAbilityScrollFrame:Hide()
+
+local trashAbilityScrollChild = CreateFrame("Frame", "DungeonJournalTrashAbilityScrollChild", trashAbilityScrollFrame)
+trashAbilityScrollChild:SetHeight(1)
+trashAbilityScrollFrame:SetScrollChild(trashAbilityScrollChild)
+trashAbilityScrollChild:SetWidth(RIGHT_CONTENT_WIDTH)
+
+EnableMouseWheelScroll(trashAbilityScrollFrame)
+
+-- CHANGED: separate row/separator pools from the boss panel - CreateAbilityRow/
+-- ConfigureAbilityRow/CreateSeparatorRow/ConfigureSeparatorRow are all generic
+-- (parent passed in), so they're reused as-is here.
+local trashAbilityRowPool = {}
+local trashSeparatorRowPool = {}
+
+function RebuildTrashAbilityList(pack)
+    if not pack then return end
+
+    local dataSource = pack.abilities or {}
+
+    local yOffset = 0
+    local rowIndex = 0
+    local sepIndex = 0
+    local phaseVisible = true
+
+    for i, item in ipairs(dataSource) do
+        if item.separator then
+            sepIndex = sepIndex + 1
+            local sep = trashSeparatorRowPool[sepIndex]
+            if not sep then
+                sep = CreateSeparatorRow(trashAbilityScrollChild, sepIndex)
+                trashSeparatorRowPool[sepIndex] = sep
+            end
+
+            sep:ClearAllPoints()
+            sep:SetPoint("TOPLEFT", trashAbilityScrollChild, "TOPLEFT", 0, -yOffset)
+            sep:SetPoint("TOPRIGHT", trashAbilityScrollChild, "TOPRIGHT", 0, -yOffset)
+
+            ConfigureSeparatorRow(sep, item)
+            sep:Show()
+
+            phaseVisible = item.expanded
+            yOffset = yOffset + sep:GetHeight() + 4
+        elseif phaseVisible then
+            rowIndex = rowIndex + 1
+            local btn = trashAbilityRowPool[rowIndex]
+            if not btn then
+                btn = CreateAbilityRow(trashAbilityScrollChild, rowIndex, 18, "DungeonJournalTrashAbilityRow")
+                trashAbilityRowPool[rowIndex] = btn
+            end
+
+            btn:ClearAllPoints()
+            btn:SetPoint("TOPLEFT", trashAbilityScrollChild, "TOPLEFT", 0, -yOffset)
+            btn:SetPoint("TOPRIGHT", trashAbilityScrollChild, "TOPRIGHT", 0, -yOffset)
+
+            ConfigureAbilityRow(btn, item, 18, RIGHT_CONTENT_WIDTH - 24)
+            btn:Show()
+
+            yOffset = yOffset + btn:GetHeight() + 4
+        end
+    end
+
+    for i = rowIndex + 1, table.getn(trashAbilityRowPool) do
+        trashAbilityRowPool[i]:Hide()
+    end
+
+    for i = sepIndex + 1, table.getn(trashSeparatorRowPool) do
+        trashSeparatorRowPool[i]:Hide()
+    end
+
+    trashAbilityScrollChild:SetHeight(yOffset)
+    UpdateScrollBarRange(trashAbilityScrollFrame)
+end
+
+function ShowTrashPack(pack)
+    currentTrashPack = pack
+    trashNameText:SetText(pack.name)
+    trashPortrait:SetTexture(pack.icon or DEFAULT_ICON)
+
+    RebuildTrashFlags(pack)
+
+    if pack.stats then
+        trashStatsLabel:SetText(FormatBossStats(pack.stats))
+        trashStatsLabel:Show()
+        trashAbilitiesHeader:SetPoint("TOPLEFT", trashPortrait, "BOTTOMLEFT", 0, -28)
+    else
+        trashStatsLabel:Hide()
+        trashAbilitiesHeader:SetPoint("TOPLEFT", trashPortrait, "BOTTOMLEFT", 0, -16)
+    end
+
+    RebuildTrashAbilityList(pack)
+
+    DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99DungeonJournal:|r Selected " .. pack.name)
+end
+
+------------------------------------------------------------
 -- Tree building (left side)
 ------------------------------------------------------------
 local function BuildEntries()
@@ -1701,7 +4462,13 @@ local function BuildEntries()
         table.insert(entries, { entryType = "header", raid = raid })
         if raid.expanded then
             for _, boss in ipairs(raid.bosses) do
-                table.insert(entries, { entryType = "boss", raid = raid, boss = boss })
+                -- CHANGED: a separator entry in the bosses list (e.g. "Edge of
+                -- Madness" in ZG) is rendered as a non-clickable label row.
+                if boss.separator then
+                    table.insert(entries, { entryType = "separator", boss = boss })
+                else
+                    table.insert(entries, { entryType = "boss", raid = raid, boss = boss })
+                end
             end
         end
     end
@@ -1726,9 +4493,10 @@ local function CreateTreeRow(index)
         if entry.entryType == "header" then
             entry.raid.expanded = not entry.raid.expanded
             RebuildTree()
-        else
+        elseif entry.entryType == "boss" then
             ShowBossInfo(entry.boss)
         end
+        -- CHANGED: separators in the boss list are non-clickable (no action)
     end)
 
     return btn
@@ -1750,8 +4518,25 @@ function RebuildTree()
             btn.label:SetText(prefix .. entry.raid.name)
             btn.label:SetPoint("LEFT", btn, "LEFT", 4, 0)
             btn.label:SetFontObject(GameFontNormalSmall)
+        elseif entry.entryType == "separator" then
+            -- CHANGED: boss-level separator rendered as a non-clickable label
+            if entry.boss.color then
+                btn.label:SetText("|c" .. entry.boss.color .. "--- " .. entry.boss.name .. " ---|r")
+            else
+                btn.label:SetText("|cff888888--- " .. entry.boss.name .. " ---|r")
+            end
+            btn.label:SetPoint("LEFT", btn, "LEFT", 18, 0)
+            btn.label:SetFontObject(GameFontDisableSmall)
         else
-            btn.label:SetText(entry.boss.name)
+            -- CHANGED: a boss may carry an optional `color` (ARGB hex, same
+            -- format as ability names) to highlight it in the tree - e.g. gold
+            -- for world bosses. Always set the text explicitly either way so a
+            -- pooled row never keeps a previous entry's colour codes.
+            if entry.boss.color then
+                btn.label:SetText("|c" .. entry.boss.color .. entry.boss.name .. "|r")
+            else
+                btn.label:SetText(entry.boss.name)
+            end
             btn.label:SetPoint("LEFT", btn, "LEFT", 18, 0)
             btn.label:SetFontObject(GameFontHighlightSmall)
         end
@@ -1770,6 +4555,11 @@ function RebuildTree()
 end
 
 RebuildTree()
+
+-- CHANGED: deferred from earlier in the file - SelectView() touches trash
+-- panel globals that only exist once we reach this point.
+SelectView("bosses")
+
 frame:Hide()
 
 ------------------------------------------------------------

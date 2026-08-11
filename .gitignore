@@ -1,0 +1,13 @@
+# Combat logs used for research when documenting encounters.
+# These are multi-GB client dumps and must never be committed.
+WoWCombatLog.txt
+WoWCombatLog*.txt
+
+# Spell/ability reference spreadsheets used as research sources.
+# Reference material only - the addon ships as plain Lua + BLP files.
+*.xlsx
+*.xls
+*.csv
+*.docx
+*.doc
+*.txt

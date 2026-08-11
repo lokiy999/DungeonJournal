@@ -1,9 +1,9 @@
 ## Interface: 11200
-## Title: ClickyDemo
-## Notes: Demo addon
+## Title: DungeonJournal
+## Notes: Adventure Guide-style raid/dungeon encounter reference window
 ## Author: Claude
 
-ClickyDemo.lua
+DungeonJournal.lua
 Icons\Lucifron.blp
 Icons\Magmadar.blp
 Icons\Gehennas.blp
