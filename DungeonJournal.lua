@@ -110,11 +110,13 @@ local function ApplyUtilityIcon(texture, key)
 end
 
 ------------------------------------------------------------
--- CHANGED: Boss "flag" icons - shown in a row to the right of the boss
--- portrait/name, for quick-glance encounter notes like "this boss can/can't
--- be taunted" or "bring Fire Protection Potions". Tag a boss in the RAIDS
--- database with e.g. flags = { "nottauntable", "damage_fire" } and the
--- matching icons will appear automatically - see RebuildBossFlags() below.
+-- CHANGED: Boss/trash "flag" icons - shown in a row to the right of the
+-- boss or trash-pack portrait/name, for quick-glance notes like "this can/
+-- can't be taunted" or "this pack is immune to Fire". Tag a boss OR a trash
+-- pack in the RAIDS database with e.g. flags = { "nottauntable", "damage_fire" }
+-- or flags = { "caster", "immune_fire" } and the matching icons will appear
+-- automatically - see RebuildBossFlags() below. Same table, same mechanism,
+-- used by both the Bosses view and the Trash view.
 --
 -- To add a new flag type, just add another entry here (icon/name/desc, and
 -- optionally positive/negative to color the border). Nothing else needs to
@@ -163,6 +165,54 @@ local BOSS_FLAGS = {
         icon = "Interface\\Icons\\INV_Potion_83",
         name = "Arcane damage",
         desc = "This encounter deals Arcane damage.",
+    },
+
+    -- CHANGED: trash mob "type" tags - reuse the same flag mechanism as the
+    -- boss tauntable/damage flags above so trash packs get the same icon row.
+    caster = {
+        icon = "Interface\\Icons\\Spell_Nature_StarFall",
+        name = "Caster",
+        desc = "This mob casts spells - consider interrupting or CC'ing it.",
+    },
+    melee = {
+        icon = "Interface\\Icons\\Ability_BackStab",
+        name = "Melee",
+        desc = "This mob attacks in melee range.",
+    },
+    ranged = {
+        icon = "Interface\\Icons\\Ability_TheBlackArrow",
+        name = "Ranged",
+        desc = "This mob attacks from range with physical ranged attacks.",
+    },
+    immune_fire = {
+        icon = "Interface\\Icons\\Spell_Fire_Immolation",
+        name = "Immune: Fire",
+        desc = "This mob is immune to Fire damage and Fire-school crowd control.",
+    },
+    immune_nature = {
+        icon = "Interface\\Icons\\Spell_Nature_ResistNature",
+        name = "Immune: Nature",
+        desc = "This mob is immune to Nature damage and Nature-school crowd control.",
+    },
+    immune_frost = {
+        icon = "Interface\\Icons\\Spell_Frost_FrostArmor02",
+        name = "Immune: Frost",
+        desc = "This mob is immune to Frost damage and Frost-school crowd control.",
+    },
+    immune_shadow = {
+        icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
+        name = "Immune: Shadow",
+        desc = "This mob is immune to Shadow damage and Shadow-school crowd control.",
+    },
+    immune_arcane = {
+        icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
+        name = "Immune: Arcane",
+        desc = "This mob is immune to Arcane damage and Arcane-school crowd control.",
+    },
+    immune_poly = {
+        icon = "Interface\\Icons\\Spell_Nature_Polymorph",
+        name = "Immune: Polymorph",
+        desc = "This mob cannot be Polymorphed.",
     },
 }
 
@@ -288,6 +338,42 @@ local ICON_ExplainationS = {{
     icon = BOSS_FLAGS.damage_arcane.icon,
     name = BOSS_FLAGS.damage_arcane.name,
     desc = BOSS_FLAGS.damage_arcane.desc
+}, {
+    icon = BOSS_FLAGS.caster.icon,
+    name = BOSS_FLAGS.caster.name,
+    desc = BOSS_FLAGS.caster.desc
+}, {
+    icon = BOSS_FLAGS.melee.icon,
+    name = BOSS_FLAGS.melee.name,
+    desc = BOSS_FLAGS.melee.desc
+}, {
+    icon = BOSS_FLAGS.ranged.icon,
+    name = BOSS_FLAGS.ranged.name,
+    desc = BOSS_FLAGS.ranged.desc
+}, {
+    icon = BOSS_FLAGS.immune_fire.icon,
+    name = BOSS_FLAGS.immune_fire.name,
+    desc = BOSS_FLAGS.immune_fire.desc
+}, {
+    icon = BOSS_FLAGS.immune_nature.icon,
+    name = BOSS_FLAGS.immune_nature.name,
+    desc = BOSS_FLAGS.immune_nature.desc
+}, {
+    icon = BOSS_FLAGS.immune_frost.icon,
+    name = BOSS_FLAGS.immune_frost.name,
+    desc = BOSS_FLAGS.immune_frost.desc
+}, {
+    icon = BOSS_FLAGS.immune_shadow.icon,
+    name = BOSS_FLAGS.immune_shadow.name,
+    desc = BOSS_FLAGS.immune_shadow.desc
+}, {
+    icon = BOSS_FLAGS.immune_arcane.icon,
+    name = BOSS_FLAGS.immune_arcane.name,
+    desc = BOSS_FLAGS.immune_arcane.desc
+}, {
+    icon = BOSS_FLAGS.immune_poly.icon,
+    name = BOSS_FLAGS.immune_poly.name,
+    desc = BOSS_FLAGS.immune_poly.desc
 }}
 
 ------------------------------------------------------------
@@ -298,6 +384,83 @@ local RAIDS = {{
     key = "MC",
     name = "Molten Core",
     expanded = false,
+    trashExpanded = false,
+    -- CHANGED: trash packs use the exact same shape as bosses below (icon,
+    -- flags, stats, abilities with optional separators) so the Trash view can
+    -- reuse the boss panel's rendering wholesale. CC priority / patrol path /
+    -- pull order notes can be added later as separator-grouped ability entries.
+    trash = {{
+        key = "molten_giant",
+        name = "Molten Giant",
+        icon = "Interface\\Icons\\INV_Misc_MonsterClaw_04",
+        flags = {"melee"},
+        stats = {armor = 4200, fire = 60, nature = 60, frost = 60, shadow = 60, arcane = 60},
+        abilities = {{
+            name = "Knock Away",
+            icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+            roles = {"tank"},
+            lines = {"Knocks the target back, potentially scattering melee near the lava."}
+        }, {
+            name = "Trample",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            roles = {"tank"},
+            lines = {"A heavy melee strike on its current target."}
+        }}
+    }, {
+        key = "firelord",
+        name = "Firelord",
+        icon = "Interface\\Icons\\Spell_Fire_Elemental_Totem",
+        flags = {"caster", "immune_fire"},
+        stats = {armor = 3600, fire = "immune", nature = 60, frost = 60, shadow = 60, arcane = 60},
+        abilities = {{
+            name = "Fire Nova",
+            icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
+            warning = true,
+            lines = {"Inflicts Fire damage to nearby enemies - move out."}
+        }, {
+            name = "Fire Blast",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            roles = {"kick"},
+            lines = {"A direct Fire bolt at a random target - interrupt or kill on sight."}
+        }}
+    }, {
+        key = "flamewaker_legionnaire",
+        name = "Flamewaker Legionnaire",
+        icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+        flags = {"melee"},
+        stats = {armor = 3200, fire = 60, nature = 40, frost = 40, shadow = 40, arcane = 40},
+        abilities = {{
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"Strikes its target and nearby allies - do not stack melee on it."}
+        }}
+    }, {
+        key = "flamewaker_technician",
+        name = "Flamewaker Technician",
+        icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+        flags = {"caster"},
+        stats = {armor = 2600, fire = 80, nature = 40, frost = 40, shadow = 40, arcane = 40},
+        abilities = {{
+            name = "Fire Bolt",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            roles = {"kick"},
+            lines = {"A high-damage Fire bolt - priority CC or interrupt target."}
+        }}
+    }, {
+        key = "core_hound",
+        name = "Core Hound",
+        icon = "Interface\\Icons\\Ability_Hunter_Pet_Wolf",
+        flags = {"melee", "immune_fire"},
+        stats = {armor = 3400, fire = "immune", nature = 50, frost = 50, shadow = 50, arcane = 50},
+        abilities = {{
+            name = "Fast Melee",
+            icon = "Interface\\Icons\\Ability_MeleeDamage",
+            roles = {"tank"},
+            lines = {"Attacks quickly - keep the group stacked for AoE healing."}
+        }}
+    }},
     bosses = {{
         key = "lucifron",
         name = "Lucifron",
@@ -895,6 +1058,70 @@ local RAIDS = {{
     key = "BWL",
     name = "Blackwing Lair",
     expanded = false,
+    trashExpanded = false,
+    trash = {{
+        key = "blackwing_guardsman",
+        name = "Blackwing Guardsman",
+        icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+        flags = {"melee"},
+        stats = {armor = 5200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"Strikes its target and nearby allies - avoid clumping melee on it."}
+        }}
+    }, {
+        key = "blackwing_mage",
+        name = "Blackwing Mage",
+        icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+        flags = {"caster", "immune_fire"},
+        stats = {armor = 4000, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Fireball",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            roles = {"kick"},
+            lines = {"A high-damage Fireball - priority CC or interrupt target."}
+        }}
+    }, {
+        key = "death_talon_wyrmguard",
+        name = "Death Talon Wyrmguard",
+        icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
+        flags = {"melee"},
+        stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Heavy Strike",
+            icon = "Interface\\Icons\\Ability_MeleeDamage",
+            roles = {"tank"},
+            lines = {"Hits hard - keep an offtank ready if multiple are pulled."}
+        }}
+    }, {
+        key = "death_talon_seether",
+        name = "Death Talon Seether",
+        icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+        flags = {"caster", "immune_shadow"},
+        stats = {armor = 4000, fire = 90, nature = 90, frost = 90, shadow = "immune", arcane = 90},
+        abilities = {{
+            name = "Shadow Bolt",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            warning = true,
+            roles = {"kick"},
+            lines = {"A sizeable Shadow Bolt - CC or interrupt if left un-CC'd."}
+        }}
+    }, {
+        key = "blackwing_dragonspawn",
+        name = "Blackwing Dragonspawn",
+        icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
+        flags = {"melee"},
+        stats = {armor = 5200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {{
+            name = "Melee Swing",
+            icon = "Interface\\Icons\\Ability_MeleeDamage",
+            roles = {"tank"},
+            lines = {"Straightforward tank-and-spank trash - use ranged pulls, packs are close together."}
+        }}
+    }},
     bosses = {{
         key = "razorgore",
         name = "Razorgore the Untamed",
@@ -3257,6 +3484,7 @@ EnableMouseWheelScroll(scrollFrame)
 EnableMouseWheelScroll(abilityScrollFrame)
 
 local currentBoss = nil
+local currentTrashPack = nil
 local activeTab = "abilities"
 local abilityRowPool = {}
 
@@ -3349,10 +3577,28 @@ local navBossesText = navBosses:CreateFontString(nil, "OVERLAY", "GameFontNormal
 navBossesText:SetPoint("CENTER", navBosses, "CENTER", 0, 0)
 navBossesText:SetText("Bosses")
 
+-- CHANGED: "Trash" nav tab - own tree + own right panel, kept fully separate
+-- from the boss browsing view so trash lists (CC priorities, patrol paths,
+-- pull order notes) can grow long without crowding the boss UI.
+local navTrash = CreateFrame("Button", "DungeonJournalNavTrash", frame)
+navTrash:SetWidth(130)
+navTrash:SetHeight(NAV_BAR_HEIGHT)
+navTrash:SetPoint("LEFT", navBosses, "RIGHT", 6, 0)
+navTrash:SetBackdrop({
+    bgFile = "Interface\\Buttons\\WHITE8X8",
+    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+    tile = true, tileSize = 16, edgeSize = 8,
+    insets = { left = 2, right = 2, top = 2, bottom = 2 }
+})
+
+local navTrashText = navTrash:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+navTrashText:SetPoint("CENTER", navTrash, "CENTER", 0, 0)
+navTrashText:SetText("Trash")
+
 local navExplaination = CreateFrame("Button", "DungeonJournalNavExplaination", frame)
 navExplaination:SetWidth(130)
 navExplaination:SetHeight(NAV_BAR_HEIGHT)
-navExplaination:SetPoint("LEFT", navBosses, "RIGHT", 6, 0)
+navExplaination:SetPoint("LEFT", navTrash, "RIGHT", 6, 0)
 navExplaination:SetBackdrop({
     bgFile = "Interface\\Buttons\\WHITE8X8",
     edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -3460,23 +3706,158 @@ function RebuildExplainationList()
 end
 
 ------------------------------------------------------------
+-- CHANGED: Trash view - its own left tree (raid -> trash pack). The tree
+-- lives here; the right-hand detail panel is built further down (after
+-- CreateAbilityRow/ConfigureAbilityRow/RebuildBossFlags exist) since it
+-- reuses that same boss-panel rendering wholesale - see ShowTrashPack() and
+-- RebuildTrashAbilityList() below the boss panel code. ShowTrashPack is only
+-- ever *called* from a click, by which point the whole file has loaded, so
+-- it's fine to reference it here before it's defined.
+------------------------------------------------------------
+local trashTreeScrollFrame = CreateFrame("ScrollFrame", "DungeonJournalTrashTreeScrollFrame", frame, "UIPanelScrollFrameTemplate")
+trashTreeScrollFrame:SetPoint("TOPLEFT", frame, "TOPLEFT", 12, -64)
+trashTreeScrollFrame:SetPoint("BOTTOMRIGHT", frame, "BOTTOMLEFT", LEFT_WIDTH + 4, 15)
+trashTreeScrollFrame:Hide()
+
+local trashTreeScrollChild = CreateFrame("Frame", "DungeonJournalTrashTreeScrollChild", trashTreeScrollFrame)
+trashTreeScrollChild:SetHeight(1)
+trashTreeScrollFrame:SetScrollChild(trashTreeScrollChild)
+trashTreeScrollChild:SetWidth(LEFT_WIDTH - 10)
+
+EnableMouseWheelScroll(trashTreeScrollFrame)
+
+local trashVSeparator = frame:CreateTexture(nil, "ARTWORK")
+trashVSeparator:SetTexture("Interface\\Buttons\\WHITE8X8")
+trashVSeparator:SetVertexColor(0.5, 0.5, 0.5, 0.8)
+trashVSeparator:SetWidth(1)
+trashVSeparator:SetPoint("TOP", frame, "TOPLEFT", LEFT_WIDTH + 14, -64)
+trashVSeparator:SetPoint("BOTTOM", frame, "BOTTOMLEFT", LEFT_WIDTH + 14, 15)
+trashVSeparator:Hide()
+
+local trashTreeButtonPool = {}
+
+local function BuildTrashEntries()
+    local entries = {}
+    for _, raid in ipairs(RAIDS) do
+        table.insert(entries, { entryType = "header", raid = raid })
+        if raid.trashExpanded and raid.trash then
+            for _, pack in ipairs(raid.trash) do
+                table.insert(entries, { entryType = "pack", raid = raid, pack = pack })
+            end
+        end
+    end
+    return entries
+end
+
+local function CreateTrashTreeRow(index)
+    local btn = CreateFrame("Button", "DungeonJournalTrashTreeRow"..index, trashTreeScrollChild)
+    btn:SetWidth(LEFT_WIDTH - 10)
+    btn:SetHeight(TREE_ROW_HEIGHT)
+    btn:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight", "ADD")
+
+    local label = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    label:SetPoint("LEFT", btn, "LEFT", 4, 0)
+    label:SetJustifyH("LEFT")
+    btn.label = label
+
+    btn:SetScript("OnClick", function()
+        local entry = this.entry
+        if entry.entryType == "header" then
+            entry.raid.trashExpanded = not entry.raid.trashExpanded
+            RebuildTrashTree()
+        else
+            ShowTrashPack(entry.pack)
+        end
+    end)
+
+    return btn
+end
+
+function RebuildTrashTree()
+    local entries = BuildTrashEntries()
+
+    for i, entry in ipairs(entries) do
+        local btn = trashTreeButtonPool[i]
+        if not btn then
+            btn = CreateTrashTreeRow(i)
+            trashTreeButtonPool[i] = btn
+        end
+
+        btn.entry = entry
+        if entry.entryType == "header" then
+            local prefix = entry.raid.trashExpanded and "- " or "+ "
+            btn.label:SetText(prefix .. entry.raid.name)
+            btn.label:SetPoint("LEFT", btn, "LEFT", 4, 0)
+            btn.label:SetFontObject(GameFontNormalSmall)
+        else
+            btn.label:SetText(entry.pack.name)
+            btn.label:SetPoint("LEFT", btn, "LEFT", 18, 0)
+            btn.label:SetFontObject(GameFontHighlightSmall)
+        end
+
+        btn:ClearAllPoints()
+        btn:SetPoint("TOPLEFT", trashTreeScrollChild, "TOPLEFT", 0, -(i - 1) * TREE_ROW_HEIGHT)
+        btn:Show()
+    end
+
+    for i = table.getn(entries) + 1, table.getn(trashTreeButtonPool) do
+        trashTreeButtonPool[i]:Hide()
+    end
+
+    trashTreeScrollChild:SetHeight(table.getn(entries) * TREE_ROW_HEIGHT)
+    UpdateScrollBarRange(trashTreeScrollFrame)
+end
+
+RebuildTrashTree()
+
+------------------------------------------------------------
 -- CHANGED: SelectView() toggles between the "Bosses" view (tree + boss
--- detail, the window's original content) and the new "Explaination" view.
+-- detail, the window's original content), the new "Trash" view, and the
+-- "Explaination" view.
 ------------------------------------------------------------
 local function SelectView(view)
     currentView = view
+
+    -- CHANGED: reset all three nav buttons, then re-highlight the active one
+    -- below - avoids repeating the "un-highlight the other two" dance per branch.
+    local navButtons = {
+        {btn = navBosses, text = navBossesText},
+        {btn = navTrash, text = navTrashText},
+        {btn = navExplaination, text = navExplainationText},
+    }
+    for _, nb in ipairs(navButtons) do
+        nb.btn:SetBackdropColor(0, 0, 0, 0.5)
+        nb.btn:SetBackdropBorderColor(0.5, 0.5, 0.5, 0.5)
+        nb.text:SetTextColor(0.8, 0.8, 0.8)
+    end
+
+    -- Hide everything view-specific; the branch below re-shows what's needed.
+    scrollFrame:Hide()
+    vSeparator:Hide()
+    portrait:Hide()
+    bossNameText:Hide()
+    abilitiesHeader:Hide()
+    abilityScrollFrame:Hide()
+    tabAbilities:Hide()
+    tabAdds:Hide()
+    RebuildBossFlags(nil)
+
+    trashTreeScrollFrame:Hide()
+    trashVSeparator:Hide()
+    trashPortrait:Hide()
+    trashNameText:Hide()
+    trashStatsLabel:Hide()
+    trashAbilitiesHeader:Hide()
+    trashAbilityScrollFrame:Hide()
+    RebuildTrashFlags(nil)
+
+    ExplainationHeader:Hide()
+    ExplainationScrollFrame:Hide()
 
     if view == "bosses" then
         navBosses:SetBackdropColor(0, 0, 0, 0.8)
         navBosses:SetBackdropBorderColor(1, 0.82, 0, 1)
         navBossesText:SetTextColor(1, 0.82, 0)
-
-        navExplaination:SetBackdropColor(0, 0, 0, 0.5)
-        navExplaination:SetBackdropBorderColor(0.5, 0.5, 0.5, 0.5)
-        navExplainationText:SetTextColor(0.8, 0.8, 0.8)
-
-        ExplainationHeader:Hide()
-        ExplainationScrollFrame:Hide()
 
         scrollFrame:Show()
         vSeparator:Show()
@@ -3489,24 +3870,26 @@ local function SelectView(view)
             tabAbilities:Show()
             tabAdds:Show()
         end
+    elseif view == "trash" then
+        navTrash:SetBackdropColor(0, 0, 0, 0.8)
+        navTrash:SetBackdropBorderColor(1, 0.82, 0, 1)
+        navTrashText:SetTextColor(1, 0.82, 0)
+
+        trashTreeScrollFrame:Show()
+        trashVSeparator:Show()
+        trashPortrait:Show()
+        trashNameText:Show()
+        trashAbilitiesHeader:Show()
+        trashAbilityScrollFrame:Show()
+        if currentTrashPack then
+            ShowTrashPack(currentTrashPack) -- CHANGED: refresh icon/name/flags/stats/abilities for the current pack
+        else
+            RebuildTrashFlags(nil)
+        end
     else
         navExplaination:SetBackdropColor(0, 0, 0, 0.8)
         navExplaination:SetBackdropBorderColor(1, 0.82, 0, 1)
         navExplainationText:SetTextColor(1, 0.82, 0)
-
-        navBosses:SetBackdropColor(0, 0, 0, 0.5)
-        navBosses:SetBackdropBorderColor(0.5, 0.5, 0.5, 0.5)
-        navBossesText:SetTextColor(0.8, 0.8, 0.8)
-
-        scrollFrame:Hide()
-        vSeparator:Hide()
-        portrait:Hide()
-        bossNameText:Hide()
-        abilitiesHeader:Hide()
-        abilityScrollFrame:Hide()
-        tabAbilities:Hide()
-        tabAdds:Hide()
-        RebuildBossFlags(nil) -- CHANGED: clear the flag icon row while on the Explanation view
 
         ExplainationHeader:Show()
         ExplainationScrollFrame:Show()
@@ -3515,9 +3898,13 @@ local function SelectView(view)
 end
 
 navBosses:SetScript("OnClick", function() SelectView("bosses") end)
+navTrash:SetScript("OnClick", function() SelectView("trash") end)
 navExplaination:SetScript("OnClick", function() SelectView("Explaination") end)
 
-SelectView("bosses")
+-- CHANGED: NOT called here - SelectView() also touches the trash panel
+-- globals (trashPortrait, RebuildTrashFlags, etc.), which aren't created
+-- until further down the file (after ShowBossInfo). The initial call is
+-- deferred to the very end of the file, once everything exists.
 
 ------------------------------------------------------------
 -- List Item Creation and configuration
@@ -3556,7 +3943,13 @@ local function CreateSeparatorRow(parent, index)
 
     btn:SetScript("OnClick", function()
         this.separatorData.expanded = not this.separatorData.expanded
-        RebuildAbilityList(currentBoss)
+        -- CHANGED: shared between the boss and trash panels - see the same
+        -- fix in CreateAbilityRow's OnClick above.
+        if currentView == "trash" then
+            RebuildTrashAbilityList(currentTrashPack)
+        else
+            RebuildAbilityList(currentBoss)
+        end
     end)
 
     return btn
@@ -3641,7 +4034,14 @@ local function CreateAbilityRow(parent, index, indent, namePrefix)
 
     btn:SetScript("OnClick", function()
         this.ability.expanded = not this.ability.expanded
-        RebuildAbilityList(currentBoss)
+        -- CHANGED: this row widget is shared between the boss panel and the
+        -- trash panel, so it must rebuild whichever list is actually on
+        -- screen rather than always assuming the boss list.
+        if currentView == "trash" then
+            RebuildTrashAbilityList(currentTrashPack)
+        else
+            RebuildAbilityList(currentBoss)
+        end
     end)
 
     return btn
@@ -3864,6 +4264,196 @@ local function ShowBossInfo(boss)
 end
 
 ------------------------------------------------------------
+-- CHANGED: Trash panel (right side) - deliberately mirrors the boss panel
+-- above (portrait, flag row, stats line, accordion ability list with
+-- separators) instead of a bespoke layout, so trash and bosses look and
+-- behave the same. Trash packs use the exact same data shape as bosses
+-- (icon/flags/stats/abilities), just without adds/tabs.
+------------------------------------------------------------
+-- CHANGED: intentionally NOT `local` - SelectView() above already refers to
+-- these by name (as globals, since they didn't exist as locals yet at that
+-- point in the file), so they're declared as globals here to match.
+trashPortrait = frame:CreateTexture(nil, "ARTWORK")
+trashPortrait:SetWidth(64)
+trashPortrait:SetHeight(64)
+trashPortrait:SetPoint("TOPLEFT", frame, "TOPLEFT", LEFT_WIDTH + 26, -70)
+trashPortrait:SetTexture(DEFAULT_ICON)
+trashPortrait:Hide()
+
+trashNameText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+trashNameText:SetPoint("LEFT", trashPortrait, "RIGHT", 10, 0)
+trashNameText:SetText("Select a trash pack")
+trashNameText:Hide()
+
+trashStatsLabel = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+trashStatsLabel:SetPoint("TOPLEFT", trashPortrait, "BOTTOMLEFT", 0, -8)
+trashStatsLabel:SetJustifyH("LEFT")
+trashStatsLabel:Hide()
+
+trashAbilitiesHeader = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+trashAbilitiesHeader:SetPoint("TOPLEFT", trashPortrait, "BOTTOMLEFT", 0, -16)
+trashAbilitiesHeader:SetText("Abilities")
+trashAbilitiesHeader:Hide()
+
+-- CHANGED: the mob "type" flag row (Caster / Melee / Immune to X / etc) -
+-- same slot mechanism as bossFlagAnchor/CreateBossFlagSlot, just its own
+-- anchor/pool so the two views don't fight over the same slots.
+local trashFlagAnchor = CreateFrame("Frame", "DungeonJournalTrashFlagAnchor", frame)
+trashFlagAnchor:SetWidth(1)
+trashFlagAnchor:SetHeight(1)
+trashFlagAnchor:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -34, -74)
+
+local trashFlagSlots = {}
+
+local function CreateTrashFlagSlot(index)
+    local slot = CreateFrame("Button", "DungeonJournalTrashFlag"..index, frame)
+    slot:SetWidth(30)
+    slot:SetHeight(30)
+
+    local tex = slot:CreateTexture(nil, "ARTWORK")
+    tex:SetAllPoints(slot)
+    slot.texture = tex
+
+    slot:SetScript("OnEnter", function()
+        GameTooltip:SetOwner(this, "ANCHOR_TOP")
+        GameTooltip:SetText(this.flagDef.name, 1, 1, 1)
+        GameTooltip:AddLine(this.flagDef.desc, 0.9, 0.9, 0.9, true)
+        GameTooltip:Show()
+    end)
+    slot:SetScript("OnLeave", function()
+        GameTooltip:Hide()
+    end)
+
+    return slot
+end
+
+function RebuildTrashFlags(pack)
+    local flags = (pack and pack.flags) or {}
+
+    local anchorTo = trashFlagAnchor
+    for i, flagKey in ipairs(flags) do
+        local def = BOSS_FLAGS[flagKey]
+        if def then
+            local slot = trashFlagSlots[i]
+            if not slot then
+                slot = CreateTrashFlagSlot(i)
+                trashFlagSlots[i] = slot
+            end
+
+            slot.texture:SetTexture(def.icon or DEFAULT_ICON)
+            slot.flagDef = def
+
+            slot:ClearAllPoints()
+            slot:SetPoint("TOPRIGHT", anchorTo, "TOPLEFT", -6, 0)
+            slot:Show()
+            anchorTo = slot
+        end
+    end
+
+    for i = table.getn(flags) + 1, table.getn(trashFlagSlots) do
+        trashFlagSlots[i]:Hide()
+    end
+end
+
+trashAbilityScrollFrame = CreateFrame("ScrollFrame", "DungeonJournalTrashAbilityScrollFrame", frame, "UIPanelScrollFrameTemplate")
+trashAbilityScrollFrame:SetPoint("TOPLEFT", trashAbilitiesHeader, "BOTTOMLEFT", 0, -8)
+trashAbilityScrollFrame:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -34, 15)
+trashAbilityScrollFrame:Hide()
+
+local trashAbilityScrollChild = CreateFrame("Frame", "DungeonJournalTrashAbilityScrollChild", trashAbilityScrollFrame)
+trashAbilityScrollChild:SetHeight(1)
+trashAbilityScrollFrame:SetScrollChild(trashAbilityScrollChild)
+trashAbilityScrollChild:SetWidth(RIGHT_CONTENT_WIDTH)
+
+EnableMouseWheelScroll(trashAbilityScrollFrame)
+
+-- CHANGED: separate row/separator pools from the boss panel - CreateAbilityRow/
+-- ConfigureAbilityRow/CreateSeparatorRow/ConfigureSeparatorRow are all generic
+-- (parent passed in), so they're reused as-is here.
+local trashAbilityRowPool = {}
+local trashSeparatorRowPool = {}
+
+function RebuildTrashAbilityList(pack)
+    if not pack then return end
+
+    local dataSource = pack.abilities or {}
+
+    local yOffset = 0
+    local rowIndex = 0
+    local sepIndex = 0
+    local phaseVisible = true
+
+    for i, item in ipairs(dataSource) do
+        if item.separator then
+            sepIndex = sepIndex + 1
+            local sep = trashSeparatorRowPool[sepIndex]
+            if not sep then
+                sep = CreateSeparatorRow(trashAbilityScrollChild, sepIndex)
+                trashSeparatorRowPool[sepIndex] = sep
+            end
+
+            sep:ClearAllPoints()
+            sep:SetPoint("TOPLEFT", trashAbilityScrollChild, "TOPLEFT", 0, -yOffset)
+            sep:SetPoint("TOPRIGHT", trashAbilityScrollChild, "TOPRIGHT", 0, -yOffset)
+
+            ConfigureSeparatorRow(sep, item)
+            sep:Show()
+
+            phaseVisible = item.expanded
+            yOffset = yOffset + sep:GetHeight() + 4
+        elseif phaseVisible then
+            rowIndex = rowIndex + 1
+            local btn = trashAbilityRowPool[rowIndex]
+            if not btn then
+                btn = CreateAbilityRow(trashAbilityScrollChild, rowIndex, 18, "DungeonJournalTrashAbilityRow")
+                trashAbilityRowPool[rowIndex] = btn
+            end
+
+            btn:ClearAllPoints()
+            btn:SetPoint("TOPLEFT", trashAbilityScrollChild, "TOPLEFT", 0, -yOffset)
+            btn:SetPoint("TOPRIGHT", trashAbilityScrollChild, "TOPRIGHT", 0, -yOffset)
+
+            ConfigureAbilityRow(btn, item, 18, RIGHT_CONTENT_WIDTH - 24)
+            btn:Show()
+
+            yOffset = yOffset + btn:GetHeight() + 4
+        end
+    end
+
+    for i = rowIndex + 1, table.getn(trashAbilityRowPool) do
+        trashAbilityRowPool[i]:Hide()
+    end
+
+    for i = sepIndex + 1, table.getn(trashSeparatorRowPool) do
+        trashSeparatorRowPool[i]:Hide()
+    end
+
+    trashAbilityScrollChild:SetHeight(yOffset)
+    UpdateScrollBarRange(trashAbilityScrollFrame)
+end
+
+function ShowTrashPack(pack)
+    currentTrashPack = pack
+    trashNameText:SetText(pack.name)
+    trashPortrait:SetTexture(pack.icon or DEFAULT_ICON)
+
+    RebuildTrashFlags(pack)
+
+    if pack.stats then
+        trashStatsLabel:SetText(FormatBossStats(pack.stats))
+        trashStatsLabel:Show()
+        trashAbilitiesHeader:SetPoint("TOPLEFT", trashPortrait, "BOTTOMLEFT", 0, -28)
+    else
+        trashStatsLabel:Hide()
+        trashAbilitiesHeader:SetPoint("TOPLEFT", trashPortrait, "BOTTOMLEFT", 0, -16)
+    end
+
+    RebuildTrashAbilityList(pack)
+
+    DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99DungeonJournal:|r Selected " .. pack.name)
+end
+
+------------------------------------------------------------
 -- Tree building (left side)
 ------------------------------------------------------------
 local function BuildEntries()
@@ -3965,6 +4555,11 @@ function RebuildTree()
 end
 
 RebuildTree()
+
+-- CHANGED: deferred from earlier in the file - SelectView() touches trash
+-- panel globals that only exist once we reach this point.
+SelectView("bosses")
+
 frame:Hide()
 
 ------------------------------------------------------------
