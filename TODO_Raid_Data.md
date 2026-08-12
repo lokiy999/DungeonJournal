@@ -42,6 +42,30 @@ numbers as of this pass.
 Everything else checked in BWL (Razorgore's own kit, and every other
 boss/trash ability scanned) had real numbers, no `X` placeholders found.
 
+### BWL wording pass not done yet - acceptable for now
+
+BWL hasn't been through a scope/wording pass the way MC has (see the
+`CLAUDE.md` scope rule: mechanics only, no raid-lead strategy/priority
+calls). This is fine to leave as-is for now - just flagging it as
+not-yet-done rather than "wrong":
+
+- Razorgore add "Grethok the Controller": *"Kill or interrupt it
+  quickly."*
+- Razorgore add "Blackwing Mage": *"priority CC or interrupt"*, and its
+  Fireball ability: *"priority CC or interrupt target"*; its Arcane
+  Intellect: *"kill or CC quickly to limit its casting."*
+- Chromaggus separator literally named *"Brood Afflictions - dispel
+  assignments."*
+- Chromaggus "Tail Swipe": *"Tanks position front and back, away from
+  the raid during phase 1."*
+- Chromaggus "Tunnel adds": *"are the number one priority - they
+  overwhelm the raid quickly."*
+- Nefarian "Curse of Nefarius": *"Decurse it as a priority."*
+- Blackwing Warlock's Healing Circle: *"kill or interrupt to limit its
+  support."*
+- Blackwing Spellbinder's Arcane Blast: *"priority CC or interrupt
+  target."*
+
 ## Scarlet Monastery ([raids/SM.lua](raids/SM.lua))
 
 No trash data exists for SM at all currently (bosses only).
