@@ -1156,9 +1156,11 @@ local function SelectView(view)
         abilitiesHeader:Show()
         abilityScrollFrame:Show()
         RebuildBossFlags(currentBoss) -- CHANGED: re-show the flag icon row for the current boss
-        if currentBoss and currentBoss.adds and table.getn(currentBoss.adds) > 0 then
+        if currentBoss then
             tabAbilities:Show()
-            tabAdds:Show()
+            if currentBoss.adds and table.getn(currentBoss.adds) > 0 then
+                tabAdds:Show()
+            end
         end
         if currentBoss and currentBoss.key and DungeonJournal_TacticsData[currentBoss.key] then
             tacticsButton:Show()
@@ -1543,15 +1545,16 @@ local function ShowBossInfo(boss)
         abilitiesHeader:SetPoint("TOPLEFT", portrait, "BOTTOMLEFT", 0, -16)
     end
 
+    -- CHANGED: Abilities tab always shown (even with no Adds) so there's
+    -- always a way back to it after opening Tactics - only the Adds tab is
+    -- conditional on the boss actually having adds.
+    tabAbilities:Show()
     if boss.adds and table.getn(boss.adds) > 0 then
-        tabAbilities:Show()
         tabAdds:Show()
-        SelectTab("abilities")
     else
-        tabAbilities:Hide()
         tabAdds:Hide()
-        SelectTab("abilities")
     end
+    SelectTab("abilities")
 
     -- CHANGED: show the Tactics button only if the optional Tactics addon
     -- has registered data for this specific boss
