@@ -1219,6 +1219,7 @@ local function SelectView(view)
     trashStatsLabel:Hide()
     trashAbilitiesHeader:Hide()
     trashAbilityScrollFrame:Hide()
+    trashTabAbilities:Hide()
     trashTacticsButton:Hide()
     trashTacticsScrollFrame:Hide()
     RebuildTrashFlags(nil)
@@ -1766,10 +1767,34 @@ EnableMouseWheelScroll(trashAbilityScrollFrame)
 -- CHANGED: intentionally NOT local - SelectView() above (defined earlier in
 -- the file) needs to Hide() these as part of its view-switch hide-list, the
 -- same reason trashPortrait/trashAbilityScrollFrame/etc. aren't local either.
+--
+-- Mirrors the boss panel's tabAbilities/tacticsButton pair: Abilities always
+-- shows (so Tactics is always dismissable) and Tactics is conditional on
+-- data being registered for the current pack.
+------------------------------------------------------------
+trashTabAbilities = CreateFrame("Button", "DungeonJournalTrashTabAbilities", frame)
+trashTabAbilities:SetWidth(85)
+trashTabAbilities:SetHeight(22)
+trashTabAbilities:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", LEFT_WIDTH + 26, 15)
+trashTabAbilities:SetBackdrop({
+    bgFile = "Interface\\Buttons\\WHITE8X8",
+    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+    tile = true, tileSize = 16, edgeSize = 8,
+    insets = { left = 2, right = 2, top = 2, bottom = 2 }
+})
+trashTabAbilities:SetBackdropColor(0, 0, 0, 0.8)
+trashTabAbilities:SetBackdropBorderColor(1, 0.82, 0, 1)
+
+local trashTabAbilitiesText = trashTabAbilities:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+trashTabAbilitiesText:SetPoint("CENTER", trashTabAbilities, "CENTER", 0, 0)
+trashTabAbilitiesText:SetTextColor(1, 0.82, 0)
+trashTabAbilitiesText:SetText("Abilities")
+trashTabAbilities:Hide()
+
 trashTacticsButton = CreateFrame("Button", "DungeonJournalTrashTacticsButton", frame)
 trashTacticsButton:SetWidth(85)
 trashTacticsButton:SetHeight(22)
-trashTacticsButton:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", LEFT_WIDTH + 26, 15)
+trashTacticsButton:SetPoint("LEFT", trashTabAbilities, "RIGHT", 20, 0)
 trashTacticsButton:SetBackdrop({
     bgFile = "Interface\\Buttons\\WHITE8X8",
     edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -1824,13 +1849,8 @@ local function HideTrashTactics()
     trashAbilitiesHeader:SetText("Abilities")
 end
 
-trashTacticsButton:SetScript("OnClick", function()
-    if trashTacticsShown then
-        HideTrashTactics()
-    else
-        ShowTrashTactics()
-    end
-end)
+trashTabAbilities:SetScript("OnClick", function() HideTrashTactics() end)
+trashTacticsButton:SetScript("OnClick", function() ShowTrashTactics() end)
 
 -- CHANGED: separate row/separator pools from the boss panel - CreateAbilityRow/
 -- ConfigureAbilityRow/CreateSeparatorRow/ConfigureSeparatorRow are all generic
@@ -1917,9 +1937,11 @@ function ShowTrashPack(pack)
         trashAbilitiesHeader:SetPoint("TOPLEFT", trashPortrait, "BOTTOMLEFT", 0, -16)
     end
 
-    -- CHANGED: always land back on the ability list when switching packs,
-    -- and only show the Tactics button if data is registered for this pack.
+    -- CHANGED: always land back on the ability list when switching packs.
+    -- Abilities tab always shows; Tactics is conditional on data being
+    -- registered for this pack.
     HideTrashTactics()
+    trashTabAbilities:Show()
     if pack.key and DungeonJournal_TacticsData[pack.key] then
         trashTacticsButton:Show()
     else
