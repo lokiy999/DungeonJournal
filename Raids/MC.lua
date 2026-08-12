@@ -668,15 +668,17 @@ local MC_TRASH_MOBS = {
         flags = {"melee"},
         stats = {armor = 4200, fire = 60, nature = 60, frost = 60, shadow = 60, arcane = 60},
         abilities = {{
+            -- CHANGED: confirmed via testing - plus 100.
             name = "Knock Away",
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             roles = {"tank"},
-            lines = {"Inflicts normal damage plus X to an enemy and knocks it back."}
+            lines = {"Inflicts normal damage plus 100 to an enemy and knocks it back."}
         }, {
+            -- CHANGED: confirmed via testing - 1410 to 1890 damage.
             name = "Smash",
             icon = "Interface\\Icons\\Ability_ThunderBolt",
-            roles = {"tank"},
-            lines = {"A heavy melee strike, inflicting X damage."}
+            warning = true,
+            lines = {"Smashes the ground, inflicting 1410 to 1890 damage to nearby enemies."}
         }}
     },
 
@@ -686,21 +688,24 @@ local MC_TRASH_MOBS = {
         flags = {"melee"},
         stats = {armor = 4200, fire = 60, nature = 60, frost = 60, shadow = 60, arcane = 60},
         abilities = {{
+            -- CHANGED: confirmed via testing - 8000 to 10000 damage.
             name = "Hateful Strike",
             icon = "Interface\\Icons\\Temp",
             warning = true,
             roles = {"tank", "healer"},
-            lines = {"X damage to target - whichever raid member holds second-highest threat, not necessarily the tank."}
+            lines = {"Inflicts 8000 to 10000 damage to target - whichever raid member holds second-highest threat, not necessarily the tank."}
         }, {
+            -- CHANGED: confirmed via testing - 900 to 1100 damage, 2 second interrupt.
             name = "Massive Tremor",
             icon = "Interface\\Icons\\Ability_Smash",
             warning = true,
-            lines = {"Causes a massive ground tremor, inflicting X damage to nearby enemies and interrupting any spell being cast for X seconds."}
+            lines = {"Causes a massive ground tremor, inflicting 900 to 1100 damage to nearby enemies and interrupting any spell being cast for 2 seconds."}
         }, {
+            -- CHANGED: confirmed via testing - exact numbers/duration.
             name = "Pyroblast",
             icon = "Interface\\Icons\\Spell_Fire_Fireball02",
             warning = true,
-            lines = {"Hurls an immense fiery boulder that causes X Fire damage and an additional X Fire damage over X seconds."}
+            lines = {"Inflicts 3588 to 4512 Fire damage to an enemy and scorches the target for an additional 474 damage every 2 sec. for 12 sec."}
         }}
     },
 
@@ -712,27 +717,23 @@ local MC_TRASH_MOBS = {
         -- than guessing a number.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
+            -- CHANGED: confirmed via testing - 2388 to 3812 damage.
             name = "Cone of Fire",
             icon = "Interface\\Icons\\Spell_Fire_WindsofWoe",
             warning = true,
-            lines = {"Inflicts X Fire damage to enemies in a cone in front of the caster. Face away from the raid."}
+            lines = {"Inflicts 2388 to 3812 Fire damage to enemies in a cone in front of the caster. Face away from the raid."}
         }, {
+            -- CHANGED: confirmed via testing - 2000 armor, 1 min.
             name = "Melt Armor",
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
             warning = true,
-            lines = {"Reduces the armor of nearby enemies by X for X seconds."}
+            lines = {"Reduces the armor of nearby enemies by 2000 for 1 min."}
         }, {
-            -- CHANGED: from mob_abilities_summary.txt's Flameguard entry
-            -- (Cone of Fire/Damage Shield/Fire Prison), not directly tested.
-            name = "Damage Shield",
-            icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
-            lines = {"Causes X Arcane damage to any creature that strikes a nearby minion."}
-        }, {
-            -- CHANGED: from mob_abilities_summary.txt, not directly tested.
+            -- CHANGED: confirmed via testing - 30 sec DoT and stun.
             name = "Fire Prison",
             icon = "Interface\\Icons\\INV_Ammo_FireTar",
             warning = true,
-            lines = {"Imprisons an enemy, stunning and dealing damage over X seconds."}
+            lines = {"Imprisons an enemy. DoT and stun for 30 sec."}
         }}
     },
 
@@ -742,10 +743,11 @@ local MC_TRASH_MOBS = {
         flags = {"caster"},
         stats = {armor = 3600, fire = "immune", nature = 60, frost = 60, shadow = 60, arcane = 60},
         abilities = {{
+            -- CHANGED: confirmed via testing - 6000 damage over 16 sec, -75%.
             name = "Soul Burn",
             icon = "Interface\\Icons\\Spell_Fire_SoulBurn",
             warning = true,
-            lines = {"Inflicts X Fire damage to an enemy over X seconds, preventing it from casting spells and reducing the Physical damage it deals by X%."}
+            lines = {"Inflicts 6000 Fire damage to an enemy over 16 seconds, preventing it from casting spells and reducing the Physical damage it deals by 75%."}
         }, {
             -- CHANGED: no usable Description_enUS match in Spell.xlsx for
             -- this "Incinerate" (only unrelated talent-passive entries) -
@@ -756,15 +758,20 @@ local MC_TRASH_MOBS = {
             warning = true,
             lines = {"Burns the target for X Fire damage."}
         }, {
+            -- CHANGED: confirmed via testing - 7000 damage over 10 sec,
+            -- 500 splash, first applied 15 sec into the fight then every
+            -- 12-15 sec afterward.
             name = "Conflagration",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
-            lines = {"Sets an enemy aflame, inflicting X Fire damage over X seconds and sending it into a state of panic. While affected, the flames periodically scorch nearby allies for X damage as well."}
+            lines = {"Sets an enemy aflame, inflicting 7000 Fire damage over 10 seconds and sending it into a state of panic. While affected, the flames periodically scorch nearby allies for 500 damage as well. First applied 15 seconds into the fight, then every 12 to 15 seconds afterward."}
         }, {
+            -- CHANGED: confirmed via testing - first cast ~5 sec into the
+            -- fight, repeating every 15 sec.
             name = "Spawn Lava Spawn",
             icon = "Interface\\Icons\\Spell_Shadow_SealOfKings",
             warning = true,
-            lines = {"Summons a Lava Spawn to aid it in battle."},
+            lines = {"Summons a Lava Spawn to aid it in battle. First cast about 5 seconds into the fight, repeating every 15 seconds."},
             abilities = {{
                 name = "Fireball",
                 icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
@@ -856,34 +863,42 @@ local MC_TRASH_MOBS = {
         flags = {"melee"},
         stats = {armor = 3000, fire = "immune", nature = 60, frost = 60, shadow = 60, arcane = 60},
         abilities = {{
+            -- CHANGED: confirmed via testing - 500-800 initial hit 10-15 sec
+            -- into the fight, plus 3600 over 8 sec.
             name = "Magma Strike",
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
-            lines = {"Calls down a pillar of fire, burning all enemies within the area for X Fire damage and an additional X Fire damage over X seconds."}
+            lines = {"Calls down a pillar of fire 10 to 15 seconds into the fight, burning all enemies within the area for 500 to 800 Fire damage and an additional 3600 Fire damage over 8 seconds."}
         }, {
+            -- CHANGED: confirmed via testing - casts at the start of the
+            -- fight against the closest enemy, 2000-3000 damage. Only
+            -- triggers if an enemy is 10 to 45 yards away.
             name = "Surge",
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
-            lines = {"Charges an enemy, inflicting X damage to the target and any of its nearby allies, as well as knocking them all back."}
+            lines = {"Charges the closest enemy at the start of the fight, inflicting 2000 to 3000 damage to the target and any of its nearby allies, as well as knocking them all back. Only triggers if an enemy is 10 to 45 yards away."}
         }, {
-            -- CHANGED: reuses the same real ability already documented on
-            -- Garr (see the Garr boss entry).
+            -- CHANGED: same ability name as Garr's (see the Garr boss
+            -- entry), but confirmed via testing to slow by a different
+            -- amount here (40% vs Garr's 60%) - not a copy-paste error.
             name = "Magma Shackles",
             icon = "Interface\\Icons\\spell_nature_earthbind",
-            lines = {"Reduces the movement speed of nearby enemies by X% for X seconds."}
+            lines = {"Reduces the movement speed of nearby enemies by 40% for 15 seconds."}
         }}
     },
 
     lava_elemental = {
         name = "Lava Elemental",
         icon = "Interface\\Icons\\Spell_Fire_Fireball02",
-        flags = {"caster"},
+        -- CHANGED: confirmed via testing - not tauntable.
+        flags = {"nottauntable"},
         stats = {armor = 3600, fire = "immune", nature = 55, frost = 55, shadow = 55, arcane = 55},
         abilities = {{
+            -- CHANGED: confirmed via testing - 4410 damage, 7 second stun.
             name = "Pyroclast Barrage",
             icon = "Interface\\Icons\\Spell_Fire_Fireball02",
             warning = true,
-            lines = {"Inflicts X Fire damage to enemies in a cone in front of it, stunning them for X seconds."}
+            lines = {"Inflicts 4410 Fire damage to enemies in a cone in front of it, stunning them for 7 seconds."}
         }, {
             -- CHANGED: no usable Description_enUS match in Spell.xlsx -
             -- text below is a guess.
@@ -900,10 +915,11 @@ local MC_TRASH_MOBS = {
         flags = {"melee"},
         stats = {armor = 3400, fire = "immune", nature = 50, frost = 50, shadow = 50, arcane = 50},
         abilities = {{
+            -- CHANGED: confirmed via testing - plus 30.
             name = "Strike",
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             roles = {"tank"},
-            lines = {"Strikes at an enemy, inflicting weapon damage plus X."}
+            lines = {"Strikes at an enemy, inflicting weapon damage plus 30."}
         }, {
             -- CHANGED: no usable Description_enUS match in Spell.xlsx (and
             -- the sourced icon, "phoenix", looks like a placeholder rather
@@ -919,30 +935,21 @@ local MC_TRASH_MOBS = {
     lava_annihilator = {
         name = "Lava Annihilator",
         icon = "Interface\\Icons\\stoneskinz_3",
-        flags = {"melee"},
+        -- CHANGED: confirmed via testing - not tauntable, melee tag removed.
+        flags = {"nottauntable"},
         stats = {armor = 4000, fire = "immune", nature = 60, frost = 60, shadow = 60, arcane = 60},
         abilities = {{
+            -- CHANGED: confirmed via testing - 100 damage taken, 60 seconds.
             name = "Annihilate",
             icon = "Interface\\Icons\\stoneskinz_3",
             roles = {"tank"},
-            lines = {"Increases the Physical damage taken by an enemy by X for X seconds. Stacks indefinitely."}
-        }, {
-            name = "Flurry",
-            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
-            warning = true,
-            lines = {"Increases its own attack speed by X% for its next X swings after dealing a melee critical strike."}
+            lines = {"Increases the Physical damage taken by an enemy by 100 for 60 seconds. Stacks indefinitely."}
         }, {
             -- CHANGED: confirmed via testing - hits twice per swing.
             name = "Double Attack",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             roles = {"tank"},
-            lines = {"Attacks twice per swing."}
-        }, {
-            -- CHANGED: from mob_abilities_summary.txt's Lava Annihilator
-            -- entry (Annihilate/Damage Shield/Flurry), not directly tested.
-            name = "Damage Shield",
-            icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
-            lines = {"Causes X Arcane damage to any creature that strikes a nearby minion."}
+            lines = {"Gives the caster one extra attack every X seconds."}
         }}
     },
 
@@ -952,7 +959,8 @@ local MC_TRASH_MOBS = {
         -- mob_abilities_summary.txt - see the PR notes.
         name = "Flame Imp",
         icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
-        flags = {"melee"},
+        -- CHANGED: confirmed via testing - melee tag replaced with caster.
+        flags = {"caster"},
         stats = {armor = 2400, fire = "immune", nature = 40, frost = 40, shadow = 40, arcane = 40},
         abilities = {{
             -- CHANGED: no usable Description_enUS match in Spell.xlsx -
@@ -970,14 +978,16 @@ local MC_TRASH_MOBS = {
         flags = {"melee"},
         stats = {armor = 3600, fire = "immune", nature = 55, frost = 55, shadow = 55, arcane = 55},
         abilities = {{
+            -- CHANGED: confirmed via testing - 3375 to 4325 damage over 6 sec.
             name = "Fire Blossom",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
-            lines = {"Immobilizes the caster and periodically inflicts X Fire damage to an enemy for X seconds."}
+            lines = {"Immobilizes the caster and periodically inflicts 3375 to 4325 Fire damage to an enemy over 6 seconds."}
         }, {
+            -- CHANGED: confirmed via testing - 50 for 60 seconds.
             name = "Incite Flames",
             icon = "Interface\\Icons\\Spell_Fire_FlameBlades",
-            lines = {"Reduces the Fire resistance of nearby enemies by X for X seconds."}
+            lines = {"Reduces the Fire resistance of nearby enemies by 50 for 60 seconds."}
         }}
     },
 }
