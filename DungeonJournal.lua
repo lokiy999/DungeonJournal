@@ -630,7 +630,7 @@ end
 -- CHANGED: forward-declared so SelectTab() below (defined before the tactics
 -- UI further down the file) can call HideTactics() as an upvalue once it's
 -- assigned later.
-local tacticsScrollFrame, tacticsScrollChild, tacticsBody
+local tacticsScrollFrame, tacticsScrollChild
 local tacticsShown = false
 local ShowTactics, HideTactics
 
@@ -739,14 +739,42 @@ tacticsScrollChild:SetHeight(1)
 tacticsScrollFrame:SetScrollChild(tacticsScrollChild)
 tacticsScrollChild:SetWidth(RIGHT_CONTENT_WIDTH)
 
-tacticsBody = tacticsScrollChild:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-tacticsBody:SetPoint("TOPLEFT", tacticsScrollChild, "TOPLEFT", 0, 0)
-tacticsBody:SetPoint("TOPRIGHT", tacticsScrollChild, "TOPRIGHT", 0, 0)
-tacticsBody:SetJustifyH("LEFT")
-tacticsBody:SetJustifyV("TOP")
-
 EnableMouseWheelScroll(tacticsScrollFrame)
 tacticsScrollFrame:Hide()
+
+-- CHANGED: tactics lines can be a plain string (a paragraph of body text) or
+-- a table shaped like the main ability list's phase separators
+-- (`{ separator = true, name = "...", color = "..." }`, see AGENTS.md's Data
+-- model) to break the tactics into labeled sections. Two small row pools
+-- (text rows, separator bars) render whichever shape each entry is.
+local tacticsTextRowPool = {}
+local tacticsSepRowPool = {}
+
+local function CreateTacticsTextRow(index)
+    local fs = tacticsScrollChild:CreateFontString("DungeonJournalTacticsTextRow" .. index, "OVERLAY", "GameFontHighlightSmall")
+    fs:SetWidth(RIGHT_CONTENT_WIDTH)
+    fs:SetJustifyH("LEFT")
+    fs:SetJustifyV("TOP")
+    return fs
+end
+
+local function CreateTacticsSepRow(index)
+    local btn = CreateFrame("Frame", "DungeonJournalTacticsSepRow" .. index, tacticsScrollChild)
+    btn:SetHeight(SEPARATOR_ROW_H)
+    btn:SetWidth(RIGHT_CONTENT_WIDTH)
+
+    local bg = btn:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints(btn)
+    bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    bg:SetVertexColor(0.15, 0.15, 0.3, 1)
+
+    local label = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    label:SetPoint("LEFT", btn, "LEFT", 6, 0)
+    label:SetJustifyH("LEFT")
+    btn.label = label
+
+    return btn
+end
 
 ShowTactics = function()
     if not currentBoss then return end
@@ -756,15 +784,58 @@ ShowTactics = function()
     tacticsShown = true
     abilitiesHeader:SetText(data.title or "Tactics")
 
-    local body = ""
+    local yOffset = 0
+    local textIndex = 0
+    local sepIndex = 0
+
     if data.lines then
         for _, line in ipairs(data.lines) do
-            body = body .. line .. "\n\n"
+            if type(line) == "table" and line.separator then
+                sepIndex = sepIndex + 1
+                local sep = tacticsSepRowPool[sepIndex]
+                if not sep then
+                    sep = CreateTacticsSepRow(sepIndex)
+                    tacticsSepRowPool[sepIndex] = sep
+                end
+
+                sep:ClearAllPoints()
+                sep:SetPoint("TOPLEFT", tacticsScrollChild, "TOPLEFT", 0, -yOffset)
+                sep:SetPoint("TOPRIGHT", tacticsScrollChild, "TOPRIGHT", 0, -yOffset)
+
+                if line.color then
+                    sep.label:SetText("|c" .. line.color .. line.name .. "|r")
+                else
+                    sep.label:SetText(line.name)
+                end
+                sep:Show()
+
+                yOffset = yOffset + sep:GetHeight() + 6
+            else
+                textIndex = textIndex + 1
+                local fs = tacticsTextRowPool[textIndex]
+                if not fs then
+                    fs = CreateTacticsTextRow(textIndex)
+                    tacticsTextRowPool[textIndex] = fs
+                end
+
+                fs:ClearAllPoints()
+                fs:SetPoint("TOPLEFT", tacticsScrollChild, "TOPLEFT", 0, -yOffset)
+                fs:SetText(line)
+                fs:Show()
+
+                yOffset = yOffset + fs:GetHeight() + 10
+            end
         end
     end
-    tacticsBody:SetText(body)
-    tacticsBody:SetWidth(RIGHT_CONTENT_WIDTH)
-    tacticsScrollChild:SetHeight(tacticsBody:GetHeight())
+
+    for i = sepIndex + 1, table.getn(tacticsSepRowPool) do
+        tacticsSepRowPool[i]:Hide()
+    end
+    for i = textIndex + 1, table.getn(tacticsTextRowPool) do
+        tacticsTextRowPool[i]:Hide()
+    end
+
+    tacticsScrollChild:SetHeight(yOffset)
     UpdateScrollBarRange(tacticsScrollFrame)
 
     abilityScrollFrame:Hide()
