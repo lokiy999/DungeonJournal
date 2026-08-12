@@ -709,6 +709,15 @@ local function BuildRecommendedResistText(entry)
     return table.concat(parts, " ") .. " recommended"
 end
 
+-- Replaces the {boss} placeholder in a tactics/broadcast line with the
+-- entry's display name, so the same rw() line can be reused verbatim across
+-- different bosses' data. No-op if the line has no {boss} or entry has no
+-- name.
+local function SubstituteBossPlaceholder(text, entry)
+    if not entry or not entry.name then return text end
+    return string.gsub(text, "{boss}", entry.name)
+end
+
 -- Lays `lines` out top-to-bottom into `scrollChild` using `textPool`/`sepPool`
 -- (each keyed by row index, created lazily), hides leftover pooled rows from
 -- a previous (longer) render, and returns the total content height.
@@ -719,7 +728,13 @@ end
 -- That section renders in green here (tinted bar + tinted text) so a raid
 -- lead can see precisely what will go out before clicking the button -
 -- BuildCuratedBroadcastLines() (below) reads the same flag to collect it.
-local function RenderTacticsLines(lines, scrollChild, textPool, sepPool, namePrefix)
+--
+-- CHANGED: a line inside a bsep() section can instead be rw("...") - a
+-- table with `warning = true` - to mark ONE line as a raid warning: sent
+-- via /rw (RAID_WARNING) instead of /raid by BroadcastEntry, and rendered
+-- here in bold/outlined red so it's visually distinct from the rest of the
+-- broadcast section before it's sent.
+local function RenderTacticsLines(lines, scrollChild, textPool, sepPool, namePrefix, entry)
     local yOffset = 0
     local textIndex = 0
     local sepIndex = 0
@@ -766,10 +781,21 @@ local function RenderTacticsLines(lines, scrollChild, textPool, sepPool, namePre
 
                 fs:ClearAllPoints()
                 fs:SetPoint("TOPLEFT", scrollChild, "TOPLEFT", 0, -yOffset)
-                if inBroadcastSection then
-                    fs:SetText("|cff88ff99" .. line .. "|r")
+                if type(line) == "table" and line.warning then
+                    -- CHANGED: THICKOUTLINE approximates bold (FrameXML has
+                    -- no small bold font object) - reset explicitly since
+                    -- this row is pooled and may have rendered plain text
+                    -- last time.
+                    fs:SetFont("Fonts\\FRIZQT__.TTF", 10, "THICKOUTLINE")
+                    fs:SetText("|cffff4040" .. SubstituteBossPlaceholder(line.text, entry) .. "|r")
                 else
-                    fs:SetText(line)
+                    fs:SetFontObject("GameFontHighlightSmall")
+                    local text = SubstituteBossPlaceholder(line, entry)
+                    if inBroadcastSection then
+                        fs:SetText("|cff88ff99" .. text .. "|r")
+                    else
+                        fs:SetText(text)
+                    end
                 end
                 fs:Show()
 
@@ -955,7 +981,7 @@ ShowTactics = function()
     abilitiesHeader:SetText(data.title or "Tactics")
 
     local previewLines = PrepareTacticsPreview(data.lines, currentBoss)
-    local height = RenderTacticsLines(previewLines, tacticsScrollChild, tacticsTextRowPool, tacticsSepRowPool, "DungeonJournalTactics")
+    local height = RenderTacticsLines(previewLines, tacticsScrollChild, tacticsTextRowPool, tacticsSepRowPool, "DungeonJournalTactics", currentBoss)
     tacticsScrollChild:SetHeight(height)
     UpdateScrollBarRange(tacticsScrollFrame)
 
@@ -1661,25 +1687,45 @@ local function BroadcastEntry(entry)
         local sent = 0
         for _, line in ipairs(lines) do
             if sent >= 4 then break end
-            SendChatMessage(line, channel)
+            if type(line) == "table" and line.warning then
+                -- CHANGED: a rw() line goes out via /rw (RAID_WARNING)
+                -- instead of /raid so it stands out to the whole raid.
+                -- RAID_WARNING requires raid lead/assist and doesn't exist
+                -- in a party, so fall back to the normal channel there.
+                local warningChannel = (channel == "RAID") and "RAID_WARNING" or channel
+                SendChatMessage(SubstituteBossPlaceholder(line.text, entry), warningChannel)
+            else
+                SendChatMessage(SubstituteBossPlaceholder(line, entry), channel)
+            end
             sent = sent + 1
         end
     else
         DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99DungeonJournal:|r Not in a group - printing locally instead:")
         for _, line in ipairs(lines) do
-            DEFAULT_CHAT_FRAME:AddMessage(line)
+            local text = type(line) == "table" and line.text or line
+            DEFAULT_CHAT_FRAME:AddMessage(SubstituteBossPlaceholder(text, entry))
         end
     end
 end
 
 -- Confirmation popup so a stray double-click on Broadcast can't spam
 -- raid/party chat with a second message right after the first.
+--
+-- CHANGED (fix): originally passed the entry via dialog.data and read it
+-- back in OnAccept as `this.data`, but that reads back nil - relying on
+-- `this`/dialog.data through StaticPopup's OnAccept dispatch didn't work
+-- (confirmed in-game: popup shows, Broadcast does nothing). Sidestep
+-- however info.OnAccept actually gets invoked by keeping the pending
+-- entry in a plain upvalue instead - only one of these popups is ever
+-- shown at a time, so there's nothing to disambiguate between calls.
+local pendingBroadcastEntry = nil
+
 StaticPopupDialogs["DUNGEONJOURNAL_CONFIRM_BROADCAST"] = {
     text = "Broadcast this to raid/party chat?",
     button1 = "Broadcast",
     button2 = "Cancel",
     OnAccept = function()
-        BroadcastEntry(this.data)
+        BroadcastEntry(pendingBroadcastEntry)
     end,
     timeout = 0,
     whileDead = 1,
@@ -1688,10 +1734,8 @@ StaticPopupDialogs["DUNGEONJOURNAL_CONFIRM_BROADCAST"] = {
 
 local function ConfirmBroadcastEntry(entry)
     if not entry then return end
-    local dialog = StaticPopup_Show("DUNGEONJOURNAL_CONFIRM_BROADCAST")
-    if dialog then
-        dialog.data = entry
-    end
+    pendingBroadcastEntry = entry
+    StaticPopup_Show("DUNGEONJOURNAL_CONFIRM_BROADCAST")
 end
 
 ------------------------------------------------------------
@@ -2220,7 +2264,7 @@ local function ShowTrashTactics()
     trashAbilitiesHeader:SetText(data.title or "Tactics")
 
     local previewLines = PrepareTacticsPreview(data.lines, currentTrashPack)
-    local height = RenderTacticsLines(previewLines, trashTacticsScrollChild, trashTacticsTextRowPool, trashTacticsSepRowPool, "DungeonJournalTrashTactics")
+    local height = RenderTacticsLines(previewLines, trashTacticsScrollChild, trashTacticsTextRowPool, trashTacticsSepRowPool, "DungeonJournalTrashTactics", currentTrashPack)
     trashTacticsScrollChild:SetHeight(height)
     UpdateScrollBarRange(trashTacticsScrollFrame)
 
