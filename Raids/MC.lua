@@ -38,7 +38,7 @@ local MC_BOSS_ORDER = {
 local MC_TRASH_ORDER = {
     "molten_giant",
     "molten_destroyer",
-    "molten_elemental",
+    "flameguard",
     "firelord",
     "core_hound",
     "ancient_core_hound",
@@ -704,16 +704,35 @@ local MC_TRASH_MOBS = {
         }}
     },
 
-    molten_elemental = {
-        name = "Molten Elemental",
-        icon = "Interface\\Icons\\Spell_Fire_Immolation",
+    flameguard = {
+        name = "Flameguard",
+        icon = "Interface\\Icons\\Spell_Fire_FireArmor",
         flags = {"melee"},
-        stats = {armor = 3400, fire = "immune", nature = 50, frost = 50, shadow = 50, arcane = 50},
+        -- CHANGED: stats not tested - "X" marks each unknown value rather
+        -- than guessing a number.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-            name = "Fire Shield",
+            name = "Cone of Fire",
+            icon = "Interface\\Icons\\Spell_Fire_WindsofWoe",
+            warning = true,
+            lines = {"Inflicts X Fire damage to enemies in a cone in front of the caster. Face away from the raid."}
+        }, {
+            name = "Melt Armor",
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
-            roles = {"tank"},
-            lines = {"Surrounds itself with a shield of flame that inflicts X Fire damage to nearby enemies every X sec, lasting X seconds."}
+            warning = true,
+            lines = {"Reduces the armor of nearby enemies by X for X seconds."}
+        }, {
+            -- CHANGED: from mob_abilities_summary.txt's Flameguard entry
+            -- (Cone of Fire/Damage Shield/Fire Prison), not directly tested.
+            name = "Damage Shield",
+            icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
+            lines = {"Causes X Arcane damage to any creature that strikes a nearby minion."}
+        }, {
+            -- CHANGED: from mob_abilities_summary.txt, not directly tested.
+            name = "Fire Prison",
+            icon = "Interface\\Icons\\INV_Ammo_FireTar",
+            warning = true,
+            lines = {"Imprisons an enemy, stunning and dealing damage over X seconds."}
         }}
     },
 
@@ -912,6 +931,18 @@ local MC_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             warning = true,
             lines = {"Increases its own attack speed by X% for its next X swings after dealing a melee critical strike."}
+        }, {
+            -- CHANGED: confirmed via testing - hits twice per swing.
+            name = "Double Attack",
+            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            roles = {"tank"},
+            lines = {"Attacks twice per swing."}
+        }, {
+            -- CHANGED: from mob_abilities_summary.txt's Lava Annihilator
+            -- entry (Annihilate/Damage Shield/Flurry), not directly tested.
+            name = "Damage Shield",
+            icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
+            lines = {"Causes X Arcane damage to any creature that strikes a nearby minion."}
         }}
     },
 
