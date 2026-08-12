@@ -1672,6 +1672,28 @@ local function BroadcastEntry(entry)
     end
 end
 
+-- Confirmation popup so a stray double-click on Broadcast can't spam
+-- raid/party chat with a second message right after the first.
+StaticPopupDialogs["DUNGEONJOURNAL_CONFIRM_BROADCAST"] = {
+    text = "Broadcast this to raid/party chat?",
+    button1 = "Broadcast",
+    button2 = "Cancel",
+    OnAccept = function()
+        BroadcastEntry(this.data)
+    end,
+    timeout = 0,
+    whileDead = 1,
+    hideOnEscape = 1,
+}
+
+local function ConfirmBroadcastEntry(entry)
+    if not entry then return end
+    local dialog = StaticPopup_Show("DUNGEONJOURNAL_CONFIRM_BROADCAST")
+    if dialog then
+        dialog.data = entry
+    end
+end
+
 ------------------------------------------------------------
 -- CHANGED: Broadcast button - right of the Tactics button. Always shown
 -- when a boss is selected (unlike Tactics, it doesn't depend on the
@@ -1701,7 +1723,7 @@ broadcastButtonText:SetTextColor(0.5, 1, 0.4)
 broadcastButtonText:SetText("Broadcast")
 broadcastButton:Hide()
 
-broadcastButton:SetScript("OnClick", function() BroadcastEntry(currentBoss) end)
+broadcastButton:SetScript("OnClick", function() ConfirmBroadcastEntry(currentBoss) end)
 
 -- CHANGED: now generic - takes a parent, indent, and optional frame-name prefix.
 -- This lets the same row "widget" be used both for the top-level list (abilities
@@ -2171,7 +2193,7 @@ trashBroadcastButtonText:SetTextColor(0.5, 1, 0.4)
 trashBroadcastButtonText:SetText("Broadcast")
 trashBroadcastButton:Hide()
 
-trashBroadcastButton:SetScript("OnClick", function() BroadcastEntry(currentTrashPack) end)
+trashBroadcastButton:SetScript("OnClick", function() ConfirmBroadcastEntry(currentTrashPack) end)
 
 trashTacticsScrollFrame = CreateFrame("ScrollFrame", "DungeonJournalTrashTacticsScrollFrame", frame, "UIPanelScrollFrameTemplate")
 trashTacticsScrollFrame:SetPoint("TOPLEFT", trashAbilitiesHeader, "BOTTOMLEFT", 0, -8)
