@@ -634,6 +634,96 @@ local tacticsScrollFrame, tacticsScrollChild
 local tacticsShown = false
 local ShowTactics, HideTactics
 
+-- CHANGED: tactics lines can be a plain string (a paragraph of body text) or
+-- a table shaped like the main ability list's phase separators
+-- (`{ separator = true, name = "...", color = "..." }`, see AGENTS.md's Data
+-- model) to break the tactics into labeled sections. These three helpers are
+-- generic (parent frame passed in) so the boss panel and the trash panel
+-- below can each render into their own scroll child with their own row pools.
+local function CreateTacticsTextRow(parent, frameName)
+    local fs = parent:CreateFontString(frameName, "OVERLAY", "GameFontHighlightSmall")
+    fs:SetWidth(RIGHT_CONTENT_WIDTH)
+    fs:SetJustifyH("LEFT")
+    fs:SetJustifyV("TOP")
+    return fs
+end
+
+local function CreateTacticsSepRow(parent, frameName)
+    local btn = CreateFrame("Frame", frameName, parent)
+    btn:SetHeight(SEPARATOR_ROW_H)
+    btn:SetWidth(RIGHT_CONTENT_WIDTH)
+
+    local bg = btn:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints(btn)
+    bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    bg:SetVertexColor(0.15, 0.15, 0.3, 1)
+
+    local label = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    label:SetPoint("LEFT", btn, "LEFT", 6, 0)
+    label:SetJustifyH("LEFT")
+    btn.label = label
+
+    return btn
+end
+
+-- Lays `lines` out top-to-bottom into `scrollChild` using `textPool`/`sepPool`
+-- (each keyed by row index, created lazily), hides leftover pooled rows from
+-- a previous (longer) render, and returns the total content height.
+local function RenderTacticsLines(lines, scrollChild, textPool, sepPool, namePrefix)
+    local yOffset = 0
+    local textIndex = 0
+    local sepIndex = 0
+
+    if lines then
+        for _, line in ipairs(lines) do
+            if type(line) == "table" and line.separator then
+                sepIndex = sepIndex + 1
+                local sep = sepPool[sepIndex]
+                if not sep then
+                    sep = CreateTacticsSepRow(scrollChild, namePrefix .. "Sep" .. sepIndex)
+                    sepPool[sepIndex] = sep
+                end
+
+                sep:ClearAllPoints()
+                sep:SetPoint("TOPLEFT", scrollChild, "TOPLEFT", 0, -yOffset)
+                sep:SetPoint("TOPRIGHT", scrollChild, "TOPRIGHT", 0, -yOffset)
+
+                if line.color then
+                    sep.label:SetText("|c" .. line.color .. line.name .. "|r")
+                else
+                    sep.label:SetText(line.name)
+                end
+                sep:Show()
+
+                yOffset = yOffset + sep:GetHeight() + 6
+            else
+                textIndex = textIndex + 1
+                local fs = textPool[textIndex]
+                if not fs then
+                    fs = CreateTacticsTextRow(scrollChild, namePrefix .. "Text" .. textIndex)
+                    textPool[textIndex] = fs
+                end
+
+                fs:ClearAllPoints()
+                fs:SetPoint("TOPLEFT", scrollChild, "TOPLEFT", 0, -yOffset)
+                fs:SetText(line)
+                fs:Show()
+
+                yOffset = yOffset + fs:GetHeight() + 10
+            end
+        end
+    end
+
+    for i = sepIndex + 1, table.getn(sepPool) do
+        sepPool[i]:Hide()
+    end
+    for i = textIndex + 1, table.getn(textPool) do
+        textPool[i]:Hide()
+    end
+
+    return yOffset
+end
+
 ------------------------------------------------------------
 -- Tabs creation
 ------------------------------------------------------------
@@ -742,39 +832,8 @@ tacticsScrollChild:SetWidth(RIGHT_CONTENT_WIDTH)
 EnableMouseWheelScroll(tacticsScrollFrame)
 tacticsScrollFrame:Hide()
 
--- CHANGED: tactics lines can be a plain string (a paragraph of body text) or
--- a table shaped like the main ability list's phase separators
--- (`{ separator = true, name = "...", color = "..." }`, see AGENTS.md's Data
--- model) to break the tactics into labeled sections. Two small row pools
--- (text rows, separator bars) render whichever shape each entry is.
 local tacticsTextRowPool = {}
 local tacticsSepRowPool = {}
-
-local function CreateTacticsTextRow(index)
-    local fs = tacticsScrollChild:CreateFontString("DungeonJournalTacticsTextRow" .. index, "OVERLAY", "GameFontHighlightSmall")
-    fs:SetWidth(RIGHT_CONTENT_WIDTH)
-    fs:SetJustifyH("LEFT")
-    fs:SetJustifyV("TOP")
-    return fs
-end
-
-local function CreateTacticsSepRow(index)
-    local btn = CreateFrame("Frame", "DungeonJournalTacticsSepRow" .. index, tacticsScrollChild)
-    btn:SetHeight(SEPARATOR_ROW_H)
-    btn:SetWidth(RIGHT_CONTENT_WIDTH)
-
-    local bg = btn:CreateTexture(nil, "BACKGROUND")
-    bg:SetAllPoints(btn)
-    bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
-    bg:SetVertexColor(0.15, 0.15, 0.3, 1)
-
-    local label = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    label:SetPoint("LEFT", btn, "LEFT", 6, 0)
-    label:SetJustifyH("LEFT")
-    btn.label = label
-
-    return btn
-end
 
 ShowTactics = function()
     if not currentBoss then return end
@@ -784,58 +843,8 @@ ShowTactics = function()
     tacticsShown = true
     abilitiesHeader:SetText(data.title or "Tactics")
 
-    local yOffset = 0
-    local textIndex = 0
-    local sepIndex = 0
-
-    if data.lines then
-        for _, line in ipairs(data.lines) do
-            if type(line) == "table" and line.separator then
-                sepIndex = sepIndex + 1
-                local sep = tacticsSepRowPool[sepIndex]
-                if not sep then
-                    sep = CreateTacticsSepRow(sepIndex)
-                    tacticsSepRowPool[sepIndex] = sep
-                end
-
-                sep:ClearAllPoints()
-                sep:SetPoint("TOPLEFT", tacticsScrollChild, "TOPLEFT", 0, -yOffset)
-                sep:SetPoint("TOPRIGHT", tacticsScrollChild, "TOPRIGHT", 0, -yOffset)
-
-                if line.color then
-                    sep.label:SetText("|c" .. line.color .. line.name .. "|r")
-                else
-                    sep.label:SetText(line.name)
-                end
-                sep:Show()
-
-                yOffset = yOffset + sep:GetHeight() + 6
-            else
-                textIndex = textIndex + 1
-                local fs = tacticsTextRowPool[textIndex]
-                if not fs then
-                    fs = CreateTacticsTextRow(textIndex)
-                    tacticsTextRowPool[textIndex] = fs
-                end
-
-                fs:ClearAllPoints()
-                fs:SetPoint("TOPLEFT", tacticsScrollChild, "TOPLEFT", 0, -yOffset)
-                fs:SetText(line)
-                fs:Show()
-
-                yOffset = yOffset + fs:GetHeight() + 10
-            end
-        end
-    end
-
-    for i = sepIndex + 1, table.getn(tacticsSepRowPool) do
-        tacticsSepRowPool[i]:Hide()
-    end
-    for i = textIndex + 1, table.getn(tacticsTextRowPool) do
-        tacticsTextRowPool[i]:Hide()
-    end
-
-    tacticsScrollChild:SetHeight(yOffset)
+    local height = RenderTacticsLines(data.lines, tacticsScrollChild, tacticsTextRowPool, tacticsSepRowPool, "DungeonJournalTactics")
+    tacticsScrollChild:SetHeight(height)
     UpdateScrollBarRange(tacticsScrollFrame)
 
     abilityScrollFrame:Hide()
@@ -1210,6 +1219,8 @@ local function SelectView(view)
     trashStatsLabel:Hide()
     trashAbilitiesHeader:Hide()
     trashAbilityScrollFrame:Hide()
+    trashTacticsButton:Hide()
+    trashTacticsScrollFrame:Hide()
     RebuildTrashFlags(nil)
 
     ExplainationHeader:Hide()
@@ -1732,7 +1743,9 @@ end
 
 trashAbilityScrollFrame = CreateFrame("ScrollFrame", "DungeonJournalTrashAbilityScrollFrame", frame, "UIPanelScrollFrameTemplate")
 trashAbilityScrollFrame:SetPoint("TOPLEFT", trashAbilitiesHeader, "BOTTOMLEFT", 0, -8)
-trashAbilityScrollFrame:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -34, 15)
+-- CHANGED: bottom moved up from 15 to 40 to leave room for the Tactics
+-- button below, matching the boss panel's ability list.
+trashAbilityScrollFrame:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -34, 40)
 trashAbilityScrollFrame:Hide()
 
 local trashAbilityScrollChild = CreateFrame("Frame", "DungeonJournalTrashAbilityScrollChild", trashAbilityScrollFrame)
@@ -1741,6 +1754,83 @@ trashAbilityScrollFrame:SetScrollChild(trashAbilityScrollChild)
 trashAbilityScrollChild:SetWidth(RIGHT_CONTENT_WIDTH)
 
 EnableMouseWheelScroll(trashAbilityScrollFrame)
+
+------------------------------------------------------------
+-- CHANGED: Tactics button for the Trash panel - mirrors the boss panel's
+-- Tactics button/inline panel (see RenderTacticsLines above), but sits at
+-- the bottom-left since the trash panel has no Abilities/Adds tabs to sit
+-- beside. Looks up the same DungeonJournal_TacticsData registry by the
+-- trash pack's key, so a single DungeonJournalTactics entry works whether
+-- the key belongs to a boss or a trash pack.
+------------------------------------------------------------
+-- CHANGED: intentionally NOT local - SelectView() above (defined earlier in
+-- the file) needs to Hide() these as part of its view-switch hide-list, the
+-- same reason trashPortrait/trashAbilityScrollFrame/etc. aren't local either.
+trashTacticsButton = CreateFrame("Button", "DungeonJournalTrashTacticsButton", frame)
+trashTacticsButton:SetWidth(85)
+trashTacticsButton:SetHeight(22)
+trashTacticsButton:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", LEFT_WIDTH + 26, 15)
+trashTacticsButton:SetBackdrop({
+    bgFile = "Interface\\Buttons\\WHITE8X8",
+    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+    tile = true, tileSize = 16, edgeSize = 8,
+    insets = { left = 2, right = 2, top = 2, bottom = 2 }
+})
+trashTacticsButton:SetBackdropColor(0, 0, 0, 0.8)
+trashTacticsButton:SetBackdropBorderColor(0.2, 0.8, 1, 1)
+
+local trashTacticsButtonText = trashTacticsButton:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+trashTacticsButtonText:SetPoint("CENTER", trashTacticsButton, "CENTER", 0, 0)
+trashTacticsButtonText:SetTextColor(0.4, 0.9, 1)
+trashTacticsButtonText:SetText("Tactics")
+trashTacticsButton:Hide()
+
+trashTacticsScrollFrame = CreateFrame("ScrollFrame", "DungeonJournalTrashTacticsScrollFrame", frame, "UIPanelScrollFrameTemplate")
+trashTacticsScrollFrame:SetPoint("TOPLEFT", trashAbilitiesHeader, "BOTTOMLEFT", 0, -8)
+trashTacticsScrollFrame:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -34, 40)
+trashTacticsScrollFrame:Hide()
+
+local trashTacticsScrollChild = CreateFrame("Frame", "DungeonJournalTrashTacticsScrollChild", trashTacticsScrollFrame)
+trashTacticsScrollChild:SetHeight(1)
+trashTacticsScrollFrame:SetScrollChild(trashTacticsScrollChild)
+trashTacticsScrollChild:SetWidth(RIGHT_CONTENT_WIDTH)
+
+EnableMouseWheelScroll(trashTacticsScrollFrame)
+
+local trashTacticsTextRowPool = {}
+local trashTacticsSepRowPool = {}
+local trashTacticsShown = false
+
+local function ShowTrashTactics()
+    if not currentTrashPack then return end
+    local data = DungeonJournal_TacticsData[currentTrashPack.key]
+    if not data then return end
+
+    trashTacticsShown = true
+    trashAbilitiesHeader:SetText(data.title or "Tactics")
+
+    local height = RenderTacticsLines(data.lines, trashTacticsScrollChild, trashTacticsTextRowPool, trashTacticsSepRowPool, "DungeonJournalTrashTactics")
+    trashTacticsScrollChild:SetHeight(height)
+    UpdateScrollBarRange(trashTacticsScrollFrame)
+
+    trashAbilityScrollFrame:Hide()
+    trashTacticsScrollFrame:Show()
+end
+
+local function HideTrashTactics()
+    trashTacticsShown = false
+    trashTacticsScrollFrame:Hide()
+    trashAbilityScrollFrame:Show()
+    trashAbilitiesHeader:SetText("Abilities")
+end
+
+trashTacticsButton:SetScript("OnClick", function()
+    if trashTacticsShown then
+        HideTrashTactics()
+    else
+        ShowTrashTactics()
+    end
+end)
 
 -- CHANGED: separate row/separator pools from the boss panel - CreateAbilityRow/
 -- ConfigureAbilityRow/CreateSeparatorRow/ConfigureSeparatorRow are all generic
@@ -1825,6 +1915,15 @@ function ShowTrashPack(pack)
     else
         trashStatsLabel:Hide()
         trashAbilitiesHeader:SetPoint("TOPLEFT", trashPortrait, "BOTTOMLEFT", 0, -16)
+    end
+
+    -- CHANGED: always land back on the ability list when switching packs,
+    -- and only show the Tactics button if data is registered for this pack.
+    HideTrashTactics()
+    if pack.key and DungeonJournal_TacticsData[pack.key] then
+        trashTacticsButton:Show()
+    else
+        trashTacticsButton:Hide()
     end
 
     RebuildTrashAbilityList(pack)
