@@ -616,6 +616,25 @@ local activeTab = "abilities"
 local abilityRowPool = {}
 
 ------------------------------------------------------------
+-- CHANGED: Tactics hook - lets the separate, optional
+-- DungeonJournalTactics addon register strategy content per boss without
+-- this addon knowing anything about it. If that addon isn't installed,
+-- DungeonJournal_TacticsData just stays empty and the button never shows.
+------------------------------------------------------------
+DungeonJournal_TacticsData = {}
+
+function DungeonJournal_RegisterTactics(bossKey, data)
+    DungeonJournal_TacticsData[bossKey] = data
+end
+
+-- CHANGED: forward-declared so SelectTab() below (defined before the tactics
+-- UI further down the file) can call HideTactics() as an upvalue once it's
+-- assigned later.
+local tacticsScrollFrame, tacticsScrollChild, tacticsBody
+local tacticsShown = false
+local ShowTactics, HideTactics
+
+------------------------------------------------------------
 -- Tabs creation
 ------------------------------------------------------------
 local tabAbilities = CreateFrame("Button", "DungeonJournalTabAbilities", frame)
@@ -653,6 +672,7 @@ tabAddsText:SetPoint("CENTER", tabAdds, "CENTER", 0, 0)
 tabAddsText:SetText("Adds")
 
 local function SelectTab(tabName)
+    HideTactics()
     activeTab = tabName
     if tabName == "abilities" then
         tabAbilities:SetBackdropBorderColor(1, 0.82, 0, 1)
@@ -683,6 +703,92 @@ tabAdds:SetScript("OnClick", function() SelectTab("adds") end)
 
 tabAbilities:Hide()
 tabAdds:Hide()
+
+------------------------------------------------------------
+-- CHANGED: Tactics button - bottom row, right of the Adds tab. Only shown
+-- when the (optional, separate) DungeonJournalTactics addon has registered
+-- data for the current boss via DungeonJournal_RegisterTactics().
+------------------------------------------------------------
+local tacticsButton = CreateFrame("Button", "DungeonJournalTacticsButton", frame)
+tacticsButton:SetWidth(85)
+tacticsButton:SetHeight(22)
+tacticsButton:SetPoint("LEFT", tabAdds, "RIGHT", 20, 0)
+tacticsButton:SetBackdrop({
+    bgFile = "Interface\\Buttons\\WHITE8X8",
+    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+    tile = true, tileSize = 16, edgeSize = 8,
+    insets = { left = 2, right = 2, top = 2, bottom = 2 }
+})
+tacticsButton:SetBackdropColor(0, 0, 0, 0.8)
+tacticsButton:SetBackdropBorderColor(0.2, 0.8, 1, 1)
+
+local tacticsButtonText = tacticsButton:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+tacticsButtonText:SetPoint("CENTER", tacticsButton, "CENTER", 0, 0)
+tacticsButtonText:SetTextColor(0.4, 0.9, 1)
+tacticsButtonText:SetText("Tactics")
+
+-- CHANGED: tactics content renders inline in the same right-panel slot the
+-- ability list uses (anchored the same way as abilityScrollFrame below, so
+-- it lines up exactly), instead of a separate popup window.
+tacticsScrollFrame = CreateFrame("ScrollFrame", "DungeonJournalTacticsScrollFrame", frame, "UIPanelScrollFrameTemplate")
+tacticsScrollFrame:SetPoint("TOPLEFT", abilitiesHeader, "BOTTOMLEFT", 0, -8)
+tacticsScrollFrame:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -34, 40)
+
+tacticsScrollChild = CreateFrame("Frame", "DungeonJournalTacticsScrollChild", tacticsScrollFrame)
+tacticsScrollChild:SetHeight(1)
+tacticsScrollFrame:SetScrollChild(tacticsScrollChild)
+tacticsScrollChild:SetWidth(RIGHT_CONTENT_WIDTH)
+
+tacticsBody = tacticsScrollChild:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+tacticsBody:SetPoint("TOPLEFT", tacticsScrollChild, "TOPLEFT", 0, 0)
+tacticsBody:SetPoint("TOPRIGHT", tacticsScrollChild, "TOPRIGHT", 0, 0)
+tacticsBody:SetJustifyH("LEFT")
+tacticsBody:SetJustifyV("TOP")
+
+EnableMouseWheelScroll(tacticsScrollFrame)
+tacticsScrollFrame:Hide()
+
+ShowTactics = function()
+    if not currentBoss then return end
+    local data = DungeonJournal_TacticsData[currentBoss.key]
+    if not data then return end
+
+    tacticsShown = true
+    abilitiesHeader:SetText(data.title or "Tactics")
+
+    local body = ""
+    if data.lines then
+        for _, line in ipairs(data.lines) do
+            body = body .. line .. "\n\n"
+        end
+    end
+    tacticsBody:SetText(body)
+    tacticsBody:SetWidth(RIGHT_CONTENT_WIDTH)
+    tacticsScrollChild:SetHeight(tacticsBody:GetHeight())
+    UpdateScrollBarRange(tacticsScrollFrame)
+
+    abilityScrollFrame:Hide()
+    tacticsScrollFrame:Show()
+end
+
+-- CHANGED: also called by SelectTab() above (as a forward-declared upvalue)
+-- to leave the tactics view whenever the Abilities/Adds tabs are clicked.
+HideTactics = function()
+    tacticsShown = false
+    tacticsScrollFrame:Hide()
+    abilityScrollFrame:Show()
+end
+
+tacticsButton:SetScript("OnClick", function()
+    if tacticsShown then
+        HideTactics()
+        SelectTab(activeTab)
+    else
+        ShowTactics()
+    end
+end)
+
+tacticsButton:Hide()
 
 ------------------------------------------------------------
 -- CHANGED: Top nav bar - "Bosses" / "Explaination"
@@ -1020,6 +1126,9 @@ local function SelectView(view)
     abilityScrollFrame:Hide()
     tabAbilities:Hide()
     tabAdds:Hide()
+    tacticsButton:Hide()
+    tacticsScrollFrame:Hide()
+    tacticsShown = false
     RebuildBossFlags(nil)
     bossStatsLabel:Hide()
 
@@ -1050,6 +1159,9 @@ local function SelectView(view)
         if currentBoss and currentBoss.adds and table.getn(currentBoss.adds) > 0 then
             tabAbilities:Show()
             tabAdds:Show()
+        end
+        if currentBoss and currentBoss.key and DungeonJournal_TacticsData[currentBoss.key] then
+            tacticsButton:Show()
         end
     elseif view == "trash" then
         navTrash:SetBackdropColor(0, 0, 0, 0.8)
@@ -1439,6 +1551,14 @@ local function ShowBossInfo(boss)
         tabAbilities:Hide()
         tabAdds:Hide()
         SelectTab("abilities")
+    end
+
+    -- CHANGED: show the Tactics button only if the optional Tactics addon
+    -- has registered data for this specific boss
+    if boss.key and DungeonJournal_TacticsData[boss.key] then
+        tacticsButton:Show()
+    else
+        tacticsButton:Hide()
     end
 
     DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99DungeonJournal:|r Selected " .. boss.name)
