@@ -65,4 +65,11 @@ grep -o '}' raids/MC.lua | wc -l
   is already this repo, and the prefix breaks the `Bash(git commit:*)` /
   `Bash(git add:*)` auto-allow rules in `.claude/settings.json` (they match
   on the start of the command string).
+- **Don't commit UI/behavior changes until the user has manually tested them
+  in-game.** Since there's no automated test suite (see Build/test above),
+  a syntax check and brace-balance pass are not proof a feature actually
+  works — several "fixes" have landed, been pushed, and then turned out
+  broken or ineffective once tried in-game. After making a change, stop and
+  let the user test with `/reload` before running `git commit`/`git push`,
+  even if they haven't explicitly asked to hold off that time.
 

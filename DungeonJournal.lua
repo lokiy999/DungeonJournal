@@ -657,6 +657,7 @@ local function CreateTacticsSepRow(parent, frameName)
     bg:SetAllPoints(btn)
     bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
     bg:SetVertexColor(0.15, 0.15, 0.3, 1)
+    btn.bg = bg
 
     local label = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     label:SetPoint("LEFT", btn, "LEFT", 6, 0)
@@ -666,13 +667,63 @@ local function CreateTacticsSepRow(parent, frameName)
     return btn
 end
 
+-- CHANGED: short resistance abbreviations for the (space-constrained) chat
+-- broadcast - the panel's own stats line still spells out "Fire"/"Frost"/etc.
+-- Defined up here (rather than by FormatBossStatsPlain further down) so
+-- BuildRecommendedResistText/PrepareTacticsPreview below can use it too.
+local RESIST_ABBR = {
+    fire = "FR", frost = "FrR", nature = "NR", shadow = "SR", arcane = "AR",
+}
+
+-- Reads the optional `resistances` table a DungeonJournalTactics entry can
+-- carry (e.g. `resistances = { fire = 315, nature = 200 }`, keyed the same
+-- as RESISTANCE_SCHOOLS/stats) and formats it as abbreviated "FR: 315 NR:
+-- 200 recommended". A value can also be `{ amount = 200, note = "buffed" }`
+-- to append a short parenthesized note after that school's amount. Returns
+-- nil (caller ignores this part) if the boss/pack has no tactics data or no
+-- resistances field. Defined up here (rather than down by the rest of the
+-- Broadcast line-builders) so ShowTactics/ShowTrashTactics below can also
+-- use it, to preview the recommended resistances inside the Tactics panel.
+local function BuildRecommendedResistText(entry)
+    local data = entry.key and DungeonJournal_TacticsData[entry.key]
+    if not data or not data.resistances then return nil end
+
+    local parts = {}
+    for _, school in ipairs(RESISTANCE_SCHOOLS) do
+        local value = data.resistances[school[1]]
+        if value then
+            local amount, note = value, nil
+            if type(value) == "table" then
+                amount, note = value.amount, value.note
+            end
+
+            local text = RESIST_ABBR[school[1]] .. ": " .. amount
+            if note then
+                text = text .. " (" .. note .. ")"
+            end
+            table.insert(parts, text)
+        end
+    end
+
+    if table.getn(parts) == 0 then return nil end
+    return table.concat(parts, " ") .. " recommended"
+end
+
 -- Lays `lines` out top-to-bottom into `scrollChild` using `textPool`/`sepPool`
 -- (each keyed by row index, created lazily), hides leftover pooled rows from
 -- a previous (longer) render, and returns the total content height.
+--
+-- CHANGED: a separator can carry `broadcast = true` (see AGENTS.md's Data
+-- model / DungeonJournalTactics's schema comment) to mark "everything under
+-- this heading, until the next separator, is exactly what Broadcast sends."
+-- That section renders in green here (tinted bar + tinted text) so a raid
+-- lead can see precisely what will go out before clicking the button -
+-- BuildCuratedBroadcastLines() (below) reads the same flag to collect it.
 local function RenderTacticsLines(lines, scrollChild, textPool, sepPool, namePrefix)
     local yOffset = 0
     local textIndex = 0
     local sepIndex = 0
+    local inBroadcastSection = false
 
     if lines then
         for _, line in ipairs(lines) do
@@ -688,10 +739,19 @@ local function RenderTacticsLines(lines, scrollChild, textPool, sepPool, namePre
                 sep:SetPoint("TOPLEFT", scrollChild, "TOPLEFT", 0, -yOffset)
                 sep:SetPoint("TOPRIGHT", scrollChild, "TOPRIGHT", 0, -yOffset)
 
+                inBroadcastSection = line.broadcast and true or false
+
                 if line.color then
                     sep.label:SetText("|c" .. line.color .. line.name .. "|r")
+                elseif inBroadcastSection then
+                    sep.label:SetText("|cff66ff88[Broadcast] " .. line.name .. "|r")
                 else
                     sep.label:SetText(line.name)
+                end
+                if inBroadcastSection then
+                    sep.bg:SetVertexColor(0.1, 0.3, 0.15, 1)
+                else
+                    sep.bg:SetVertexColor(0.15, 0.15, 0.3, 1)
                 end
                 sep:Show()
 
@@ -706,7 +766,11 @@ local function RenderTacticsLines(lines, scrollChild, textPool, sepPool, namePre
 
                 fs:ClearAllPoints()
                 fs:SetPoint("TOPLEFT", scrollChild, "TOPLEFT", 0, -yOffset)
-                fs:SetText(line)
+                if inBroadcastSection then
+                    fs:SetText("|cff88ff99" .. line .. "|r")
+                else
+                    fs:SetText(line)
+                end
                 fs:Show()
 
                 yOffset = yOffset + fs:GetHeight() + 10
@@ -722,6 +786,53 @@ local function RenderTacticsLines(lines, scrollChild, textPool, sepPool, namePre
     end
 
     return yOffset
+end
+
+-- CHANGED: prepares `lines` for display in the Tactics panel - pulls every
+-- broadcast = true section (its separator plus every line under it, up to
+-- the next separator) out of wherever it's written and moves the whole
+-- chunk to the front, then injects the recommended-resistances text (if
+-- any) right after that section's separator. So the green "what Broadcast
+-- sends" preview always sits at the top of the panel regardless of where
+-- the author placed bsep() in the data, and always shows resistances too.
+-- BroadcastEntry() computes the same resistance text independently via
+-- BuildHeaderLine() for the actual chat message - this just keeps the
+-- preview honest about what will actually be sent (see
+-- BuildCuratedBroadcastLines()'s doc comment further down for how the
+-- broadcast section itself is collected for the real broadcast).
+local function PrepareTacticsPreview(lines, entry)
+    if not lines then return lines end
+
+    local broadcastChunk = {}
+    local rest = {}
+    local inBroadcast = false
+
+    for _, line in ipairs(lines) do
+        if type(line) == "table" and line.separator then
+            inBroadcast = line.broadcast and true or false
+        end
+        if inBroadcast then
+            table.insert(broadcastChunk, line)
+        else
+            table.insert(rest, line)
+        end
+    end
+
+    if table.getn(broadcastChunk) == 0 then return lines end
+
+    local resistText = BuildRecommendedResistText(entry)
+    if resistText then
+        table.insert(broadcastChunk, 2, resistText)
+    end
+
+    local result = {}
+    for _, line in ipairs(broadcastChunk) do
+        table.insert(result, line)
+    end
+    for _, line in ipairs(rest) do
+        table.insert(result, line)
+    end
+    return result
 end
 
 ------------------------------------------------------------
@@ -843,7 +954,8 @@ ShowTactics = function()
     tacticsShown = true
     abilitiesHeader:SetText(data.title or "Tactics")
 
-    local height = RenderTacticsLines(data.lines, tacticsScrollChild, tacticsTextRowPool, tacticsSepRowPool, "DungeonJournalTactics")
+    local previewLines = PrepareTacticsPreview(data.lines, currentBoss)
+    local height = RenderTacticsLines(previewLines, tacticsScrollChild, tacticsTextRowPool, tacticsSepRowPool, "DungeonJournalTactics")
     tacticsScrollChild:SetHeight(height)
     UpdateScrollBarRange(tacticsScrollFrame)
 
@@ -1209,6 +1321,7 @@ local function SelectView(view)
     tacticsButton:Hide()
     tacticsScrollFrame:Hide()
     tacticsShown = false
+    broadcastButton:Hide()
     RebuildBossFlags(nil)
     bossStatsLabel:Hide()
 
@@ -1222,6 +1335,7 @@ local function SelectView(view)
     trashTabAbilities:Hide()
     trashTacticsButton:Hide()
     trashTacticsScrollFrame:Hide()
+    trashBroadcastButton:Hide()
     RebuildTrashFlags(nil)
 
     ExplainationHeader:Hide()
@@ -1241,6 +1355,7 @@ local function SelectView(view)
         RebuildBossFlags(currentBoss) -- CHANGED: re-show the flag icon row for the current boss
         if currentBoss then
             tabAbilities:Show()
+            broadcastButton:Show()
             if currentBoss.adds and table.getn(currentBoss.adds) > 0 then
                 tabAdds:Show()
             end
@@ -1363,6 +1478,230 @@ local function FormatBossStats(stats)
     end
     return text
 end
+
+------------------------------------------------------------
+-- CHANGED: Broadcast - formats a boss or trash pack (same shape, see
+-- AGENTS.md's Data model) into plain-text chat lines and sends them to
+-- raid/party chat. Works for either a boss or a trash pack since both share
+-- name/flags/stats/abilities/key.
+------------------------------------------------------------
+local ROLE_LABELS = {
+    tank = "Tank", healer = "Healer", dps = "DPS",
+    caster = "Caster", melee = "Melee", ranged = "Ranged",
+    decurse = "Decurse", dispel = "Dispel", poison = "Cure Poison", disease = "Cure Disease",
+    kick = "Interrupt", reflect = "Reflect",
+    warrior = "Warrior", paladin = "Paladin", hunter = "Hunter", rogue = "Rogue",
+    priest = "Priest", shaman = "Shaman", mage = "Mage", warlock = "Warlock", druid = "Druid",
+}
+
+-- Chat messages can't render |c/|r color codes, so strip them rather than
+-- send the literal escape sequences.
+local function StripColorCodes(text)
+    text = string.gsub(text, "|c%x%x%x%x%x%x%x%x", "")
+    text = string.gsub(text, "|r", "")
+    return text
+end
+
+local function FormatBossStatsPlain(stats)
+    local text = "Armor: " .. (stats.armor or 0)
+    for _, school in ipairs(RESISTANCE_SCHOOLS) do
+        local val = stats[school[1]]
+        if val == nil then val = 0 end
+        if val == "immune" then val = "Immune" end
+        text = text .. "  " .. RESIST_ABBR[school[1]] .. ": " .. val
+    end
+    return text
+end
+
+-- "Name - Armor: X FR: X ... - Tauntable/Not Tauntable - FR: X NR: X recommended"
+-- (the last part only appears if the Tactics addon registered a
+-- `resistances` table for this boss/pack - see BuildRecommendedResistText).
+local function BuildHeaderLine(entry)
+    local parts = { entry.name }
+
+    if entry.stats then
+        table.insert(parts, FormatBossStatsPlain(entry.stats))
+    end
+
+    local flagSet = {}
+    if entry.flags then
+        for _, f in ipairs(entry.flags) do
+            flagSet[f] = true
+        end
+    end
+
+    if flagSet.nottauntable then
+        table.insert(parts, "Not Tauntable")
+    else
+        table.insert(parts, "Tauntable")
+    end
+
+    local recommended = BuildRecommendedResistText(entry)
+    if recommended then
+        table.insert(parts, recommended)
+    end
+
+    return table.concat(parts, " - ")
+end
+
+-- Only top-level abilities flagged warning = true - the ones important
+-- enough to call out proactively, same as the yellow "!" icon in the panel.
+local function BuildAbilityLines(abilities)
+    local lines = {}
+    if not abilities then return lines end
+
+    for _, ability in ipairs(abilities) do
+        if not ability.separator and ability.warning then
+            local text = ability.name
+            if ability.lines and table.getn(ability.lines) > 0 then
+                text = text .. ": " .. table.concat(ability.lines, " ")
+            end
+            if ability.roles and table.getn(ability.roles) > 0 then
+                local roleLabels = {}
+                for _, role in ipairs(ability.roles) do
+                    table.insert(roleLabels, ROLE_LABELS[role] or role)
+                end
+                text = text .. " - " .. table.concat(roleLabels, "/")
+            end
+            table.insert(lines, StripColorCodes(text))
+        end
+    end
+
+    return lines
+end
+
+-- "Separator tag: info", one per line, using whichever separator most
+-- recently preceded that line (see AGENTS.md's Data model for the same
+-- separator shape used by ability phase bars).
+local function BuildTacticsLines(entry)
+    local lines = {}
+    local data = entry.key and DungeonJournal_TacticsData[entry.key]
+    if not data or not data.lines then return lines end
+
+    local currentTag = data.title or entry.name
+    for _, line in ipairs(data.lines) do
+        if type(line) == "table" and line.separator then
+            currentTag = line.name
+        else
+            table.insert(lines, currentTag .. ": " .. line)
+        end
+    end
+
+    return lines
+end
+
+-- CHANGED: a tactics separator can be marked `broadcast = true` (see the
+-- schema comment in DungeonJournalTactics.lua) to hand-pick exactly which
+-- plain-text lines under it - up to the next separator - get sent by
+-- Broadcast, instead of it auto-summarizing every warning ability and every
+-- tactics line. Lets a raid lead keep the Tactics panel itself as the full
+-- voice-explained writeup while curating only the wipe-mechanic essentials
+-- for chat. Multiple broadcast sections in the same entry are all collected.
+local function BuildCuratedBroadcastLines(entry)
+    local lines = {}
+    local data = entry.key and DungeonJournal_TacticsData[entry.key]
+    if not data or not data.lines then return lines end
+
+    local collecting = false
+    for _, line in ipairs(data.lines) do
+        if type(line) == "table" and line.separator then
+            collecting = line.broadcast and true or false
+        elseif collecting then
+            table.insert(lines, line)
+        end
+    end
+
+    return lines
+end
+
+local function BuildBroadcastLines(entry)
+    local lines = {}
+
+    table.insert(lines, BuildHeaderLine(entry))
+
+    local curated = BuildCuratedBroadcastLines(entry)
+    if table.getn(curated) > 0 then
+        -- Curated section present - use it verbatim instead of the
+        -- auto-generated ability/tactics summary below.
+        for _, line in ipairs(curated) do
+            table.insert(lines, line)
+        end
+    else
+        for _, line in ipairs(BuildAbilityLines(entry.abilities)) do
+            table.insert(lines, line)
+        end
+
+        for _, line in ipairs(BuildTacticsLines(entry)) do
+            table.insert(lines, line)
+        end
+    end
+
+    return lines
+end
+
+-- Sends to raid chat if in a raid, party chat if in a party, otherwise just
+-- prints locally (so Broadcast is still usable solo, e.g. while testing).
+local function BroadcastEntry(entry)
+    if not entry then return end
+
+    local channel = nil
+    if GetNumRaidMembers() > 0 then
+        channel = "RAID"
+    elseif GetNumPartyMembers() > 0 then
+        channel = "PARTY"
+    end
+
+    local lines = BuildBroadcastLines(entry)
+
+    if channel then
+        -- CHANGED: cap at 4 lines to raid/party - each Broadcast is one
+        -- chat message per line, and dumping a long ability/tactics list
+        -- into raid chat spams the channel. Anything past 4 is dropped
+        -- rather than sent, no overflow/continuation handling for now.
+        local sent = 0
+        for _, line in ipairs(lines) do
+            if sent >= 4 then break end
+            SendChatMessage(line, channel)
+            sent = sent + 1
+        end
+    else
+        DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99DungeonJournal:|r Not in a group - printing locally instead:")
+        for _, line in ipairs(lines) do
+            DEFAULT_CHAT_FRAME:AddMessage(line)
+        end
+    end
+end
+
+------------------------------------------------------------
+-- CHANGED: Broadcast button - right of the Tactics button. Always shown
+-- when a boss is selected (unlike Tactics, it doesn't depend on the
+-- optional DungeonJournalTactics addon - it can broadcast stats/abilities
+-- with no tactics data registered, tactics lines are just appended if any
+-- exist).
+------------------------------------------------------------
+-- CHANGED: intentionally NOT local - SelectView() (defined earlier in the
+-- file, before this point) needs to Hide() this as part of its view-switch
+-- hide-list, same reason trashTacticsButton/etc. aren't local either.
+broadcastButton = CreateFrame("Button", "DungeonJournalBroadcastButton", frame)
+broadcastButton:SetWidth(85)
+broadcastButton:SetHeight(22)
+broadcastButton:SetPoint("LEFT", tacticsButton, "RIGHT", 8, 0)
+broadcastButton:SetBackdrop({
+    bgFile = "Interface\\Buttons\\WHITE8X8",
+    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+    tile = true, tileSize = 16, edgeSize = 8,
+    insets = { left = 2, right = 2, top = 2, bottom = 2 }
+})
+broadcastButton:SetBackdropColor(0, 0, 0, 0.8)
+broadcastButton:SetBackdropBorderColor(0.4, 0.9, 0.3, 1)
+
+local broadcastButtonText = broadcastButton:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+broadcastButtonText:SetPoint("CENTER", broadcastButton, "CENTER", 0, 0)
+broadcastButtonText:SetTextColor(0.5, 1, 0.4)
+broadcastButtonText:SetText("Broadcast")
+broadcastButton:Hide()
+
+broadcastButton:SetScript("OnClick", function() BroadcastEntry(currentBoss) end)
 
 -- CHANGED: now generic - takes a parent, indent, and optional frame-name prefix.
 -- This lets the same row "widget" be used both for the top-level list (abilities
@@ -1632,6 +1971,7 @@ local function ShowBossInfo(boss)
     -- always a way back to it after opening Tactics - only the Adds tab is
     -- conditional on the boss actually having adds.
     tabAbilities:Show()
+    broadcastButton:Show()
     if boss.adds and table.getn(boss.adds) > 0 then
         tabAdds:Show()
     else
@@ -1810,6 +2150,29 @@ trashTacticsButtonText:SetTextColor(0.4, 0.9, 1)
 trashTacticsButtonText:SetText("Tactics")
 trashTacticsButton:Hide()
 
+-- CHANGED: Broadcast button for the Trash panel - mirrors the boss panel's
+-- broadcastButton above. Always shown when a pack is selected.
+trashBroadcastButton = CreateFrame("Button", "DungeonJournalTrashBroadcastButton", frame)
+trashBroadcastButton:SetWidth(85)
+trashBroadcastButton:SetHeight(22)
+trashBroadcastButton:SetPoint("LEFT", trashTacticsButton, "RIGHT", 8, 0)
+trashBroadcastButton:SetBackdrop({
+    bgFile = "Interface\\Buttons\\WHITE8X8",
+    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+    tile = true, tileSize = 16, edgeSize = 8,
+    insets = { left = 2, right = 2, top = 2, bottom = 2 }
+})
+trashBroadcastButton:SetBackdropColor(0, 0, 0, 0.8)
+trashBroadcastButton:SetBackdropBorderColor(0.4, 0.9, 0.3, 1)
+
+local trashBroadcastButtonText = trashBroadcastButton:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+trashBroadcastButtonText:SetPoint("CENTER", trashBroadcastButton, "CENTER", 0, 0)
+trashBroadcastButtonText:SetTextColor(0.5, 1, 0.4)
+trashBroadcastButtonText:SetText("Broadcast")
+trashBroadcastButton:Hide()
+
+trashBroadcastButton:SetScript("OnClick", function() BroadcastEntry(currentTrashPack) end)
+
 trashTacticsScrollFrame = CreateFrame("ScrollFrame", "DungeonJournalTrashTacticsScrollFrame", frame, "UIPanelScrollFrameTemplate")
 trashTacticsScrollFrame:SetPoint("TOPLEFT", trashAbilitiesHeader, "BOTTOMLEFT", 0, -8)
 trashTacticsScrollFrame:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -34, 40)
@@ -1834,7 +2197,8 @@ local function ShowTrashTactics()
     trashTacticsShown = true
     trashAbilitiesHeader:SetText(data.title or "Tactics")
 
-    local height = RenderTacticsLines(data.lines, trashTacticsScrollChild, trashTacticsTextRowPool, trashTacticsSepRowPool, "DungeonJournalTrashTactics")
+    local previewLines = PrepareTacticsPreview(data.lines, currentTrashPack)
+    local height = RenderTacticsLines(previewLines, trashTacticsScrollChild, trashTacticsTextRowPool, trashTacticsSepRowPool, "DungeonJournalTrashTactics")
     trashTacticsScrollChild:SetHeight(height)
     UpdateScrollBarRange(trashTacticsScrollFrame)
 
@@ -1942,6 +2306,7 @@ function ShowTrashPack(pack)
     -- registered for this pack.
     HideTrashTactics()
     trashTabAbilities:Show()
+    trashBroadcastButton:Show()
     if pack.key and DungeonJournal_TacticsData[pack.key] then
         trashTacticsButton:Show()
     else
