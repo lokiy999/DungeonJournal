@@ -25,6 +25,718 @@ local SM_BOSS_ORDER = {
     "fairbanks",
 }
 
+-- CHANGED: trash roster sourced from a real combat log ("Scarlet Monestary
+-- Trash (most of it).csv" - Source/Action/Spell ID columns), cross-matched
+-- against Spell.xlsx by exact Spell ID for icons/descriptions. Pull
+-- order/grouping is NOT known from that log (it's a flat event list, no
+-- pull boundaries), so this is just every distinct mob that logged an
+-- ability, in no particular order - see TODO_Raid_Data.md.
+local SM_TRASH_ORDER = {
+    "scarlet_soldier",
+    "scarlet_guardsman",
+    "scarlet_defender",
+    "scarlet_centurion",
+    "scarlet_champion",
+    "scarlet_myrmidon",
+    "scarlet_monk",
+    "scarlet_torturer",
+    -- CHANGED: Scarlet Sharpshooter removed from trash - it's already an
+    -- add of Brigitte Abbendis (see her boss entry), not a standalone pull.
+    -- CHANGED: Scarlet Recruit removed - not a real trash pull.
+    -- CHANGED: Scarlet Trainee removed from trash - confirmed to be
+    -- Herod's death-summon add instead (see his boss entry).
+    -- CHANGED: trash packs have no "adds" UI (unlike bosses - see
+    -- TODO_Raid_Data.md), so Beastmaster and its Hound are listed as two
+    -- separate, ungrouped trash pulls rather than a merged pack.
+    "scarlet_tracking_hound",
+    "scarlet_beastmaster",
+    "scarlet_sorcerer",
+    "scarlet_wizard",
+    "scarlet_evoker",
+    "scarlet_conjuror",
+    "scarlet_abbot",
+    "scarlet_adept",
+    "scarlet_chaplain",
+    "scarlet_protector",
+    "scarlet_gallant",
+    "scarlet_diviner",
+}
+
+------------------------------------------------------------
+-- Trash mob registry - one entry per distinct trash mob (icon/flags/
+-- stats/abilities), referenced by key from SM_TRASH_ORDER above.
+------------------------------------------------------------
+local SM_TRASH_MOBS = {
+    scarlet_soldier = {
+        name = "Scarlet Soldier",
+        icon = "Interface\\Icons\\Ability_Warrior_Sunder",
+        flags = {"melee"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Improved Blocking",
+            icon = "Interface\\Icons\\Ability_Defend",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Sunder Armor",
+            icon = "Interface\\Icons\\Ability_Warrior_Sunder",
+            warning = true,
+            lines = {"Sunders the target's armor, reducing it by 820 per stack (up to 5 stacks) and causing a high amount of threat. Lasts X seconds."}
+        }}
+    },
+
+    scarlet_guardsman = {
+        name = "Scarlet Guardsman",
+        icon = "Interface\\Icons\\Ability_Warrior_Disarm",
+        flags = {"melee"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Defensive Stance",
+            icon = "Interface\\Icons\\Ability_Warrior_DefensiveStance",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Disarm",
+            icon = "Interface\\Icons\\Ability_Warrior_Disarm",
+            warning = true,
+            lines = {"Disarms the enemy's weapon for X seconds."}
+        }, {
+            name = "Impale",
+            icon = "Interface\\Icons\\Ability_Gouge",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Riposte",
+            icon = "Interface\\Icons\\Ability_Warrior_Challange",
+            lines = {"X - no ability description available."}
+        }}
+    },
+
+    scarlet_defender = {
+        name = "Scarlet Defender",
+        icon = "Interface\\Icons\\Ability_Warrior_Sunder",
+        flags = {"melee"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Defensive Stance",
+            icon = "Interface\\Icons\\Ability_Warrior_DefensiveStance",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Improved Blocking",
+            icon = "Interface\\Icons\\Ability_Defend",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Rebuke",
+            icon = "Interface\\Icons\\INV_Shield_05",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Sunder Armor",
+            icon = "Interface\\Icons\\Ability_Warrior_Sunder",
+            warning = true,
+            lines = {"Sunders the target's armor, reducing it by 820 per stack (up to 5 stacks) and causing a high amount of threat. Lasts X seconds."}
+        }}
+    },
+
+    scarlet_centurion = {
+        name = "Scarlet Centurion",
+        icon = "Interface\\Icons\\Spell_Nature_ThunderClap",
+        flags = {"melee"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Battle Shout",
+            icon = "Interface\\Icons\\Ability_Warrior_BattleShout",
+            lines = {"Shouts, increasing damage done of nearby allies within X yards by 30%. Lasts X seconds."}
+        }, {
+            name = "Battle Stance",
+            icon = "Interface\\Icons\\Ability_Warrior_OffensiveStance",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Charge",
+            icon = "Interface\\Icons\\Ability_Warrior_Charge",
+            warning = true,
+            lines = {"Charges an enemy, inflicting normal damage plus 500 and stunning it for X seconds."}
+        }, {
+            name = "Retaliation",
+            icon = "Interface\\Icons\\Ability_Warrior_Challange",
+            lines = {"Instantly counterattacks any enemy that strikes it in melee for X seconds. Attacks from behind cannot be counterattacked."}
+        }, {
+            name = "Thunder Clap",
+            icon = "Interface\\Icons\\Spell_Nature_ThunderClap",
+            warning = true,
+            lines = {"Blasts nearby enemies with thunder, inflicting 2250 to 2500 damage and reducing their movement and attack speed by 20% for X seconds."}
+        }}
+    },
+
+    scarlet_champion = {
+        name = "Scarlet Champion",
+        icon = "Interface\\Icons\\Ability_Racial_Avatar",
+        flags = {"melee"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Duel",
+            icon = "Interface\\Icons\\Ability_Warrior_Challange",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Duel Loooser",
+            icon = "Interface\\Icons\\Spell_Shadow_MindSteal",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Vengeance",
+            icon = "Interface\\Icons\\Ability_Racial_Avatar",
+            lines = {"X - no ability description available."}
+        }}
+    },
+
+    scarlet_myrmidon = {
+        name = "Scarlet Myrmidon",
+        icon = "Interface\\Icons\\Ability_Rogue_Sprint",
+        flags = {"melee"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Berserker Stance",
+            icon = "Interface\\Icons\\Ability_Racial_Avatar",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Intercept",
+            icon = "Interface\\Icons\\Ability_Rogue_Sprint",
+            warning = true,
+            lines = {"Charges an enemy, inflicting normal damage plus 800 and stunning it for X seconds."}
+        }, {
+            name = "Intercept Dummy",
+            icon = "Interface\\Icons\\Temp",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Rend",
+            icon = "Interface\\Icons\\Ability_Gouge",
+            lines = {"X - no ability description available."}
+        }}
+    },
+
+    scarlet_monk = {
+        name = "Scarlet Monk",
+        icon = "Interface\\Icons\\Ability_Kick",
+        flags = {"melee"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Devastating Blow",
+            icon = "Interface\\Icons\\Spell_Fire_Volcano",
+            lines = {"X - no ability description available (see Fist of the Third Moon, which triggers it)."}
+        }, {
+            name = "Fist of the Third Moon",
+            icon = "Interface\\Icons\\INV_Gauntlets_04",
+            warning = true,
+            lines = {"An instant combo attack - the third strike unleashes a Devastating Blow, dealing 1300 to 1700 damage."}
+        }, {
+            name = "Inner Fire",
+            icon = "Interface\\Icons\\Spell_Holy_InnerFire",
+            lines = {"Increases a friendly unit's damage by 20% and reduces its damage taken by 20% for X seconds."}
+        }, {
+            name = "Kick",
+            icon = "Interface\\Icons\\Ability_Kick",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Kicks the target, dealing 2500 to 3000 damage and knocking it down for X seconds."}
+        }, {
+            name = "Knockout",
+            icon = "Interface\\Icons\\Ability_Kick",
+            lines = {"X - no ability description available."}
+        }}
+    },
+
+    scarlet_torturer = {
+        name = "Scarlet Torturer",
+        icon = "Interface\\Icons\\Ability_Gouge",
+        flags = {"melee"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Gouge",
+            icon = "Interface\\Icons\\Ability_Gouge",
+            warning = true,
+            lines = {"Inflicts 1911 to 2289 damage to an enemy and stuns it for up to X seconds. Target must be facing the caster."}
+        }, {
+            name = "Immolate",
+            icon = "Interface\\Icons\\Spell_Fire_Immolation",
+            warning = true,
+            lines = {"Burns an enemy for 300 initially, then an additional 795 to 945 Fire damage every X sec, for X seconds."}
+        }, {
+            name = "Sear",
+            icon = "Interface\\Icons\\Spell_Fire_FlameShock",
+            warning = true,
+            lines = {"Flame Lash for 520 to 640 Fire damage."}
+        }}
+    },
+
+    scarlet_tracking_hound = {
+        name = "Scarlet Tracking Hound",
+        icon = "Interface\\Icons\\Ability_Hunter_KillCommand",
+        flags = {"melee"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            -- CHANGED: raw Spell.xlsx value (+3 damage taken) looked implausibly small for the description - not confident it's real, marked X instead of guessing.
+            name = "Infected Wound",
+            icon = "Interface\\Icons\\Spell_Nature_NullifyDisease",
+            lines = {"X - increases Physical damage taken by an enemy for X seconds (exact amount unconfirmed)."}
+        }}
+    },
+
+    scarlet_beastmaster = {
+        name = "Scarlet Beastmaster",
+        icon = "Interface\\Icons\\Ability_Hunter_Quickshot",
+        flags = {"ranged"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Kill Command",
+            icon = "Interface\\Icons\\Ability_Hunter_KillCommand",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Scatter Shot",
+            icon = "Interface\\Icons\\Ability_GolemStormBolt",
+            warning = true,
+            lines = {"A short-range shot that deals 100% weapon damage and disorients the target for X seconds."}
+        }, {
+            name = "Serpent Sting",
+            icon = "Interface\\Icons\\Ability_Hunter_Quickshot",
+            warning = true,
+            lines = {"Stings the target, causing 1800 Nature damage over X seconds."}
+        }, {
+            name = "Summon Scarlet Tracking Hound",
+            icon = "Interface\\Icons\\Ability_Mount_WhiteDireWolf",
+            lines = {"Summons a Scarlet Tracking Hound to aid it in battle."}
+        }}
+    },
+
+    scarlet_sorcerer = {
+        name = "Scarlet Sorcerer",
+        icon = "Interface\\Icons\\Spell_Nature_StarFall",
+        flags = {"caster"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Arcanebolt",
+            icon = "Interface\\Icons\\Spell_Nature_StarFall",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Blasts an enemy with Arcane magic, inflicting 1040 to 1390 Arcane damage."}
+        }, {
+            -- CHANGED: Spell.xlsx lists an absorb amount of 999,999,999 - almost certainly a sentinel for unlimited, not a real number, so left as X.
+            name = "Mana Shield",
+            icon = "Interface\\Icons\\Spell_Shadow_DetectLesserInvisibility",
+            lines = {"X - absorbs damage by draining its own mana instead."}
+        }, {
+            name = "Polymorph",
+            icon = "Interface\\Icons\\Spell_Nature_Polymorph",
+            warning = true,
+            lines = {"Transforms an enemy into a sheep for up to X seconds. Only works on beasts, dragons, giants, humanoids, and critters."}
+        }, {
+            name = "Slow",
+            icon = "Interface\\Icons\\Spell_Nature_Slow",
+            warning = true,
+            lines = {"Slows the enemy's movement and attack speed by 50% for X seconds."}
+        }}
+    },
+
+    scarlet_wizard = {
+        name = "Scarlet Wizard",
+        icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
+        flags = {"caster"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Chilled",
+            icon = "Interface\\Icons\\Spell_Frost_FrostArmor02",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Cone of Cold",
+            icon = "Interface\\Icons\\Spell_Frost_Glacier",
+            warning = true,
+            lines = {"Targets in a cone in front of the caster take 3450 to 3920 Frost damage, are knocked back, and are slowed by 70% for X seconds."}
+        }, {
+            name = "Cryo Zone",
+            icon = "Interface\\Icons\\Spell_Frost_FrostNova",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Fire Shield",
+            icon = "Interface\\Icons\\Spell_Fire_Immolation",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Frostbolt",
+            icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Launches a bolt of frost, causing 2315 to 2615 Frost damage and slowing movement speed by 40% for X seconds."}
+        }, {
+            name = "Frozen",
+            icon = "Interface\\Icons\\Spell_Frost_FrostNova",
+            warning = true,
+            lines = {"Blasts nearby enemies for 1800 to 2100 Frost damage and freezes them in place for up to X seconds. Damage taken may break the freeze."}
+        }, {
+            name = "Ice Block",
+            icon = "Interface\\Icons\\Spell_Frost_Frost",
+            lines = {"Becomes immune to all physical attacks and spells for X seconds, but cannot attack, move, or cast during that time."}
+        }, {
+            name = "Summon Water Elemental",
+            icon = "Interface\\Icons\\Spell_Frost_SummonWaterElemental",
+            lines = {"Summons a Water Elemental to aid it for X seconds."}
+        }}
+    },
+
+    scarlet_evoker = {
+        name = "Scarlet Evoker",
+        icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+        flags = {"caster"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Fiery Purge",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Fire Shield",
+            icon = "Interface\\Icons\\Spell_Fire_Immolation",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Fireball",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Hurls a fiery ball that causes 1796 to 2170 Fire damage and an additional 460 Fire damage over X seconds."}
+        }, {
+            name = "Flamestrike",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"Calls down a pillar of fire, burning all enemies within the area for 880 to 1264 Fire damage and an additional 490 Fire damage over X seconds."}
+        }, {
+            name = "Purifying Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            lines = {"X - no ability description available."}
+        }}
+    },
+
+    scarlet_conjuror = {
+        name = "Scarlet Conjuror",
+        icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+        flags = {"caster"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Consume Elemental",
+            icon = "Interface\\Icons\\Spell_Shadow_SacrificialShield",
+            lines = {"X - no ability description available."}
+        }, {
+            name = "Fireball",
+            icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
+            warning = true,
+            roles = {"kick"},
+            lines = {"Hurls a fiery ball that causes 1796 to 2170 Fire damage and an additional 460 Fire damage over X seconds."}
+        }}
+    },
+
+    scarlet_abbot = {
+        name = "Scarlet Abbot",
+        icon = "Interface\\Icons\\Spell_Holy_GreaterHeal",
+        flags = {"caster"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Flash Heal",
+            icon = "Interface\\Icons\\Spell_Holy_FlashHeal",
+            roles = {"kick"},
+            lines = {"Heals a friendly target for 6450 to 8050."}
+        }, {
+            name = "Greater Heal",
+            icon = "Interface\\Icons\\Spell_Holy_GreaterHeal",
+            roles = {"kick"},
+            lines = {"A slow casting spell that heals a single target for 18900 to 22100."}
+        }, {
+            name = "Renew",
+            icon = "Interface\\Icons\\Spell_Holy_Renew",
+            roles = {"dispel"},
+            lines = {"Heals the target for a total of 2100 over X seconds."}
+        }}
+    },
+
+    scarlet_adept = {
+        name = "Scarlet Adept",
+        icon = "Interface\\Icons\\Spell_Holy_HolySmite",
+        flags = {"caster"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Heal",
+            icon = "Interface\\Icons\\Spell_Holy_Heal",
+            roles = {"kick"},
+            lines = {"Heals its target for 8300 to 9850."}
+        }, {
+            name = "Smite",
+            icon = "Interface\\Icons\\Spell_Holy_HolySmite",
+            warning = true,
+            lines = {"Smites an enemy for 1800 to 2100 Holy damage."}
+        }}
+    },
+
+    scarlet_chaplain = {
+        name = "Scarlet Chaplain",
+        icon = "Interface\\Icons\\Spell_Holy_PrayerOfFortitude",
+        flags = {"caster"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Power Word: Requital",
+            icon = "Interface\\Icons\\Spell_Fire_ElementalDevastation",
+            warning = true,
+            lines = {"Blasts an enemy with Light, causing 2697 to 3122 Holy damage (full amount if the target is feared, stunned, or incapacitated)."}
+        }, {
+            name = "Prayer of Fortitude",
+            icon = "Interface\\Icons\\Spell_Holy_PrayerOfFortitude",
+            lines = {"Increases nearby allies' Health by 30% for X seconds."}
+        }, {
+            name = "Prayer of Purity",
+            icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
+            roles = {"dispel"},
+            lines = {"Removes 2 harmful Magic, Curse, or Disease effects from nearby allies, healing them for 5% of their maximum health per effect dispelled."}
+        }, {
+            name = "Prayer of Shield",
+            icon = "Interface\\Icons\\Spell_Holy_PowerWordShield",
+            lines = {"Shields nearby allies, absorbing 6835 to 7805 damage. Lasts X seconds. Spellcasting is not interrupted while the shield holds."}
+        }}
+    },
+
+    scarlet_protector = {
+        name = "Scarlet Protector",
+        icon = "Interface\\Icons\\Spell_Holy_LayOnHands",
+        flags = {"caster"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Fist of Justice",
+            icon = "Interface\\Icons\\Spell_Holy_SealOfMight",
+            warning = true,
+            lines = {"Stuns nearby enemies for X seconds."}
+        }, {
+            name = "Greater Light",
+            icon = "Interface\\Icons\\Spell_Holy_LayOnHands",
+            roles = {"kick"},
+            lines = {"Heals a paladin ally for an amount equal to that paladin's maximum health."}
+        }, {
+            name = "Improved Blocking",
+            icon = "Interface\\Icons\\Ability_Defend",
+            lines = {"X - no ability description available."}
+        }, {
+            -- CHANGED: heal amount is defined on a separate linked spell (36071) not captured in this pass.
+            name = "Judgement of Light",
+            icon = "Interface\\Icons\\Spell_Holy_HealingAura",
+            lines = {"X - melee attacks against the afflicted target heal the attacker."}
+        }, {
+            name = "Protection Aura",
+            icon = "Interface\\Icons\\INV_Gauntlets_06",
+            lines = {"Reduces damage taken by nearby allies within X yards by 30% for X seconds."}
+        }, {
+            name = "Purify",
+            icon = "Interface\\Icons\\Spell_Holy_Purify",
+            roles = {"dispel"},
+            lines = {"Purifies a friendly target, removing 5 disease effects and 5 poison effects."}
+        }, {
+            name = "Smart Purify",
+            icon = "Interface\\Icons\\Temp",
+            roles = {"dispel"},
+            lines = {"X - no ability description available."}
+        }}
+    },
+
+    scarlet_gallant = {
+        name = "Scarlet Gallant",
+        icon = "Interface\\Icons\\Spell_Holy_HolySmite",
+        flags = {"caster"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Crusader Strike",
+            icon = "Interface\\Icons\\Spell_Holy_HolySmite",
+            warning = true,
+            lines = {"Inflicts 400 to 550 damage to an enemy and increases the Holy damage it takes by 180 per stack (up to 5 stacks). Lasts X seconds."}
+        }, {
+            name = "Divine Shield",
+            icon = "Interface\\Icons\\Spell_Holy_DivineIntervention",
+            lines = {"Protects the caster from all attacks and spells for X seconds, but increases the time between its attacks by 100% during that time."}
+        }, {
+            name = "Fist of Justice",
+            icon = "Interface\\Icons\\Spell_Holy_SealOfMight",
+            warning = true,
+            lines = {"Stuns nearby enemies for X seconds."}
+        }, {
+            name = "Repentance",
+            icon = "Interface\\Icons\\Spell_Holy_PrayerOfHealing",
+            warning = true,
+            lines = {"Incapacitates the target for up to X seconds and increases its Mana regeneration. Only works against Humanoids."}
+        }, {
+            name = "Sanctity Aura",
+            icon = "Interface\\Icons\\Spell_Holy_MindVision",
+            lines = {"Increases Holy damage done by nearby party members within X yards by 30%."}
+        }, {
+            name = "Seal of Command",
+            icon = "Interface\\Icons\\Ability_Warrior_InnerRage",
+            lines = {"X - no ability description available."}
+        }}
+    },
+
+    scarlet_diviner = {
+        name = "Scarlet Diviner",
+        icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
+        flags = {"caster"},
+        -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
+        -- stats not present in that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            name = "Prophecy: Aetherbound",
+            icon = "Interface\\Icons\\Spell_Nature_WispSplode",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Alacrity",
+            icon = "Interface\\Icons\\Ability_Warrior_InnerRage",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: At the Edge",
+            icon = "Interface\\Icons\\Racial_Troll_Berserk",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Cinderborn",
+            icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Cripple",
+            icon = "Interface\\Icons\\Spell_Shadow_Cripple",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Doomed",
+            icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Doppelganger",
+            icon = "Interface\\Icons\\Spell_Nature_MirrorImage",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Double-Edged",
+            icon = "Interface\\Icons\\Ability_CriticalStrike",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Execution",
+            icon = "Interface\\Icons\\INV_Sword_48",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Exposure",
+            icon = "Interface\\Icons\\Ability_Hunter_SniperShot",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Gloom",
+            icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Hailbound",
+            icon = "Interface\\Icons\\Spell_Frost_ChillingArmor",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Helpless",
+            icon = "Interface\\Icons\\Spell_Nature_RemoveCurse",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Instability",
+            icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Ironbound",
+            icon = "Interface\\Icons\\Spell_Frost_Frost",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Momentum",
+            icon = "Interface\\Icons\\Spell_Shadow_DeathPact",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Negation",
+            icon = "Interface\\Icons\\Ability_BackStab",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Sanctified",
+            icon = "Interface\\Icons\\Spell_Holy_PrayerOfHealing02",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Shared Fate",
+            icon = "Interface\\Icons\\SpiritLink",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Spellward",
+            icon = "Interface\\Icons\\INV_Ore_Arcanite_01",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Undying",
+            icon = "Interface\\Icons\\Spell_Shadow_AnimateDead",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Untouchable",
+            icon = "Interface\\Icons\\INV_Shield_04",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Verdant",
+            icon = "Interface\\Icons\\Spell_Nature_SpiritArmor",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }, {
+            name = "Prophecy: Weakness",
+            icon = "Interface\\Icons\\Spell_Shadow_CurseOfMannoroth",
+            warning = true,
+            lines = {"X - no ability description available; needs dedicated research (see TODO)."}
+        }}
+    },
+
+}
+
 ------------------------------------------------------------
 -- Boss registry - one entry per boss (icon/flags/stats/abilities/adds),
 -- referenced by key from SM_BOSS_ORDER above. Defined once each; add a
@@ -330,6 +1042,13 @@ local SM_BOSSES = {
                 icon = "Interface\\Icons\\ability_cheapshot",
                 lines = {"Feared for 8 seconds and gains aggro of the boss during that time. Boss also becomes untauntable?"}
             }}
+        }},
+        -- CHANGED: from testing - confirmed real add of Herod, not a
+        -- standalone trash pull.
+        adds = {{
+            name = "Scarlet Trainee",
+            icon = "Interface\\Icons\\INV_Sword_04",
+            lines = {"Herod summons 20 Scarlet Trainees upon his death, at the top of the stairs."}
         }}
     },
 
@@ -665,9 +1384,34 @@ local function BuildSMBosses()
     return bosses
 end
 
+local function BuildSMTrash()
+    local trash = {}
+    for _, entry in ipairs(SM_TRASH_ORDER) do
+        if type(entry) == "table" and entry.separator then
+            table.insert(trash, entry)
+        else
+            local key, count
+            if type(entry) == "table" then
+                key, count = entry.key, entry.count
+            else
+                key = entry
+            end
+            local mob = SM_TRASH_MOBS[key]
+            local pack = { key = key, count = count }
+            for field, value in pairs(mob) do
+                pack[field] = value
+            end
+            table.insert(trash, pack)
+        end
+    end
+    return trash
+end
+
 table.insert(DungeonJournal_Raids, {
     key = "SM",
     name = "Scarlet Monastery",
     expanded = false,
+    trashExpanded = false,
+    trash = BuildSMTrash(),
     bosses = BuildSMBosses(),
 })

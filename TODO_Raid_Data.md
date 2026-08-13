@@ -66,9 +66,7 @@ not-yet-done rather than "wrong":
 - Blackwing Spellbinder's Arcane Blast: *"priority CC or interrupt
   target."*
 
-## Scarlet Monastery ([raids/SM.lua](raids/SM.lua))
-
-No trash data exists for SM at all currently (bosses only).
+## Scarlet Monastery bosses ([raids/SM.lua](raids/SM.lua))
 
 - **Loksey -> Paralyzing Poison** - per-stack Nature damage unknown.
 - **Loksey -> Power Shot** - damage unknown (line literally reads
@@ -80,6 +78,60 @@ No trash data exists for SM at all currently (bosses only).
   the stun duration and the per-tick Frost damage are unknown (nested
   three deep under Doan's Frost-stance "Numbing Cold").
 
-Everything else checked in SM (Vishas, Herod, Brother Michael, Renault
-Mograine, Fairbanks, and the rest of Loksey/Brigitte/Doan) had real
-numbers, no `X` placeholders found.
+Everything else checked in SM bosses (Vishas, Herod, Brother Michael,
+Renault Mograine, Fairbanks, and the rest of Loksey/Brigitte/Doan) had
+real numbers, no `X` placeholders found.
+
+## Scarlet Monastery trash ([raids/SM.lua](raids/SM.lua))
+
+Added 2026-08-12 from a real combat log ("Scarlet Monestary Trash (most
+of it).csv" - 23 distinct mobs), cross-matched against `Spell.xlsx` by
+exact Spell ID rather than name-guessing. The CSV's own damage numbers
+were ignored per instruction (random every pull, not real spell values);
+everything below comes from `Spell.xlsx`'s effect fields instead. This
+first pass is functional but has real gaps - to make it solid:
+
+- **Pull order/grouping is completely unknown.** The CSV is a flat event
+  list with no pull boundaries, so `SM_TRASH_ORDER` is just all 23 mobs
+  in no particular order, no separators. Needs an actual walkthrough to
+  group mobs the way they really pull (Library/Armory/Cathedral/Graveyard
+  wings, mixed packs, etc.) - see AGENTS.md's trash tree separator syntax.
+- **Trash packs have no "adds" UI, unlike bosses.** Scarlet Tracking Hound
+  is really an add Scarlet Beastmaster summons (see Beastmaster's own
+  "Summon Scarlet Tracking Hound" ability), but the Trash panel only has
+  Abilities/Tactics tabs - no `tabAdds`/adds-rendering path the way
+  `ShowTactics`/the boss panel has (see `DungeonJournal.lua` around
+  `tabAdds`/`currentBoss.adds`). They're listed as two independent trash
+  pulls for now. Building a real trash Adds tab (mirroring the boss
+  panel's) would let this - and similar cases elsewhere - be modeled
+  properly; needs in-game UI testing before it ships.
+- **`stats` (armor/resistances) is `"X"` across all 23 mobs** - the log
+  has no stat data at all, 100% untested.
+- **Scarlet Diviner's 23 "Prophecy: ..." cards are all `X`-only.** Every
+  one of them ships with zero tooltip text in `Spell.xlsx` (no
+  `Description_enUS`), so there's nothing to derive from - this mob
+  needs dedicated external research (wiki/testing), not just filling
+  gaps from the sheet.
+- **Every ability with no `Description_enUS` at all** (not just missing
+  numbers, but zero tooltip text) was left as a generic "no ability
+  description available" placeholder rather than guessed from raw effect
+  codes. That's roughly a third of the abilities pulled from the log -
+  see any `-- CHANGED:` comment reading "no ability description
+  available" in `SM_TRASH_MOBS`. Worth a pass to see if a build-uploaded
+  or newer `Spell.xlsx` fills these in.
+- **Scarlet Tracking Hound -> Infected Wound** - the raw sheet value (+3
+  damage taken) looked implausibly small for what should be a meaningful
+  debuff, so it was left `X` rather than presented as real - re-check
+  against Spell.xlsx directly.
+- **Scarlet Sorcerer -> Mana Shield** - sheet lists an absorb amount of
+  999,999,999, almost certainly an "unlimited" sentinel value rather than
+  a real number - confirm intended behavior.
+- **Scarlet Protector -> Judgement of Light** - actual heal amount lives
+  on a separate linked spell (36071) that wasn't pulled in this pass.
+- Every ability whose tooltip includes a duration (`$d`) or radius (`$a1`)
+  is `X seconds`/`X yards` - `Spell.xlsx` only has index references
+  (`DurationIndex`/`RangeIndex`) into `Duration.dbc`/`Range.dbc`, which
+  aren't in this workbook, so those can't be resolved from the sheet at
+  all and need in-game testing.
+- Icons and mob-level (portrait) icons were picked reasonably from each
+  mob's own real abilities, not verified in-game.
