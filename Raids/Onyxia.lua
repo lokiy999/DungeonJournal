@@ -130,6 +130,46 @@ local ONY_BOSSES = {
             roles = {"tank"},
             lines = {"Slow DPS as she lands and let the main tank reposition to the phase 1 tanking spot.",
                      "Be careful with damage-over-time aggro during the phase change."}
+        }},
+        -- CHANGED: real adds from "Onyxia.csv", cross-matched against
+        -- Spell.xlsx by exact Spell ID. Onyxia is a world boss with no
+        -- hallway trash - these are her own encounter adds, not a
+        -- standalone trash roster.
+        adds = {{
+            name = "Onyxian Warder",
+            icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
+            lines = {"Whelp-guarding add that spawns during the encounter."},
+            abilities = {{
+                name = "Pierce Armor",
+                icon = "Interface\\Icons\\Spell_Shadow_VampiricAura",
+                warning = true,
+                lines = {"Reduces an enemy's armor by 75% for X seconds."}
+            }, {
+                name = "Flame Lash",
+                icon = "Interface\\Icons\\Spell_Fire_Fireball",
+                warning = true,
+                lines = {"Burns an enemy for 56 to 64 damage and reduces its Fire resistance by 20 for X seconds."}
+            }, {
+                name = "Fire Nova",
+                icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
+                warning = true,
+                lines = {"Inflicts 464 to 596 Fire damage to nearby enemies."}
+            }, {
+                name = "Cleave",
+                icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+                roles = {"tank"},
+                lines = {"Inflicts normal damage plus 50 to an enemy and its nearest allies, affecting up to X targets."}
+            }, {
+                -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 19707 - not reverse-engineered from raw effect codes.
+                name = "Hate to 50%",
+                icon = "Interface\\Icons\\Spell_Shadow_SacrificialShield",
+                lines = {"X - no ability description available."}
+            }}
+        }, {
+            name = "Onyxian Whelp",
+            icon = "Interface\\Icons\\Ability_Racial_BloodRage",
+            -- CHANGED: no real abilities captured in the log for this mob (only the generic Dazed effect).
+            lines = {"Whelp-guarding add that spawns during the encounter. No offensive abilities were captured in the log for this mob."}
         }}
     },
 }
@@ -156,7 +196,8 @@ end
 table.insert(DungeonJournal_Raids, {
     -- CHANGED: Onyxia. Phases are driven by separators; mechanics come from
     -- Spell.dbc plus the raid-lead tips document, with cast frequencies from
-    -- combat logs. Trash is deliberately not documented yet.
+    -- combat logs. World boss - no hallway trash, so no `trash` field
+    -- (see Onyxian Warder/Whelp as adds on the boss above instead).
     key = "ONY",
     name = "Onyxia's Lair",
     expanded = false,

@@ -1190,7 +1190,12 @@ local trashTreeButtonPool = {}
 local function BuildTrashEntries()
     local entries = {}
     for _, raid in ipairs(RAIDS) do
-        table.insert(entries, { entryType = "header", raid = raid })
+        -- CHANGED: skip raids with no trash data entirely (e.g. Onyxia,
+        -- World Bosses) - previously every raid got a clickable header row
+        -- in the Trash tab even with nothing under it to expand.
+        if raid.trash and table.getn(raid.trash) > 0 then
+            table.insert(entries, { entryType = "header", raid = raid })
+        end
         if raid.trashExpanded and raid.trash then
             -- CHANGED: a separator entry in a raid's trash list (e.g. "Death
             -- Talon Hall" before a run of packs that always spawn together)
