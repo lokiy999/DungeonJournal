@@ -348,3 +348,131 @@ testing in-game.
   Charge) were left untouched - their `Spell.xlsx` `Description_enUS` is
   empty for several of them (Hysteria, Blood Siphon, Corrupted Blood), so
   that wording predates this CSV pass and wasn't re-verified against it.
+
+## Lower Blackrock Spire ([raids/LBRS.lua](raids/LBRS.lua))
+
+Added 2026-08-13 from a real combat log (`LBRS.csv`, 27k rows), filtered
+to `Source GUID` starting `0xF130` (real creatures), shaman totems
+(Magma/Mana Spring/Searing/Stoneclaw/Strength of Earth/Fire Nova Totem)
+and raw unresolved GUID sources excluded, cross-matched against
+`Spell.xlsx` by exact Spell ID - same methodology as the UBRS/ZG passes
+above.
+
+- **8 of 9 bosses with combat data got real abilities**: Highlord Omokk,
+  Shadow Hunter Vosh'gajin, War Master Voone, Mother Smolderweb,
+  Quartermaster Zigris, Halycon, Gizrul the Slavener, Overlord
+  Wyrmthalak. **Urok Doomhowl has no combat data in `LBRS.csv`** (no
+  "Urok Doomhowl" `Source` with a `0xF130`-prefixed `Source GUID`
+  anywhere in the log) and was left as the original single-ability
+  placeholder untouched.
+- **34 trash mobs added** (`LBRS_TRASH_ORDER`/`LBRS_TRASH_MOBS`,
+  `BuildLBRSTrash()`), one entry per distinct non-totem NPC name that
+  logged an ability: the Bloodaxe, Firebrand, Scarshield, Smolderthorn,
+  and Spirestone/Spire mob families.
+- **Merge decisions** (same-named ability logged under two spell IDs,
+  treated as one ability entry per the UBRS precedent):
+  - Highlord Omokk's **Stormstrike** merges the off-hand companion cast
+    (spell ID 34592, `Description_enUS` is literally `"OH"`) with the
+    main-hand cast (17364, real text).
+  - Bloodaxe Summoner's **Arcane Missiles** merges the channel-tick rank
+    (15790, empty `Description_enUS`) with the cast rank (15791, real
+    text).
+  - Firebrand Grunt's **Retaliation** merges the companion trigger (spell
+    ID 22858, empty `Description_enUS`) into the main entry (22857, real
+    text), same pattern as UBRS's Blackhand Elite.
+- **Pull order/grouping is completely unknown**, same caveat as every
+  other raid's trash so far: the CSV is a flat event list with no pull
+  boundaries, so `LBRS_TRASH_ORDER` is all 34 mobs in alphabetical order,
+  no separators. Needs an actual walkthrough (Bloodaxe hall, Firebrand
+  hall, Scarshield camp, Smolderthorn area, Spire/Spirestone ogre area)
+  to group properly.
+- **`stats` (armor/resistances) is `"X"` across all 34 trash mobs** - the
+  log has no stat data at all, 100% untested.
+- **Abilities left as `X`** (raw sheet value looked implausible, or no
+  `Description_enUS` at all) - see the `-- CHANGED:` comment on each:
+  - Bloodaxe Raider -> **Sunder Armor** (spell 15572): raw per-stack
+    armor value (0) looks implausible; compare against the 1000-per-
+    stack values on the 24317 Sunder Armor rank used elsewhere in this
+    file, which looks far more plausible.
+  - Bloodaxe Veteran -> **Snap Kick** (spell 15618): raw stun-damage
+    value (2) looks implausibly small next to the 875-1125 range on the
+    other Snap Kick rank (24671) used elsewhere in this file.
+  - Firebrand Dreadweaver -> **Plague Cloud**: raw Strength/Agility/
+    Intellect reduction values (-2 each) look implausibly small for a
+    stat-debuff AoE.
+  - Firebrand Grunt -> **Charge**: raw bonus-damage value (0) looks
+    implausibly small next to the near-identical Berserker Charge/Shield
+    Charge abilities elsewhere in this file (150-1300); a larger value
+    (1300) exists on a different effect slot not referenced by the
+    description's token.
+  - Firebrand Grunt / Spirestone Enforcer -> **Berserker Stance**: real
+    percentages live on linked spells (7381/35490) not captured in this
+    pass.
+  - Quartermaster Zigris -> **Stun Bomb**: raw bonus-damage value (0)
+    looks implausibly small.
+  - Scarshield Spellbinder -> **Resist Fire**: raw value (2) looks
+    implausibly small for a resistance buff (same gap noted in the UBRS
+    TODO entry for the same mob/spell).
+  - Smolderthorn Seer -> **Lightning Shield**: raw per-strike damage
+    value (2) looks implausibly small.
+  - Spirestone Mystic -> **Forked Lightning**: raw damage value (5)
+    looks implausibly small for a boss-tier mob's Nature nuke.
+  - Multiple mobs' **Mana Burn** (Scarshield Spellbinder, Smolderthorn
+    Shadow Priest): the drained-mana amount is real, but the
+    damage-per-point-of-mana value lives on a separate linked effect not
+    captured in this pass.
+  - Every ability with **zero `Description_enUS`** (Throw Axe, Gas Bomb,
+    Hex on Shadow Hunter Vosh'gajin, Intoxication, Summon Spire
+    Spiderling, Recklessness, Eviscerate, Sap Visual, "Hate to 50%",
+    "Hate to Zero", Frenzy, Shield Toss Return, Summon Scarshield/
+    Bloodaxe Worg) was left as a generic "no ability description
+    available" placeholder, several with a short note on what the name/
+    effect type suggests (internal threat-reset mechanics, cosmetic sap
+    visuals, summon triggers), per the same sourcing rule used in the
+    other raids' trash passes.
+- Every ability whose tooltip includes a duration (`$d`), radius (`$a1`),
+  or tick interval (`$t1`/`$t2`) is rendered as `X seconds` -
+  `Spell.xlsx` only has index references into `Duration.dbc`/`Range.dbc`
+  (not included) for duration/radius, and tick intervals aren't
+  resolvable from this sheet at all; needs in-game testing.
+- Icons were picked from each mob's own real abilities (trash) or kept as
+  the existing `Interface\Icons\temp` placeholder (bosses - portrait work
+  is out of scope for this pass, see the "Known Issues" section in
+  AGENTS.md).
+- `flags` (melee/caster/ranged) are informed guesses from each mob's
+  ability set (e.g. mobs with only Shadow Bolt/Fireball-type abilities
+  marked `caster`), not verified in-game.
+
+## Onyxia's Lair ([raids/Onyxia.lua](raids/Onyxia.lua))
+
+Added 2026-08-13 from a real combat log (`Onyxia.csv`, 13k rows), same
+methodology as the other passes above. Onyxia herself already had a full
+hand-written kit before this pass and was left untouched - only her adds
+were new.
+
+- **Onyxian Warder** added as a real `adds` entry with 5 abilities
+  (Pierce Armor, Flame Lash, Fire Nova, Cleave, Hate to 50%).
+  - **Hate to 50%** has no `Description_enUS` in `Spell.xlsx` - left as
+    `X`, no ability text available.
+  - **Cleave**'s target-count token (`$x1`) can't be resolved from this
+    sheet - rendered as `X` in "affecting up to X targets."
+  - **Pierce Armor**/**Flame Lash**/**Fire Nova** have real numbers, but
+    their `$d` duration tokens are unresolvable the same way as every
+    other raid's trash - rendered as `X seconds`.
+- **Onyxian Whelp** added as an `adds` entry with no abilities - the log
+  only shows the generic Dazed effect for this mob, no real cast logged.
+- No `stats` were added for either add - not present in the log, 100%
+  untested.
+- World boss - deliberately has no `trash` field (see the "Trash tab UI
+  fix" note below for why that now matters).
+
+## Trash tab showed empty entries for raids with no trash (fixed)
+
+`BuildTrashEntries()` in `DungeonJournal.lua` previously added a
+clickable header row to the Trash tab's tree for every raid in `RAIDS`,
+even ones with no `trash` field at all (Onyxia, World Bosses) - clicking
+it just expanded to nothing. Fixed to only show a raid's header when
+`raid.trash` exists and has at least one entry. This is a UI/behavior
+change, not just data - needs in-game verification that the Trash tab
+now correctly omits Onyxia and World Bosses, and that every raid that
+*does* have trash (MC/BWL/SM/ZG/UBRS/LBRS) is unaffected.
