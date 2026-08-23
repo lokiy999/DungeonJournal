@@ -500,8 +500,15 @@ methodology as the other passes above. Onyxia herself already had a full
 hand-written kit before this pass and was left untouched - only her adds
 were new.
 
-- **Onyxian Warder** added as a real `adds` entry with 5 abilities
-  (Pierce Armor, Flame Lash, Fire Nova, Cleave, Hate to 50%).
+- **Onyxian Warder** added with 5 abilities (Pierce Armor, Flame Lash,
+  Fire Nova, Cleave, Hate to 50%).
+  - **Update 2026-08-23:** per user correction (confirmed in-game), the
+    Warder is real pre-fight trash - pullable outside the encounter -
+    not a boss add. Moved from `onyxia.adds` into a proper
+    `ONY_TRASH_ORDER`/`ONY_TRASH_MOBS` roster, mirroring every other
+    raid's trash shape. Onyxia now has a real `trash` field/Trash tab
+    entry (1 mob) - the "World boss, no trash" assumption below no
+    longer holds for her, only for World Bosses.
   - **Hate to 50%** has no `Description_enUS` in `Spell.xlsx` - left as
     `X`, no ability text available.
   - **Cleave**'s target-count token (`$x1`) can't be resolved from this
@@ -513,12 +520,12 @@ were new.
     resolved via `SpellDuration.csv` (see `-- CHANGED:` comments); Fire
     Nova's duration text didn't have a confident enough `Spell.xlsx` text
     match and was left as `X seconds`.
-- **Onyxian Whelp** added as an `adds` entry with no abilities - the log
-  only shows the generic Dazed effect for this mob, no real cast logged.
-- No `stats` were added for either add - not present in the log, 100%
-  untested.
-- World boss - deliberately has no `trash` field (see the "Trash tab UI
-  fix" note below for why that now matters).
+  - `stats` (armor/resistances) is `"X"` - not present in the log, 100%
+    untested.
+- **Onyxian Whelp** remains a real `adds` entry (confirmed as an actual
+  encounter add, not trash) with no abilities - the log only shows the
+  generic Dazed effect for this mob, no real cast logged.
+  - No `stats` added - not present in the log, 100% untested.
 
 ## Trash tab showed empty entries for raids with no trash (fixed)
 
@@ -528,5 +535,8 @@ even ones with no `trash` field at all (Onyxia, World Bosses) - clicking
 it just expanded to nothing. Fixed to only show a raid's header when
 `raid.trash` exists and has at least one entry. This is a UI/behavior
 change, not just data - needs in-game verification that the Trash tab
-now correctly omits Onyxia and World Bosses, and that every raid that
-*does* have trash (MC/BWL/SM/ZG/UBRS/LBRS) is unaffected.
+now correctly omits World Bosses, correctly shows Onyxia's real 1-mob
+trash roster (Onyxian Warder - see the Onyxia's Lair section above,
+updated 2026-08-23 once she turned out to have real pre-fight trash
+after all), and that every raid that *does* have trash
+(MC/BWL/SM/ZG/UBRS/LBRS) is unaffected.
