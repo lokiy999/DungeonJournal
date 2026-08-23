@@ -73,7 +73,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Backstab",
             icon = "Interface\\Icons\\Ability_BackStab",
             warning = true,
@@ -108,13 +107,8 @@ local UBRS_TRASH_MOBS = {
             name = "Slice and Dice",
             icon = "Interface\\Icons\\Ability_Rogue_SliceDice",
             lines = {"Increases the caster's attack speed by 30% for 10 seconds."}
-        },
-        {
-            name = "Shield Toss Return",
-            icon = "Interface\\Icons\\Ability_UpgradeMoonGlaive",
-            lines = {"X - no ability description available (name suggests an internal return-flight visual tied to Shield Toss, not a standalone ability)."}
         }
-        }}
+        }
     },
 
     blackhand_dreadweaver = {
@@ -128,17 +122,11 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Curse of Thorns",
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
             warning = true,
             roles = {"decurse"},
             lines = {"Curses an enemy for X seconds, giving it a chance to take X damage on attack (bonus damage lives on a separate linked spell not captured in this pass)."}
-        },
-        {
-            name = "Dazed",
-            icon = "Interface\\Icons\\Spell_Frost_Stun",
-            lines = {"X - no ability description available (standard 'dazed' movement-speed effect applied by many melee mobs)."}
         },
         {
             name = "Death Coil",
@@ -165,7 +153,7 @@ local UBRS_TRASH_MOBS = {
             warning = true,
             lines = {"Reduces healing effects on an enemy by 75% for X seconds."}
         }
-        }}
+        }
     },
 
     blackhand_elite = {
@@ -176,7 +164,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Backhand",
             icon = "Interface\\Icons\\INV_Gauntlets_05",
@@ -212,13 +199,8 @@ local UBRS_TRASH_MOBS = {
             name = "Strike",
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             lines = {"Strikes at an enemy, inflicting increased melee damage."}
-        },
-        {
-            name = "Shield Toss Return",
-            icon = "Interface\\Icons\\Ability_UpgradeMoonGlaive",
-            lines = {"X - no ability description available (name suggests an internal return-flight visual tied to Shield Toss, not a standalone ability)."}
         }
-        }}
+        }
     },
 
     blackhand_incarcerator = {
@@ -229,12 +211,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
-            name = "Dazed",
-            icon = "Interface\\Icons\\Spell_Frost_Stun",
-            lines = {"X - no ability description available (standard 'dazed' movement-speed effect applied by many melee mobs)."}
-        },
-        {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 16045) + SpellDuration.csv lookup - not in-game tested.
             name = "Encage",
             icon = "Interface\\Icons\\Ability_ThunderBolt",
@@ -246,7 +222,7 @@ local UBRS_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             lines = {"Strikes at an enemy, inflicting increased melee damage."}
         }
-        }}
+        }
     },
 
     blackhand_iron_guard = {
@@ -257,12 +233,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
-            name = "Dazed",
-            icon = "Interface\\Icons\\Spell_Frost_Stun",
-            lines = {"X - no ability description available (standard 'dazed' movement-speed effect applied by many melee mobs)."}
-        },
-        {
             -- CHANGED: percentages resolved from Spell.xlsx spell ID 7376 (the linked passive), not from in-game testing.
             name = "Defensive Stance",
             icon = "Interface\\Icons\\Ability_Warrior_DefensiveStance",
@@ -295,7 +265,7 @@ local UBRS_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_Warrior_ShieldWall",
             lines = {"Reduces the Physical and magical damage taken by the caster by 75% for X seconds."}
         }
-        }}
+        }
     },
 
     blackhand_summoner = {
@@ -306,12 +276,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
-            name = "Dazed",
-            icon = "Interface\\Icons\\Spell_Frost_Stun",
-            lines = {"X - no ability description available (standard 'dazed' movement-speed effect applied by many melee mobs)."}
-        },
-        {
             name = "Fireball",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
@@ -333,7 +297,7 @@ local UBRS_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Shadow_Charm",
             lines = {"Summons a Blackhand Veteran to aid it in battle."}
         }
-        }}
+        }
     },
 
     blackhand_veteran = {
@@ -347,12 +311,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
-            name = "Dazed",
-            icon = "Interface\\Icons\\Spell_Frost_Stun",
-            lines = {"X - no ability description available (standard 'dazed' movement-speed effect applied by many melee mobs)."}
-        },
-        {
             name = "Sap Visual",
             icon = "Interface\\Icons\\Ability_Sap",
             lines = {"X - no ability description available (name suggests a cosmetic 'fake sap' animation, not a real crowd control effect)."}
@@ -372,16 +330,11 @@ local UBRS_TRASH_MOBS = {
             lines = {"Charges an enemy, knocking it back and inflicting normal damage plus 150."}
         },
         {
-            name = "Shield Toss Return",
-            icon = "Interface\\Icons\\Ability_UpgradeMoonGlaive",
-            lines = {"X - no ability description available (name suggests an internal return-flight visual tied to Shield Toss, not a standalone ability)."}
-        },
-        {
             name = "Strike",
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             lines = {"Strikes at an enemy, inflicting increased melee damage."}
         }
-        }}
+        }
     },
 
     burning_felhound = {
@@ -392,18 +345,12 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
-            name = "Dazed",
-            icon = "Interface\\Icons\\Spell_Frost_Stun",
-            lines = {"X - no ability description available (standard 'dazed' movement-speed effect applied by many melee mobs)."}
-        },
-        {
             name = "Mana Burn",
             icon = "Interface\\Icons\\Spell_Shadow_ManaBurn",
             warning = true,
             lines = {"Hits an enemy with an anti-mana bolt, draining 177 to 205 mana; each point of mana consumed deals X damage to the target (per-point value lives on a separate linked effect not captured in this pass)."}
         }
-        }}
+        }
     },
 
     burning_imp = {
@@ -414,13 +361,12 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Firebolt",
             icon = "Interface\\Icons\\Spell_Fire_FireBolt",
             warning = true,
             lines = {"Shoots a bolt of flame at an enemy, inflicting 60 to 80 Fire damage."}
         }
-        }}
+        }
     },
 
     chromatic_dragonspawn = {
@@ -431,7 +377,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Cleave",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
@@ -442,7 +387,7 @@ local UBRS_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             lines = {"Strikes at an enemy, inflicting increased melee damage."}
         }
-        }}
+        }
     },
 
     chromatic_elite_guard = {
@@ -453,7 +398,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Cleave",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
@@ -488,7 +432,7 @@ local UBRS_TRASH_MOBS = {
             warning = true,
             lines = {"Hacks at an enemy's armor, reducing it by 1000 per stack (up to 5 stacks). Lasts X seconds."}
         }
-        }}
+        }
     },
 
     chromatic_whelp = {
@@ -499,7 +443,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Fireball Volley",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
@@ -519,7 +462,7 @@ local UBRS_TRASH_MOBS = {
             roles = {"kick"},
             lines = {"Blasts an enemy with lightning, inflicting 96 to 128 Nature damage."}
         }
-        }}
+        }
     },
 
     rage_talon_captain = {
@@ -530,16 +473,10 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Arcing Smash",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             lines = {"Lashes out in a vicious arc, inflicting normal damage plus 5 to enemies in a cone in front of the caster."}
-        },
-        {
-            name = "Dazed",
-            icon = "Interface\\Icons\\Spell_Frost_Stun",
-            lines = {"X - no ability description available (standard 'dazed' movement-speed effect applied by many melee mobs)."}
         },
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
@@ -565,13 +502,8 @@ local UBRS_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             warning = true,
             lines = {"Inflicts 300% weapon damage and leaves the target wounded, reducing the effectiveness of any healing by 50% for 5 seconds."}
-        },
-        {
-            name = "Shield Toss Return",
-            icon = "Interface\\Icons\\Ability_UpgradeMoonGlaive",
-            lines = {"X - no ability description available (name suggests an internal return-flight visual tied to Shield Toss, not a standalone ability)."}
         }
-        }}
+        }
     },
 
     rage_talon_dragon_guard = {
@@ -582,7 +514,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Cleave",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
@@ -624,7 +555,7 @@ local UBRS_TRASH_MOBS = {
             warning = true,
             lines = {"Hacks at an enemy's armor, reducing it by 24 per stack (up to 5 stacks). Lasts X seconds."}
         }
-        }}
+        }
     },
 
     rage_talon_dragonspawn = {
@@ -635,16 +566,10 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Charge",
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
             lines = {"Charges an enemy, inflicting normal damage plus X and stuns the opponent for X seconds (raw bonus-damage value of 1 looks implausibly small, left as X)."}
-        },
-        {
-            name = "Dazed",
-            icon = "Interface\\Icons\\Spell_Frost_Stun",
-            lines = {"X - no ability description available (standard 'dazed' movement-speed effect applied by many melee mobs)."}
         },
         {
             name = "Enrage",
@@ -673,7 +598,7 @@ local UBRS_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_Rogue_SliceDice",
             lines = {"Its next X melee weapon swings strike an additional nearby opponent."}
         }
-        }}
+        }
     },
 
     rage_talon_fire_tongue = {
@@ -684,7 +609,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Conflagration",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
@@ -713,13 +637,8 @@ local UBRS_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             lines = {"Inflicts 555 to 645 Fire damage to an enemy and increases the Fire damage it takes by 300, for X seconds."}
-        },
-        {
-            name = "Shield Toss Return",
-            icon = "Interface\\Icons\\Ability_UpgradeMoonGlaive",
-            lines = {"X - no ability description available (name suggests an internal return-flight visual tied to Shield Toss, not a standalone ability)."}
         }
-        }}
+        }
     },
 
     rage_talon_flamescale = {
@@ -730,7 +649,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Conflagration",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
@@ -754,7 +672,7 @@ local UBRS_TRASH_MOBS = {
             warning = true,
             lines = {"Calls down a pillar of flame, burning all enemies in the area for 228 to 264 Fire damage plus an additional 48 damage every X seconds, for X seconds."}
         }
-        }}
+        }
     },
 
     rookery_guardian = {
@@ -765,7 +683,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Strike",
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             lines = {"Strikes at an enemy, inflicting increased melee damage."}
@@ -783,7 +700,7 @@ local UBRS_TRASH_MOBS = {
             warning = true,
             lines = {"X - hacks at an enemy's armor per stack (up to 5 stacks), lasts X seconds; raw sheet value (0) looks implausibly small for the per-stack amount, left as X."}
         }
-        }}
+        }
     },
 
     rookery_hatcher = {
@@ -794,7 +711,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Disturb Rookery Egg",
             icon = "Interface\\Icons\\Temp",
             lines = {"X - no ability description available."}
@@ -810,7 +726,7 @@ local UBRS_TRASH_MOBS = {
             warning = true,
             lines = {"X - hacks at an enemy's armor per stack (up to 5 stacks), lasts X seconds; raw sheet value (0) looks implausibly small for the per-stack amount, left as X."}
         }
-        }}
+        }
     },
 
     rookery_whelp = {
@@ -820,13 +736,6 @@ local UBRS_TRASH_MOBS = {
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
-        abilities = {{
-        {
-            name = "Dazed",
-            icon = "Interface\\Icons\\Spell_Frost_Stun",
-            lines = {"X - no ability description available (standard 'dazed' movement-speed effect applied by many melee mobs)."}
-        }
-        }}
     },
 
     scarshield_acolyte = {
@@ -837,7 +746,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Dispel Magic",
             icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
             roles = {"dispel"},
@@ -850,7 +758,7 @@ local UBRS_TRASH_MOBS = {
             roles = {"dispel"},
             lines = {"Utters a word of darkness, inflicting 70 Shadow damage to an enemy every X seconds, for X seconds."}
         }
-        }}
+        }
     },
 
     scarshield_legionnaire = {
@@ -861,16 +769,10 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Cleave",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             lines = {"Inflicts weapon damage plus 10 to an enemy and its nearest ally."}
-        },
-        {
-            name = "Dazed",
-            icon = "Interface\\Icons\\Spell_Frost_Stun",
-            lines = {"X - no ability description available (standard 'dazed' movement-speed effect applied by many melee mobs)."}
         },
         {
             name = "Hate to 50%",
@@ -896,7 +798,7 @@ local UBRS_TRASH_MOBS = {
             warning = true,
             lines = {"Charges an enemy, knocking it back and inflicting normal damage plus 150."}
         }
-        }}
+        }
     },
 
     scarshield_spellbinder = {
@@ -907,7 +809,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Arcane Bolt",
             icon = "Interface\\Icons\\Spell_Arcane_StarFire",
             warning = true,
@@ -954,7 +855,7 @@ local UBRS_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Fire_FireArmor",
             lines = {"X - increases an ally's Fire resistance for X seconds; raw sheet value (2) looks implausibly small, left as X."}
         }
-        }}
+        }
     },
 
     scarshield_warlock = {
@@ -965,7 +866,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Fear",
             icon = "Interface\\Icons\\Spell_Shadow_Possession",
             warning = true,
@@ -983,13 +883,8 @@ local UBRS_TRASH_MOBS = {
             warning = true,
             roles = {"kick"},
             lines = {"Hurls a bolt of dark magic at an enemy, inflicting 145 to 177 Shadow damage."}
-        },
-        {
-            name = "Shield Toss Return",
-            icon = "Interface\\Icons\\Ability_UpgradeMoonGlaive",
-            lines = {"X - no ability description available (name suggests an internal return-flight visual tied to Shield Toss, not a standalone ability)."}
         }
-        }}
+        }
     },
 
     spectral_assassin = {
@@ -1000,7 +895,6 @@ local UBRS_TRASH_MOBS = {
         -- log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-        {
             name = "Defile",
             icon = "Interface\\Icons\\Spell_Shadow_GatherShadows",
             warning = true,
@@ -1012,7 +906,7 @@ local UBRS_TRASH_MOBS = {
             warning = true,
             lines = {"Instantly lashes an enemy with dark magic, inflicting 210 to 242 Shadow damage."}
         }
-        }}
+        }
     },
 
 }
@@ -1158,11 +1052,6 @@ local UBRS_BOSSES = {
             lines = {"Inflicts weapon damage plus 10 to all enemies in front of the caster."}
         },
         {
-            name = "Dazed",
-            icon = "Interface\\Icons\\Spell_Frost_Stun",
-            lines = {"X - no ability description available (standard 'dazed' movement-speed effect applied by many melee mobs)."}
-        },
-        {
             name = "Disarm",
             icon = "Interface\\Icons\\Ability_Warrior_Disarm",
             warning = true,
@@ -1174,20 +1063,15 @@ local UBRS_BOSSES = {
             lines = {"Increases the caster's attack speed by 60% and the Physical damage it deals by 50, for X seconds."}
         },
         {
-            -- CHANGED: duration confirmed from Spell.xlsx (spell 19134) + SpellDuration.csv lookup - not in-game tested.
+            -- CHANGED: merges two logged ranks (spell 19134, real description;
+            -- a second rank with no separate Spell.xlsx description that reused
+            -- 19134's text) into one entry, same precedent as Stormstrike/
+            -- Retaliation elsewhere in this file - it's the same named ability,
+            -- not two distinct ones. Duration confirmed from Spell.xlsx + SpellDuration.csv - not in-game tested.
             name = "Intimidating Shout",
             icon = "Interface\\Icons\\Ability_GolemThunderClap",
             warning = true,
             lines = {"Shouts at an enemy, paralyzing it with terror for 8 seconds and causing all other nearby enemies to flee in fear."}
-        },
-        {
-            name = "Intimidating Shout",
-            icon = "Interface\\Icons\\Ability_GolemThunderClap",
-            warning = true,
-            lines = {
-                "Shouts at an enemy, paralyzing it with terror for 8 seconds and causing all other nearby enemies to flee in fear.",
-                "(No separate Spell.xlsx description for this rank - reused spell 19134's text since it's the same named ability; duration confirmed from Spell.xlsx DurationIndex 31 + SpellDuration.csv, not in-game testing.)"
-            }
         },
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
