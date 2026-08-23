@@ -18,6 +18,57 @@ local ONY_BOSS_ORDER = {
     "onyxia",
 }
 
+-- CHANGED: per user correction (2026-08-23) - Onyxian Warder is real
+-- pre-fight trash (pullable outside the encounter), not a boss add; only
+-- Onyxian Whelp spawns during the fight itself. Moved out of `adds` into
+-- a proper trash roster below.
+local ONY_TRASH_ORDER = {
+    "onyxian_warder",
+}
+
+------------------------------------------------------------
+-- Trash mob registry - one entry per distinct trash mob (icon/flags/
+-- stats/abilities), referenced by key from ONY_TRASH_ORDER above.
+------------------------------------------------------------
+local ONY_TRASH_MOBS = {
+    onyxian_warder = {
+        name = "Onyxian Warder",
+        icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
+        flags = {"melee"},
+        -- CHANGED: from a real combat log (Onyxia.csv) - stats not present in
+        -- that log, never tested.
+        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        abilities = {{
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
+            name = "Pierce Armor",
+            icon = "Interface\\Icons\\Spell_Shadow_VampiricAura",
+            warning = true,
+            lines = {"Reduces an enemy's armor by 75% for 20 seconds."}
+        }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
+            name = "Flame Lash",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            warning = true,
+            lines = {"Burns an enemy for 56 to 64 damage and reduces its Fire resistance by 20 for 45 seconds."}
+        }, {
+            name = "Fire Nova",
+            icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
+            warning = true,
+            lines = {"Inflicts 464 to 596 Fire damage to nearby enemies."}
+        }, {
+            name = "Cleave",
+            icon = "Interface\\Icons\\Ability_Warrior_Cleave",
+            roles = {"tank"},
+            lines = {"Inflicts normal damage plus 50 to an enemy and its nearest allies, affecting up to X targets."}
+        }, {
+            -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 19707 - not reverse-engineered from raw effect codes.
+            name = "Hate to 50%",
+            icon = "Interface\\Icons\\Spell_Shadow_SacrificialShield",
+            lines = {"X - no ability description available."}
+        }}
+    },
+}
+
 ------------------------------------------------------------
 -- Boss registry - one entry per boss (icon/flags/stats/abilities/adds),
 -- referenced by key from ONY_BOSS_ORDER above. Defined once each; add a
@@ -130,6 +181,15 @@ local ONY_BOSSES = {
             roles = {"tank"},
             lines = {"Slow DPS as she lands and let the main tank reposition to the phase 1 tanking spot.",
                      "Be careful with damage-over-time aggro during the phase change."}
+        }},
+        -- CHANGED: Onyxian Whelp is a real encounter add (spawns during the
+        -- fight). Onyxian Warder was here too but is actually pre-fight
+        -- trash, not an add - see ONY_TRASH_MOBS above.
+        adds = {{
+            name = "Onyxian Whelp",
+            icon = "Interface\\Icons\\Ability_Racial_BloodRage",
+            -- CHANGED: no real abilities captured in the log for this mob (only the generic Dazed effect).
+            lines = {"Whelp-guarding add that spawns during the encounter. No offensive abilities were captured in the log for this mob."}
         }}
     },
 }
@@ -153,12 +213,27 @@ local function BuildONYBosses()
     return bosses
 end
 
+local function BuildONYTrash()
+    local trash = {}
+    for _, key in ipairs(ONY_TRASH_ORDER) do
+        local mob = { key = key }
+        for field, value in pairs(ONY_TRASH_MOBS[key]) do
+            mob[field] = value
+        end
+        table.insert(trash, mob)
+    end
+    return trash
+end
+
 table.insert(DungeonJournal_Raids, {
     -- CHANGED: Onyxia. Phases are driven by separators; mechanics come from
     -- Spell.dbc plus the raid-lead tips document, with cast frequencies from
-    -- combat logs. Trash is deliberately not documented yet.
+    -- combat logs. Onyxian Warder is real pre-fight trash (per user
+    -- correction, 2026-08-23); Onyxian Whelp is a real encounter add.
     key = "ONY",
     name = "Onyxia's Lair",
     expanded = false,
+    trashExpanded = false,
+    trash = BuildONYTrash(),
     bosses = BuildONYBosses(),
 })
