@@ -151,9 +151,10 @@ local SM_TRASH_MOBS = {
         -- stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
+            -- CHANGED: radius confirmed from Spell.xlsx (spell 36043) + SpellRadius.csv lookup - not in-game tested.
             name = "Battle Shout",
             icon = "Interface\\Icons\\Ability_Warrior_BattleShout",
-            lines = {"Shouts, increasing damage done of nearby allies within X yards by 30%. Lasts 20 seconds."}
+            lines = {"Shouts, increasing damage done of nearby allies within 30 yards by 30%. Lasts 20 seconds."}
         }, {
             name = "Battle Stance",
             icon = "Interface\\Icons\\Ability_Warrior_OffensiveStance",
@@ -164,9 +165,10 @@ local SM_TRASH_MOBS = {
             warning = true,
             lines = {"Charges an enemy, inflicting normal damage plus 500 and stunning it for 3 seconds."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell 22857) + SpellDuration.csv lookup - not in-game tested.
             name = "Retaliation",
             icon = "Interface\\Icons\\Ability_Warrior_Challange",
-            lines = {"Instantly counterattacks any enemy that strikes it in melee for X seconds. Attacks from behind cannot be counterattacked."}
+            lines = {"Instantly counterattacks any enemy that strikes it in melee for 15 seconds. Attacks from behind cannot be counterattacked."}
         }, {
             name = "Thunder Clap",
             icon = "Interface\\Icons\\Spell_Nature_ThunderClap",
@@ -590,14 +592,15 @@ local SM_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_Defend",
             lines = {"Increases the caster's chance to block by 55%."}
         }, {
-            -- CHANGED: heal amount is defined on a separate linked spell (36071) not captured in this pass.
+            -- CHANGED: heal amount resolved from Spell.xlsx spell ID 36071 (the linked heal effect), not from in-game testing.
             name = "Judgement of Light",
             icon = "Interface\\Icons\\Spell_Holy_HealingAura",
-            lines = {"X - melee attacks against the afflicted target heal the attacker."}
+            lines = {"Melee attacks against the afflicted target heal the attacker for 875 to 1095."}
         }, {
+            -- CHANGED: radius confirmed from Spell.xlsx (spell 36068) + SpellRadius.csv lookup - not in-game tested.
             name = "Protection Aura",
             icon = "Interface\\Icons\\INV_Gauntlets_06",
-            lines = {"Reduces damage taken by nearby allies within X yards by 30% for 20 seconds."}
+            lines = {"Reduces damage taken by nearby allies within 30 yards by 30% for 20 seconds."}
         }, {
             name = "Purify",
             icon = "Interface\\Icons\\Spell_Holy_Purify",
@@ -640,9 +643,10 @@ local SM_TRASH_MOBS = {
             warning = true,
             lines = {"Incapacitates the target for up to 12 seconds and increases its Mana regeneration. Only works against Humanoids."}
         }, {
+            -- CHANGED: radius confirmed from Spell.xlsx (spell 36136) + SpellRadius.csv lookup - not in-game tested.
             name = "Sanctity Aura",
             icon = "Interface\\Icons\\Spell_Holy_MindVision",
-            lines = {"Increases Holy damage done by nearby party members within X yards by 30%."}
+            lines = {"Increases Holy damage done by nearby party members within 30 yards by 30%."}
         }, {
             -- CHANGED: matched spell ID 36133 (custom range), % from linked spell 20424.
             name = "Seal of Command",
@@ -658,6 +662,14 @@ local SM_TRASH_MOBS = {
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
         -- stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        -- CHANGED: all 24 "Prophecy: ..." cards below have empty Description_enUS
+        -- in Spell.xlsx, but real tooltip text lives in AuraDescription_enUS
+        -- instead (that column was missed in the original pass) - percentages
+        -- cross-checked against EffectBasePoints_n+1 on spell IDs 36175-36204,
+        -- all match the AuraDescription text exactly. Only Doppelganger and
+        -- Instability remain genuinely vague ("Mirrored Presence." / "Fate
+        -- remains unknown.") even in AuraDescription_enUS - real effect still
+        -- needs external research.
         abilities = {{
             name = "Prophecy: Aetherbound",
             icon = "Interface\\Icons\\Spell_Nature_WispSplode",
@@ -692,7 +704,10 @@ local SM_TRASH_MOBS = {
             name = "Prophecy: Doppelganger",
             icon = "Interface\\Icons\\Spell_Nature_MirrorImage",
             warning = true,
-            lines = {"Mirrored Presence. X - DBC description is vague; needs dedicated research to determine actual effect."}
+            -- CHANGED: AuraDescription_enUS (spell 36175-36204 range) is literally
+            -- just "Mirrored Presence." - no numbers, no further mechanic detail
+            -- to extract from Spell.xlsx.
+            lines = {"Mirrored Presence."}
         }, {
             name = "Prophecy: Double-Edged",
             icon = "Interface\\Icons\\Ability_CriticalStrike",
@@ -727,7 +742,10 @@ local SM_TRASH_MOBS = {
             name = "Prophecy: Instability",
             icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
             warning = true,
-            lines = {"Fate remains unknown. X - DBC description is vague; needs dedicated research to determine actual effect."}
+            -- CHANGED: AuraDescription_enUS is literally just "Fate remains
+            -- unknown." - no numbers, no further mechanic detail to extract
+            -- from Spell.xlsx.
+            lines = {"Fate remains unknown."}
         }, {
             name = "Prophecy: Ironbound",
             icon = "Interface\\Icons\\Spell_Frost_Frost",

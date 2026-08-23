@@ -99,10 +99,11 @@ local ZG_TRASH_MOBS = {
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Snap Kick",
             icon = "Interface\\Icons\\Ability_Kick",
             warning = true,
-            lines = {"Inflicts 875 to 1125 damage to an enemy, stunning it for X seconds."}
+            lines = {"Inflicts 875 to 1125 damage to an enemy, stunning it for 2 seconds."}
         }, {
             name = "Thrash",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
@@ -117,10 +118,11 @@ local ZG_TRASH_MOBS = {
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Rend",
             icon = "Interface\\Icons\\Ability_Gouge",
             warning = true,
-            lines = {"Wounds the target causing them to bleed for 13 damage over X seconds."}
+            lines = {"Wounds the target causing them to bleed for 13 damage over 30 seconds."}
         }, {
             name = "Disarm",
             icon = "Interface\\Icons\\Ability_Warrior_Disarm",
@@ -183,9 +185,10 @@ local ZG_TRASH_MOBS = {
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 16075 - not reverse-engineered from raw effect codes.
             lines = {"X - no ability description available."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell 24018) + SpellDuration.csv lookup - not in-game tested.
             name = "Axe Flurry",
             icon = "Interface\\Icons\\INV_Axe_06",
-            lines = {"Attacks nearby enemies in a flurry of axes that lasts X seconds."}
+            lines = {"Attacks nearby enemies in a flurry of axes that lasts 10 seconds."}
         }, {
             name = "Enrage",
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
@@ -201,10 +204,11 @@ local ZG_TRASH_MOBS = {
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Infected Bite",
             icon = "Interface\\Icons\\Spell_Shadow_CallofBone",
             warning = true,
-            lines = {"Inflicts Nature damage to an enemy every X sec. and increases the Physical damage it takes for X seconds."}
+            lines = {"Inflicts Nature damage to an enemy every X sec. and increases the Physical damage it takes for 180 seconds."}
         }, {
             name = "Flames",
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
@@ -216,9 +220,10 @@ local ZG_TRASH_MOBS = {
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 19629 - not reverse-engineered from raw effect codes.
             lines = {"X - no ability description available."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Demoralizing Shout",
             icon = "Interface\\Icons\\Ability_Warrior_WarCry",
-            lines = {"Reduces the attack power of nearby enemies by 42 for X seconds."}
+            lines = {"Reduces the attack power of nearby enemies by 42 for 30 seconds."}
         }, {
             name = "Throw Liquid Fire",
             icon = "Interface\\Icons\\Spell_Fire_MeteorStorm",
@@ -234,9 +239,10 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             lines = {"Gives the caster 2 extra attacks."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell 5115) + SpellDuration.csv lookup - not in-game tested.
             name = "Battle Command",
             icon = "Interface\\Icons\\Ability_Racial_BloodRage",
-            lines = {"Increases the attack speed of nearby allies by 50% for X seconds."}
+            lines = {"Increases the attack speed of nearby allies by 50% for 6 seconds."}
         }}
     },
 
@@ -256,15 +262,17 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_Rogue_SliceDice",
             lines = {"Your next X melee weapon swings strike an additional nearby opponent."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Thunderclap",
             icon = "Interface\\Icons\\Spell_Nature_ThunderClap",
             warning = true,
-            lines = {"Inflicts 71 to 79 Nature damage to nearby enemies, increasing the time between their attacks by 35% and slowing their movement by 42% for X seconds."}
+            lines = {"Inflicts 71 to 79 Nature damage to nearby enemies, increasing the time between their attacks by 35% and slowing their movement by 42% for 10 seconds."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell 16508) + SpellDuration.csv lookup - not in-game tested.
             name = "Intimidating Roar",
             icon = "Interface\\Icons\\Ability_GolemThunderClap",
             warning = true,
-            lines = {"Roars at an enemy, paralyzing it with terror for X seconds. and causing all other nearby enemies to flee in fear."}
+            lines = {"Roars at an enemy, paralyzing it with terror for 8 seconds. and causing all other nearby enemies to flee in fear."}
         }, {
             name = "Enrage",
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
@@ -304,19 +312,22 @@ local ZG_TRASH_MOBS = {
             warning = true,
             lines = {"Reduces the Physical and magical damage taken by the caster by 77% for X seconds."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Slam",
             icon = "Interface\\Icons\\Ability_Warrior_ShieldBash",
             warning = true,
-            lines = {"Inflicts 100 to 300 damage to an enemy, stunning it for X seconds."}
+            lines = {"Inflicts 100 to 300 damage to an enemy, stunning it for 2 seconds."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Reflection",
             icon = "Interface\\Icons\\Ability_Warrior_ShieldReflection",
-            lines = {"Raise your shield, reflecting spell cast on you. Lasts X seconds, but will only reflect X effects."}
+            lines = {"Raise your shield, reflecting spell cast on you. Lasts 5 seconds, but will only reflect X effects."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Toss",
             icon = "Interface\\Icons\\Ability_UpgradeMoonGlaive",
             warning = true,
-            lines = {"Hurls a shield at the enemy, causing 308 to 348 damage, increased by Attack Power and knocks down for X seconds. This ability causes a high amount of threat."}
+            lines = {"Hurls a shield at the enemy, causing 308 to 348 damage, increased by Attack Power and knocks down for 2 seconds. This ability causes a high amount of threat."}
         }, {
             name = "Defensive Stance",
             icon = "Interface\\Icons\\Ability_Warrior_DefensiveStance",
@@ -332,15 +343,17 @@ local ZG_TRASH_MOBS = {
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Viper Sting",
             icon = "Interface\\Icons\\Ability_Hunter_AimedShot",
             warning = true,
-            lines = {"Stings the target, draining 60 mana over X seconds. Only one Sting per Hunter can be active on any one target."}
+            lines = {"Stings the target, draining 60 mana over 15 seconds. Only one Sting per Hunter can be active on any one target."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Mortal Strike",
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             warning = true,
-            lines = {"Inflicts 300% weapon damage and leaves the target wounded, reducing the effectiveness of any healing by 52% for X seconds."}
+            lines = {"Inflicts 300% weapon damage and leaves the target wounded, reducing the effectiveness of any healing by 52% for 5 seconds."}
         }, {
             name = "Throw",
             icon = "Interface\\Icons\\Ability_Throw",
@@ -423,10 +436,11 @@ local ZG_TRASH_MOBS = {
             warning = true,
             lines = {"Continuously fires a volley of ammo at the target area, causing 800 to 850 Arcane damage to enemy targets within X yards yards every second for X seconds."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell 24335) + SpellDuration.csv lookup - not in-game tested.
             name = "Wyvern Sting",
             icon = "Interface\\Icons\\INV_Spear_02",
             warning = true,
-            lines = {"A stinging shot that puts the target to sleep for X seconds. Any damage will cancel the effect. When the target wakes up, the Sting causes X Nature damage over X."}
+            lines = {"A stinging shot that puts the target to sleep for 12 seconds. Any damage will cancel the effect. When the target wakes up, the Sting causes X Nature damage over X."}
         }}
     },
 
@@ -479,9 +493,10 @@ local ZG_TRASH_MOBS = {
             warning = true,
             lines = {"Transforms an enemy into a frog, rendering it unable to attack or cast spells for X seconds."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Shrink",
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
-            lines = {"Reduces nearby enemies' Strength by 202 and Stamina by 102 for X seconds."}
+            lines = {"Reduces nearby enemies' Strength by 202 and Stamina by 102 for 120 seconds."}
         }, {
             -- CHANGED: summons a Jungle Toad - moved out of trash and
             -- nested here since it's this mob's summon, not a standalone
@@ -535,15 +550,17 @@ local ZG_TRASH_MOBS = {
             roles = {"kick"},
             lines = {"Inflicts Fire damage to an enemy."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Flamestrike",
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
             roles = {"kick"},
-            lines = {"Calls down a pillar of flame, burning all enemies in a selected area and inflicting additional damage every X sec. for X seconds."}
+            lines = {"Calls down a pillar of flame, burning all enemies in a selected area and inflicting additional damage every X sec. for 8 seconds."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell 24621) + SpellDuration.csv lookup - not in-game tested.
             name = "Portal of Madness",
             icon = "Interface\\Icons\\Spell_Arcane_TeleportOrgrimmar",
-            lines = {"Opens a portal into the Twisting Nether that periodically summons demonic minions to aid the caster in battle for X seconds."}
+            lines = {"Opens a portal into the Twisting Nether that periodically summons demonic minions to aid the caster in battle for 14 seconds."}
         }}
     },
 
@@ -630,10 +647,11 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             lines = {"Hacks at an enemy's armor, reducing it by 1002 per Sunder Armor. Can be applied up to 5 times. Lasts X seconds."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Infected Bite",
             icon = "Interface\\Icons\\Spell_Shadow_CallofBone",
             warning = true,
-            lines = {"Inflicts Nature damage to an enemy every X sec. and increases the Physical damage it takes for X seconds."}
+            lines = {"Inflicts Nature damage to an enemy every X sec. and increases the Physical damage it takes for 180 seconds."}
         }, {
             name = "Thrash",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
@@ -648,9 +666,10 @@ local ZG_TRASH_MOBS = {
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Pierce Armor",
             icon = "Interface\\Icons\\Spell_Shadow_VampiricAura",
-            lines = {"Reduces an enemy's armor by 77% for X seconds."}
+            lines = {"Reduces an enemy's armor by 77% for 20 seconds."}
         }, {
             name = "Tranquilizing Poison",
             icon = "Interface\\Icons\\Ability_Creature_Poison_03",
@@ -686,11 +705,12 @@ local ZG_TRASH_MOBS = {
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 24596 - not reverse-engineered from raw effect codes.
             lines = {"X - no ability description available."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Slowing Poison",
             icon = "Interface\\Icons\\Spell_Nature_SlowPoison",
             warning = true,
             roles = {"dispel"},
-            lines = {"Increases the time between an enemy's attacks by 27% and slows its movement by 32% for X seconds."}
+            lines = {"Increases the time between an enemy's attacks by 27% and slows its movement by 32% for 25 seconds."}
         }}
     },
 
@@ -720,9 +740,10 @@ local ZG_TRASH_MOBS = {
             warning = true,
             lines = {"Inflicts normal damage plus 50 to nearby enemies."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Head Crack",
             icon = "Interface\\Icons\\Ability_ThunderBolt",
-            lines = {"Reduces an enemy's Stamina by 3 for X seconds."}
+            lines = {"Reduces an enemy's Stamina by 3 for 20 seconds."}
         }}
     },
 
@@ -733,10 +754,11 @@ local ZG_TRASH_MOBS = {
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Knockdown",
             icon = "Interface\\Icons\\Ability_GolemThunderClap",
             warning = true,
-            lines = {"Inflicts 60 to 80 damage to an enemy and its nearest allies, stunning them for X seconds. Affects up to X targets."}
+            lines = {"Inflicts 60 to 80 damage to an enemy and its nearest allies, stunning them for 2 seconds. Affects up to X targets."}
         }, {
             name = "Poisonous Blood",
             icon = "Interface\\Icons\\Ability_PoisonSting",
@@ -766,10 +788,11 @@ local ZG_TRASH_MOBS = {
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 24619 - not reverse-engineered from raw effect codes.
             lines = {"X - no ability description available."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell 30112) + SpellDuration.csv lookup - not in-game tested.
             name = "Frenzied Dive",
             icon = "Interface\\Icons\\Ability_Hunter_Pet_Bat",
             warning = true,
-            lines = {"Dives upon an enemy, inflicting normal damage plus 2 and stuns the opponent for X seconds."}
+            lines = {"Dives upon an enemy, inflicting normal damage plus 2 and stuns the opponent for 2 seconds."}
         }, {
             name = "Thrash",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
@@ -794,9 +817,10 @@ local ZG_TRASH_MOBS = {
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Demoralizing Shout",
             icon = "Interface\\Icons\\Ability_Warrior_WarCry",
-            lines = {"Reduces the melee attack power of nearby enemies by 12 for X seconds."}
+            lines = {"Reduces the melee attack power of nearby enemies by 12 for 30 seconds."}
         }, {
             name = "Enrage",
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
@@ -812,17 +836,19 @@ local ZG_TRASH_MOBS = {
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Curse of the Elements",
             icon = "Interface\\Icons\\Spell_Shadow_ChillTouch",
             warning = true,
             roles = {"dispel"},
-            lines = {"Curses the target for X seconds, reducing Fire, Frost and Nature resistances by 82 and increasing Fire, Frost and Nature damage taken by 10%. Only one Curse per Warlock can be active on any one target."}
+            lines = {"Curses the target for 60 seconds, reducing Fire, Frost and Nature resistances by 82 and increasing Fire, Frost and Nature damage taken by 10%. Only one Curse per Warlock can be active on any one target."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Curse of Shadow",
             icon = "Interface\\Icons\\Spell_Shadow_CurseOfAchimonde",
             warning = true,
             roles = {"dispel"},
-            lines = {"Curses the target for X seconds, reducing Shadow and Arcane resistances by 82 and increasing Shadow and Arcane damage taken by 10%. Only one Curse per Warlock can be active on any one target."}
+            lines = {"Curses the target for 60 seconds, reducing Shadow and Arcane resistances by 82 and increasing Shadow and Arcane damage taken by 10%. Only one Curse per Warlock can be active on any one target."}
         }, {
             name = "Shadow Bolt",
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
@@ -841,10 +867,11 @@ local ZG_TRASH_MOBS = {
             warning = true,
             lines = {"Summons a meteor from the Twisting Nether, causing X Fire damage and stunning all enemy targets in the area for X."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Death Coil",
             icon = "Interface\\Icons\\Spell_Shadow_DeathCoil",
             warning = true,
-            lines = {"Causes the enemy target to run in horror for X seconds and causes 920 Shadow damage. The caster gains 100% of the damage caused in health."}
+            lines = {"Causes the enemy target to run in horror for 3 seconds and causes 920 Shadow damage. The caster gains 100% of the damage caused in health."}
         }}
     },
 
@@ -885,17 +912,19 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
             lines = {"Dispels magic on an ally, removing 1 harmful effects."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Unholy Frenzy",
             icon = "Interface\\Icons\\Spell_Nature_BloodLust",
             warning = true,
             roles = {"dispel"},
-            lines = {"Increases an ally's attack speed by 50% for X seconds., but also inflicts 200 Nature damage to that ally every X sec."}
+            lines = {"Increases an ally's attack speed by 50% for 20 seconds., but also inflicts 200 Nature damage to that ally every X sec."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Curse of Blood",
             icon = "Interface\\Icons\\Spell_Shadow_RitualOfSacrifice",
             warning = true,
             roles = {"dispel"},
-            lines = {"Increases the Physical damage taken by an enemy by 500 for X seconds."}
+            lines = {"Increases the Physical damage taken by an enemy by 500 for 600 seconds."}
         }, {
             name = "Veil of Shadow",
             icon = "Interface\\Icons\\Spell_Shadow_GatherShadows",
@@ -911,14 +940,16 @@ local ZG_TRASH_MOBS = {
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
+            -- CHANGED: duration confirmed from Spell.xlsx (spell 19771) + SpellDuration.csv lookup - not in-game tested.
             name = "Serrated Bite",
             icon = "Interface\\Icons\\Ability_Gouge",
             warning = true,
-            lines = {"Inflicts 50 Physical damage to an enemy over X seconds."}
+            lines = {"Inflicts 50 Physical damage to an enemy over 30 seconds."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell 3604) + SpellDuration.csv lookup - not in-game tested.
             name = "Tendon Rip",
             icon = "Interface\\Icons\\Ability_CriticalStrike",
-            lines = {"Reduces an enemy's movement speed by 27% for X seconds."}
+            lines = {"Reduces an enemy's movement speed by 27% for 8 seconds."}
         }}
     },
 
@@ -1368,15 +1399,17 @@ local ZG_BOSSES = {
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
             lines = {"The shaman of the trio."},
             abilities = {{
+                -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
                 name = "Fire Nova Totem",
                 icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
                 warning = true,
-                lines = {"Summons a Fire Nova Totem that has 1000 health and lasts X seconds. Unless it is destroyed within X sec., the totem inflicts X fire damage to enemies within X yd."}
+                lines = {"Summons a Fire Nova Totem that has 1000 health and lasts 5 seconds. Unless it is destroyed within X sec., the totem inflicts X fire damage to enemies within X yd."}
             }, {
+                -- CHANGED: duration confirmed from Spell.xlsx (spell 34881) + SpellDuration.csv lookup - not in-game tested.
                 name = "Lightning Shield",
                 icon = "Interface\\Icons\\Spell_Nature_LightningShield",
                 warning = true,
-                lines = {"Surrounds the caster with balls of lightning that have X% chance of striking melee or ranged attackers for 8 damage. Thus, the shield expires after X seconds."}
+                lines = {"Surrounds the caster with balls of lightning that have X% chance of striking melee or ranged attackers for 8 damage. Thus, the shield expires after 600 seconds."}
             }, {
                 name = "Disarm",
                 icon = "Interface\\Icons\\Ability_Warrior_Disarm",
@@ -1393,19 +1426,21 @@ local ZG_BOSSES = {
                 warning = true,
                 lines = {"Inflicts normal damage plus 2 to an enemy."}
             }, {
+                -- CHANGED: duration confirmed from Spell.xlsx (spell 21060) + SpellDuration.csv lookup - not in-game tested.
                 name = "Blind",
                 icon = "Interface\\Icons\\Spell_Shadow_MindSteal",
                 warning = true,
-                lines = {"Blinds the target and its nearby allies, causing them to wander confused for up to X seconds."}
+                lines = {"Blinds the target and its nearby allies, causing them to wander confused for up to 10 seconds."}
             }, {
                 name = "Gouge",
                 icon = "Interface\\Icons\\Ability_Gouge",
                 warning = true,
                 lines = {"Inflicts 20 damage to an enemy and stuns it for up to X seconds. You will automatically stop attacking. Target must be facing you. Any damage received by the stunned target will revive it."}
             }, {
+                -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
                 name = "Cloak of Shadows",
                 icon = "Interface\\Icons\\Spell_Shadow_NetherCloak",
-                lines = {"Protects the rogue from spells for X seconds. Does not break stealth."}
+                lines = {"Protects the rogue from spells for 5 seconds. Does not break stealth."}
             }, {
                 name = "Wound Poison",
                 icon = "Interface\\Icons\\INV_Misc_Herb_16",
@@ -1413,9 +1448,10 @@ local ZG_BOSSES = {
                 -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 34883 - not reverse-engineered from raw effect codes.
                 lines = {"X - no ability description available."}
             }, {
+                -- CHANGED: duration confirmed from Spell.xlsx (spell 34886) + SpellDuration.csv lookup - not in-game tested.
                 name = "Sprint",
                 icon = "Interface\\Icons\\Ability_Rogue_Sprint",
-                lines = {"Increases run speed by 100% for X seconds."}
+                lines = {"Increases run speed by 100% for 8 seconds."}
             }}
         }}
     },
@@ -1524,11 +1560,11 @@ local ZG_BOSSES = {
             warning = true,
             lines = {"Increases the cost of spells and abilities. If you fail to cast three spells or abilities you become insane."}
         }, {
-            -- CHANGED: added from "ZG 2.csv" (spell ID 24327) - real numbers from Spell.xlsx.
+            -- CHANGED: added from "ZG 2.csv" (spell ID 24327) - real numbers from Spell.xlsx; duration confirmed from Spell.xlsx DurationIndex 18 + SpellDuration.csv (20000ms = 20s), not tested in-game.
             name = "Cause Insanity",
             icon = "Interface\\Icons\\Spell_Shadow_ShadowWordDominate",
             warning = true,
-            lines = {"Drives an enemy target temporarily insane, speeding its attacks by 100% and its movement by 200%, as well as causing it to attack its own allies for X seconds."}
+            lines = {"Drives an enemy target temporarily insane, speeding its attacks by 100% and its movement by 200%, as well as causing it to attack its own allies for 20 seconds."}
         }, {
             -- CHANGED: added from "ZG 2.csv" (spell ID 24689) - Description_enUS empty in Spell.xlsx, not reverse-engineered from raw effect codes.
             name = "Aspect of Thekal",
@@ -1610,10 +1646,11 @@ local ZG_BOSSES = {
             roles = {"melee"},
             lines = {"Attacks up to X enemies within X yards, causing weapon damage to each."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell 34934) + SpellDuration.csv lookup - not in-game tested.
             name = "Wild Charge",
             icon = "Interface\\Icons\\INV_Misc_Bone_09",
             warning = true,
-            lines = {"Charges an enemy, stunning the opponent for X seconds."}
+            lines = {"Charges an enemy, stunning the opponent for 5 seconds."}
         }},
         -- CHANGED: Caverngloom Crocolisk moved out of trash - it's his add.
         adds = {{

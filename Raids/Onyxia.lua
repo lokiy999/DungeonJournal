@@ -140,15 +140,17 @@ local ONY_BOSSES = {
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
             lines = {"Whelp-guarding add that spawns during the encounter."},
             abilities = {{
+                -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
                 name = "Pierce Armor",
                 icon = "Interface\\Icons\\Spell_Shadow_VampiricAura",
                 warning = true,
-                lines = {"Reduces an enemy's armor by 75% for X seconds."}
+                lines = {"Reduces an enemy's armor by 75% for 20 seconds."}
             }, {
+                -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
                 name = "Flame Lash",
                 icon = "Interface\\Icons\\Spell_Fire_Fireball",
                 warning = true,
-                lines = {"Burns an enemy for 56 to 64 damage and reduces its Fire resistance by 20 for X seconds."}
+                lines = {"Burns an enemy for 56 to 64 damage and reduces its Fire resistance by 20 for 45 seconds."}
             }, {
                 name = "Fire Nova",
                 icon = "Interface\\Icons\\Spell_Fire_SealOfFire",

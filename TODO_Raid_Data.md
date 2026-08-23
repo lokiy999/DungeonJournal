@@ -120,9 +120,12 @@ as the SM trash pass above.
     against the 1000-per-stack values on the two other Sunder Armor
     ranks (15572's sibling ranks 24317/16145) used elsewhere in this
     file, which look far more plausible.
-  - Rage Talon Dragon Guard -> **Sunder Armor** (spell 16145): no
-    per-stack amount could be pulled for this specific rank; text left
-    generic rather than borrowing a different rank's number.
+  - ~~Rage Talon Dragon Guard -> **Sunder Armor** (spell 16145): no
+    per-stack amount could be pulled for this specific rank~~ - **STALE,
+    RESOLVED 2026-08-23.** A per-stack amount does exist
+    (`EffectBasePoints_1` -25, +1 = 24 armor per stack) - it was just
+    small relative to the 1000-per-stack rank (24317) used elsewhere;
+    filled in as-is in `raids/UBRS.lua`.
   - Rage Talon Dragonspawn -> **Charge**: raw bonus-damage value (1)
     looks implausibly small next to the near-identical Shield Charge/
     Berserker Charge abilities elsewhere in this file (150-300).
@@ -138,11 +141,11 @@ as the SM trash pass above.
     not captured in this pass.
   - Blackhand Dreadweaver -> **Curse of Thorns**: proc chance and
     per-attack damage both live on linked spells/effects not captured.
-  - General Drakkisath -> **Conflagration**: the periodic splash damage
-    to nearby allies lives on a separate linked spell (16806) not
-    captured in this pass.
-  - Blackhand Iron Guard -> **Defensive Stance**: real percentages live
-    on a separate linked spell (7376), not captured in this pass.
+  - General Drakkisath -> **Conflagration**: RESOLVED - splash damage
+    (500) pulled from linked spell 16806 in Spell.xlsx.
+  - Blackhand Iron Guard -> **Defensive Stance**: RESOLVED - percentages
+    (-10% damage taken, -10% damage caused, +30% threat) pulled from
+    linked spell 7376 in Spell.xlsx.
   - General Drakkisath -> **True Fulfillment**: raw sheet value
     (100000) looks like an "unlimited"-style sentinel, not a real
     number.
@@ -160,6 +163,19 @@ as the SM trash pass above.
   `Spell.xlsx` only has index references into `Duration.dbc`/`Range.dbc`
   (not included) for duration/radius, and tick intervals aren't
   resolvable from this sheet at all; needs in-game testing.
+  **Update 2026-08-22:** `SpellDuration.csv`/`SpellRadius.csv` (exports of
+  those two DBCs) are now available, and 28 of the `X seconds`/`X yards`
+  placeholders in this file were resolved to real numbers by matching
+  each ability's existing description text back to its exact
+  `Spell.xlsx` row (or, where the ability name has several ranks with
+  identical wording, confirming every matching rank resolves to the same
+  number before applying it) - see the `-- CHANGED:` comments added
+  above each one. Tick intervals (`$t1`/`$t2`) are still unresolved (not
+  in these CSVs), and a handful of `X seconds`/`X yards` were left alone
+  either because `DurationIndex`/`EffectRadiusIndex` was 0/blank for that
+  spell (e.g. Tremor Totem's radius, Flamecrack's stun, Cleanse Nova's
+  duration) or because multiple same-named ranks resolved to different
+  numbers (genuinely ambiguous without a confirmed spell ID).
 - Icons were picked from each mob's own real abilities (trash) or kept
   as the existing `Interface\Icons\temp` placeholder (bosses - portrait
   work is out of scope for this pass, see the "Known Issues" section in
@@ -193,11 +209,21 @@ first pass is functional but has real gaps - to make it solid:
   properly; needs in-game UI testing before it ships.
 - **`stats` (armor/resistances) is `"X"` across all 23 mobs** - the log
   has no stat data at all, 100% untested.
-- **Scarlet Diviner's 23 "Prophecy: ..." cards are all `X`-only.** Every
-  one of them ships with zero tooltip text in `Spell.xlsx` (no
-  `Description_enUS`), so there's nothing to derive from - this mob
-  needs dedicated external research (wiki/testing), not just filling
-  gaps from the sheet.
+- ~~Scarlet Diviner's 23 "Prophecy: ..." cards are all `X`-only~~ -
+  **STALE, RESOLVED 2026-08-23.** They do have empty `Description_enUS`,
+  but real tooltip text exists in `Spell.xlsx`'s `AuraDescription_enUS`
+  column instead (missed in the original pass). All 24 cards actually
+  present in `SM_TRASH_MOBS` (spell IDs 36175-36204 minus the 6 never
+  logged) already had correct numbers filled in from a prior,
+  undocumented pass - cross-checked against `EffectBasePoints_n+1` and
+  confirmed matching, and a `-- CHANGED:` comment was added above the
+  ability list in `raids/SM.lua` documenting the `AuraDescription_enUS`
+  source. **Doppelganger** and **Instability** have no numbers in
+  `Spell.xlsx` at all (their `AuraDescription_enUS` is literally just
+  "Mirrored Presence." / "Fate remains unknown.") - filled in with that
+  literal vague text rather than left as `X`, but the actual mechanic
+  behind either is still unknown and would need external research to
+  pin down.
 - **Every ability with no `Description_enUS` at all** (not just missing
   numbers, but zero tooltip text) was left as a generic "no ability
   description available" placeholder rather than guessed from raw effect
@@ -212,13 +238,19 @@ first pass is functional but has real gaps - to make it solid:
 - **Scarlet Sorcerer -> Mana Shield** - sheet lists an absorb amount of
   999,999,999, almost certainly an "unlimited" sentinel value rather than
   a real number - confirm intended behavior.
-- **Scarlet Protector -> Judgement of Light** - actual heal amount lives
-  on a separate linked spell (36071) that wasn't pulled in this pass.
+- **Scarlet Protector -> Judgement of Light** - RESOLVED - heal amount
+  (875 to 1095) pulled from linked spell 36071 in Spell.xlsx.
 - Every ability whose tooltip includes a duration (`$d`) or radius (`$a1`)
   is `X seconds`/`X yards` - `Spell.xlsx` only has index references
   (`DurationIndex`/`RangeIndex`) into `Duration.dbc`/`Range.dbc`, which
   aren't in this workbook, so those can't be resolved from the sheet at
   all and need in-game testing.
+  **Update 2026-08-22:** with `SpellDuration.csv`/`SpellRadius.csv` now
+  available, 4 of these were confidently resolved (see `-- CHANGED:`
+  comments); the rest were left as `X seconds`/`X yards` because the
+  ability's description text either didn't match a `Spell.xlsx` row
+  closely enough to trust, or matched several same-named ranks that
+  resolve to different numbers.
 - Icons and mob-level (portrait) icons were picked reasonably from each
   mob's own real abilities, not verified in-game.
 
@@ -288,6 +320,12 @@ deliberately left out.
   Some tooltips also reference a linked spell's own effect via a
   spell-ID-prefixed token (e.g. `$24336d`, `$22703s1`) - those can't be
   resolved from this pass either and were rendered as `X`.
+  **Update 2026-08-22:** with `SpellDuration.csv`/`SpellRadius.csv` now
+  available, 37 of the `X seconds`/`X yards` placeholders were resolved
+  (see `-- CHANGED:` comments above each). The rest, including the
+  spell-ID-prefixed-token cases above, were left alone - either no
+  confident text match to a `Spell.xlsx` row, or same-named ranks
+  resolving to different numbers.
 - **`flags` (melee/caster/ranged) and `roles` (`kick`/`dispel` tags) are
   heuristic**, inferred from each mob's ability descriptions rather than
   tested in-game - worth a pass to verify against actual pulls.
@@ -405,9 +443,15 @@ above.
     Charge abilities elsewhere in this file (150-1300); a larger value
     (1300) exists on a different effect slot not referenced by the
     description's token.
-  - Firebrand Grunt / Spirestone Enforcer -> **Berserker Stance**: real
-    percentages live on linked spells (7381/35490) not captured in this
-    pass.
+  - Firebrand Grunt / Spirestone Enforcer -> **Berserker Stance**:
+    PARTIALLY RESOLVED - Firebrand Grunt's crit chance (+3%) and damage
+    taken (+10%) pulled from linked spell 7381; Spirestone Enforcer's
+    chance of being critically hit (+10%) pulled from linked spell
+    35490. Each spell only documents some of its effect slots in
+    Spell.xlsx's description text, so the remaining X placeholders
+    (Firebrand Grunt's "chance of being critically hit"; Spirestone
+    Enforcer's crit chance and damage taken) are left as X rather than
+    guessed.
   - Quartermaster Zigris -> **Stun Bomb**: raw bonus-damage value (0)
     looks implausibly small.
   - Scarshield Spellbinder -> **Resist Fire**: raw value (2) looks
@@ -435,6 +479,12 @@ above.
   `Spell.xlsx` only has index references into `Duration.dbc`/`Range.dbc`
   (not included) for duration/radius, and tick intervals aren't
   resolvable from this sheet at all; needs in-game testing.
+  **Update 2026-08-22:** `SpellDuration.csv`/`SpellRadius.csv` are now
+  available and 51 of these placeholders were resolved (see `-- CHANGED:`
+  comments above each). Tick intervals are still unresolved, and a few
+  `X seconds`/`X yards` were left as-is where the text match to
+  `Spell.xlsx` wasn't confident or same-named ranks disagreed on the
+  number.
 - Icons were picked from each mob's own real abilities (trash) or kept as
   the existing `Interface\Icons\temp` placeholder (bosses - portrait work
   is out of scope for this pass, see the "Known Issues" section in
@@ -459,6 +509,10 @@ were new.
   - **Pierce Armor**/**Flame Lash**/**Fire Nova** have real numbers, but
     their `$d` duration tokens are unresolvable the same way as every
     other raid's trash - rendered as `X seconds`.
+    **Update 2026-08-22:** Pierce Armor's and Flame Lash's durations were
+    resolved via `SpellDuration.csv` (see `-- CHANGED:` comments); Fire
+    Nova's duration text didn't have a confident enough `Spell.xlsx` text
+    match and was left as `X seconds`.
 - **Onyxian Whelp** added as an `adds` entry with no abilities - the log
   only shows the generic Dazed effect for this mob, no real cast logged.
 - No `stats` were added for either add - not present in the log, 100%
