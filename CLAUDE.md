@@ -72,4 +72,14 @@ grep -o '}' raids/MC.lua | wc -l
   broken or ineffective once tried in-game. After making a change, stop and
   let the user test with `/reload` before running `git commit`/`git push`,
   even if they haven't explicitly asked to hold off that time.
+- **Never add a "Dazed" ability entry to any boss/trash mob, even if a
+  combat log shows it.** It's the universal "hit while fleeing"
+  movement-speed effect (spell 1604) applied by nearly every melee mob,
+  not a real, distinguishing ability — it was already stripped out
+  everywhere (2026-08-23) as pure noise. Only add it back if explicitly
+  told to.
+- **Never add a "Shield Toss Return" ability entry either.** It's a
+  generic warrior-class visual/return-flight effect tied to Shield Toss,
+  not a real mob-specific ability — also stripped out everywhere
+  (2026-08-23). Only add it back if explicitly told to.
 
