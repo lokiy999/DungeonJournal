@@ -262,27 +262,29 @@ scroll frames with the mouse wheel and the scrollbar.
 
 Fix these deliberately, not incidentally, and mention them in the commit message:
 
-- Several bosses reference portrait icons that are not present in `Icons/` nor listed
-  in the TOC (they fall back to the default question-mark icon in-game): the Scarlet
-  Monastery bosses Loksey, Brigitte Abbendis, Vishas, Herod, Brother Michael, Doan,
-  Renault Mograine & Sally Whitemane, and Fairbanks, plus every Blackwing Lair boss.
-  Only the original Molten Core bosses have real `.blp` portraits.
-- Blackwing Lair and the newer Scarlet Monastery bosses currently have only a single
-  placeholder ability each ("Placeholder. Abilities not yet documented.") — real
-  ability data still needs to be filled in.
-- Trash coverage is Molten Core (14 packs) and Blackwing Lair (18 packs) - every
-  distinct mob name that logged an ability in that raid per `mob_abilities_summary.txt`;
-  no other raid has a `trash` table yet. Ability *names* are sourced from that file
-  (real combat-log data, filtered to drop entries that were clearly nearby-player
-  heals/buffs mis-attributed to the mob - see the comment above each raid's `trash`
-  table). Ability *icons/descriptions* are sourced from `Spell.xlsx` (Blizzard's spell
-  data, matched by name - strip the `$s1`/`$o1`/`$d` tokens in `Description_enUS`, they're
-  formula placeholders Blizzard's client fills in at runtime, not literal text). `stats`
-  armor/resistance numbers are real (from `V+ Lists.xlsx` "Resistances Data") only for
-  `flamewaker` (exact match: "Gehennas Adds") and `flamewaker_elite` (approximate match:
-  "Melee Adds" near Majordomo) - that sheet only covers bosses and their in-encounter
-  adds, not hallway trash, so every other pack's `stats` is still an estimate. `flags`
-  (mob type tags) are general-knowledge guesses throughout.
+- **Blackwing Lair boss portraits are missing.** The eight BWL bosses reference
+  `Icons/` portrait paths (Razorgore, ElementiumDecapitator, Broodlord, Firemaw,
+  Krixix, Ebonroc, Chromaggus, Neferian) whose `.blp` files don't exist, so they
+  fall back to the missing-texture placeholder in-game. The Molten Core and Scarlet
+  Monastery bosses all have real `.blp` portraits in `Icons/` (and are listed in the
+  TOC). ZG / UBRS / LBRS / Onyxia bosses use Blizzard `Interface\Icons\...` art or the
+  `Interface\Icons\temp` placeholder, not custom portraits. (`Icons/Whitemane.blp`
+  exists but is unused — Sally Whitemane is a phase separator, not a mob entry.)
+- **Blackwing Lair has 6 undocumented abilities left**, all "Placeholder. Ability
+  not yet documented.": Death Talon Captain → *Mark of Flames*, and Chromaggus →
+  the five colour *Brood Power* entries (Black / Blue / Bronze / Green / Red). Every
+  other BWL boss/trash ability is filled in, and Scarlet Monastery is fully
+  documented (no placeholders). Per-raid data gaps are tracked in
+  `TODO_Raid_Data.md`.
+- **Trash coverage** now exists for Molten Core, Blackwing Lair, Scarlet Monastery,
+  Zul'Gurub, UBRS, LBRS, and Onyxia (only World Bosses and the Emerald Dragons have
+  no `trash` table). Ability *names* are sourced from real combat logs (per-raid CSVs
+  or `mob_abilities_summary.txt`), *icons/descriptions* from `Spell.xlsx` matched by
+  spell ID (strip the `$s1`/`$o1`/`$d` formula tokens in `Description_enUS`). Most
+  trash `stats` (armor/resistances) are still estimates or `"X"` — the resistance
+  sheets only cover bosses and their in-encounter adds, not hallway trash — and
+  `flags` (mob type tags) are general-knowledge guesses throughout. `TODO_Raid_Data.md`
+  has the per-raid sourcing notes and the list of what's still unverified.
 - Resistance-school immunity is shown once, on the `stats` line (e.g. `fire = "immune"`) -
   do not also add a `BOSS_FLAGS` entry like `immune_fire` for it; that flag type was
   removed as redundant. `immune_poly` is the one exception (Polymorph immunity isn't a

@@ -4,6 +4,19 @@ Snapshot as of 2026-08-12. Each item below has an `X` placeholder (or a
 guessed description with no matching entry in `Spell.xlsx`) - fill in
 from in-game testing, don't guess numbers (see [CLAUDE.md](CLAUDE.md)).
 
+**Consistency pass 2026-08-29** - reconciled this file against the current
+raid files. State now: **Molten Core trash** is fully filled except the four
+"still unsure" items below (Firelord Fireball, Lava Annihilator Double
+Attack interval, Flame Imp Fire Nova, and the Incinerate wording). **Scarlet
+Monastery bosses** are down to two `X`s: Loksey → Power Shot and Doan →
+Frozen Solid. **Scarlet Monastery trash** has no `X` left in any ability
+line - only the `stats` blocks (all 20 mobs, untested). Remaining boss `X`s
+elsewhere: Molten Core has 10 (all on bosses/adds - Golemagg's Core Rager,
+Garr's Firesworn, Baron Geddon, Shazzrah, Majordomo's healer adds,
+Sulfuron, and Ragnaros), BWL still has its 6 placeholder abilities (Known
+Issues in AGENTS.md), and ZG/UBRS/LBRS trash `stats` are still `"X"`
+wholesale.
+
 ## Molten Core trash ([raids/MC.lua](raids/MC.lua))
 
 Status update 2026-08-23, from in-game testing:

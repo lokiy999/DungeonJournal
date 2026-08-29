@@ -222,7 +222,7 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Spell_Fire_MeteorStorm",
             warning = true,
             roles = {"tank"},
-            lines = {"Inflicts 3000-6000 Fire damage to enemies in a cone in front of it. Keep it faced away from the raid."}
+            lines = {"Inflicts 3000 to 6000 Fire damage to enemies in a cone in front of it. Keep it faced away from the raid."}
         }}
     },
 
@@ -450,7 +450,7 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Spell_Nature_Acid_01",
             warning = true,
             roles = {"tank", "healer"},
-            lines = {"'Caustic Pain!' - deals 475-700 damage every 3 seconds, reduces armour by 8000-9000 and increases casting speed by 33%.",
+            lines = {"'Caustic Pain!' - deals 475 to 700 damage every 3 seconds, reduces armour by 8000 to 9000 and increases casting speed by 33%.",
                      "Off tanks must avoid this. During the enrage phase only one tank should ever carry it."}
         }, {
             name = "Ignite Flesh",
@@ -489,7 +489,7 @@ local BWL_BOSSES = {
             warning = true,
             roles = {"healer"},
             lines = {"Lasts 20 seconds. Damage done increased by 100% and all spell casts become instant, but damage taken increases by 5% every second.",
-                     "On death the victim deals 6250-8100 damage to surrounding allies - run out before dying."}
+                     "On death the victim deals 6250 to 8100 damage to surrounding allies - run out before dying."}
         }, {
             name = "Tail Swipe",
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",

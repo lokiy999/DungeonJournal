@@ -78,7 +78,7 @@ local MC_BOSSES = {
             icon = "Interface\\Icons\\spell_shadow_shadowbolt",
             roles = {},
             color = "ffff7d0a",
-            lines = {"Instantly lashes an enemy with dark magic, inflicting 2000-3000(?) Shadow damage."}
+            lines = {"Instantly lashes an enemy with dark magic, inflicting 2000 to 3000(?) Shadow damage."}
         }, {
             name = "Tortures",
             icon = "Interface\\Icons\\spell_shadow_shadowwordpain",
@@ -122,7 +122,7 @@ local MC_BOSSES = {
             name = "Lava Breath",
             icon = "Interface\\Icons\\spell_fire_windsofwoe",
             roles = {"tank"},
-            lines = {"Magmadar breaths lava in a frontal cone in front of him dealing 2857-3743 Fire damage."}
+            lines = {"Magmadar breaths lava in a frontal cone in front of him dealing 2857 to 3743 Fire damage."}
         }, {
             name = "Panic",
             icon = "Interface\\Icons\\spell_shadow_deathscream",
@@ -157,7 +157,7 @@ local MC_BOSSES = {
             name = "Rain of Fire",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
-            lines = {"Gehennas rains down fire on a random area, dealing 925-1075 Fire damage every 2 seconds to anyone standing in it."}
+            lines = {"Gehennas rains down fire on a random area, dealing 925 to 1075 Fire damage every 2 seconds to anyone standing in it."}
         }, {
             name = "Gehennas' Curse",
             icon = "Interface\\Icons\\Spell_Shadow_ChillTouch",
@@ -167,7 +167,7 @@ local MC_BOSSES = {
             name = "Shadow Bolt",
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             roles = {"kick"},
-            lines = {"Gehennas fires a Shadow Bolt at a random player dealing 2250-2750 Shadow damage."}
+            lines = {"Gehennas fires a Shadow Bolt at a random player dealing 2250 to 2750 Shadow damage."}
         }},
         adds = {{
             name = "Flamewaker",
@@ -219,7 +219,7 @@ local MC_BOSSES = {
             icon = "Interface\\Icons\\Spell_Nature_GroundingTotem",
             roles = {"healer"},
             warning = true,
-            lines = {"Garr magnetizes a random raid member. After 5 seconds the Magnetized player takes 200-300 Nature damage every 0.5 seconds for 25 seconds.",
+            lines = {"Garr magnetizes a random raid member. After 5 seconds the Magnetized player takes 200 to 300 Nature damage every 0.5 seconds for 25 seconds.",
                      "If the Magnetized player is within 8 yards of another player, that player will also become Magnetized."}
         }},
         adds = {{
@@ -639,7 +639,7 @@ local MC_BOSSES = {
             name = "Intense Heat",
             icon = "Interface\\Icons\\spell_fire_fire",
             warning = true,
-            lines = {"Deals 1500-2000 damage to enemies? unknown when"}
+            lines = {"Deals 1500 to 2000 damage to enemies? unknown when"}
         }},
         adds = {{
             name = "Son of Flame",
@@ -870,7 +870,7 @@ local MC_TRASH_MOBS = {
             lines = {"Calls down a pillar of fire 10 to 15 seconds into the fight, burning all enemies within the area for 500 to 800 Fire damage and an additional 3600 Fire damage over 8 seconds."}
         }, {
             -- CHANGED: confirmed via testing - casts at the start of the
-            -- fight against the closest enemy, 2000-3000 damage. Only
+            -- fight against the closest enemy, 2000 to 3000 damage. Only
             -- triggers if an enemy is 10 to 45 yards away.
             name = "Surge",
             icon = "Interface\\Icons\\Ability_Warrior_Charge",

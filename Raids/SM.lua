@@ -995,7 +995,7 @@ local SM_BOSSES = {
         }, {
             name = "Consecration (phase 2)",
             icon = "Interface\\Icons\\Spell_Holy_InnerFire",
-            lines = {"Consecrates the ground on the closest and furthest target, dealing 1150-1520 Holy damage instantly and 10% health damage per 0.95s to anyone standing in the area. Lasts 8 seconds. Won't be cast if mana is empty."}
+            lines = {"Consecrates the ground on the closest and furthest target, dealing 1150 to 1520 Holy damage instantly and 10% health damage per 0.95s to anyone standing in the area. Lasts 8 seconds. Won't be cast if mana is empty."}
         }, {
             name = "Close Quarters Combat Experience",
             icon = "Interface\\Icons\\Ability_Warrior_OffensiveStance",
@@ -1039,7 +1039,7 @@ local SM_BOSSES = {
             name = "Sear",
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
             roles = {"tank"},
-            lines = {"Vishas' main attack on his current target - a Flame Lash for 550-650 Fire damage."}
+            lines = {"Vishas' main attack on his current target - a Flame Lash for 550 to 650 Fire damage."}
         }, {
             name = "Shadow Word: Pain",
             icon = "Interface\\Icons\\Spell_Shadow_ShadowWordPain",
@@ -1056,7 +1056,7 @@ local SM_BOSSES = {
                 icon = "Interface\\Icons\\Spell_Holy_RighteousFury",
                 warning = true,
                 roles = {"healer"},
-                lines = {"Deals ~2000-8000 damage. Pass it by touching another player. Reflectable.",
+                lines = {"Deals ~2000 to 8000 damage. Pass it by touching another player. Reflectable.",
                          "If passed EARLY (High time): HIGH damage to YOU / LOW damage to ALLY.",
                          "If passed LATE (Low time): LOW damage to YOU / HIGH damage to ALLY.",
                          "If NOT passed (0s left): YOU take MAX damage (8000)."},
@@ -1111,7 +1111,7 @@ local SM_BOSSES = {
             name = "Echo Clap",
             icon = "Interface\\Icons\\spell_nature_thunderclap",
             warning = true,
-            lines = {"Herod interrupts all cast casting within 30? yards every ~10 seconds and prevent spells cast from that school for 5 seconds. Also dealing 300-500 damage."}
+            lines = {"Herod interrupts all cast casting within 30? yards every ~10 seconds and prevent spells cast from that school for 5 seconds. Also dealing 300 to 500 damage."}
         }, {
             name = "Death Wish",
             icon = "Interface\\Icons\\spell_shadow_deathpact",
@@ -1168,7 +1168,7 @@ local SM_BOSSES = {
             warning = true,
             roles = {"healer"},
             lines = {"Roots a player and deals 20% of their maximum health as Nature damage every second for 8 seconds.",
-                     "When the roots collapse, thorns explode outward to all targets in Line of Sight dealing 5380-6180 damage and stunning for 2 seconds."}
+                     "When the roots collapse, thorns explode outward to all targets in Line of Sight dealing 5380 to 6180 damage and stunning for 2 seconds."}
         }, {
             name = "Fists of Fire",
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
@@ -1180,7 +1180,7 @@ local SM_BOSSES = {
             warning = true,
             roles = {"tank"},
             lines = {"Every 10 seconds the tank takes receives a stack of Four Finger Death Punch.",
-                     "Whenever the tank reaches 4 stacks he will explode taking 50000-100000 damage."}
+                     "Whenever the tank reaches 4 stacks he will explode taking 50000 to 100000 damage."}
         }, {
             name = "Soulbind",
             icon = "Interface\\Icons\\Spell_Shadow_Haunting",
@@ -1239,7 +1239,7 @@ local SM_BOSSES = {
         }, {
             name = "Arcanebolt",
             icon = "Interface\\Icons\\Spell_Nature_StarFall",
-            lines = {"Blasts an enemy for 1040-1390 Arcane damage every 0.5 seconds while channeling."}
+            lines = {"Blasts an enemy for 1040 to 1390 Arcane damage every 0.5 seconds while channeling."}
         }, {
             name = "Greater Polymorph",
             icon = "Interface\\Icons\\Spell_Nature_Brilliance",
@@ -1261,7 +1261,7 @@ local SM_BOSSES = {
             name = "Icebolt",
             icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
             roles = {"healer"},
-            lines = {"Launches a bolt of frost for 4200-5110 Frost damage and reduces the next healing effect on the target by 90%."}
+            lines = {"Launches a bolt of frost for 4200 to 5110 Frost damage and reduces the next healing effect on the target by 90%."}
         }, {
             name = "Ice Blast",
             icon = "Interface\\Icons\\Spell_Frost_Glacier",
@@ -1291,17 +1291,17 @@ local SM_BOSSES = {
         }, {
             name = "Flamebolt",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
-            lines = {"Hurls a fiery ball for 5750-6800 Fire damage plus 250 Fire damage every 0.5 sec. for 8 seconds."}
+            lines = {"Hurls a fiery ball for 5750 to 6800 Fire damage plus 250 Fire damage every 0.5 sec. for 8 seconds."}
         }, {
             name = "Flamestrike",
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
-            lines = {"Calls down a pillar of fire for 1555-1840 Fire damage on a random target, then 575 Fire damage every second to anyone standing in it for 8 seconds."}
+            lines = {"Calls down a pillar of fire for 1555 to 1840 Fire damage on a random target, then 575 Fire damage every second to anyone standing in it for 8 seconds."}
         }, {
             name = "Dragon Breath",
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             warning = true,
             roles = {"tank"},
-            lines = {"Inflicts 1850-2230 Fire damage in a cone in front of Doan. This will set any bookshelves ablaze which he hits."},
+            lines = {"Inflicts 1850 to 2230 Fire damage in a cone in front of Doan. This will set any bookshelves ablaze which he hits."},
             abilities = {{
                 name = "Searing Heat",
                 icon = "Interface\\Icons\\Spell_Fire_Incinerate",
@@ -1374,31 +1374,31 @@ local SM_BOSSES = {
             name = "Holy Smite",
             icon = "Interface\\Icons\\Spell_Holy_HolySmite",
             roles = {"kick"},
-            lines = {"Whitemane's main cast, smiting a target for 2730-3030 Holy damage."}
+            lines = {"Whitemane's main cast, smiting a target for 2730 to 3030 Holy damage."}
         }, {
             name = "Holy Fire",
             icon = "Interface\\Icons\\Spell_Holy_SearingLight",
             warning = true,
             roles = {"kick"},
-            lines = {"Inflicts 1275-1650 Holy damage plus 830 Holy damage every 3 seconds, and dispels a positive effect from the target on each periodic damage tick."}
+            lines = {"Inflicts 1275 to 1650 Holy damage plus 830 Holy damage every 3 seconds, and dispels a positive effect from the target on each periodic damage tick."}
         }, {
             name = "Absolution",
             icon = "Interface\\Icons\\Spell_Holy_RighteousFury",
             warning = true,
             roles = {"tank"},
-            lines = {"Smites an enemy, inflicting 4000-5000 Holy damage."}
+            lines = {"Smites an enemy, inflicting 4000 to 5000 Holy damage."}
         }, {
             name = "Eradication",
             icon = "Interface\\Icons\\spell_holy_righteousfury",
             warning = true,
             roles = {"tank"},
-            lines = {"Smites an enemy, inflicting 10000-12000 Holy damage."}
+            lines = {"Smites an enemy, inflicting 10000 to 12000 Holy damage."}
         }, {
             name = "Heal",
             icon = "Interface\\Icons\\Spell_Holy_Heal",
             warning = true,
             roles = {"kick"},
-            lines = {"Whitemane heals herself (or Mograine) for 90000-100000."}
+            lines = {"Whitemane heals herself (or Mograine) for 90000 to 100000."}
         }, {
             name = "Dispel Magic",
             icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
@@ -1427,7 +1427,7 @@ local SM_BOSSES = {
             name = "Bile Vomit",
             icon = "Interface\\Icons\\Spell_Shadow_PlagueCloud",
             roles = {"tank"},
-            lines = {"Shoots a cloud of bile in a cone in front of him, reducing armor by 650 and inflicting 1280-1620 Nature damage and 330 Nature damage every 5 seconds for 30 seconds. Stacks up to 10 times."}
+            lines = {"Shoots a cloud of bile in a cone in front of him, reducing armor by 650 and inflicting 1280 to 1620 Nature damage and 330 Nature damage every 5 seconds for 30 seconds. Stacks up to 10 times."}
         }, {
             name = "Claustrophobia",
             icon = "Interface\\Icons\\Spell_Shadow_Shadesofdarkness",
