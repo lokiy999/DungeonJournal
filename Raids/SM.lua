@@ -1017,7 +1017,7 @@ local SM_BOSSES = {
                 name = "Explosive Shot",
                 icon = "Interface\\Icons\\inv_musket_03",
                 color = "ff00ccff",
-                lines = {"Inflicts X Fire damage and knocks the target back, applying Concussed, Dazed and Silenced."}
+                lines = {"Inflicts 1550 to 2100 Fire damage and knocks the target back, silencing it for 6 seconds and slowing its movement speed by 50% for 6 seconds."}
             }, {
                 name = "Volley",
                 icon = "Interface\\Icons\\ability_marksmanship",
@@ -1282,7 +1282,7 @@ local SM_BOSSES = {
                 abilities = {{
                     name = "Frozen Solid",
                     icon = "Interface\\Icons\\spell_frost_frost",
-                    lines = {"Your frozen in place for 10 seconds and get X Frost Damage every X seconds."}
+                    lines = {"Frozen in place for up to 10 seconds, taking 20% of your maximum health as Frost damage every 2 seconds."}
                 }}
             }}
         }, {

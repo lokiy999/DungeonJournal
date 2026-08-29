@@ -81,11 +81,15 @@ not-yet-done rather than "wrong":
 - **Loksey -> Power Shot** - damage unknown (line literally reads
   "(Loksey weapon damage?)X damage" - unresolved question mark left in
   from testing).
-- **Brigitte Abbendis -> (Scarlet Sharpshooter add) -> Explosive Shot** -
-  Fire damage amount unknown.
-- **Doan (Frost stance) -> Chilled to the Bone -> Frozen Solid** - both
-  the stun duration and the per-tick Frost damage are unknown (nested
-  three deep under Doan's Frost-stance "Numbing Cold").
+- ~~**Brigitte Abbendis -> (Scarlet Sharpshooter add) -> Explosive Shot**~~ -
+  **RESOLVED, 2026-08-29 (user):** 1550 to 2100 Fire damage, knocks back,
+  silences for 6 seconds, slows movement speed 50% for 6 seconds. Filled
+  into `raids/SM.lua` (dropped the vague "Concussed, Dazed" wording now
+  that the real slow value is known).
+- ~~**Doan (Frost stance) -> Chilled to the Bone -> Frozen Solid**~~ -
+  **RESOLVED, 2026-08-29 (user):** frozen for up to 10 seconds, taking
+  20% of max health as Frost damage every 2 seconds. Filled into
+  `raids/SM.lua`.
 
 Everything else checked in SM bosses (Vishas, Herod, Brother Michael,
 Renault Mograine, Fairbanks, and the rest of Loksey/Brigitte/Doan) had
@@ -272,8 +276,8 @@ first pass is functional but has real gaps - to make it solid:
   blocks (all 20 mobs). The 4 remaining ability-text `X`s in `raids/SM.lua`
   are all on bosses/boss-adds: Loksey -> Paralyzing Poison ("X Nature
   damage"), Loksey -> Power Shot ("X damage"), Brigitte's Scarlet
-  Sharpshooter add -> Explosive Shot ("X Fire damage"), Doan (Frost) ->
-  Chilled to the Bone -> Frozen Solid ("X Frost Damage every X seconds").
+  Sharpshooter add -> Explosive Shot. (Explosive Shot and Doan's Frozen
+  Solid were both resolved 2026-08-29 - see the SM bosses section.)
 - Icons and mob-level (portrait) icons were picked reasonably from each
   mob's own real abilities, not verified in-game.
 
