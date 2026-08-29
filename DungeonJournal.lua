@@ -1473,6 +1473,9 @@ local function CreateSeparatorRow(parent, index)
     btn.nameLabel = nameLabel
 
     btn:SetScript("OnClick", function()
+        -- CHANGED: a `passive = true` separator is a plain, non-collapsing
+        -- heading (see ConfigureSeparatorRow), so ignore clicks on it.
+        if this.separatorData.passive then return end
         this.separatorData.expanded = not this.separatorData.expanded
         -- CHANGED: shared between the boss and trash panels - see the same
         -- fix in CreateAbilityRow's OnClick above.
@@ -1488,12 +1491,34 @@ end
 
 local function ConfigureSeparatorRow(btn, entry)
     btn.separatorData = entry
-    btn.expandLabel:SetText(entry.expanded and "-" or "+")
 
-    if entry.color then
-        btn.nameLabel:SetText("|c" .. entry.color .. entry.name .. "|r")
-    else
+    -- CHANGED: a separator marked `passive = true` is rendered as a plain
+    -- section heading - same font as the "Abilities" header, no background
+    -- bar, no [+]/[-] toggle, not clickable - to label a mob's always-on
+    -- passive traits. Everything else stays a normal collapsible phase bar.
+    -- Pooled rows are shared between phase bars and passive headings, so both
+    -- branches must fully reset what the other touched.
+    btn.nameLabel:ClearAllPoints()
+    if entry.passive then
+        btn.bg:Hide()
+        btn:SetHighlightTexture("")
+        btn.expandLabel:SetText("")
+        -- CHANGED: anchor flush-left (like the "Abilities" header) instead of
+        -- after the now-empty [+]/[-] slot, so the heading lines up with the
+        -- ability rows below it rather than sitting indented.
+        btn.nameLabel:SetPoint("LEFT", btn, "LEFT", 2, 0)
         btn.nameLabel:SetText(entry.name)
+    else
+        btn.nameLabel:SetPoint("LEFT", btn.expandLabel, "RIGHT", 2, 0)
+        btn.bg:Show()
+        btn.bg:SetVertexColor(0.15, 0.15, 0.3, 1)
+        btn:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight", "ADD")
+        btn.expandLabel:SetText(entry.expanded and "-" or "+")
+        if entry.color then
+            btn.nameLabel:SetText("|c" .. entry.color .. entry.name .. "|r")
+        else
+            btn.nameLabel:SetText(entry.name)
+        end
     end
 end
 
@@ -1992,7 +2017,7 @@ function RebuildAbilityList(boss)
             ConfigureSeparatorRow(sep, item)
             sep:Show()
 
-            phaseVisible = item.expanded
+            phaseVisible = item.passive or item.expanded
             yOffset = yOffset + sep:GetHeight() + 4
         elseif phaseVisible then
             rowIndex = rowIndex + 1
@@ -2326,7 +2351,7 @@ function RebuildTrashAbilityList(pack)
             ConfigureSeparatorRow(sep, item)
             sep:Show()
 
-            phaseVisible = item.expanded
+            phaseVisible = item.passive or item.expanded
             yOffset = yOffset + sep:GetHeight() + 4
         elseif phaseVisible then
             rowIndex = rowIndex + 1

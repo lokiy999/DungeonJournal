@@ -145,6 +145,23 @@ abilities = {
 }
 ```
 
+**Passive heading.** A separator entry may carry `passive = true`. Instead of a
+collapsible phase bar it renders as a plain section heading (same font as the
+"Abilities" header, no background bar, no `[+]/[-]` toggle, not clickable); the
+rows beneath it, up to the next separator, are always shown. Use it to label a
+mob's always-on passive traits. Add it only to bosses/trash that actually have a
+passive worth calling out — mobs without one just omit it, so it never appears
+in the UI and adds no per-mob data. Example: Scarlet Soldier lists its active
+`Sunder Armor` first, then a `Passives` heading, then `Improved Blocking`.
+
+```lua
+abilities = {
+    { name = "Sunder Armor", lines = {"..."} },
+    { separator = true, passive = true, name = "Passives" },
+    { name = "Improved Blocking", lines = {"Increases block chance by 55%."} },
+}
+```
+
 ## Essential Commands
 
 There is no build, lint, format, test, or dev-server tooling in this repo. Validation is

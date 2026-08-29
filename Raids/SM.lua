@@ -75,14 +75,18 @@ local SM_TRASH_MOBS = {
         -- stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-            name = "Improved Blocking",
-            icon = "Interface\\Icons\\Ability_Defend",
-            lines = {"Increases the caster's chance to block by 55%."}
-        }, {
             name = "Sunder Armor",
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             warning = true,
             lines = {"Sunders the target's armor, reducing it by 820 per stack (up to 5 stacks) and causing a high amount of threat. Lasts 30 seconds."}
+        }, {
+            separator = true,
+            passive = true,
+            name = "Passives"
+        }, {
+            name = "Improved Blocking",
+            icon = "Interface\\Icons\\Ability_Defend",
+            lines = {"Increases the caster's chance to block by 55%."}
         }}
     },
 
