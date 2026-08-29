@@ -59,12 +59,13 @@ numbers as of this pass.
 ## Blackwing Lair ([raids/BWL.lua](raids/BWL.lua))
 
 **Combat-log pass 2026-08-29** - `BWL stuff.csv` was cross-matched against
-`BWL.lua`; see [BWL_CSV_Pass.md](BWL_CSV_Pass.md) for the full list of what
-was added. The 6 old "Placeholder" abilities are gone. New gap: `Spell.xlsx`
-has **no description text for any BWL NPC spell**, so ~25 abilities added this
-pass (and the custom Vanilla+ 35xxx spells especially) carry only a name +
-spell ID and a "no confirmed effect - needs testing" line. Every one needs
-in-game testing for its real effect/numbers.
+`BWL.lua`; see [BWL_CSV_Pass.md](BWL_CSV_Pass.md) for the full list. The 6 old
+"Placeholder" abilities are gone and ~25 more abilities were added/reworded
+with real numbers from Spell.xlsx (its English text lives in the
+`*_koKR`-headed columns in this export, not `_enUS`). A handful of custom V+
+effects still say "needs testing" - Shrink Ray, Death Ray, Ice Sprinkler
+amounts, Dragon sickness / Mental Strike / Summon Livingflame / Warming Flames
+effects, Brood Power: Blue's attack-speed sign, and `$t1` tick intervals.
 
 - **Razorgore -> Grethok the Controller (add) -> Arcane Missiles** -
   channel duration and per-missile damage both unknown.

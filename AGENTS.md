@@ -271,11 +271,14 @@ Fix these deliberately, not incidentally, and mention them in the commit message
   `Interface\Icons\temp` placeholder, not custom portraits. (`Icons/Whitemane.blp`
   exists but is unused — Sally Whitemane is a phase separator, not a mob entry.)
 - **Blackwing Lair has no placeholder abilities left** (the last 6 were filled from
-  a combat log on 2026-08-29 - see `BWL_CSV_Pass.md`), but a lot of BWL abilities -
-  especially the custom Vanilla+ 35xxx spells - have only a name + spell ID and a
-  `"no confirmed effect - needs testing"` line, because `Spell.xlsx` has no
-  description text for BWL NPC spells. Scarlet Monastery is fully documented.
-  Per-raid data gaps are tracked in `TODO_Raid_Data.md`.
+  a combat log on 2026-08-29, and a further ~25 abilities added / reworded from the
+  same log - see `BWL_CSV_Pass.md`). A handful of custom Vanilla+ effects
+  (Shrink/Death Ray, Ice Sprinkler, Dragon sickness, ...) still say "needs
+  testing". Scarlet Monastery is fully documented. Per-raid gaps: `TODO_Raid_Data.md`.
+- **Spell.xlsx column quirk:** the usable English spell text is in the columns
+  headed `Description_koKR` / `AuraDescription_koKR` (the `_enUS` ones are mostly
+  blank in this export). Resolve `$s1`/`$s2` as `EffectBasePoints_n + 1` and `$d`
+  via `SpellDuration.csv`, same as prior passes.
 - **Trash coverage** now exists for Molten Core, Blackwing Lair, Scarlet Monastery,
   Zul'Gurub, UBRS, LBRS, and Onyxia (only World Bosses and the Emerald Dragons have
   no `trash` table). Ability *names* are sourced from real combat logs (per-raid CSVs
