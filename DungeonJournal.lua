@@ -1495,7 +1495,10 @@ local function ConfigureSeparatorRow(btn, entry)
     -- CHANGED: a separator marked `passive = true` is rendered as a plain
     -- section heading - same font as the "Abilities" header, no background
     -- bar, no [+]/[-] toggle, not clickable - to label a mob's always-on
-    -- passive traits. Everything else stays a normal collapsible phase bar.
+    -- passive traits (permanent stat/behaviour modifiers, not timed or
+    -- condition-gated actions - see AGENTS.md "What counts as a passive" and
+    -- the README's "Abilities vs. passives"). Everything else stays a normal
+    -- collapsible phase bar.
     -- Pooled rows are shared between phase bars and passive headings, so both
     -- branches must fully reset what the other touched.
     btn.nameLabel:ClearAllPoints()

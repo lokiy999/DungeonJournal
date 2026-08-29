@@ -162,6 +162,37 @@ abilities = {
 }
 ```
 
+**What counts as a passive.** The `Passives` heading means "a permanent
+property of the mob", not "something it does". A cooldown or a trigger
+condition does *not* make an ability passive — almost every active ability is
+gated by an internal cooldown and/or an AI condition ("at 20% HP", "when a
+beast is in the raid", "every 15s"); that is just *when* the mob uses it, it is
+still a discrete action. Decide by asking: is this a permanent trait, or an
+event the raid reacts to?
+
+Put it under `Passives` when it is:
+
+- always on from the moment the mob engages, with no cast;
+- only a stat/behaviour modifier — block chance, crit, a stance, an aura, a
+  seal, a no-cooldown reactive proc that is just "how it fights" (e.g. Scarlet
+  Guardsman's Riposte, Scarlet Centurion's Retaliation);
+- something you would never mark `warning = true` or give a `roles` icon;
+- something the raid does nothing differently about when it "procs".
+
+Keep it as a normal ability (optionally with its own phase separator) when it:
+
+- has a cast, activation, or telegraph;
+- produces a distinct effect the raid times, interrupts, dispels, dodges, or
+  stops DPS for — even on a fixed timer. Scarlet Champion's Vengeance (every
+  15s: 3s grow, then reflect all damage — raid stops attacking) is a *periodic
+  ability*, not a passive; the timer does not make it passive.
+- is a condition-gated cast (Brigitte's Lay on Hands at 20%, Loksey's Scare
+  Beast when a beast is present) — the condition is just the AI trigger.
+
+Rule of thumb: if removing it would change the mob's tooltip stats, it is a
+passive; if removing it would change what the raid has to *do*, it is an
+ability.
+
 ## Essential Commands
 
 There is no build, lint, format, test, or dev-server tooling in this repo. Validation is
