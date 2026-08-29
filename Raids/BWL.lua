@@ -575,10 +575,13 @@ local BWL_TRASH_MOBS = {
             roles = {"tank"},
             lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
         }, {
+            -- CHANGED: real spell ID 25050 (Death Talon Captain, BWL combat
+            -- log "BWL stuff.csv"). Description_enUS + AuraDescription_enUS
+            -- both empty in Spell.xlsx - effect still needs in-game testing.
             name = "Mark of Flames",
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             warning = true,
-            lines = {"Placeholder. Ability not yet documented."}
+            lines = {"No confirmed effect - Spell.xlsx has no tooltip text for this spell. Applied to a player on ~100% of casts."}
         }, {
             name = "Commanding Shout",
             icon = "Interface\\Icons\\Spell_Magic_MageArmor",
@@ -841,34 +844,40 @@ local BWL_TRASH_MOBS = {
             roles = {"tank"},
             lines = {"A sweeping attack that strikes its target and nearest ally."}
         }, {
+            -- CHANGED: the five Brood Powers below are real spell IDs from the
+            -- BWL combat log ("BWL stuff.csv") - the Wyrmguard rolls one at
+            -- random. All five have empty Description_enUS + AuraDescription_enUS
+            -- in Spell.xlsx, so the effects still need in-game testing; each is
+            -- named after (and is presumably the mob-buff form of) Chromaggus's
+            -- matching "Brood Affliction: <colour>" - see the Chromaggus entry.
             separator = true,
             name = "Brood Powers",
             expanded = true,
         }, {
-            name = "Black Brood Power",
+            name = "Brood Power: Black",
             icon = "Interface\\Icons\\Spell_Shadow_CorpseExplode",
             warning = true,
-            lines = {"Placeholder. Ability not yet documented."}
+            lines = {"Random Brood Power (spell 22560). No confirmed effect - no Spell.xlsx tooltip. Colour-matches Chromaggus's Brood Affliction: Black."}
         }, {
-            name = "Blue Brood Power",
+            name = "Brood Power: Blue",
             icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
             warning = true,
-            lines = {"Placeholder. Ability not yet documented."}
+            lines = {"Random Brood Power (spell 22559). No confirmed effect - no Spell.xlsx tooltip. Colour-matches Chromaggus's Brood Affliction: Blue."}
         }, {
-            name = "Bronze Brood Power",
+            name = "Brood Power: Bronze",
             icon = "Interface\\Icons\\Spell_Nature_TimeStop",
             warning = true,
-            lines = {"Placeholder. Ability not yet documented."}
+            lines = {"Random Brood Power (spell 22291). No confirmed effect - no Spell.xlsx tooltip. Colour-matches Chromaggus's Brood Affliction: Bronze."}
         }, {
-            name = "Green Brood Power",
+            name = "Brood Power: Green",
             icon = "Interface\\Icons\\Spell_Nature_NullifyPoison",
             warning = true,
-            lines = {"Placeholder. Ability not yet documented."}
+            lines = {"Random Brood Power (spell 22561). No confirmed effect - no Spell.xlsx tooltip. Colour-matches Chromaggus's Brood Affliction: Green."}
         }, {
-            name = "Red Brood Power",
+            name = "Brood Power: Red",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
-            lines = {"Placeholder. Ability not yet documented."}
+            lines = {"Random Brood Power (spell 22558). No confirmed effect - no Spell.xlsx tooltip. Colour-matches Chromaggus's Brood Affliction: Red."}
         }}
     },
 }
