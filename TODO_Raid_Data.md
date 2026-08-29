@@ -246,12 +246,13 @@ first pass is functional but has real gaps - to make it solid:
   3 per stack up to 99 stacks" (matches the Loksey-add copy), i.e. the +3
   value is in use, not `X`. Still not in-game confirmed, but no longer a
   placeholder. (The blue name tint was also removed this pass.)
-- **Scarlet Sorcerer -> Mana Shield** - **BEHAVIOUR CONFIRMED, 2026-08-29
-  (user).** Cast once at the start of combat and kept up for the whole
-  fight - now classified as a passive (see the passive pass below) with
-  that note in its `lines`. The absorb *amount* is still the
-  999,999,999 sentinel in the sheet, so no real number - but the
-  "unlimited / whole-fight" reading is confirmed intended.
+- ~~**Scarlet Sorcerer -> Mana Shield** - sheet absorb amount is a
+  999,999,999 sentinel~~ - **RESOLVED, 2026-08-29 (user).** There is no
+  real absorb number to find: Mana Shield is mana-bound, not absorb-capped
+  (the billion is a Blizzard "effectively unlimited" placeholder). User
+  confirmed the Sorcerer casts it once at the pull and it holds until his
+  mana runs out - effectively the whole fight. `raids/SM.lua` now says
+  exactly that, with no number. Nothing left to do here.
 - **Scarlet Protector -> Judgement of Light** - RESOLVED - heal amount
   (875 to 1095) pulled from linked spell 36071 in Spell.xlsx.
 - Every ability whose tooltip includes a duration (`$d`) or radius (`$a1`)
@@ -265,6 +266,14 @@ first pass is functional but has real gaps - to make it solid:
   ability's description text either didn't match a `Spell.xlsx` row
   closely enough to trust, or matched several same-named ranks that
   resolve to different numbers.
+  **Update 2026-08-29:** re-scanned `SM_TRASH_MOBS` - **no `X seconds` /
+  `X yards` / `X damage` remain in any trash ability line.** The only `X`
+  placeholders left in SM trash are the `stats = {...}` armor/resistance
+  blocks (all 20 mobs). The 4 remaining ability-text `X`s in `raids/SM.lua`
+  are all on bosses/boss-adds: Loksey -> Paralyzing Poison ("X Nature
+  damage"), Loksey -> Power Shot ("X damage"), Brigitte's Scarlet
+  Sharpshooter add -> Explosive Shot ("X Fire damage"), Doan (Frost) ->
+  Chilled to the Bone -> Frozen Solid ("X Frost Damage every X seconds").
 - Icons and mob-level (portrait) icons were picked reasonably from each
   mob's own real abilities, not verified in-game.
 

@@ -394,7 +394,7 @@ local SM_TRASH_MOBS = {
         }, {
             name = "Mana Shield",
             icon = "Interface\\Icons\\Spell_Shadow_DetectLesserInvisibility",
-            lines = {"Cast at the start of combat and kept up for the whole fight. Absorbs damage by draining its own mana."}
+            lines = {"Cast once at the start of combat. Absorbs all incoming damage by draining its own mana instead, and holds until the Sorcerer runs out of mana - effectively the whole fight unless its mana is burned down."}
         }}
     },
 
