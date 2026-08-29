@@ -662,7 +662,7 @@ local SM_TRASH_MOBS = {
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
         -- stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
-        -- CHANGED: all 24 "Prophecy: ..." cards below have empty Description_enUS
+        -- CHANGED: all 30 "Prophecy: ..." cards below have empty Description_enUS
         -- in Spell.xlsx, but real tooltip text lives in AuraDescription_enUS
         -- instead (that column was missed in the original pass) - percentages
         -- cross-checked against EffectBasePoints_n+1 on spell IDs 36175-36204,
@@ -670,11 +670,21 @@ local SM_TRASH_MOBS = {
         -- Instability remain genuinely vague ("Mirrored Presence." / "Fate
         -- remains unknown.") even in AuraDescription_enUS - real effect still
         -- needs external research.
+        -- Prophecy trigger lines: some quotes real (from user), the rest still
+        -- need to be found/tested in-game.
         abilities = {{
+            name = "Cast Prophecy",
+            icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
+            warning = true,
+            lines = {"Whenever the Diviner speaks a dialogue line, a random Prophecy is applied - either on a nearby target for 3 minutes, or on the Diviner himself for 1 minute. Each spoken line maps to a specific Prophecy (see individual cards)."}
+        }, {
             name = "Prophecy: Aetherbound",
             icon = "Interface\\Icons\\Spell_Nature_WispSplode",
-            warning = true,
-            lines = {"Immune to Arcane damage."}
+            lines = {"Immune to Arcane damage.", "Trigger line: \"Arcane fails to reach you.\""}
+        }, {
+            name = "Prophecy: Agony",
+            icon = "Interface\\Icons\\Spell_Shadow_CurseOfSargeras",
+            lines = {"Takes 3% health damage per second.", "Trigger line: \"Agony is your constant guest.\""}
         }, {
             name = "Prophecy: Alacrity",
             icon = "Interface\\Icons\\Ability_Warrior_InnerRage",
@@ -684,26 +694,26 @@ local SM_TRASH_MOBS = {
             name = "Prophecy: At the Edge",
             icon = "Interface\\Icons\\Racial_Troll_Berserk",
             warning = true,
-            lines = {"Damage done doubled when at low health."}
+            lines = {"Damage done doubled when at low health.", "Trigger line: \"Only at the edge will you prevail.\""}
+        }, {
+            name = "Prophecy: Callousness",
+            icon = "Interface\\Icons\\Spell_Holy_DevotionAura",
+            lines = {"Damage taken reduced by 75%.", "Trigger line: unknown - to be found/tested."}
         }, {
             name = "Prophecy: Cinderborn",
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
-            warning = true,
             lines = {"Immune to Fire damage."}
         }, {
             name = "Prophecy: Cripple",
             icon = "Interface\\Icons\\Spell_Shadow_Cripple",
-            warning = true,
-            lines = {"Attack and casting speed reduced by 100%, movement speed reduced by 50%."}
+            lines = {"Attack and casting speed reduced by 100%, movement speed reduced by 50%.", "Trigger line: \"Your steps come too late.\""}
         }, {
             name = "Prophecy: Doomed",
             icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
-            warning = true,
             lines = {"Damage taken increased by 300%."}
         }, {
             name = "Prophecy: Doppelganger",
             icon = "Interface\\Icons\\Spell_Nature_MirrorImage",
-            warning = true,
             -- CHANGED: AuraDescription_enUS (spell 36175-36204 range) is literally
             -- just "Mirrored Presence." - no numbers, no further mechanic detail
             -- to extract from Spell.xlsx.
@@ -712,7 +722,7 @@ local SM_TRASH_MOBS = {
             name = "Prophecy: Double-Edged",
             icon = "Interface\\Icons\\Ability_CriticalStrike",
             warning = true,
-            lines = {"Increases all damage caused by 100% and all damage taken by 30%."}
+            lines = {"Increases all damage caused by 100% and all damage taken by 30%.", "Trigger line: \"Power, paid in blood.\""}
         }, {
             name = "Prophecy: Execution",
             icon = "Interface\\Icons\\INV_Sword_48",
@@ -721,22 +731,18 @@ local SM_TRASH_MOBS = {
         }, {
             name = "Prophecy: Exposure",
             icon = "Interface\\Icons\\Ability_Hunter_SniperShot",
-            warning = true,
             lines = {"Damage taken increased by 20%. Cannot turn invisible."}
         }, {
             name = "Prophecy: Gloom",
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
-            warning = true,
             lines = {"Immune to Shadow damage."}
         }, {
             name = "Prophecy: Hailbound",
             icon = "Interface\\Icons\\Spell_Frost_ChillingArmor",
-            warning = true,
-            lines = {"Immune to Frost damage."}
+            lines = {"Immune to Frost damage.", "Trigger line: \"Winter cannot freeze your soul.\""}
         }, {
             name = "Prophecy: Helpless",
             icon = "Interface\\Icons\\Spell_Nature_RemoveCurse",
-            warning = true,
             lines = {"Healing taken reduced by 100%."}
         }, {
             name = "Prophecy: Instability",
@@ -745,12 +751,11 @@ local SM_TRASH_MOBS = {
             -- CHANGED: AuraDescription_enUS is literally just "Fate remains
             -- unknown." - no numbers, no further mechanic detail to extract
             -- from Spell.xlsx.
-            lines = {"Fate remains unknown."}
+            lines = {"Fate remains unknown.", "Trigger line: \"Fate is unstable.\""}
         }, {
             name = "Prophecy: Ironbound",
             icon = "Interface\\Icons\\Spell_Frost_Frost",
-            warning = true,
-            lines = {"Immune to Physical damage."}
+            lines = {"Immune to Physical damage.", "Trigger line: \"No steel will taste your blood.\""}
         }, {
             name = "Prophecy: Momentum",
             icon = "Interface\\Icons\\Spell_Shadow_DeathPact",
@@ -762,25 +767,35 @@ local SM_TRASH_MOBS = {
             warning = true,
             lines = {"Your attacks and spells ignore Armor and Resistances."}
         }, {
+            name = "Prophecy: Nullify",
+            icon = "Interface\\Icons\\Ability_BackStab",
+            lines = {"Armor and resistances reduced by 100%.", "Trigger line: \"Your skin is but a veil.\""}
+        }, {
             name = "Prophecy: Sanctified",
             icon = "Interface\\Icons\\Spell_Holy_PrayerOfHealing02",
-            warning = true,
             lines = {"Immune to Holy damage."}
         }, {
             name = "Prophecy: Shared Fate",
             icon = "Interface\\Icons\\SpiritLink",
-            warning = true,
             lines = {"Shares damage taken with nearby allies."}
         }, {
             name = "Prophecy: Spellward",
             icon = "Interface\\Icons\\INV_Ore_Arcanite_01",
+            lines = {"Immune to Spell damage.", "Trigger line: \"You walk between the rain.\""}
+        }, {
+            name = "Prophecy: Terrifying",
+            icon = "Interface\\Icons\\Spell_Shadow_Possession",
             warning = true,
-            lines = {"Immune to Spell damage."}
+            lines = {"Causing nearby enemies to flee in terror.", "Trigger line: \"Terror paves your way.\""}
         }, {
             name = "Prophecy: Undying",
             icon = "Interface\\Icons\\Spell_Shadow_AnimateDead",
             warning = true,
             lines = {"Cannot die."}
+        }, {
+            name = "Prophecy: Unfettered",
+            icon = "Interface\\Icons\\Ability_Rogue_Trip",
+            lines = {"Free from any bonds.", "Trigger line: unknown - to be found/tested."}
         }, {
             name = "Prophecy: Untouchable",
             icon = "Interface\\Icons\\INV_Shield_04",
@@ -789,12 +804,14 @@ local SM_TRASH_MOBS = {
         }, {
             name = "Prophecy: Verdant",
             icon = "Interface\\Icons\\Spell_Nature_SpiritArmor",
-            warning = true,
-            lines = {"Immune to Nature damage."}
+            lines = {"Immune to Nature damage.", "Trigger line: \"Nature cannot harm you.\""}
+        }, {
+            name = "Prophecy: Vitality",
+            icon = "Interface\\Icons\\Spell_Nature_UndyingStrength",
+            lines = {"Healing taken increased by 100%, regenerating 1% of health every 1 sec.", "Trigger line: unknown - to be found/tested."}
         }, {
             name = "Prophecy: Weakness",
             icon = "Interface\\Icons\\Spell_Shadow_CurseOfMannoroth",
-            warning = true,
             lines = {"Damage caused reduced by 75%."}
         }}
     },
