@@ -9,22 +9,30 @@ from in-game testing, don't guess numbers (see [CLAUDE.md](CLAUDE.md)).
 Status update 2026-08-23, from in-game testing:
 
 - ~~**Flameguard** - `stats` block~~ - **RESOLVED.** Real armor/resistance
-  numbers now in `raids/MC.lua`.
+  numbers (armor 4441, fire immune, nature 35, frost 0, shadow 51, arcane
+  51) in `raids/MC.lua` as of 2026-08-29 - an earlier note here marked this
+  resolved before the values actually landed; the committed file still had
+  `"X"` until this pass.
 - ~~**Firelord -> Incinerate** - damage amount~~ - **RESOLVED** (still no
   matching `Spell.xlsx` entry, so the description text stays a guess).
   Note: the line in `raids/MC.lua` still literally reads "increased by
   25(%)?" - user confirmed this wording is **still unsure**, don't clean
   up the `(%)?` yet.
-- **Lava Reaver -> Lava Grasp** - **MOSTLY FIXED.** Root duration (10
-  seconds) confirmed via testing. Damage still unknown, and text/icon are
-  both still guesses (no `Spell.xlsx` match) - needs more digging later.
+- ~~**Lava Reaver -> Lava Grasp**~~ - **RESOLVED, 2026-08-29 (user):** root
+  duration is 10 seconds and the ability deals **no damage** - the current
+  line in `raids/MC.lua` is correct as written. (Earlier notes here about
+  "damage still unknown" / "X Nature damage" were wrong - there is no
+  damage component.)
 
 Still unsure / hard to find - needs more digging later:
 
 - **Firelord -> Spawn Lava Spawn -> Fireball** - both the direct hit and
-  the DoT damage are unknown.
-- **Lava Elemental -> Lava Explosion** - damage unknown; description is a
-  guess (no `Spell.xlsx` match).
+  the DoT damage are unknown. A tentative observed range (~980-1300, vs.
+  192-258 in the spell DB) came up in testing but the user is **not
+  confident** in it - left as `X` in `raids/MC.lua`.
+- ~~**Lava Elemental -> Lava Explosion** - damage unknown~~ - **RESOLVED,
+  2026-08-29:** 902 to 1202 Fire damage plus a knockback, confirmed via
+  testing (still no `Spell.xlsx` match). Filled into `raids/MC.lua`.
 - **Lava Annihilator -> Double Attack** - we've confirmed it hits twice
   per swing, but not the interval ("every X seconds").
 - **Flame Imp -> Fire Nova** - damage unknown; description is a guess (no

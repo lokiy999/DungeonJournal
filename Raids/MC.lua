@@ -713,9 +713,8 @@ local MC_TRASH_MOBS = {
         name = "Flameguard",
         icon = "Interface\\Icons\\Spell_Fire_FireArmor",
         flags = {"melee"},
-        -- CHANGED: stats not tested - "X" marks each unknown value rather
-        -- than guessing a number.
-        stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
+        -- CHANGED: armor/resistances confirmed via testing.
+        stats = {armor = 4441, fire = "immune", nature = 35, frost = 0, shadow = 51, arcane = 51},
         abilities = {{
             -- CHANGED: confirmed via testing - 2388 to 3812 damage.
             name = "Cone of Fire",
@@ -756,7 +755,7 @@ local MC_TRASH_MOBS = {
             name = "Incinerate",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
-            lines = {"Burns the target for X Fire damage."}
+            lines = {"Fire damage taken is increased by 25(%)?"}
         }, {
             -- CHANGED: confirmed via testing - 7000 damage over 10 sec,
             -- 500 splash, first applied 15 sec into the fight then every
@@ -777,7 +776,7 @@ local MC_TRASH_MOBS = {
                 icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
                 warning = true,
                 roles = {"kick"},
-                lines = {"Hurls a fiery ball that causes X Fire damage and an additional X Fire damage over X seconds."}
+                lines = {"Hurls a fiery ball that causes 192-258 Fire damage (spellDB). Chronicle shows ~980-1300 damage though."}
             }, {
                 name = "Split",
                 icon = "Interface\\Icons\\Spell_Shadow_SealOfKings",
@@ -900,12 +899,12 @@ local MC_TRASH_MOBS = {
             warning = true,
             lines = {"Inflicts 4410 Fire damage to enemies in a cone in front of it, stunning them for 7 seconds."}
         }, {
-            -- CHANGED: no usable Description_enUS match in Spell.xlsx -
-            -- text below is a guess.
+            -- CHANGED: damage + knockback confirmed via testing (no usable
+            -- Description_enUS match in Spell.xlsx).
             name = "Lava Explosion",
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
-            lines = {"An explosive burst dealing X Fire damage to nearby enemies."}
+            lines = {"An explosive burst dealing 902 to 1202 Fire damage to nearby enemies and knocking them back."}
         }}
     },
 
@@ -928,7 +927,7 @@ local MC_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Nature_StrangleVines",
             warning = true,
             roles = {"tank"},
-            lines = {"Grasps an enemy, inflicting X Nature damage and rooting it in place for X seconds."}
+            lines = {"Grasps an enemy rooting it in place for 10 seconds. (cast early on tank/person on 1st threat?)"}
         }}
     },
 
