@@ -1440,7 +1440,7 @@ local SM_BOSSES = {
         }, {
             name = "Power Word: Barrier",
             icon = "Interface\\Icons\\spell_holy_powerwordshield",
-            lines = {"Shields himself for 9260-9460 seconds for 15 seconds."}
+            lines = {"Shields himself, absorbing 9260 to 9460 damage for 15 seconds."}
         }, {
             name = "All-Consuming Hatred",
             icon = "Interface\\Icons\\spell_shadow_sacrificialshield",
