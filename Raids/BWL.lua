@@ -44,6 +44,7 @@ local BWL_TRASH_ORDER = {
     "corrupted_red_whelp",
     "corrupted_green_whelp",
     "corrupted_blue_whelp",
+    "corrupted_bronze_whelp",
     "death_talon_hatcher",
     "blackwing_taskmaster",
 
@@ -107,6 +108,25 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank", "melee"},
             lines = {"Strikes his target and its nearest allies."}
+        }, {
+            -- CHANGED: spell 35177, from BWL combat log "BWL stuff.csv". Custom
+            -- V+ ability, no Spell.xlsx description - effect needs testing.
+            name = "Untamed Fury",
+            icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
+            warning = true,
+            lines = {"No confirmed effect - custom Vanilla+ ability (spell 35177). Reads as a self-enrage / damage ramp; needs in-game testing."}
+        }, {
+            -- CHANGED: spell 35176, from BWL combat log. Custom V+ ability.
+            name = "Summon Livingflame",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            warning = true,
+            lines = {"Summons a Livingflame add (spell 35176). No Spell.xlsx description - behaviour needs testing.",
+                     "Related to the existing Eternal Livingflame entry above; may be the same mechanic."}
+        }, {
+            -- CHANGED: spell 23040, from BWL combat log. No Spell.xlsx text.
+            name = "Warming Flames",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            lines = {"No ability description available (spell 23040) - retail Razorgore uses this to regenerate health while near the orb/eggs; not confirmed for this server."}
         }},
         -- CHANGED: orc handlers that guard Razorgore's eggs during the egg
         -- phase - moved here from the Trash view since they're specific to
@@ -129,6 +149,13 @@ local BWL_BOSSES = {
                 warning = true,
                 roles = {"tank"},
                 lines = {"A brutal strike that stuns its target."}
+            }, {
+                -- CHANGED: spell 35166, from BWL combat log "BWL stuff.csv"
+                -- (custom V+ rank).
+                name = "Thunder Clap",
+                icon = "Interface\\Icons\\Spell_Nature_ThunderClap",
+                warning = true,
+                lines = {"Blasts nearby enemies, dealing damage and slowing their movement and attack speed."}
             }}
         }, {
             -- CHANGED: real ability names (Arcane Missiles, Dominate Mind)
@@ -143,6 +170,7 @@ local BWL_BOSSES = {
             color = "ffcc6600",
             lines = {"Guards the eggs during the egg-destruction phase - if left alive too long it can Dominate Mind a raid member. Kill or interrupt it quickly."},
             abilities = {{
+                -- CHANGED: spell 35169 in the BWL combat log (custom V+ rank).
                 name = "Arcane Missiles",
                 icon = "Interface\\Icons\\Spell_Nature_StarFall",
                 warning = true,
@@ -154,6 +182,21 @@ local BWL_BOSSES = {
                 warning = true,
                 roles = {"dispel"},
                 lines = {"Takes control of a humanoid enemy up to level X for X seconds."}
+            }, {
+                -- CHANGED: spell 35168, from BWL combat log "BWL stuff.csv" -
+                -- logged this run in place of Dominate Mind. Custom V+, no
+                -- Spell.xlsx text.
+                name = "Greatest Polymorph",
+                icon = "Interface\\Icons\\Spell_Nature_Polymorph",
+                warning = true,
+                roles = {"dispel"},
+                lines = {"Polymorphs a raid member (spell 35168). Duration not confirmed."}
+            }, {
+                -- CHANGED: spell 13747, from BWL combat log.
+                name = "Slow",
+                icon = "Interface\\Icons\\Spell_Nature_Slow",
+                warning = true,
+                lines = {"Reduces the target's movement speed and increases the time between its attacks."}
             }}
         }, {
             key = "death_talon_dragonspawn",
@@ -203,6 +246,37 @@ local BWL_BOSSES = {
                 name = "Arcane Intellect",
                 icon = "Interface\\Icons\\Spell_Holy_MagicalSentry",
                 lines = {"Buffs its own Intellect - kill or CC quickly to limit its casting."}
+            }, {
+                -- CHANGED: spell 35174, from BWL combat log "BWL stuff.csv".
+                name = "Counterspell",
+                icon = "Interface\\Icons\\Spell_Frost_IceShock",
+                warning = true,
+                roles = {"kick"},
+                lines = {"Interrupts spellcasting and locks that spell school for a few seconds."}
+            }, {
+                -- CHANGED: spell 35171, from BWL combat log. Custom V+ ability,
+                -- no Spell.xlsx description - effect needs testing.
+                name = "Ice Mirror",
+                icon = "Interface\\Icons\\Spell_Frost_FrostArmor02",
+                warning = true,
+                lines = {"No confirmed effect - custom Vanilla+ ability (spell 35171). Name reads as a Frost reflect/absorb shield; needs in-game testing."}
+            }}
+        }, {
+            -- CHANGED: new entry from BWL combat log "BWL stuff.csv" - the
+            -- mind-control orb the raid uses to command Razorgore during the
+            -- egg phase. Only ability it logged as a source is Mental Strike.
+            key = "orb_of_domination",
+            name = "Orb of Domination",
+            icon = "Interface\\Icons\\Spell_Shadow_Metamorphosis",
+            color = "ffcc6600",
+            lines = {"The controllable orb used to take command of Razorgore and destroy the eggs. Stops working (and pulses damage) if the controller is knocked off."},
+            abilities = {{
+                -- CHANGED: spell 35165, from BWL combat log. Custom V+, no
+                -- Spell.xlsx text.
+                name = "Mental Strike",
+                icon = "Interface\\Icons\\Spell_Shadow_MindTwisting",
+                warning = true,
+                lines = {"No confirmed effect - custom Vanilla+ ability (spell 35165). Reads as the backlash on the player controlling the orb; needs testing."}
             }}
         }}
     },
@@ -223,6 +297,37 @@ local BWL_BOSSES = {
             warning = true,
             roles = {"tank"},
             lines = {"Inflicts 3000 to 6000 Fire damage to enemies in a cone in front of it. Keep it faced away from the raid."}
+        }, {
+            -- CHANGED: spell 35135, from BWL combat log "BWL stuff.csv". Custom
+            -- V+, no Spell.xlsx text.
+            name = "Sticky Oil Tar",
+            icon = "Interface\\Icons\\Spell_Shadow_CreepingPlague",
+            warning = true,
+            lines = {"Leaves a tar patch on the ground (spell 35135). Reads as a movement-slow / snare zone - move out of it. Numbers need testing."}
+        }, {
+            -- CHANGED: spells 35147 (Ice Sprinkler) + 35148 (its slow), from
+            -- BWL combat log. Custom V+, no Spell.xlsx text.
+            name = "Ice Sprinkler",
+            icon = "Interface\\Icons\\Spell_Frost_FrostWard",
+            warning = true,
+            lines = {"A Frost spray (spell 35147) that also applies a movement slow (spell 35148). Effect values need testing."}
+        }},
+        -- CHANGED: the spinning saw-blade hazards the Decapitator launches -
+        -- logged as their own source "Sawblade" (spell "Saw Blade" 35138) in
+        -- "BWL stuff.csv". "Saw Sound" / "Saw Launch Animation" / "Stun 5s"
+        -- under the boss itself are the launch visual + the blade's stun.
+        adds = {{
+            key = "sawblade",
+            name = "Sawblade",
+            icon = "Interface\\Icons\\Ability_Whirlwind",
+            color = "ffcc6600",
+            lines = {"Spinning blades launched across the room. Being hit deals damage and (per the boss's 'Stun 5s' cast, spell 35162) stuns for about 5 seconds - do not stand in their path."},
+            abilities = {{
+                name = "Saw Blade",
+                icon = "Interface\\Icons\\Ability_Whirlwind",
+                warning = true,
+                lines = {"Contact damage from the moving blade (spell 35138). Damage needs testing."}
+            }}
         }}
     },
 
@@ -254,6 +359,14 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank", "melee"},
             lines = {"Strikes his target and its nearest allies."}
+        }, {
+            -- CHANGED: spell 35187, from BWL combat log "BWL stuff.csv". Custom
+            -- V+ ability, no Spell.xlsx description - effect needs testing.
+            name = "Frost Reflection",
+            icon = "Interface\\Icons\\Spell_Frost_FrostArmor02",
+            warning = true,
+            roles = {"caster"},
+            lines = {"No confirmed effect - custom Vanilla+ ability (spell 35187). Name reads as a Frost-damage reflect shield; stop casting Frost spells while it is up until confirmed."}
         }}
     },
 
@@ -281,6 +394,12 @@ local BWL_BOSSES = {
             warning = true,
             roles = {"tank"},
             lines = {"Knocks nearby enemies back for around 1500 damage, shedding threat."}
+        }, {
+            -- CHANGED: spell 3391, from BWL combat log "BWL stuff.csv".
+            name = "Thrash",
+            icon = "Interface\\Icons\\Ability_Warrior_DecisiveStrike",
+            roles = {"tank"},
+            lines = {"Passive - occasionally grants an extra melee attack or two on the same swing."}
         }}
     },
 
@@ -301,6 +420,30 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Spell_Nature_EarthShock",
             warning = true,
             lines = {"Inflicts around 1100 damage of a rotating school (Nature, Fire or Frost). The cast cannot be interrupted by damage."}
+        }, {
+            -- CHANGED: the four below are from the BWL combat log "BWL stuff.csv"
+            -- (spells 35272 / 35488 / 35273 / 35274). All custom Vanilla+, none
+            -- have Spell.xlsx description text - effects still need testing.
+            name = "Disrupting Ray",
+            icon = "Interface\\Icons\\Spell_Arcane_StarFire",
+            warning = true,
+            roles = {"kick"},
+            lines = {"No confirmed effect - custom Vanilla+ ability (spell 35272). Name reads as an interrupt / silence beam."}
+        }, {
+            name = "Gravity Defied",
+            icon = "Interface\\Icons\\Spell_Nature_Levitate",
+            warning = true,
+            lines = {"No confirmed effect - custom Vanilla+ ability (spell 35488). Name reads as a knock-up / levitate."}
+        }, {
+            name = "Shrink Ray",
+            icon = "Interface\\Icons\\Spell_Shadow_Teleport",
+            warning = true,
+            lines = {"No confirmed effect - custom Vanilla+ ability (spell 35273). Name reads as a damage / stat reduction debuff."}
+        }, {
+            name = "Death Ray",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            warning = true,
+            lines = {"No confirmed effect - custom Vanilla+ ability (spell 35274). Name reads as a heavy single-target nuke."}
         }}
     },
 
@@ -334,7 +477,15 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             warning = true,
             roles = {"hunter"},
-            lines = {"Both dragons enrage, causing heavy raid-wide damage. MUST be removed with Tranquilizing Shot - ideally 2 hunters per dragon."}
+            lines = {"Both dragons enrage, causing heavy raid-wide damage. MUST be removed with Tranquilizing Shot - ideally 2 hunters per dragon.",
+                     "Logged as spell 35238 (Ebonroc) / 23342 (Flamegor) in BWL combat log."}
+        }, {
+            -- CHANGED: spell 3391, from BWL combat log "BWL stuff.csv" - both
+            -- dragons use it.
+            name = "Thrash",
+            icon = "Interface\\Icons\\Ability_Warrior_DecisiveStrike",
+            roles = {"tank"},
+            lines = {"Passive - occasionally grants an extra melee attack or two on the same swing. Both dragons have it."}
         }, {
             separator = true,
             name = "Ebonroc"
@@ -461,12 +612,26 @@ local BWL_BOSSES = {
             name = "Incinerate",
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
             warning = true,
-            lines = {"One of Chromaggus' breath attacks."}
+            lines = {"One of Chromaggus' breath attacks (spell 35275)."}
         }, {
             name = "Frost Burn",
             icon = "Interface\\Icons\\Spell_Frost_ChillingBlast",
             warning = true,
-            lines = {"A Frost breath that increases the time between the target's attacks."}
+            lines = {"A Frost breath that increases the time between the target's attacks (spell 35279)."}
+        }, {
+            -- CHANGED: spell 35276, from BWL combat log "BWL stuff.csv" - the
+            -- fifth breath, previously missing from this list. Custom V+, no
+            -- Spell.xlsx text.
+            name = "Time Lapse",
+            icon = "Interface\\Icons\\Spell_Nature_TimeStop",
+            warning = true,
+            lines = {"Chromaggus' fifth breath (spell 35276). Retail Time Lapse is a raid-wide stun that also drops max health; V+ values not confirmed."}
+        }, {
+            -- CHANGED: spells 22278 / 22279 / 22281, from BWL combat log - one
+            -- per breath school. No Spell.xlsx text.
+            name = "Elemental Shield",
+            icon = "Interface\\Icons\\Spell_Fire_FireArmor",
+            lines = {"Passive - Chromaggus carries resistance/immunity to whichever school matches his current pair of breaths (spells 22278/22279/22281)."}
         }}
     },
 
@@ -495,7 +660,40 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
             roles = {"tank"},
-            lines = {"Tanks position front and back, away from the raid during phase 1."}
+            lines = {"Tanks position front and back, away from the raid during phase 1.",
+                     "Logged as Tail Sweep (spell 15847) in the BWL combat log."}
+        }, {
+            -- CHANGED: spell 23461, from BWL combat log "BWL stuff.csv" - a
+            -- Vaelastrasz cast that was missing from this list.
+            name = "Flame Breath",
+            icon = "Interface\\Icons\\Spell_Fire_Fireball",
+            warning = true,
+            lines = {"Vaelastrasz breathes fire in a frontal cone, inflicting heavy Fire damage. Keep him faced away from the raid."}
+        }, {
+            -- CHANGED: spell 35301, from BWL combat log. Custom V+, no Spell.xlsx
+            -- text.
+            name = "Flame Aura",
+            icon = "Interface\\Icons\\Spell_Fire_Immolation",
+            lines = {"Passive Fire-damage aura on players near Vaelastrasz (spell 35301). Values need testing."}
+        }, {
+            -- CHANGED: Lord Victor Nefarius casts these from the balcony during
+            -- phase 1 - spells 22665 / 22666 / 22667 / 22678 in the BWL combat
+            -- log. He is untargetable; the effects still land on the raid.
+            name = "Shadow Bolt Volley",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            warning = true,
+            lines = {"Lord Victor Nefarius (on the balcony) hits the raid with a volley of Shadow Bolts (spell 22665)."}
+        }, {
+            name = "Silence",
+            icon = "Interface\\Icons\\Spell_Shadow_ImpPhaseShift",
+            warning = true,
+            lines = {"Lord Victor Nefarius silences part of the raid (spell 22666)."}
+        }, {
+            name = "Shadow Command",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowWordDominate",
+            warning = true,
+            roles = {"dispel"},
+            lines = {"Lord Victor Nefarius fears / mind-controls a raid member (spell 22667)."}
         }, {
             name = "Tunnel adds",
             icon = "Interface\\Icons\\Ability_Hunter_Pet_Dragonhawk",
@@ -544,6 +742,43 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank", "melee"},
             lines = {"Strikes his target and its nearest allies."}
+        }, {
+            -- CHANGED: spell 22687, from BWL combat log "BWL stuff.csv" - was
+            -- missing from this list.
+            name = "Veil of Shadow",
+            icon = "Interface\\Icons\\Spell_Shadow_GatherShadows",
+            warning = true,
+            roles = {"healer"},
+            lines = {"A curse-like debuff that reduces healing received on the target. Applied frequently in phase 2."}
+        }, {
+            -- CHANGED: spell 35324, from BWL combat log. Custom V+, no Spell.xlsx
+            -- text.
+            name = "Dragon sickness",
+            icon = "Interface\\Icons\\Spell_Shadow_CurseOfTounges",
+            warning = true,
+            lines = {"No confirmed effect - custom Vanilla+ debuff (spell 35324). Needs in-game testing."}
+        }, {
+            -- CHANGED: spell 17131, from BWL combat log - Nefarian lifts off
+            -- briefly between phases / positions.
+            name = "Hover",
+            icon = "Interface\\Icons\\Ability_Hunter_Pet_Dragonhawk",
+            lines = {"Nefarian takes to the air briefly - he is untargetable and immune while hovering."}
+        }},
+        -- CHANGED: bone piles Nefarian raises in phase 2 to walk toward the
+        -- raid - logged as source "Bone Construct" (spell "Exploit Weakness"
+        -- 8355) in "BWL stuff.csv".
+        adds = {{
+            key = "bone_construct",
+            name = "Bone Construct",
+            icon = "Interface\\Icons\\INV_Misc_Bone_HumanSkull_01",
+            color = "ffcc6600",
+            lines = {"Raised from the bone piles on the floor during phase 2 (the 'Bone Constructs!' shout). Slow-moving; block or kite them off the healers."},
+            abilities = {{
+                name = "Exploit Weakness",
+                icon = "Interface\\Icons\\Ability_Rogue_FindWeakness",
+                warning = true,
+                lines = {"Melee strike that increases the physical damage the target takes (spell 8355). Values need testing."}
+            }}
         }}
     },
 }
@@ -670,6 +905,17 @@ local BWL_TRASH_MOBS = {
     corrupted_blue_whelp = {
         name = "Corrupted Blue Whelp",
         icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
+        flags = {"caster"},
+        stats = {armor = 3200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
+        abilities = {}
+    },
+
+    -- CHANGED: added from BWL combat log "BWL stuff.csv" - the fourth whelp
+    -- colour in the suppression room, previously missing. Like its siblings
+    -- it logged no ability of its own in that run.
+    corrupted_bronze_whelp = {
+        name = "Corrupted Bronze Whelp",
+        icon = "Interface\\Icons\\Spell_Nature_TimeStop",
         flags = {"caster"},
         stats = {armor = 3200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {}

@@ -270,12 +270,12 @@ Fix these deliberately, not incidentally, and mention them in the commit message
   TOC). ZG / UBRS / LBRS / Onyxia bosses use Blizzard `Interface\Icons\...` art or the
   `Interface\Icons\temp` placeholder, not custom portraits. (`Icons/Whitemane.blp`
   exists but is unused — Sally Whitemane is a phase separator, not a mob entry.)
-- **Blackwing Lair has 6 undocumented abilities left**, all "Placeholder. Ability
-  not yet documented.": Death Talon Captain → *Mark of Flames*, and Chromaggus →
-  the five colour *Brood Power* entries (Black / Blue / Bronze / Green / Red). Every
-  other BWL boss/trash ability is filled in, and Scarlet Monastery is fully
-  documented (no placeholders). Per-raid data gaps are tracked in
-  `TODO_Raid_Data.md`.
+- **Blackwing Lair has no placeholder abilities left** (the last 6 were filled from
+  a combat log on 2026-08-29 - see `BWL_CSV_Pass.md`), but a lot of BWL abilities -
+  especially the custom Vanilla+ 35xxx spells - have only a name + spell ID and a
+  `"no confirmed effect - needs testing"` line, because `Spell.xlsx` has no
+  description text for BWL NPC spells. Scarlet Monastery is fully documented.
+  Per-raid data gaps are tracked in `TODO_Raid_Data.md`.
 - **Trash coverage** now exists for Molten Core, Blackwing Lair, Scarlet Monastery,
   Zul'Gurub, UBRS, LBRS, and Onyxia (only World Bosses and the Emerald Dragons have
   no `trash` table). Ability *names* are sourced from real combat logs (per-raid CSVs

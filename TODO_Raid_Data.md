@@ -58,6 +58,14 @@ numbers as of this pass.
 
 ## Blackwing Lair ([raids/BWL.lua](raids/BWL.lua))
 
+**Combat-log pass 2026-08-29** - `BWL stuff.csv` was cross-matched against
+`BWL.lua`; see [BWL_CSV_Pass.md](BWL_CSV_Pass.md) for the full list of what
+was added. The 6 old "Placeholder" abilities are gone. New gap: `Spell.xlsx`
+has **no description text for any BWL NPC spell**, so ~25 abilities added this
+pass (and the custom Vanilla+ 35xxx spells especially) carry only a name +
+spell ID and a "no confirmed effect - needs testing" line. Every one needs
+in-game testing for its real effect/numbers.
+
 - **Razorgore -> Grethok the Controller (add) -> Arcane Missiles** -
   channel duration and per-missile damage both unknown.
 - **Razorgore -> Grethok the Controller (add) -> Dominate Mind** - max
