@@ -6,16 +6,25 @@ from in-game testing, don't guess numbers (see [CLAUDE.md](CLAUDE.md)).
 
 ## Molten Core trash ([raids/MC.lua](raids/MC.lua))
 
-- **Flameguard** - `stats` block: armor + all 5 resistances are `"X"`,
-  never tested.
-- **Firelord -> Incinerate** - damage amount unknown; description itself
-  is a guess (no matching spell in `Spell.xlsx`).
+Status update 2026-08-23, from in-game testing:
+
+- ~~**Flameguard** - `stats` block~~ - **RESOLVED.** Real armor/resistance
+  numbers now in `raids/MC.lua`.
+- ~~**Firelord -> Incinerate** - damage amount~~ - **RESOLVED** (still no
+  matching `Spell.xlsx` entry, so the description text stays a guess).
+  Note: the line in `raids/MC.lua` still literally reads "increased by
+  25(%)?" - user confirmed this wording is **still unsure**, don't clean
+  up the `(%)?` yet.
+- **Lava Reaver -> Lava Grasp** - **MOSTLY FIXED.** Root duration (10
+  seconds) confirmed via testing. Damage still unknown, and text/icon are
+  both still guesses (no `Spell.xlsx` match) - needs more digging later.
+
+Still unsure / hard to find - needs more digging later:
+
 - **Firelord -> Spawn Lava Spawn -> Fireball** - both the direct hit and
   the DoT damage are unknown.
 - **Lava Elemental -> Lava Explosion** - damage unknown; description is a
   guess (no `Spell.xlsx` match).
-- **Lava Reaver -> Lava Grasp** - damage + root duration unknown; text and
-  icon are both guesses (no `Spell.xlsx` match).
 - **Lava Annihilator -> Double Attack** - we've confirmed it hits twice
   per swing, but not the interval ("every X seconds").
 - **Flame Imp -> Fire Nova** - damage unknown; description is a guess (no
@@ -231,13 +240,18 @@ first pass is functional but has real gaps - to make it solid:
   see any `-- CHANGED:` comment reading "no ability description
   available" in `SM_TRASH_MOBS`. Worth a pass to see if a build-uploaded
   or newer `Spell.xlsx` fills these in.
-- **Scarlet Tracking Hound -> Infected Wound** - the raw sheet value (+3
-  damage taken) looked implausibly small for what should be a meaningful
-  debuff, so it was left `X` rather than presented as real - re-check
-  against Spell.xlsx directly.
-- **Scarlet Sorcerer -> Mana Shield** - sheet lists an absorb amount of
-  999,999,999, almost certainly an "unlimited" sentinel value rather than
-  a real number - confirm intended behavior.
+- ~~**Scarlet Tracking Hound -> Infected Wound** - the raw sheet value (+3
+  damage taken) looked implausibly small...~~ - **STALE, 2026-08-29.** The
+  line in `raids/SM.lua` already reads "increases physical damage taken by
+  3 per stack up to 99 stacks" (matches the Loksey-add copy), i.e. the +3
+  value is in use, not `X`. Still not in-game confirmed, but no longer a
+  placeholder. (The blue name tint was also removed this pass.)
+- **Scarlet Sorcerer -> Mana Shield** - **BEHAVIOUR CONFIRMED, 2026-08-29
+  (user).** Cast once at the start of combat and kept up for the whole
+  fight - now classified as a passive (see the passive pass below) with
+  that note in its `lines`. The absorb *amount* is still the
+  999,999,999 sentinel in the sheet, so no real number - but the
+  "unlimited / whole-fight" reading is confirmed intended.
 - **Scarlet Protector -> Judgement of Light** - RESOLVED - heal amount
   (875 to 1095) pulled from linked spell 36071 in Spell.xlsx.
 - Every ability whose tooltip includes a duration (`$d`) or radius (`$a1`)
@@ -253,6 +267,32 @@ first pass is functional but has real gaps - to make it solid:
   resolve to different numbers.
 - Icons and mob-level (portrait) icons were picked reasonably from each
   mob's own real abilities, not verified in-game.
+
+### Passive-trait classification pass (2026-08-29)
+
+New `passive = true` separator support (see AGENTS.md "Passive heading" /
+"What counts as a passive" and the README's "Abilities vs. passives") -
+renders a plain, non-clickable `Passives` heading; rows under it are always
+shown. Applied to SM trash, mob classifications confirmed with the user:
+
+- **Passives grouped under the heading:** Scarlet Soldier / Scarlet
+  Defender / Scarlet Protector -> Improved Blocking; Scarlet Guardsman /
+  Scarlet Defender -> Defensive Stance; Scarlet Centurion -> Battle Stance
+  + Retaliation; Scarlet Myrmidon -> Berserker Stance; Scarlet Guardsman ->
+  Riposte; Scarlet Tracking Hound -> Infected Wound; Scarlet Sorcerer ->
+  Mana Shield; Scarlet Protector -> Protection Aura; Scarlet Gallant ->
+  Sanctity Aura + Seal of Command.
+- **Explicitly kept as normal abilities** (user calls): Scarlet Champion ->
+  Vengeance (every-15s reflect window with a stun-cancellable telegraph -
+  a periodic ability, not a passive); Scarlet Monk -> Inner Fire; Scarlet
+  Wizard / Scarlet Evoker -> Fire Shield; Scarlet Chaplain -> Prayer of
+  Fortitude; Scarlet Guardsman -> Impale; Scarlet Protector -> Judgement
+  of Light.
+- **Scarlet Monk -> Kick** given the `Ability_Kick` icon and its `kick`
+  role marker dropped (it's the mob's own attack, not an interrupt call).
+- Other SM trash mobs (Torturer, Beastmaster, Wizard's/Evoker's/Conjuror's
+  nuke kits, the healer casters, Diviner) have no always-on passive worth
+  a heading and were left without one.
 
 ## Zul'Gurub trash ([raids/ZG.lua](raids/ZG.lua))
 
