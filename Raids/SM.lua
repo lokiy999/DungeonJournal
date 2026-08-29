@@ -208,11 +208,12 @@ local SM_TRASH_MOBS = {
                 lines = {"Granted when the Champion dies while duelling. Heals to full, increases damage done by 1%, and increases size by 5%. Lasts 2 hours."}
             }}
         }, {
-            -- CHANGED: checked via Spell.xlsx too - two custom-range "Vengeance" entries
-            -- (36127, 36129) exist but both are completely empty. Left as X.
+            -- CHANGED: Spell.xlsx "Vengeance" entries (36127, 36129) are empty;
+            -- values below are from user report, not tested.
             name = "Vengeance",
             icon = "Interface\\Icons\\Ability_Racial_Avatar",
-            lines = {"X - no ability description available."}
+            warning = true,
+            lines = {"Every 15 seconds the Champion grows in size, then after 3 seconds all damage dealt to him is reflected to everyone within 10 yards."}
         }}
     },
 
@@ -234,18 +235,11 @@ local SM_TRASH_MOBS = {
             -- CHANGED: matched spell ID 36078 (custom range) via Spell.xlsx.
             lines = {"Charges an enemy, inflicting normal damage plus 800 and stunning it for 4 seconds."}
         }, {
-            -- CHANGED: confirmed genuinely empty in the DBC (id 36077) - internal
-            -- trigger/proc helper spell, not player-facing, nothing to describe.
-            name = "Intercept Dummy",
-            icon = "Interface\\Icons\\Temp",
-            lines = {"Internal trigger spell for Intercept - no player-facing description exists."}
-        }, {
-            -- CHANGED: found via Spell.xlsx (id 36080, custom range) - the live DBC
-            -- site's 20-result cap hid this. Healing-reduction % (bp -2 -> -1%) looks
-            -- suspiciously small like Duel Loooser's, flagged for verification.
+            -- CHANGED: Spell.xlsx id 36080; damage and 1%-per-stack healing
+            -- reduction (up to 50 stacks) confirmed by user report.
             name = "Rend",
             icon = "Interface\\Icons\\Ability_Gouge",
-            lines = {"Bleeding for 75 damage every 3 sec. Healing effects reduced by X% (DBC value looks implausibly small - needs in-game verification)."}
+            lines = {"Bleeding for 75 damage every 3 sec. Each application also reduces healing effects on the target by 1%, stacking up to 50 times."}
         }}
     },
 
@@ -257,30 +251,24 @@ local SM_TRASH_MOBS = {
         -- stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-            name = "Devastating Blow",
-            icon = "Interface\\Icons\\Spell_Fire_Volcano",
-            lines = {"X - no ability description available (see Fist of the Third Moon, which triggers it)."}
-        }, {
             name = "Fist of the Third Moon",
             icon = "Interface\\Icons\\INV_Gauntlets_04",
             warning = true,
-            lines = {"An instant combo attack - the third strike unleashes a Devastating Blow, dealing 1300 to 1700 damage."}
+            lines = {"An instant combo attack - the third strike unleashes a Devastating Blow."},
+            abilities = {{
+                name = "Devastating Blow",
+                icon = "Interface\\Icons\\Spell_Fire_Volcano",
+                lines = {"Deals 5000 to 6000 damage."}
+            }}
         }, {
             name = "Inner Fire",
             icon = "Interface\\Icons\\Spell_Holy_InnerFire",
             lines = {"Increases a friendly unit's damage by 20% and reduces its damage taken by 20% for 60 seconds."}
         }, {
             name = "Kick",
-            icon = "Interface\\Icons\\Ability_Kick",
             warning = true,
             roles = {"kick"},
             lines = {"Kicks the target, dealing 2500 to 3000 damage and knocking it down for 10 seconds."}
-        }, {
-            -- CHANGED: matched spell ID 36063 (custom range) - aura is just "Stunned.",
-            -- damage amount not in effectBasePoints (likely weapon-based).
-            name = "Knockout",
-            icon = "Interface\\Icons\\Ability_Kick",
-            lines = {"Knocks the target back and stuns it for 10 seconds."}
         }}
     },
 
@@ -295,12 +283,12 @@ local SM_TRASH_MOBS = {
             name = "Gouge",
             icon = "Interface\\Icons\\Ability_Gouge",
             warning = true,
-            lines = {"Inflicts 1911 to 2289 damage to an enemy and stuns it for up to X seconds. Target must be facing the caster."}
+            lines = {"Inflicts 1911 to 2289 damage to an enemy and stuns it for up to 6 seconds. Target must be facing the caster."}
         }, {
             name = "Immolate",
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
             warning = true,
-            lines = {"Burns an enemy for 300 initially, then an additional 795 to 945 Fire damage every 3 sec, for 21 seconds."}
+            lines = {"Burns an enemy for 300, then an additional 795 to 945 Fire damage every 3 sec, for 21 seconds."}
         }, {
             name = "Sear",
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
@@ -317,12 +305,11 @@ local SM_TRASH_MOBS = {
         -- stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-            -- CHANGED: raw Spell.xlsx value (+3 damage taken) looked implausibly small for the description - not confident it's real, marked X instead of guessing.
-            -- CHANGED: durationIndex is -1 in SpellDuration.csv, which denotes a
-            -- permanent/non-expiring effect rather than a fixed number of seconds.
             name = "Infected Wound",
-            icon = "Interface\\Icons\\Spell_Nature_NullifyDisease",
-            lines = {"X - increases Physical damage taken by an enemy permanently (does not expire on its own; exact amount unconfirmed)."}
+            icon = "Interface\\Icons\\spell_nature_nullifydisease",
+            roles = {"dispel"},
+            color = "ff00ccff",
+            lines = {"Hounds apply a stacking debuff which increases physical damage taken by 3 per stack up to 99 stacks."}
         }}
     },
 
@@ -368,15 +355,14 @@ local SM_TRASH_MOBS = {
             roles = {"kick"},
             lines = {"Blasts an enemy with Arcane magic, inflicting 1040 to 1390 Arcane damage."}
         }, {
-            -- CHANGED: Spell.xlsx lists an absorb amount of 999,999,999 - almost certainly a sentinel for unlimited, not a real number, so left as X.
             name = "Mana Shield",
             icon = "Interface\\Icons\\Spell_Shadow_DetectLesserInvisibility",
-            lines = {"X - absorbs damage by draining its own mana instead."}
+            lines = {"Absorbs damage by draining its own mana."}
         }, {
             name = "Polymorph",
             icon = "Interface\\Icons\\Spell_Nature_Polymorph",
             warning = true,
-            lines = {"Transforms an enemy into a sheep for up to 15 seconds. Only works on beasts, dragons, giants, humanoids, and critters."}
+            lines = {"Transforms an enemy into a sheep for up to 15 seconds."}
         }, {
             name = "Slow",
             icon = "Interface\\Icons\\Spell_Nature_Slow",
@@ -452,6 +438,7 @@ local SM_TRASH_MOBS = {
             -- value) - the live DBC site's 20-result cap on "Fire Shield" hid this.
             name = "Fire Shield",
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
+            roles = {"dispel"},
             lines = {"Surrounds nearby allies with a shield of flame that inflicts 495 Fire damage to nearby enemies every 3 sec. Lasts 60 seconds."}
         }, {
             name = "Fireball",
@@ -465,13 +452,12 @@ local SM_TRASH_MOBS = {
             warning = true,
             lines = {"Calls down a pillar of fire, burning all enemies within the area for 880 to 1264 Fire damage and an additional 490 Fire damage over 8 seconds."}
         }, {
-            -- CHANGED: matched spell ID 36086 (custom range), but effectBasePoints for
-            -- all 3 effects (99) gives 100 via the usual +1 formula, which doesn't fit
-            -- "removing N curse/disease/magic effect(s)" sensibly - likely a different
-            -- effect type than a simple count. Left the count unconfirmed.
+            -- CHANGED: spell ID 36086; effectBasePoints 99 -> 100 via the +1 formula,
+            -- confirmed by user as removing up to 100 effects.
             name = "Purifying Flames",
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
-            lines = {"Cleanses a friendly target, removing X curse, disease, and magic effects (DBC value doesn't fit as a plain count - needs verification)."}
+            lines = {"Cleanses a friendly target, removing up to 100 curse, disease, and magic effects.",
+                     "Heals for 1000 to 1100 every 2 sec. Lasts 8 seconds."}
         }}
     },
 
@@ -483,11 +469,13 @@ local SM_TRASH_MOBS = {
         -- stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-            -- CHANGED: matched spell ID 36110 (custom range), but the restore amount
-            -- is 0 in effectBasePoints for all effects - no number to report.
+            -- CHANGED: spell ID 36110; restore-to-full and trigger conditions
+            -- from user report, not tested.
             name = "Consume Elemental",
             icon = "Interface\\Icons\\Spell_Shadow_SacrificialShield",
-            lines = {"Restores mana and health (amount not present in the DBC data)."}
+            warning = true,
+            lines = {"Consumes one of its elementals, restoring itself to full health and mana. Only used when at low health, and at most once every 30 seconds.",
+                     "Can be cast while crowd controlled."}
         }, {
             name = "Fireball",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
@@ -557,15 +545,16 @@ local SM_TRASH_MOBS = {
         }, {
             name = "Prayer of Fortitude",
             icon = "Interface\\Icons\\Spell_Holy_PrayerOfFortitude",
+            roles = {"dispel"},
             lines = {"Increases nearby allies' Health by 30% for 25 seconds."}
         }, {
             name = "Prayer of Purity",
             icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
-            roles = {"dispel"},
             lines = {"Removes 2 harmful Magic, Curse, or Disease effects from nearby allies, healing them for 5% of their maximum health per effect dispelled."}
         }, {
             name = "Prayer of Shield",
             icon = "Interface\\Icons\\Spell_Holy_PowerWordShield",
+            roles = {"dispel"},
             lines = {"Shields nearby allies, absorbing 6835 to 7805 damage. Lasts 15 seconds. Spellcasting is not interrupted while the shield holds."}
         }}
     },
@@ -585,7 +574,7 @@ local SM_TRASH_MOBS = {
         }, {
             name = "Greater Light",
             icon = "Interface\\Icons\\Spell_Holy_LayOnHands",
-            roles = {"kick"},
+            roles = {"stun"},
             lines = {"Heals a paladin ally for an amount equal to that paladin's maximum health."}
         }, {
             name = "Improved Blocking",
@@ -604,15 +593,7 @@ local SM_TRASH_MOBS = {
         }, {
             name = "Purify",
             icon = "Interface\\Icons\\Spell_Holy_Purify",
-            roles = {"dispel"},
             lines = {"Purifies a friendly target, removing 5 disease effects and 5 poison effects."}
-        }, {
-            -- CHANGED: matched spell ID 36073 (custom range) - confirmed genuinely
-            -- empty in the DBC, nothing to describe.
-            name = "Smart Purify",
-            icon = "Interface\\Icons\\Temp",
-            roles = {"dispel"},
-            lines = {"No description available in the DBC data for this spell."}
         }}
     },
 
@@ -641,6 +622,7 @@ local SM_TRASH_MOBS = {
             name = "Repentance",
             icon = "Interface\\Icons\\Spell_Holy_PrayerOfHealing",
             warning = true,
+            roles = {"dispel"},
             lines = {"Incapacitates the target for up to 12 seconds and increases its Mana regeneration. Only works against Humanoids."}
         }, {
             -- CHANGED: radius confirmed from Spell.xlsx (spell 36136) + SpellRadius.csv lookup - not in-game tested.

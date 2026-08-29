@@ -76,6 +76,9 @@ local UTILITY_ICONS = {
     poison  = "Interface\\Icons\\Spell_Nature_NullifyPoison",
     disease = "Interface\\Icons\\Spell_Nature_NullifyDisease",
     kick = "Interface\\Icons\\Ability_Kick",
+    -- CHANGED: stun - for casts that can only be stopped by a full stun on
+    -- this server (regular kick/interrupt effects don't work on them).
+    stun = "Interface\\Icons\\Spell_Frost_Stun",
     -- CHANGED: reflect - abilities worth turning back on the caster (this
     -- server's bosses take heavy self-damage from reflected spells).
     reflect = "Interface\\Icons\\Spell_Frost_WindWalkOn",
@@ -240,6 +243,10 @@ local ICON_ExplainationS = {{
     icon = UTILITY_ICONS.kick,
     name = "Kick / Interrupt",
     desc = "Interrupt a spell cast."
+}, {
+    icon = UTILITY_ICONS.stun,
+    name = "Stun",
+    desc = "This cast can only be stopped with a full stun - regular interrupts (Kick, Pummel, Earth Shock, etc.) don't work on it."
 }, {
     icon = UTILITY_ICONS.reflect,
     name = "Reflect",
@@ -1520,7 +1527,7 @@ local ROLE_LABELS = {
     tank = "Tank", healer = "Healer", dps = "DPS",
     caster = "Caster", melee = "Melee", ranged = "Ranged",
     decurse = "Decurse", dispel = "Dispel", poison = "Cure Poison", disease = "Cure Disease",
-    kick = "Interrupt", reflect = "Reflect",
+    kick = "Interrupt", stun = "Stun", reflect = "Reflect",
     warrior = "Warrior", paladin = "Paladin", hunter = "Hunter", rogue = "Rogue",
     priest = "Priest", shaman = "Shaman", mage = "Mage", warlock = "Warlock", druid = "Druid",
 }
