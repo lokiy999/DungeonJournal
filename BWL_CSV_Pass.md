@@ -10,14 +10,16 @@ noise, group by `Source` name, keep distinct `Action / Ability` + `Spell ID`.
 ## Spell.xlsx column note (important)
 
 The first pass at this mistakenly concluded Spell.xlsx had **no** description
-text for BWL spells. It does - the earlier extract was reading the wrong
-columns. In this workbook the usable English text sits in the columns whose
-headers read **`Description_koKR`** (real English `Description`) and
-**`AuraDescription_koKR`** (real English aura text); the `_enUS` columns are
-mostly blank. `$s1` / `$s2` tokens were resolved as `EffectBasePoints_n + 1`
-and `$d` via `SpellDuration.csv` (DurationIndex), exactly like the other
-passes. Each filled line records the spell ID and how the number was derived
-in its `-- CHANGED:` comment. Tick intervals (`$t1`) are still unresolved.
+text for BWL spells. It does - the earlier extract read the wrong columns.
+In this export the header row is misaligned with the data by ~2 columns in the
+text region: the real English `Description` / `AuraDescription` text sits ~2
+columns right of those headers (in the columns labeled `*_koKR` - the text is
+English, and the `*_enUS` columns read blank). The effect / duration columns
+are NOT shifted. `$s1` / `$s2` were resolved as `EffectBasePoints_n + 1` and
+`$d` via `SpellDuration.csv`, and the `+1` was sanity-checked against Fireball
+Rank 1 (`EffectBasePoints_1` 13 -> `$s1` 14 -> "14 to 18 Fire damage"). Each
+filled line records the spell ID and derivation in its `-- CHANGED:` comment.
+Tick intervals (`$t1`) are still unresolved.
 
 ## Abilities added to existing bosses / adds (with resolved numbers)
 

@@ -275,10 +275,14 @@ Fix these deliberately, not incidentally, and mention them in the commit message
   same log - see `BWL_CSV_Pass.md`). A handful of custom Vanilla+ effects
   (Shrink/Death Ray, Ice Sprinkler, Dragon sickness, ...) still say "needs
   testing". Scarlet Monastery is fully documented. Per-raid gaps: `TODO_Raid_Data.md`.
-- **Spell.xlsx column quirk:** the usable English spell text is in the columns
-  headed `Description_koKR` / `AuraDescription_koKR` (the `_enUS` ones are mostly
-  blank in this export). Resolve `$s1`/`$s2` as `EffectBasePoints_n + 1` and `$d`
-  via `SpellDuration.csv`, same as prior passes.
+- **Spell.xlsx column quirk:** in this export the header row is misaligned with
+  the data by ~2 columns in the text region - the real English `Description` /
+  `AuraDescription` text sits ~2 columns right of where those headers say (under
+  the `*_koKR` header labels; the text itself is English, and the `*_enUS`
+  columns read blank). The effect columns (`EffectBasePoints_n`, `DurationIndex`,
+  ...) are NOT shifted. Resolve `$s1`/`$s2` as `EffectBasePoints_n + 1` and `$d`
+  via `SpellDuration.csv`; sanity-check against a known spell (Fireball Rank 1
+  -> `EffectBasePoints_1` 13 -> "$s1" 14 -> "14 to 18 Fire damage").
 - **Trash coverage** now exists for Molten Core, Blackwing Lair, Scarlet Monastery,
   Zul'Gurub, UBRS, LBRS, and Onyxia (only World Bosses and the Emerald Dragons have
   no `trash` table). Ability *names* are sourced from real combat logs (per-raid CSVs

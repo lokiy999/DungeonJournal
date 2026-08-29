@@ -61,8 +61,8 @@ numbers as of this pass.
 **Combat-log pass 2026-08-29** - `BWL stuff.csv` was cross-matched against
 `BWL.lua`; see [BWL_CSV_Pass.md](BWL_CSV_Pass.md) for the full list. The 6 old
 "Placeholder" abilities are gone and ~25 more abilities were added/reworded
-with real numbers from Spell.xlsx (its English text lives in the
-`*_koKR`-headed columns in this export, not `_enUS`). A handful of custom V+
+with real numbers from Spell.xlsx (its header row is shifted ~2 columns from
+the text data in this export - see the note in AGENTS.md). A handful of custom V+
 effects still say "needs testing" - Shrink Ray, Death Ray, Ice Sprinkler
 amounts, Dragon sickness / Mental Strike / Summon Livingflame / Warming Flames
 effects, Brood Power: Blue's attack-speed sign, and `$t1` tick intervals.
