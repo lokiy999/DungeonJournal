@@ -77,7 +77,9 @@ not-yet-done rather than "wrong":
 
 ## Scarlet Monastery bosses ([raids/SM.lua](raids/SM.lua))
 
-- **Loksey -> Paralyzing Poison** - per-stack Nature damage unknown.
+- ~~**Loksey -> Paralyzing Poison** - per-stack Nature damage unknown.~~ -
+  **RESOLVED, 2026-08-29 (user):** 125 to 145 Nature damage per stack
+  every 2 sec, lasts 20 seconds. Filled into `raids/SM.lua`.
 - **Loksey -> Power Shot** - damage unknown (line literally reads
   "(Loksey weapon damage?)X damage" - unresolved question mark left in
   from testing).
@@ -86,14 +88,15 @@ not-yet-done rather than "wrong":
   silences for 6 seconds, slows movement speed 50% for 6 seconds. Filled
   into `raids/SM.lua` (dropped the vague "Concussed, Dazed" wording now
   that the real slow value is known).
-- ~~**Doan (Frost stance) -> Chilled to the Bone -> Frozen Solid**~~ -
-  **RESOLVED, 2026-08-29 (user):** frozen for up to 10 seconds, taking
-  20% of max health as Frost damage every 2 seconds. Filled into
-  `raids/SM.lua`.
+- **Doan (Frost stance) -> Chilled to the Bone -> Frozen Solid** - stun
+  duration and per-tick Frost damage still unknown; nested three deep
+  under Doan's Frost-stance "Numbing Cold". (A 2026-08-29 fill was
+  reverted at the user's request - not confirmed.)
 
 Everything else checked in SM bosses (Vishas, Herod, Brother Michael,
 Renault Mograine, Fairbanks, and the rest of Loksey/Brigitte/Doan) had
-real numbers, no `X` placeholders found.
+real numbers, no `X` placeholders found. Remaining SM-boss `X`s: Loksey's
+Power Shot and Doan's Frozen Solid.
 
 ## Upper Blackrock Spire ([raids/UBRS.lua](raids/UBRS.lua))
 
@@ -276,8 +279,9 @@ first pass is functional but has real gaps - to make it solid:
   blocks (all 20 mobs). The 4 remaining ability-text `X`s in `raids/SM.lua`
   are all on bosses/boss-adds: Loksey -> Paralyzing Poison ("X Nature
   damage"), Loksey -> Power Shot ("X damage"), Brigitte's Scarlet
-  Sharpshooter add -> Explosive Shot. (Explosive Shot and Doan's Frozen
-  Solid were both resolved 2026-08-29 - see the SM bosses section.)
+  Sharpshooter add -> Explosive Shot, and Doan (Frost) -> Chilled to the
+  Bone -> Frozen Solid ("X Frost Damage every X seconds"). (Explosive Shot
+  was resolved 2026-08-29 - see the SM bosses section.)
 - Icons and mob-level (portrait) icons were picked reasonably from each
   mob's own real abilities, not verified in-game.
 

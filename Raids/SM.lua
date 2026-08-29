@@ -884,7 +884,7 @@ local SM_BOSSES = {
             warning = true,
             roles = {"poison"},
             color = "ffff7d0a",
-            lines = {"Loksey throws out a poison volley at all enemies. The poison inflicts X Nature damage every 2 sec (per stack?).",
+            lines = {"Loksey throws out a poison volley at all enemies. The poison inflicts 125 to 145 Nature damage per stack every 2 sec and lasts 20 seconds.",
                      "At 5 stacks it stuns the user for 10/11 seconds and removes all stacks."}
         }, {
             name = "Power Shot",
@@ -1282,7 +1282,7 @@ local SM_BOSSES = {
                 abilities = {{
                     name = "Frozen Solid",
                     icon = "Interface\\Icons\\spell_frost_frost",
-                    lines = {"Frozen in place for up to 10 seconds, taking 20% of your maximum health as Frost damage every 2 seconds."}
+                    lines = {"Your frozen in place for 10 seconds and get X Frost Damage every X seconds."}
                 }}
             }}
         }, {
