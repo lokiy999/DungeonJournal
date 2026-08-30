@@ -675,9 +675,9 @@ local MC_BOSSES = {
             name = "Melt Weapon",
             icon = "Interface\\Icons\\spell_fire_meteorstorm",
             roles = {"melee"},
-            -- CHANGED: spell 21388 - Spell.xlsx has no numbers for it. It is a
-            -- proc on Ragnaros' melee hits, not a timed effect.
-            lines = {"Ragnaros' melee hits chip away at the target's weapon durability."}
+            -- CHANGED: spell 21388. Spell.xlsx has no numbers; user: 25% proc
+            -- chance on any melee hit or Physical ability damage he takes.
+            lines = {"25% chance, whenever Ragnaros is hit by a melee attack or a Physical ability, to reduce that weapon's durability by 1."}
         }},
         adds = {{
             name = "Son of Flame",
