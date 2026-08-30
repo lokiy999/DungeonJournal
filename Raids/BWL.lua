@@ -405,6 +405,10 @@ local BWL_BOSSES = {
             roles = {"tank"},
             lines = {"Knocks nearby enemies back for around 1500 damage, shedding threat."}
         }, {
+            separator = true,
+            passive = true,
+            name = "Passives"
+        }, {
             -- CHANGED: spell 3391, from BWL combat log "BWL stuff.csv".
             name = "Thrash",
             icon = "Interface\\Icons\\Ability_Warrior_DecisiveStrike",
@@ -860,6 +864,10 @@ local BWL_TRASH_MOBS = {
             warning = true,
             roles = {"hunter"},
             lines = {"Enrages, attacking faster - remove with Tranquilizing Shot."}
+        }, {
+            separator = true,
+            passive = true,
+            name = "Passives"
         }, {
             name = "Aura of Flames",
             icon = "Interface\\Icons\\Spell_Fire_Fire",

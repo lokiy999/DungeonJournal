@@ -105,6 +105,10 @@ local ZG_TRASH_MOBS = {
             warning = true,
             lines = {"Inflicts 875 to 1125 damage to an enemy, stunning it for 2 seconds."}
         }, {
+            separator = true,
+            passive = true,
+            name = "Passives"
+        }, {
             name = "Thrash",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             lines = {"Gives the caster 2 extra attacks."}
@@ -328,6 +332,10 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_UpgradeMoonGlaive",
             warning = true,
             lines = {"Hurls a shield at the enemy, causing 308 to 348 damage, increased by Attack Power and knocks down for 2 seconds. This ability causes a high amount of threat."}
+        }, {
+            separator = true,
+            passive = true,
+            name = "Passives"
         }, {
             name = "Defensive Stance",
             icon = "Interface\\Icons\\Ability_Warrior_DefensiveStance",
@@ -576,6 +584,10 @@ local ZG_TRASH_MOBS = {
             warning = true,
             lines = {"Spits poison at an enemy, inflicting Nature damage, then additional damage every X sec. for X seconds."}
         }, {
+            separator = true,
+            passive = true,
+            name = "Passives"
+        }, {
             name = "Thrash",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             lines = {"Gives the caster 2 extra attacks."}
@@ -652,6 +664,10 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Shadow_CallofBone",
             warning = true,
             lines = {"Inflicts Nature damage to an enemy every X sec. and increases the Physical damage it takes for 180 seconds."}
+        }, {
+            separator = true,
+            passive = true,
+            name = "Passives"
         }, {
             name = "Thrash",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
@@ -764,6 +780,10 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_PoisonSting",
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 24320 - not reverse-engineered from raw effect codes.
             lines = {"X - no ability description available."}
+        }, {
+            separator = true,
+            passive = true,
+            name = "Passives"
         }, {
             name = "Thrash",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
