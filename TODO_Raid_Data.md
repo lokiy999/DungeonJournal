@@ -37,6 +37,19 @@ Status update 2026-08-23, from in-game testing:
   "damage still unknown" / "X Nature damage" were wrong - there is no
   damage component.)
 
+**Combat-log pass 2026-08-30** - `MC FULL.csv` (160k rows, all 10 bosses +
+their adds + trash) cross-matched against `MC.lua` + Spell.xlsx. Every
+existing boss number checked out. The remaining ability `X` placeholders
+were resolved or reworded: Firesworn Eruption (~2350 Fire), Shazzrah Arcane
+Volley (~275/bolt), Flame Imp Fire Nova (~148), the Sulfuron
+"Flamewaker Priest" add's shield is actually **Shadow Shield** (50000
+absorb + 475 to melee, 30s) and its heal is **Dark Mending** (127750);
+Baron Geddon Spreading Flames confirmed 6s (damage still unknown - not in
+sheet); Lava Annihilator Double Attack reworded (it's a passive proc, not
+timed); Ragnaros Melt Weapon reworded (proc on hit). Flamewaker Sunder
+Armor and Firesworn's Separation Anxiety distance are still the only real
+unknowns.
+
 Still unsure / hard to find - needs more digging later:
 
 - **Firelord -> Spawn Lava Spawn -> Fireball** - both the direct hit and
@@ -46,10 +59,12 @@ Still unsure / hard to find - needs more digging later:
 - ~~**Lava Elemental -> Lava Explosion** - damage unknown~~ - **RESOLVED,
   2026-08-29:** 902 to 1202 Fire damage plus a knockback, confirmed via
   testing (still no `Spell.xlsx` match). Filled into `raids/MC.lua`.
-- **Lava Annihilator -> Double Attack** - we've confirmed it hits twice
-  per swing, but not the interval ("every X seconds").
-- **Flame Imp -> Fire Nova** - damage unknown; description is a guess (no
-  `Spell.xlsx` match).
+- ~~**Lava Annihilator -> Double Attack**~~ / ~~**Flame Imp -> Fire
+  Nova**~~ - handled in the 2026-08-30 pass above.
+- **Flamewaker (Gehennas add) -> Sunder Armor** - per-stack armor value is
+  0 in Spell.xlsx (same gap as UBRS/LBRS Sunder Armor); needs testing.
+- **Firesworn -> Separation Anxiety** - the distance that triggers the
+  +300% damage is not in the sheet.
 
 Everything else in MC trash (Molten Giant, Molten Destroyer, Flameguard's
 other two abilities, Core Hound, Ancient Core Hound, Lava Surger, Lava

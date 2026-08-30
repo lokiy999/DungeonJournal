@@ -181,10 +181,14 @@ local MC_BOSSES = {
                 roles = {"tank"},
                 lines = {"Strikes at an enemy, inflicting normal damage plus 25."}
             }, {
+                -- CHANGED: spell 15502 ("MC FULL.csv"). Spell.xlsx text
+                -- confirms the wording + 30s; its per-stack armor value is 0
+                -- in the sheet (same gap as the UBRS/LBRS Sunder Armor ranks),
+                -- so the number still needs testing.
                 name = "Sunder Armor",
                 icon = "Interface\\Icons\\ability_warrior_sunder",
                 roles = {"tank"},
-                lines = {"Hacks at nearby enemies, reducing their armor by X per Sunder Armor. Can be applied up to 5 times. Lasts 30 sec."}
+                lines = {"Hacks at nearby enemies, reducing their armor per stack (amount not known). Stacks up to 5 times. Lasts 30 sec."}
             }, {
                 name = "Fist of Ragnaros",
                 icon = "Interface\\Icons\\spell_holy_sealofwrath",
@@ -230,19 +234,24 @@ local MC_BOSSES = {
             lines = {"Garr starts with 8 Firesworn adds around him.",
                      "For each Firesworn that dies, Garr gains 10% attack speed and loses 300 armor."},
             abilities = {{
+                -- CHANGED: spell 19497 ("MC FULL.csv"). "$s1" =
+                -- EffectBasePoints_1 (2349) + 1.
                 name = "Eruption",
                 icon = "Interface\\Icons\\spell_fire_fire",
                 roles = {"tank", "dps"},
                 warning = true,
-                lines = {"Explodes on death dealing X Fire damage and heavy knockback to nearby players."}
+                lines = {"Explodes on death dealing around 2350 Fire damage and heavy knockback to nearby players."}
             }, {
                 name = "Immolate",
                 icon = "Interface\\Icons\\spell_fire_immolation",
                 lines = {"Inflicts 760 to 840 Fire damage to an enemy and scorches it for an additional 680 to 720 damage every 3 sec. for 21 sec."}
             }, {
+                -- CHANGED: spell 23492 ("MC FULL.csv"). "$s1" =
+                -- EffectBasePoints_1 (299) + 1 = 300; the distance threshold
+                -- is not in Spell.xlsx.
                 name = "Separation Anxiety",
                 icon = "Interface\\Icons\\spell_fire_volcano",
-                lines = {"Firesworn will deal 300% additional damage if more than X yards away from Garr."}
+                lines = {"Firesworn deal 300% additional damage while more than a short distance from Garr - keep them stacked on him."}
             }}
         }}
     },
@@ -262,7 +271,11 @@ local MC_BOSSES = {
             icon = "Interface\\Icons\\spell_fire_selfdestruct",
             roles = { "dps", "healer" },
             warning = true,
-            lines = {"Baron Geddon ignites a player dealing X damage after 6? seconds divided evenly with all players nearby."},
+            -- CHANGED: spell 34471 ("MC FULL.csv"). Spell.xlsx confirms the
+            -- "damage divided evenly among all affected targets after $t1"
+            -- mechanic and DurationIndex 32 = 6s; the damage amount is not in
+            -- the sheet.
+            lines = {"Baron Geddon ignites a player; after 6 seconds it detonates for an unknown amount of Fire damage, split evenly among that player and everyone within range."},
             abilities = {{
                 name = "Molten Ground",
                 icon = "Interface\\Icons\\spell_fire_selfdestruct",
@@ -305,7 +318,10 @@ local MC_BOSSES = {
             name = "Arcane Volley",
             icon = "Interface\\Icons\\spell_nature_starfall",
             roles = {"ranged"},
-            lines = {"Shazzrah throws arcanebolts at all enemies between 20 and 100 yards, dealing X Arcane Damage."}
+            -- CHANGED: spells 34469 (the volley) + 34470 (the "Detonation"
+            -- hit) from "MC FULL.csv"; "$s1" on 34470 = EffectBasePoints_1
+            -- (274) + 1 = 275.
+            lines = {"Shazzrah throws arcanebolts at all enemies between 20 and 100 yards, each hitting for around 275 Arcane damage."}
         }, {
             name = "Arcane Blast",
             icon = "Interface\\Icons\\spell_shadow_deathpact",
@@ -499,15 +515,31 @@ local MC_BOSSES = {
             lines = {"Four Flamewaker Priests accompany Sulfuron and continually shield and heal him.",
                      "Kill these before focusing Sulfuron himself, or the fight will drag on far too long."},
             abilities = {{
-                name = "Power Word: Shield",
-                icon = "Interface\\Icons\\Spell_Holy_PowerWordShield",
-                lines = {"Shields an ally, absorbing X damage."}
-            }, {
-                name = "Greater Heal",
-                icon = "Interface\\Icons\\Spell_Holy_GreaterHeal",
+                -- CHANGED: "MC FULL.csv" shows the Priest casts Shadow Shield
+                -- (spell 34788), not Power Word: Shield. Spell.xlsx: "$s1" =
+                -- 49999 + 1 = 50000 absorb, "$s2" = 474 + 1 = 475 to melee
+                -- attackers; DurationIndex 9 = 30s.
+                name = "Shadow Shield",
+                icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
                 warning = true,
                 roles = {"kick"},
-                lines = {"Heals an ally for X."}
+                lines = {"Shields itself (or Sulfuron), absorbing up to 50000 Physical or magical damage and dealing 475 damage to melee attackers. Lasts 30 seconds."}
+            }, {
+                -- CHANGED: "MC FULL.csv" - the Priest's heal is Dark Mending
+                -- (spell 19775), same as the Flamewaker Healer. "$s1" =
+                -- 127749 + 1.
+                name = "Dark Mending",
+                icon = "Interface\\Icons\\spell_shadow_chilltouch",
+                warning = true,
+                roles = {"kick"},
+                lines = {"Uses dark magic to heal an ally for 127750 to 142250."}
+            }, {
+                -- CHANGED: spell 19776 ("MC FULL.csv"). "$s1" = 143 + 1 = 144
+                -- per tick; DurationIndex 85 = 18s.
+                name = "Shadow Word: Pain",
+                icon = "Interface\\Icons\\Spell_Shadow_ShadowWordPain",
+                roles = {"dispel"},
+                lines = {"Afflicts an enemy with a Shadow damage-over-time effect dealing about 144 damage per tick for 18 seconds."}
             }}
         }}
     },
@@ -612,7 +644,9 @@ local MC_BOSSES = {
             name = "Melt Weapon",
             icon = "Interface\\Icons\\spell_fire_meteorstorm",
             roles = {"melee"},
-            lines = {"Decreases the weapons durability by 1 every X seconds. (% chance?)"}
+            -- CHANGED: spell 21388 - Spell.xlsx has no numbers for it. It is a
+            -- proc on Ragnaros' melee hits, not a timed effect.
+            lines = {"Ragnaros' melee hits chip away at the target's weapon durability."}
         }, {
             name = "Fireboll Volley",
             icon = "Interface\\Icons\\spell_fire_flamebolt",
@@ -944,11 +978,13 @@ local MC_TRASH_MOBS = {
             roles = {"tank"},
             lines = {"Increases the Physical damage taken by an enemy by 100 for 60 seconds. Stacks indefinitely."}
         }, {
-            -- CHANGED: confirmed via testing - hits twice per swing.
+            -- CHANGED: confirmed via testing - hits twice per swing. It is a
+            -- passive proc, not a timed effect (the earlier "every X seconds"
+            -- wording was wrong).
             name = "Double Attack",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             roles = {"tank"},
-            lines = {"Gives the caster one extra attack every X seconds."}
+            lines = {"Passive - frequently lands a second melee hit on the same swing."}
         }}
     },
 
@@ -962,12 +998,12 @@ local MC_TRASH_MOBS = {
         flags = {"caster"},
         stats = {armor = 2400, fire = "immune", nature = 40, frost = 40, shadow = 40, arcane = 40},
         abilities = {{
-            -- CHANGED: no usable Description_enUS match in Spell.xlsx -
-            -- text below is a guess.
+            -- CHANGED: spell 20602 ("MC FULL.csv"). "$s1" = EffectBasePoints_1
+            -- (147) + 1 = 148.
             name = "Fire Nova",
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
             warning = true,
-            lines = {"Inflicts X Fire damage to nearby enemies."}
+            lines = {"Inflicts around 148 Fire damage to nearby enemies."}
         }}
     },
 
