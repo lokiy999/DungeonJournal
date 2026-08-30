@@ -1406,18 +1406,19 @@ local SM_BOSSES = {
             icon = "Interface\\Icons\\spell_holy_purify",
             lines = {"Mograine purifies a friendly target, removing 1 disease effect and 1 poison effect."}
         }, {
-            -- CHANGED: spell 1020, logged in "SM mograine fairbanks.csv".
-            -- DurationIndex 1 = 10s.
+            -- CHANGED: spell 1020, logged in "SM mograine fairbanks.csv";
+            -- user: cast at 25% health. DurationIndex 1 = 10s.
             name = "Divine Shield",
             icon = "Interface\\Icons\\Spell_Holy_DivineIntervention",
             warning = true,
-            lines = {"Becomes immune to all attacks and spells for 10 seconds, but cannot take offensive actions during it."}
+            lines = {"At 25% health he becomes immune to all attacks and spells for 10 seconds, but cannot take offensive actions during it."}
         }, {
-            -- CHANGED: spell 9257, logged in "SM mograine fairbanks.csv".
+            -- CHANGED: spell 9257, logged in "SM mograine fairbanks.csv" -
+            -- every cast targets Sally Whitemane, not himself.
             name = "Lay on Hands",
             icon = "Interface\\Icons\\Spell_Holy_LayOnHands",
             warning = true,
-            lines = {"Heals himself to full health, draining all of his remaining mana."}
+            lines = {"Mograine heals Sally Whitemane to full health (roughly once per attempt), draining all of his remaining mana."}
         }, {
             name = "Aura",
             icon = "Interface\\Icons\\spell_holy_auramastery",
@@ -1459,7 +1460,7 @@ local SM_BOSSES = {
             name = "Deep Sleep",
             icon = "Interface\\Icons\\Spell_Nature_Sleep",
             warning = true,
-            lines = {"Cast together with Scarlet Resurrection - sleeps the nearby raid for up to 30 seconds while she brings Mograine back. Any damage wakes a sleeper."}
+            lines = {"Cast together with Scarlet Resurrection - sleeps the nearby raid while she brings Mograine back. Everyone wakes the moment Mograine is resurrected."}
         }, {
             name = "Holy Smite",
             icon = "Interface\\Icons\\Spell_Holy_HolySmite",
