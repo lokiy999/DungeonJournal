@@ -1374,8 +1374,9 @@ local SM_BOSSES = {
         name = "Renault Mograine",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Mograine",
         flags = {"notalwaystauntable"},
-        -- NOTE: values from Spell.dbc (IDs 33456-36021). Percentages are the
-        -- real $s values (DBC stores them as value-1).
+        -- NOTE: values from Spell.dbc (IDs 33456-36021), cross-checked against
+        -- the "SM mograine fairbanks.csv" combat log + Spell.xlsx. Percentages
+        -- are the real $s values (DBC stores them as value-1).
         abilities = {{
             separator = true,
             name = "Renault Mograine"
@@ -1388,15 +1389,35 @@ local SM_BOSSES = {
             name = "Crusader Strike",
             icon = "Interface\\Icons\\Spell_Holy_CrusaderStrike2",
             roles = {"tank", "dispel"},
-            lines = {"Inflicts 800 to 1100 damage to an enemy and increases the Holy damage it takes by 20% per Crusader Strike. Can be applied up to 5 times. Lasts 25 seconds.."}
+            lines = {"Inflicts 800 to 1100 damage to an enemy and increases the Holy damage it takes by 20% per Crusader Strike. Can be applied up to 5 times. Lasts 25 seconds."}
         }, {
             name = "Pillar of Light",
             icon = "Interface\\Icons\\Spell_Holy_ReviveChampion",
             lines = {"Mograine summons a Pillar of Light every ~15-20 seconds, which disorientates anyone who looks at it for 6 seconds while it's being cast. It deals 500 Holy damage to anyone in its' line of sight every second."}
         }, {
+            -- CHANGED: spell 36003, logged in "SM mograine fairbanks.csv".
+            -- Spell.xlsx: blind, DurationIndex 32 = 6s.
+            name = "Blinding Light",
+            icon = "Interface\\Icons\\Spell_Holy_MindVision",
+            warning = true,
+            lines = {"Emits a flash of light that blinds nearby enemies facing him for 6 seconds."}
+        }, {
             name = "Purify",
             icon = "Interface\\Icons\\spell_holy_purify",
             lines = {"Mograine purifies a friendly target, removing 1 disease effect and 1 poison effect."}
+        }, {
+            -- CHANGED: spell 1020, logged in "SM mograine fairbanks.csv".
+            -- DurationIndex 1 = 10s.
+            name = "Divine Shield",
+            icon = "Interface\\Icons\\Spell_Holy_DivineIntervention",
+            warning = true,
+            lines = {"Becomes immune to all attacks and spells for 10 seconds, but cannot take offensive actions during it."}
+        }, {
+            -- CHANGED: spell 9257, logged in "SM mograine fairbanks.csv".
+            name = "Lay on Hands",
+            icon = "Interface\\Icons\\Spell_Holy_LayOnHands",
+            warning = true,
+            lines = {"Heals himself to full health, draining all of his remaining mana."}
         }, {
             name = "Aura",
             icon = "Interface\\Icons\\spell_holy_auramastery",
@@ -1473,7 +1494,16 @@ local SM_BOSSES = {
             icon = "Interface\\Icons\\spell_shadow_shadowworddominate",
             warning = true,
             roles = {"cc"},
-            lines = {"Mind controls a player."}
+            -- CHANGED: spell 36013, from "SM mograine fairbanks.csv".
+            -- DurationIndex 8 = 15s.
+            lines = {"Mind controls a player for 15 seconds."}
+        }, {
+            -- CHANGED: spell 9256, logged in "SM mograine fairbanks.csv".
+            -- Spell.xlsx: sleep, DurationIndex 2 = 30s, broken by damage.
+            name = "Deep Sleep",
+            icon = "Interface\\Icons\\Spell_Nature_Sleep",
+            warning = true,
+            lines = {"Puts nearby enemies to sleep for up to 30 seconds. Any damage wakes them."}
         }}
     },
 
@@ -1481,18 +1511,22 @@ local SM_BOSSES = {
         name = "Fairbanks",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Fairbanks",
         flags = {"tauntable"},
-        -- NOTE: values from Spell.dbc (IDs 36024-36213). Percentages are the
-        -- real $s values (DBC stores them as value-1).
+        -- NOTE: values from Spell.dbc (IDs 36024-36213), Bile Vomit /
+        -- Power Word: Barrier / Claustrophobia re-confirmed against the
+        -- "SM mograine fairbanks.csv" combat log + Spell.xlsx (that log only
+        -- caught the pull, so the rest are still Spell.dbc-only).
         abilities = {{
             name = "Bile Vomit",
             icon = "Interface\\Icons\\Spell_Shadow_PlagueCloud",
             roles = {"tank"},
             lines = {"Shoots a cloud of bile in a cone in front of him, reducing armor by 650 and inflicting 1280 to 1620 Nature damage and 330 Nature damage every 5 seconds for 30 seconds. Stacks up to 10 times."}
         }, {
+            -- CHANGED: spell 36027 aura text (Spell.xlsx) - it buffs Stomp,
+            -- it does not resize players.
             name = "Claustrophobia",
             icon = "Interface\\Icons\\Spell_Shadow_Shadesofdarkness",
             warning = true,
-            lines = {"The walls press inward, increasing all players in size."}
+            lines = {"The walls press inward, increasing the damage and radius of his Stomp for 20 seconds."}
         }, {
             name = "Blasphemous Vitality",
             icon = "Interface\\Icons\\spell_shadow_unholystrength",

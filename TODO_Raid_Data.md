@@ -107,14 +107,20 @@ not-yet-done rather than "wrong":
 
 ## Scarlet Monastery bosses ([raids/SM.lua](raids/SM.lua))
 
-**Combat-log pass 2026-08-30** - `SM 6 bosses.csv` (Loksey, Brigitte,
-Vishas, Herod, Brother Michael, Doan) cross-matched against `SM.lua` +
-Spell.xlsx. Every existing damage/percent on those six checked out. Added:
-Brigitte -> Improved Blocking (passive, 55%), Brother Michael -> Inner Fire
-(passive, +/-20%), Doan -> Mana Shield and the three per-phase Elemental
-Wards (Arcane/Frost/Fire Ward, reflect that school for 60s). Herod's
-Demoralized was already present and correct. Mograine/Whitemane and
-Fairbanks are NOT in this log - user is getting those separately.
+**Combat-log pass 2026-08-30** - all 8 SM bosses cross-matched against
+`SM.lua` + Spell.xlsx, from `SM 6 bosses.csv` (Loksey, Brigitte, Vishas,
+Herod, Brother Michael, Doan) and `SM mograine fairbanks.csv` (Renault
+Mograine, Sally Whitemane, Fairbanks). Every existing damage/percent
+checked out. Added:
+- Brigitte -> Improved Blocking (passive, 55%)
+- Brother Michael -> Inner Fire (passive, +/-20%)
+- Doan -> Mana Shield + per-phase Elemental Wards (Arcane/Frost/Fire,
+  reflect that school for 60s)
+- Mograine -> Blinding Light (6s blind), Divine Shield (10s), Lay on Hands
+- Whitemane -> Deep Sleep (30s), Dominate Mind duration (15s)
+- Fairbanks -> Claustrophobia corrected (it buffs Stomp, does not resize
+  players); the log only caught the pull so nothing else new there.
+Herod's Demoralized was already present and correct.
 
 - ~~**Loksey -> Paralyzing Poison** - per-stack Nature damage unknown.~~ -
   **RESOLVED, 2026-08-29 (user):** 125 to 145 Nature damage per stack
