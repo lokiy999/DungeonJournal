@@ -626,8 +626,9 @@ Nature), the 75/50/25% signature summons, and each dragon's adds
 with their own abilities.
 
 Still open:
-- Boss `stats` (armor/resistances) - only Ysondre has a `stats` block
-  (pre-existing, unverified); the other three have none.
+- Boss `stats` - V+ Lists "Resistances Data" only has Ysondre's row filled
+  (armor 4691, 126 all schools); the other three now copy those values
+  (they're the same level-63 dragon) but their own rows were never tested.
 - All four still use the `Interface\Icons\temp` portrait placeholder.
 - `$t1`-style tick intervals for a couple of DoTs are given as "every N
   seconds" from the wiki text, not independently confirmed on this server.

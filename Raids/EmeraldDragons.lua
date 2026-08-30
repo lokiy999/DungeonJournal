@@ -40,6 +40,11 @@ local GREEN_BOSSES = {
         name = "Emeriss",
         icon = "Interface\\Icons\\temp",
         flags = {"damage_nature"},
+        -- CHANGED: V+ Lists "Resistances Data" only has Ysondre's row filled
+        -- (armor 4691, 126 all schools); the four dragons are the same
+        -- level-63 dragon and confirmed identical to Classic, so Ysondre's
+        -- tested values are reused here. Re-test if V+ diverges.
+        stats = {armor = 4691, fire = 126, nature = 126, frost = 126, shadow = 126, arcane = 126},
         abilities = {{
             name = "Volatile Infection",
             icon = "Interface\\Icons\\Spell_Holy_HarmUndeadAura",
@@ -90,6 +95,9 @@ local GREEN_BOSSES = {
         name = "Lethon",
         icon = "Interface\\Icons\\temp",
         flags = {"damage_shadow"},
+        -- CHANGED: reused from Ysondre's tested V+ Lists row - see the note on
+        -- the Emeriss entry.
+        stats = {armor = 4691, fire = 126, nature = 126, frost = 126, shadow = 126, arcane = 126},
         abilities = {{
             name = "Shadow Bolt Whirl",
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
@@ -139,6 +147,9 @@ local GREEN_BOSSES = {
         name = "Taerar",
         icon = "Interface\\Icons\\temp",
         flags = {"damage_arcane"},
+        -- CHANGED: reused from Ysondre's tested V+ Lists row - see the note on
+        -- the Emeriss entry.
+        stats = {armor = 4691, fire = 126, nature = 126, frost = 126, shadow = 126, arcane = 126},
         abilities = {{
             name = "Arcane Blast",
             icon = "Interface\\Icons\\Spell_Shadow_DeathPact",
@@ -205,6 +216,8 @@ local GREEN_BOSSES = {
         name = "Ysondre",
         icon = "Interface\\Icons\\temp",
         flags = {"damage_nature"},
+        -- CHANGED: the only dragon with a filled row in V+ Lists "Resistances
+        -- Data" - the other three copy these values (see the Emeriss note).
         stats = {armor = 4691, fire = 126, nature = 126, frost = 126, shadow = 126, arcane = 126},
         abilities = {{
             name = "Lightning Wave",
