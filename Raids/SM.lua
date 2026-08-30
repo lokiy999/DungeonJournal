@@ -1521,12 +1521,13 @@ local SM_BOSSES = {
             roles = {"tank"},
             lines = {"Shoots a cloud of bile in a cone in front of him, reducing armor by 650 and inflicting 1280 to 1620 Nature damage and 330 Nature damage every 5 seconds for 30 seconds. Stacks up to 10 times."}
         }, {
-            -- CHANGED: spell 36027 aura text (Spell.xlsx) - it buffs Stomp,
-            -- it does not resize players.
+            -- CHANGED: spell 36027 - Spell.xlsx aura text is "Stomp damage and
+            -- radius increased"; user confirms it also visibly enlarges
+            -- players. DurationIndex 18 = 20s.
             name = "Claustrophobia",
             icon = "Interface\\Icons\\Spell_Shadow_Shadesofdarkness",
             warning = true,
-            lines = {"The walls press inward, increasing the damage and radius of his Stomp for 20 seconds."}
+            lines = {"The walls press inward for 20 seconds - all players grow in size and the damage and radius of his Stomp are increased."}
         }, {
             name = "Blasphemous Vitality",
             icon = "Interface\\Icons\\spell_shadow_unholystrength",
