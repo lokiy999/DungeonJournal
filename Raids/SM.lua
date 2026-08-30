@@ -1452,6 +1452,15 @@ local SM_BOSSES = {
             warning = true,
             lines = {"When Mograine dies, Whitemane resurrects him and the fight continues."}
         }, {
+            -- CHANGED: spell 9256, logged in "SM mograine fairbanks.csv".
+            -- Spell.xlsx: sleep, DurationIndex 2 = 30s, broken by damage.
+            -- User: only cast at the phase change (with the resurrect), not
+            -- on a timer.
+            name = "Deep Sleep",
+            icon = "Interface\\Icons\\Spell_Nature_Sleep",
+            warning = true,
+            lines = {"Cast together with Scarlet Resurrection - sleeps the nearby raid for up to 30 seconds while she brings Mograine back. Any damage wakes a sleeper."}
+        }, {
             name = "Holy Smite",
             icon = "Interface\\Icons\\Spell_Holy_HolySmite",
             roles = {"kick"},
@@ -1497,13 +1506,6 @@ local SM_BOSSES = {
             -- CHANGED: spell 36013, from "SM mograine fairbanks.csv".
             -- DurationIndex 8 = 15s.
             lines = {"Mind controls a player for 15 seconds."}
-        }, {
-            -- CHANGED: spell 9256, logged in "SM mograine fairbanks.csv".
-            -- Spell.xlsx: sleep, DurationIndex 2 = 30s, broken by damage.
-            name = "Deep Sleep",
-            icon = "Interface\\Icons\\Spell_Nature_Sleep",
-            warning = true,
-            lines = {"Puts nearby enemies to sleep for up to 30 seconds. Any damage wakes them."}
         }}
     },
 
