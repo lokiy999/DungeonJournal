@@ -641,13 +641,6 @@ local MC_BOSSES = {
             roles = {"healer", "tank"},
             lines = {"Increases a target's chance to be a victim of a critical strike by 100% for 20 sec."}
         }, {
-            name = "Melt Weapon",
-            icon = "Interface\\Icons\\spell_fire_meteorstorm",
-            roles = {"melee"},
-            -- CHANGED: spell 21388 - Spell.xlsx has no numbers for it. It is a
-            -- proc on Ragnaros' melee hits, not a timed effect.
-            lines = {"Ragnaros' melee hits chip away at the target's weapon durability."}
-        }, {
             name = "Fireboll Volley",
             icon = "Interface\\Icons\\spell_fire_flamebolt",
             roles = {"melee"},
@@ -674,6 +667,17 @@ local MC_BOSSES = {
             icon = "Interface\\Icons\\spell_fire_fire",
             warning = true,
             lines = {"Deals 1500 to 2000 damage to enemies? unknown when"}
+        }, {
+            separator = true,
+            passive = true,
+            name = "Passives"
+        }, {
+            name = "Melt Weapon",
+            icon = "Interface\\Icons\\spell_fire_meteorstorm",
+            roles = {"melee"},
+            -- CHANGED: spell 21388 - Spell.xlsx has no numbers for it. It is a
+            -- proc on Ragnaros' melee hits, not a timed effect.
+            lines = {"Ragnaros' melee hits chip away at the target's weapon durability."}
         }},
         adds = {{
             name = "Son of Flame",
@@ -978,13 +982,17 @@ local MC_TRASH_MOBS = {
             roles = {"tank"},
             lines = {"Increases the Physical damage taken by an enemy by 100 for 60 seconds. Stacks indefinitely."}
         }, {
+            separator = true,
+            passive = true,
+            name = "Passives"
+        }, {
             -- CHANGED: confirmed via testing - hits twice per swing. It is a
             -- passive proc, not a timed effect (the earlier "every X seconds"
             -- wording was wrong).
             name = "Double Attack",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             roles = {"tank"},
-            lines = {"Passive - frequently lands a second melee hit on the same swing."}
+            lines = {"Frequently lands a second melee hit on the same swing."}
         }}
     },
 
