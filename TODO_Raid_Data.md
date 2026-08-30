@@ -266,8 +266,13 @@ Added 2026-08-12 from a real combat log ("Scarlet Monestary Trash (most
 of it).csv" - 23 distinct mobs), cross-matched against `Spell.xlsx` by
 exact Spell ID rather than name-guessing. The CSV's own damage numbers
 were ignored per instruction (random every pull, not real spell values);
-everything below comes from `Spell.xlsx`'s effect fields instead. This
-first pass is functional but has real gaps - to make it solid:
+everything below comes from `Spell.xlsx`'s effect fields instead.
+
+**Roster confirmed complete 2026-08-30:** re-checked against the two
+full-run logs (`SM 6 bosses.csv`, `SM mograine fairbanks.csv`) - every
+Scarlet trash mob they contain is in `SM_TRASH_MOBS`. The only extras in
+those logs (Sharpshooter, Trainee, Recruit) are already accounted for as
+boss adds / non-pulls. Remaining gaps:
 
 - **Pull order/grouping is completely unknown.** The CSV is a flat event
   list with no pull boundaries, so `SM_TRASH_ORDER` is just all 23 mobs
