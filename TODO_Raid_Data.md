@@ -614,6 +614,24 @@ were new.
   generic Dazed effect for this mob, no real cast logged.
   - No `stats` added - not present in the log, 100% untested.
 
+## Emerald Dragons ([raids/EmeraldDragons.lua](raids/EmeraldDragons.lua))
+
+**2026-08-29:** user confirmed the V+ Dragons of Nightmare are still
+identical to Classic, so the whole file was refilled with real numbers from
+`warcraft.wiki.gg`'s "<dragon> (Classic)" pages (cross-checked against the
+Warcraft Tavern guide) - shared abilities (Noxious Breath 3000 + 350-450/3s
+DoT stacking 6x, Tail Sweep 925-1075, Seeping Fog 4s sleep, Mark/Aura of
+Nature), the 75/50/25% signature summons, and each dragon's adds
+(Ysondre's Demented Druid Spirits, Lethon's Spirit Shades, Taerar's Shades)
+with their own abilities.
+
+Still open:
+- Boss `stats` (armor/resistances) - only Ysondre has a `stats` block
+  (pre-existing, unverified); the other three have none.
+- All four still use the `Interface\Icons\temp` portrait placeholder.
+- `$t1`-style tick intervals for a couple of DoTs are given as "every N
+  seconds" from the wiki text, not independently confirmed on this server.
+
 ## Trash tab showed empty entries for raids with no trash (fixed)
 
 `BuildTrashEntries()` in `DungeonJournal.lua` previously added a
