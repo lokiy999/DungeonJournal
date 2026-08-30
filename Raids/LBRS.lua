@@ -362,17 +362,18 @@ local LBRS_TRASH_MOBS = {
             warning = true,
             lines = {"Charges an enemy, inflicting normal damage plus X and stuns the opponent for X seconds (raw sheet value for the bonus-damage token is 0/implausibly tiny - a larger value of 1300 lives on a different effect slot not referenced by this token; left as X)."}
         }, {
-            separator = true,
-            passive = true,
-            name = "Passives"
-        }, {
             name = "Retaliation",
             icon = "Interface\\Icons\\Ability_Warrior_Challange",
+            warning = true,
             -- CHANGED: duration confirmed from Spell.xlsx (spell ID 22857, DurationIndex 8) + SpellDuration.csv -> 15s.
             lines = {
                 "Instantly counterattacks any enemy that strikes it in melee for 15 seconds. Attacks from behind cannot be counterattacked.",
                 "(Spell ID 22858 is a companion trigger for this same effect, not a separate ability.)"
             }
+        }, {
+            separator = true,
+            passive = true,
+            name = "Passives"
         }, {
             name = "Berserker Stance",
             icon = "Interface\\Icons\\Ability_Racial_Avatar",

@@ -178,6 +178,12 @@ local SM_TRASH_MOBS = {
             warning = true,
             lines = {"Blasts nearby enemies with thunder, inflicting 2250 to 2500 damage and reducing their movement and attack speed by 20% for 18 seconds."}
         }, {
+            -- CHANGED: duration confirmed from Spell.xlsx (spell 22857) + SpellDuration.csv lookup - not in-game tested.
+            name = "Retaliation",
+            icon = "Interface\\Icons\\Ability_Warrior_Challange",
+            warning = true,
+            lines = {"Instantly counterattacks any enemy that strikes it in melee for 15 seconds. Attacks from behind cannot be counterattacked."}
+        }, {
             separator = true,
             passive = true,
             name = "Passives"
@@ -185,11 +191,6 @@ local SM_TRASH_MOBS = {
             name = "Battle Stance",
             icon = "Interface\\Icons\\Ability_Warrior_OffensiveStance",
             lines = {"A balanced combat stance."}
-        }, {
-            -- CHANGED: duration confirmed from Spell.xlsx (spell 22857) + SpellDuration.csv lookup - not in-game tested.
-            name = "Retaliation",
-            icon = "Interface\\Icons\\Ability_Warrior_Challange",
-            lines = {"Instantly counterattacks any enemy that strikes it in melee for 15 seconds. Attacks from behind cannot be counterattacked."}
         }}
     },
 

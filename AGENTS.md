@@ -179,6 +179,11 @@ Put it under `Passives` when it is:
 - something you would never mark `warning = true` or give a `roles` icon;
 - something the raid does nothing differently about when it "procs".
 
+If it deserves a `warning = true` (deals damage, reduces armor, debuffs a
+player) it is **not** a passive - even a low, on-a-timer, avoidable effect
+like Golemagg's Magma Splash is a normal ability. Likewise **Retaliation**
+is an ability, not a passive (it is a warrior cooldown with a duration).
+
 Keep it as a normal ability (optionally with its own phase separator) when it:
 
 - has a cast, activation, or telegraph;

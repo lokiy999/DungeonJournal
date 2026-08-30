@@ -188,22 +188,18 @@ local UBRS_TRASH_MOBS = {
             lines = {"X - no ability description available (name suggests a cosmetic 'fake sap' animation, not a real crowd control effect)."}
         },
         {
-            name = "Strike",
-            icon = "Interface\\Icons\\Ability_Rogue_Ambush",
-            lines = {"Strikes at an enemy, inflicting increased melee damage."}
-        },
-        {
-            separator = true,
-            passive = true,
-            name = "Passives"
-        },
-        {
             name = "Retaliation",
             icon = "Interface\\Icons\\Ability_Warrior_Challange",
+            warning = true,
             lines = {
                 "Instantly counterattacks any enemy that strikes it in melee for X seconds. Attacks from behind cannot be counterattacked.",
                 "(Spell ID 22858 is a companion trigger for this same effect, not a separate ability.)"
             }
+        },
+        {
+            name = "Strike",
+            icon = "Interface\\Icons\\Ability_Rogue_Ambush",
+            lines = {"Strikes at an enemy, inflicting increased melee damage."}
         }
         }
     },
