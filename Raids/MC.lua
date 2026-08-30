@@ -367,11 +367,6 @@ local MC_BOSSES = {
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Golemagg",
         stats = {armor = 6200, fire = 422, nature = 137, frost = 98, shadow = 88, arcane = 48},
         abilities = {{
-            name = "Magma Splash",
-            icon = "Interface\\Icons\\spell_fire_immolation",
-            roles = {"tank", "melee"},
-            lines = {"Golemagg splashes magma at his attackers, dealing 50 Fire damage every 3 sec. and reducing their armor by 250? per stack. Stacks indefinitely."}
-        }, {
             name = "Hateful Strike",
             icon = "Interface\\Icons\\trade_engineering",
             roles = {"tank", "healer"},
@@ -399,6 +394,15 @@ local MC_BOSSES = {
                 icon = "Interface\\Icons\\Spell_Nature_Earthquake",
                 lines = {"Golemagg causes an earthquake every 4 seconds, inflicting ~2000+ damage to nearby enemies.)"}
             }}
+        }, {
+            separator = true,
+            passive = true,
+            name = "Passives"
+        }, {
+            name = "Magma Splash",
+            icon = "Interface\\Icons\\spell_fire_immolation",
+            roles = {"tank", "melee"},
+            lines = {"Golemagg splashes magma at his attackers, dealing 50 Fire damage every 3 sec. and reducing their armor by 250? per stack. Stacks indefinitely."}
         }},
         adds = {{
             name = "Core Rager",
@@ -411,8 +415,7 @@ local MC_BOSSES = {
                 icon = "Interface\\Icons\\ability_hunter_beasttaming",
                 warning = true,
                 roles = {"tank"},
-                lines = {"They will deal increased damage and have 50% increased attack speed if tanked too close to Golemagg.",
-                       "They will be bigger and glowing red if tanked too close to Golemagg."}
+                lines = {"Passive - the Core Ragers deal increased damage and gain 50% attack speed while tanked too close to Golemagg (and turn bigger and glow red)."}
             }, {
                 name = "Mangle",
                 icon = "Interface\\Icons\\ability_druid_disembowel",
