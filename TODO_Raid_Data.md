@@ -107,12 +107,21 @@ not-yet-done rather than "wrong":
 
 ## Scarlet Monastery bosses ([raids/SM.lua](raids/SM.lua))
 
+**Combat-log pass 2026-08-30** - `SM 6 bosses.csv` (Loksey, Brigitte,
+Vishas, Herod, Brother Michael, Doan) cross-matched against `SM.lua` +
+Spell.xlsx. Every existing damage/percent on those six checked out. Added:
+Brigitte -> Improved Blocking (passive, 55%), Brother Michael -> Inner Fire
+(passive, +/-20%), Doan -> Mana Shield and the three per-phase Elemental
+Wards (Arcane/Frost/Fire Ward, reflect that school for 60s). Herod's
+Demoralized was already present and correct. Mograine/Whitemane and
+Fairbanks are NOT in this log - user is getting those separately.
+
 - ~~**Loksey -> Paralyzing Poison** - per-stack Nature damage unknown.~~ -
   **RESOLVED, 2026-08-29 (user):** 125 to 145 Nature damage per stack
   every 2 sec, lasts 20 seconds. Filled into `raids/SM.lua`.
-- **Loksey -> Power Shot** - damage unknown (line literally reads
-  "(Loksey weapon damage?)X damage" - unresolved question mark left in
-  from testing).
+- **Loksey -> Power Shot** - damage still unknown. Spell.xlsx confirms the
+  description (spell 35841, pierces + ignores armor) but the damage spell
+  (35844 "Power Shot DMG") has base points 0 - needs testing.
 - ~~**Brigitte Abbendis -> (Scarlet Sharpshooter add) -> Explosive Shot**~~ -
   **RESOLVED, 2026-08-29 (user):** 1550 to 2100 Fire damage, knocks back,
   silences for 6 seconds, slows movement speed 50% for 6 seconds. Filled

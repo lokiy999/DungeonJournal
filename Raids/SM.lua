@@ -891,7 +891,10 @@ local SM_BOSSES = {
             icon = "Interface\\Icons\\inv_spear_07",
             warning = true,
             color = "ffff7d0a",
-            lines = {"Loksey fires a powerful ranged shot dealing (Loksey weapon damage?)X damage that pierces through all enemies in its path, ignoring armor."}
+            -- CHANGED: description confirmed from Spell.xlsx (spell 35841, via
+            -- "SM 6 bosses.csv"); the damage value (spell 35844 "Power Shot
+            -- DMG") is 0 in the sheet, so the number still needs testing.
+            lines = {"Loksey fires a powerful shot that pierces through all enemies in its path, ignoring armor. Damage not yet known."}
         }, {
             name = "Scare Beast",
             icon = "Interface\\Icons\\ability_druid_cower",
@@ -925,9 +928,10 @@ local SM_BOSSES = {
         name = "Brigitte Abbendis",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BrigitteAbbendis",
         flags = {"tauntable"},
-        -- NOTE: values from Spell.dbc (IDs 35848-35877). Percentages are the
-        -- real $s values (DBC stores them as value-1). Phase 2 is the mounted
-        -- phase - she summons the Scarlet Charger and swaps to its abilities.
+        -- NOTE: values from Spell.dbc (IDs 35848-35877), every damage/percent
+        -- below re-confirmed against the "SM 6 bosses.csv" combat log +
+        -- Spell.xlsx. Phase 2 is the mounted phase - she summons the Scarlet
+        -- Charger and swaps to its abilities.
         abilities = {{
             separator = true,
             name = "Phase 1"
@@ -1002,6 +1006,17 @@ local SM_BOSSES = {
             warning = true,
             roles = {"tank"},
             lines = {"Increases her attack speed by 100% and the Physical damage she deals by 100% for 10 seconds."}
+        }, {
+            separator = true,
+            passive = true,
+            name = "Passives"
+        }, {
+            -- CHANGED: spell 36172, logged frequently in "SM 6 bosses.csv" -
+            -- the same always-on trait as the Scarlet trash. No Spell.xlsx
+            -- text; 55% is the value used on the trash entries.
+            name = "Improved Blocking",
+            icon = "Interface\\Icons\\Ability_Defend",
+            lines = {"Increases her chance to block by 55%."}
         }},
         adds = {{
             name = "Scarlet Sharpshooter",
@@ -1154,8 +1169,9 @@ local SM_BOSSES = {
         name = "Brother Michael",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BrotherMichael",
         flags = {"tauntable"},
-        -- NOTE: values from Spell.dbc (IDs 35940-35951). Percentages are the
-        -- real $s values (DBC stores them as value-1).
+        -- NOTE: values from Spell.dbc (IDs 35940-35951), cross-checked against
+        -- the "SM 6 bosses.csv" combat log. Percentages are the real $s values
+        -- (DBC stores them as value-1).
         abilities = {{
             name = "Curse of Thorns",
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
@@ -1201,6 +1217,17 @@ local SM_BOSSES = {
                 icon = "Interface\\Icons\\ability_vanish",
                 lines = {"The target becomes a ghost and can see mobs that are in the death realm. If caught by the mobs they will die."}
             }}
+        }, {
+            separator = true,
+            passive = true,
+            name = "Passives"
+        }, {
+            -- CHANGED: spell 36155, logged in "SM 6 bosses.csv" - self-buff he
+            -- keeps up. Spell.xlsx: "$s1" = -21+1 = -20, "$s2" = 19+1 = 20;
+            -- DurationIndex 3 = 60s. (Same effect as the Scarlet Monk's.)
+            name = "Inner Fire",
+            icon = "Interface\\Icons\\Spell_Holy_InnerFire",
+            lines = {"Increases the damage he deals by 20% and reduces damage he takes by 20%. Refreshed roughly every 60 seconds."}
         }}
     },
 
@@ -1208,9 +1235,11 @@ local SM_BOSSES = {
         name = "Doan",
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Doan",
         flags = {"tauntable"},
-        -- NOTE: values from Spell.dbc (IDs 35954-35989). Doan rotates between
-        -- three elemental stances (Arcane, Frost, Fire), each with its own set
-        -- of abilities. Shared abilities are listed under "All Phases".
+        -- NOTE: values from Spell.dbc (IDs 35954-35989), cross-checked against
+        -- the "SM 6 bosses.csv" combat log. Doan rotates between three
+        -- elemental stances (Arcane, Frost, Fire), each with its own set of
+        -- abilities - including an Elemental Ward that reflects that school's
+        -- spells. Shared abilities are listed under "All Phases".
         abilities = {{
             separator = true,
             name = "All Phases"
@@ -1234,6 +1263,13 @@ local SM_BOSSES = {
             roles = {"kick"},
             lines = {"Channels to regenerate 5% of his total mana per second. Lasts 10 seconds."}
         }, {
+            -- CHANGED: spell 35955, logged in "SM 6 bosses.csv". Spell.xlsx
+            -- absorb value is the 999,999,999 "unlimited" sentinel - it is
+            -- mana-bound, same as the Scarlet Sorcerer's.
+            name = "Mana Shield",
+            icon = "Interface\\Icons\\Spell_Shadow_DetectLesserInvisibility",
+            lines = {"Absorbs incoming damage by draining his own mana instead."}
+        }, {
             separator = true,
             name = "Arcane Phase"
         }, {
@@ -1255,6 +1291,14 @@ local SM_BOSSES = {
             icon = "Interface\\Icons\\Spell_Nature_Purge",
             lines = {"Purges all harmful magic effects from himself, restoring mana for each effect removed."}
         }, {
+            -- CHANGED: spell 35959, logged in "SM 6 bosses.csv". Spell.xlsx:
+            -- "Reflects Arcane spells back at their caster"; DurationIndex 3 = 60s.
+            name = "Arcane Ward",
+            icon = "Interface\\Icons\\Spell_Arcane_PrismaticCloak",
+            warning = true,
+            roles = {"caster"},
+            lines = {"Reflects Arcane spells cast at him back at the caster for 60 seconds - stop casting Arcane while it is up."}
+        }, {
             separator = true,
             name = "Frost Phase"
         }, {
@@ -1267,7 +1311,15 @@ local SM_BOSSES = {
             icon = "Interface\\Icons\\Spell_Frost_Glacier",
             warning = true,
             roles = {"healer"},
-            lines = {"Deals 15% of the target's health every second while it lasts."}
+            lines = {"Deals 15% of the target's health every second for 10 seconds."}
+        }, {
+            -- CHANGED: spell 35958, logged in "SM 6 bosses.csv". Spell.xlsx:
+            -- "Reflects Frost spells back at their caster"; DurationIndex 3 = 60s.
+            name = "Frost Ward",
+            icon = "Interface\\Icons\\Spell_Frost_FrostWard",
+            warning = true,
+            roles = {"caster"},
+            lines = {"Reflects Frost spells cast at him back at the caster for 60 seconds - stop casting Frost while it is up."}
         }, {
             name = "Numbing Cold",
             icon = "Interface\\Icons\\Spell_Frost_FrostArmor",
@@ -1292,6 +1344,14 @@ local SM_BOSSES = {
             name = "Flamebolt",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             lines = {"Hurls a fiery ball for 5750 to 6800 Fire damage plus 250 Fire damage every 0.5 sec. for 8 seconds."}
+        }, {
+            -- CHANGED: spell 35957, logged in "SM 6 bosses.csv". Spell.xlsx:
+            -- "Reflects Fire spells back at their caster"; DurationIndex 3 = 60s.
+            name = "Fire Ward",
+            icon = "Interface\\Icons\\Spell_Fire_FireArmor",
+            warning = true,
+            roles = {"caster"},
+            lines = {"Reflects Fire spells cast at him back at the caster for 60 seconds - stop casting Fire while it is up."}
         }, {
             name = "Flamestrike",
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
