@@ -50,43 +50,42 @@ local GREEN_BOSSES = {
             icon = "Interface\\Icons\\Spell_Holy_HarmUndeadAura",
             warning = true,
             roles = {"dispel", "healer"},
-            lines = {"A dispellable disease on a random player for 2 minutes. Deals 875 to 1125 Nature damage every 5 seconds to that player AND everyone around them - the infected player must move out of the raid.",
-                     "Emeriss' most frequent ability."},
+            lines = {"A disease on a random player for 2 minutes. Deals 875 to 1125 Nature damage every 5 seconds to that player and everyone within a short radius of them."},
             abilities = {{
                 name = "Putrid Mushroom",
                 icon = "Interface\\Icons\\Spell_Nature_NullifyPoison",
                 warning = true,
-                lines = {"Spawns at the corpse of a player who dies while infected, dealing 600 Nature damage per second to anyone nearby. Do not release or run through it."}
+                lines = {"Spawns at the corpse of a player who dies while infected, dealing 600 Nature damage per second to anyone nearby."}
             }}
         }, {
             name = "Corruption of the Earth",
             icon = "Interface\\Icons\\Ability_Creature_Cursed_03",
             warning = true,
             roles = {"healer"},
-            lines = {"Fired at 75%, 50% and 25% health. An undispellable raid-wide Shadow DoT dealing 20% of each player's maximum health every 2 seconds for 10 seconds (100 yard range - nobody escapes it)."}
+            lines = {"Fired at 75%, 50% and 25% health. A Shadow DoT hitting every player within 100 yards for 20% of their maximum health every 2 seconds for 10 seconds."}
         }, {
             name = "Noxious Breath",
             icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
             warning = true,
             roles = {"tank"},
-            lines = {"Frontal breath: 3000 Nature damage up front, then a 30 second DoT dealing 350 to 450 Nature damage every 3 seconds and adding 10 seconds to all of the target's ability cooldowns. Stacks up to 6 times - do not stand in front."}
+            lines = {"Frontal breath: 3000 Nature damage up front, then a 30 second DoT dealing 350 to 450 Nature damage every 3 seconds and adding 10 seconds to all of the target's ability cooldowns. Stacks up to 6 times."}
         }, {
             name = "Tail Sweep",
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
-            lines = {"Inflicts 925 to 1075 damage to enemies in a 30 yard cone behind her and knocks them back. Do not stand behind her."}
+            lines = {"Inflicts 925 to 1075 damage to enemies in a 30 yard cone behind her and knocks them back."}
         }, {
             name = "Seeping Fog",
             icon = "Interface\\Icons\\Spell_Nature_NullifyDisease",
             warning = true,
-            lines = {"Summons two clouds of Dream Fog that slowly chase random players; touching one puts you to sleep for 4 seconds. Keep moving."}
+            lines = {"Summons two clouds of Dream Fog that slowly chase random players; touching one puts you to sleep for 4 seconds."}
         }, {
             name = "Mark of Nature / Aura of Nature",
             icon = "Interface\\Icons\\Spell_Nature_SpiritArmor",
             warning = true,
             roles = {"healer"},
             lines = {"Aura of Nature is a pulsing effect that interrupts eating, drinking and bandaging near her.",
-                     "Mark of Nature is a 15 minute debuff placed on any player she kills. While it is up, re-engaging her (or being caught by her aura) sleeps you for 2 minutes instead of 4 seconds - run well away before releasing.",
+                     "Mark of Nature is a 15 minute debuff placed on any player she kills. While it is up, re-engaging her (or being caught by her aura) sleeps you for 2 minutes instead of 4 seconds.",
                      "She also teleports the highest-threat player back in front of her if they try to leave melee."}
         }}
     },
@@ -102,43 +101,43 @@ local GREEN_BOSSES = {
             name = "Shadow Bolt Whirl",
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
-            lines = {"Fires rotating waves of shadow bolts at one side of him at a time for 800 to 1200 damage each, then alternates to the other side. His most frequent ability by a wide margin - keep moving."}
+            lines = {"Fires rotating waves of shadow bolts at one side of him at a time for 800 to 1200 damage each, then alternates to the other side."}
         }, {
             name = "Draw Spirit",
             icon = "Interface\\Icons\\Spell_Shadow_SummonInfernal",
             warning = true,
             roles = {"dps"},
             lines = {"Fired at 75%, 50% and 25% health. Stuns everyone within 100 yards for 5 seconds and deals 657 to 843 Shadow damage every 2 seconds during it, then pulls green Spirit Shades out of the raid.",
-                     "The shades travel back toward Lethon - each one that reaches him heals him for 15,000. Intercept and kill them."},
+                     "The shades travel back toward Lethon; each one that reaches him heals him for 15,000."},
             abilities = {{
                 name = "Spirit Shade",
                 icon = "Interface\\Icons\\Spell_Shadow_GatherShadows",
                 color = "ffcc0000",
-                lines = {"500 HP, immune to AoE. Kill each one before it reaches Lethon (15,000 heal per shade). Players can also run into their own shade to soak it."}
+                lines = {"500 HP, immune to AoE. Heals Lethon for 15,000 if it reaches him. A player can intercept their own shade by running into it."}
             }}
         }, {
             name = "Noxious Breath",
             icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
             warning = true,
             roles = {"tank"},
-            lines = {"Frontal breath: 3000 Nature damage up front, then a 30 second DoT dealing 350 to 450 Nature damage every 3 seconds and adding 10 seconds to all of the target's ability cooldowns. Stacks up to 6 times - do not stand in front."}
+            lines = {"Frontal breath: 3000 Nature damage up front, then a 30 second DoT dealing 350 to 450 Nature damage every 3 seconds and adding 10 seconds to all of the target's ability cooldowns. Stacks up to 6 times."}
         }, {
             name = "Tail Sweep",
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
-            lines = {"Inflicts 925 to 1075 damage to enemies in a 30 yard cone behind him and knocks them back. Do not stand behind him."}
+            lines = {"Inflicts 925 to 1075 damage to enemies in a 30 yard cone behind him and knocks them back."}
         }, {
             name = "Seeping Fog",
             icon = "Interface\\Icons\\Spell_Nature_NullifyDisease",
             warning = true,
-            lines = {"Summons two clouds of Dream Fog that slowly chase random players; touching one puts you to sleep for 4 seconds. Keep moving."}
+            lines = {"Summons two clouds of Dream Fog that slowly chase random players; touching one puts you to sleep for 4 seconds."}
         }, {
             name = "Mark of Nature / Aura of Nature",
             icon = "Interface\\Icons\\Spell_Nature_SpiritArmor",
             warning = true,
             roles = {"healer"},
             lines = {"Aura of Nature is a pulsing effect that interrupts eating, drinking and bandaging near him.",
-                     "Mark of Nature is a 15 minute debuff placed on any player he kills. While it is up, re-engaging him (or being caught by his aura) sleeps you for 2 minutes instead of 4 seconds - run well away before releasing.",
+                     "Mark of Nature is a 15 minute debuff placed on any player he kills. While it is up, re-engaging him (or being caught by his aura) sleeps you for 2 minutes instead of 4 seconds.",
                      "He also teleports the highest-threat player back in front of him if they try to leave melee."}
         }}
     },
@@ -160,19 +159,19 @@ local GREEN_BOSSES = {
             icon = "Interface\\Icons\\Spell_Shadow_Charm",
             warning = true,
             roles = {"shaman"},
-            lines = {"Fears all enemies within 35 yards for 4 seconds. Keep a Tremor Totem down for the tanks."}
+            lines = {"Fears all enemies within 35 yards for 4 seconds."}
         }, {
             name = "Summon Shades of Taerar",
             icon = "Interface\\Icons\\Spell_Shadow_SummonInfernal",
             warning = true,
             roles = {"tank"},
-            lines = {"Fired at 75%, 50% and 25% health. Taerar banishes himself - untargetable and invulnerable - and summons three Shades of Taerar. He does not return until all three are dead, so this is a hard DPS check with multiple tanks.",
-                     "Note: while banished he is not losing health, so the three summons always happen (they don't overlap)."},
+            lines = {"Fired at 75%, 50% and 25% health. Taerar banishes himself - untargetable and invulnerable - and summons three Shades of Taerar. He does not return until all three are dead.",
+                     "While banished he is not losing health, so all three summons always happen (they don't overlap)."},
             abilities = {{
                 name = "Shade of Taerar",
                 icon = "Interface\\Icons\\Spell_Shadow_ShadeTrueSight",
                 color = "ffcc0000",
-                lines = {"66,620 HP each, full melee strength - tank all three separately."},
+                lines = {"66,620 HP each, full melee strength."},
                 abilities = {{
                     name = "Acid Breath",
                     icon = "Interface\\Icons\\Spell_Nature_Acid_01",
@@ -182,7 +181,7 @@ local GREEN_BOSSES = {
                     name = "Poison Cloud",
                     icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
                     warning = true,
-                    lines = {"Drops a stationary poison cloud at the shade's feet that deals 350 Nature damage every second for 10 seconds. Move out of it."}
+                    lines = {"Drops a stationary poison cloud at the shade's feet that deals 350 Nature damage every second for 10 seconds."}
                 }}
             }}
         }, {
@@ -190,24 +189,24 @@ local GREEN_BOSSES = {
             icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
             warning = true,
             roles = {"tank"},
-            lines = {"Frontal breath: 3000 Nature damage up front, then a 30 second DoT dealing 350 to 450 Nature damage every 3 seconds and adding 10 seconds to all of the target's ability cooldowns. Stacks up to 6 times - do not stand in front."}
+            lines = {"Frontal breath: 3000 Nature damage up front, then a 30 second DoT dealing 350 to 450 Nature damage every 3 seconds and adding 10 seconds to all of the target's ability cooldowns. Stacks up to 6 times."}
         }, {
             name = "Tail Sweep",
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
-            lines = {"Inflicts 925 to 1075 damage to enemies in a 30 yard cone behind him and knocks them back. His most frequent ability - do not stand behind him."}
+            lines = {"Inflicts 925 to 1075 damage to enemies in a 30 yard cone behind him and knocks them back."}
         }, {
             name = "Seeping Fog",
             icon = "Interface\\Icons\\Spell_Nature_NullifyDisease",
             warning = true,
-            lines = {"Summons two clouds of Dream Fog that slowly chase random players; touching one puts you to sleep for 4 seconds. Keep moving."}
+            lines = {"Summons two clouds of Dream Fog that slowly chase random players; touching one puts you to sleep for 4 seconds."}
         }, {
             name = "Mark of Nature / Aura of Nature",
             icon = "Interface\\Icons\\Spell_Nature_SpiritArmor",
             warning = true,
             roles = {"healer"},
             lines = {"Aura of Nature is a pulsing effect that interrupts eating, drinking and bandaging near him.",
-                     "Mark of Nature is a 15 minute debuff placed on any player he kills. While it is up, re-engaging him (or being caught by his aura) sleeps you for 2 minutes instead of 4 seconds - run well away before releasing.",
+                     "Mark of Nature is a 15 minute debuff placed on any player he kills. While it is up, re-engaging him (or being caught by his aura) sleeps you for 2 minutes instead of 4 seconds.",
                      "He also teleports the highest-threat player back in front of him if they try to leave melee."}
         }}
     },
@@ -223,14 +222,14 @@ local GREEN_BOSSES = {
             name = "Lightning Wave",
             icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
             warning = true,
-            lines = {"Strikes a random player for 463 to 537 Nature damage, then arcs to up to 10 nearby players, dealing more to each successive target. Her most frequent ability - spread out."}
+            lines = {"Strikes a random player for 463 to 537 Nature damage, then arcs to up to 10 nearby players, dealing more to each successive target."}
         }, {
             name = "Summon Demented Druid Spirits",
             icon = "Interface\\Icons\\Spell_Nature_ForceOfNature",
             warning = true,
             roles = {"kick", "tank"},
-            lines = {"Fired at 75%, 50% and 25% health. Summons several Demented Druid Spirits (2,442 HP each) that last 10 minutes. Interrupt and kill them quickly.",
-                     "Unlike the other three dragons, Ysondre is NOT banished during her summon - the fight continues."},
+            lines = {"Fired at 75%, 50% and 25% health. Summons several Demented Druid Spirits (2,442 HP each) that last 10 minutes. They cast Moonfire, Curse of Thorns and Silence.",
+                     "Unlike the other three dragons, Ysondre is NOT banished during her summon."},
             abilities = {{
                 name = "Demented Druid Spirit",
                 icon = "Interface\\Icons\\Spell_Nature_ForceOfNature",
@@ -259,24 +258,24 @@ local GREEN_BOSSES = {
             icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
             warning = true,
             roles = {"tank"},
-            lines = {"Frontal breath: 3000 Nature damage up front, then a 30 second DoT dealing 350 to 450 Nature damage every 3 seconds and adding 10 seconds to all of the target's ability cooldowns. Stacks up to 6 times - do not stand in front."}
+            lines = {"Frontal breath: 3000 Nature damage up front, then a 30 second DoT dealing 350 to 450 Nature damage every 3 seconds and adding 10 seconds to all of the target's ability cooldowns. Stacks up to 6 times."}
         }, {
             name = "Tail Sweep",
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
-            lines = {"Inflicts 925 to 1075 damage to enemies in a 30 yard cone behind her and knocks them back. Do not stand behind her."}
+            lines = {"Inflicts 925 to 1075 damage to enemies in a 30 yard cone behind her and knocks them back."}
         }, {
             name = "Seeping Fog",
             icon = "Interface\\Icons\\Spell_Nature_NullifyDisease",
             warning = true,
-            lines = {"Summons two clouds of Dream Fog that slowly chase random players; touching one puts you to sleep for 4 seconds. Keep moving."}
+            lines = {"Summons two clouds of Dream Fog that slowly chase random players; touching one puts you to sleep for 4 seconds."}
         }, {
             name = "Mark of Nature / Aura of Nature",
             icon = "Interface\\Icons\\Spell_Nature_SpiritArmor",
             warning = true,
             roles = {"healer"},
             lines = {"Aura of Nature is a pulsing effect that interrupts eating, drinking and bandaging near her.",
-                     "Mark of Nature is a 15 minute debuff placed on any player she kills. While it is up, re-engaging her (or being caught by her aura) sleeps you for 2 minutes instead of 4 seconds - run well away before releasing.",
+                     "Mark of Nature is a 15 minute debuff placed on any player she kills. While it is up, re-engaging her (or being caught by her aura) sleeps you for 2 minutes instead of 4 seconds.",
                      "She also teleports the highest-threat player back in front of her if they try to leave melee."}
         }}
     },

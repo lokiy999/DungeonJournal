@@ -47,19 +47,19 @@ local WORLD_BOSSES = {
             icon = "Interface\\Icons\\Spell_Frost_Glacier",
             warning = true,
             roles = {"dispel", "tank"},
-            lines = {"Blasts nearby enemies with ice for around 450 to 550 Frost damage, increasing the time between their attacks and slowing their movement. His most frequent ability - dispellable."}
+            lines = {"Blasts nearby enemies with ice for around 450 to 550 Frost damage, increasing the time between their attacks and slowing their movement."}
         }, {
             name = "Frost Breath",
             icon = "Interface\\Icons\\Spell_Frost_FrostNova",
             warning = true,
             roles = {"tank"},
-            lines = {"Frontal cone: roughly 900 to 1100 Frost damage, drains mana and stuns for 4 seconds. Do not stand in front unless tanking.",
-                     "Unlike most dragons Azuregos does NOT tail swipe, so standing behind him is safe."}
+            lines = {"Frontal cone: roughly 900 to 1100 Frost damage, drains mana and stuns for 4 seconds.",
+                     "Azuregos has no tail swipe."}
         }, {
             name = "Mana Storm",
             icon = "Interface\\Icons\\Spell_Frost_IceStorm",
             warning = true,
-            lines = {"Calls down a mana storm over a targeted area, dealing around 475 to 525 Frost damage and draining mana every second. Move out of it."}
+            lines = {"Calls down a mana storm over a targeted area, dealing around 475 to 525 Frost damage and draining mana every second."}
         }, {
             name = "Aura of Frost",
             icon = "Interface\\Icons\\Spell_Frost_WizardMark",
@@ -69,17 +69,17 @@ local WORLD_BOSSES = {
             icon = "Interface\\Icons\\Spell_Frost_WindWalkOn",
             warning = true,
             roles = {"reflect", "caster"},
-            lines = {"A 10 second self-buff that reflects all harmful spells back at their caster. Stop all spell casting while it is up."}
+            lines = {"A 10 second self-buff that reflects all harmful spells back at their caster."}
         }, {
             name = "Teleport",
             icon = "Interface\\Icons\\Spell_Arcane_PortalIronForge",
             warning = true,
-            lines = {"Teleports every player within 30 yards on top of Azuregos and wipes his threat table. He then re-picks a target - stop damage until a tank has re-established threat."}
+            lines = {"Teleports every player within 30 yards on top of Azuregos and wipes his threat table. He then re-picks a target."}
         }, {
             name = "Mark of Frost",
             icon = "Interface\\Icons\\Spell_Frost_ChainsOfIce",
             warning = true,
-            lines = {"A 15 minute undispellable debuff applied to any player he kills. While it is up, coming near Azuregos encases you in a frost tomb, frozen and helpless. Corpse-run wide of his area.",
+            lines = {"A 15 minute debuff applied to any player he kills. While it is up, coming near Azuregos encases you in a frost tomb, frozen and helpless.",
                      "Azuregos is immune to Frost and has very high Arcane resistance."}
         }}
     },
@@ -154,7 +154,7 @@ local WORLD_BOSSES = {
             name = "Shadow Bolt Volley",
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
-            lines = {"Hurls Shadow bolts at everyone for around 800 to 1000 Shadow damage each, ignoring line of sight, with no target limit. By far his most frequent ability."}
+            lines = {"Hurls Shadow bolts at everyone for around 800 to 1000 Shadow damage each, ignoring line of sight, with no target limit."}
         }, {
             name = "Void Bolt",
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
@@ -165,35 +165,34 @@ local WORLD_BOSSES = {
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
             warning = true,
             roles = {"decurse"},
-            lines = {"A curse on a random player that drains 250 mana per second for 1 minute. If the target reaches 0 mana it explodes for around 4000 damage to everyone nearby.",
-                     "Decurse it, or keep your mana above ~2000 so it can't fully drain."}
+            lines = {"A curse on a random player that drains 250 mana per second for 1 minute. If the target reaches 0 mana it explodes for around 4000 damage to everyone nearby."}
         }, {
             name = "Twisted Reflection",
             icon = "Interface\\Icons\\Spell_Arcane_PortalDarnassus",
             warning = true,
             roles = {"dispel"},
-            lines = {"A debuff on a random player - every time Kazzak damages that player he is healed for 25,000. Dispel it the instant it lands."}
+            lines = {"A debuff on a random player - every time Kazzak damages that player he is healed for 25,000."}
         }, {
             name = "Thunder Clap",
             icon = "Interface\\Icons\\Spell_Nature_ThunderClap",
             warning = true,
             roles = {"dispel", "tank"},
-            lines = {"Raid-wide Nature damage that increases the time between attacks and slows movement. Dispel the main tank."}
+            lines = {"Raid-wide Nature damage that increases the time between attacks and slows movement."}
         }, {
             name = "Cleave",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank", "melee"},
-            lines = {"A frontal strike hitting his target and its nearest allies - melee stay behind him."}
+            lines = {"A frontal strike hitting his target and its nearest allies."}
         }, {
             name = "Enrage",
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             warning = true,
-            lines = {"Hard enrage 3 minutes after the pull - he must be dead before then."}
+            lines = {"Hard enrage 3 minutes after the pull."}
         }, {
             name = "Capture Soul",
             icon = "Interface\\Icons\\Spell_Shadow_SoulGem",
             warning = true,
-            lines = {"Passive, very large radius - every player OR pet that dies heals Kazzak for around 90,000. This includes hunter pets and any outside player or pet that dies near him. Do not let anything die."}
+            lines = {"Passive, very large radius - every player OR pet that dies heals Kazzak for around 90,000. This includes hunter pets and any outside player or pet that dies near him."}
         }}
     },
 
@@ -207,23 +206,23 @@ local WORLD_BOSSES = {
             icon = "Interface\\Icons\\Ability_CriticalStrike",
             warning = true,
             roles = {"tank", "healer"},
-            lines = {"Reduces healing received on the target by 10% per stack for 15 seconds. Stacks - tanks taunt off each other around 4 to 5 stacks."}
+            lines = {"Reduces healing received on the target by 10% per stack for 15 seconds. Stacks."}
         }, {
             name = "Poison Bolt Volley",
             icon = "Interface\\Icons\\Ability_Poisons",
             warning = true,
             roles = {"poison"},
-            lines = {"Shoots poison at enemies in a cone in front of him, applying a stacking Nature damage-over-time. Do not stand in front unless tanking - it is his most frequent ability."}
+            lines = {"Shoots poison at enemies in a cone in front of him, applying a stacking Nature damage-over-time."}
         }, {
             name = "Tail Sweep",
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
-            lines = {"Damages and knocks back enemies behind him. Stand at his sides, not front or back."}
+            lines = {"Damages and knocks back enemies behind him."}
         }, {
             name = "Sand Trap",
             icon = "Interface\\Icons\\INV_Misc_Dust_02",
             warning = true,
-            lines = {"Spawns a sand trap under a random player. Anyone standing in it when it triggers is silenced and unable to act for about 20 seconds - move out the moment it appears."}
+            lines = {"Spawns a sand trap under a random player. Anyone standing in it when it triggers is silenced and unable to act for about 20 seconds."}
         }, {
             name = "Sand Reaver's Rush (Charge)",
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
@@ -239,7 +238,7 @@ local WORLD_BOSSES = {
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             warning = true,
             roles = {"warrior"},
-            lines = {"Enrages at 30% health, gaining attack speed and Physical damage. Keeping him Disarmed greatly reduces the danger."}
+            lines = {"Enrages at 30% health, gaining attack speed and Physical damage. Can be Disarmed."}
         }}
     },
 
@@ -253,7 +252,7 @@ local WORLD_BOSSES = {
             icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
             warning = true,
             roles = {"healer"},
-            lines = {"Drains health from every enemy nearby and heals himself for a multiple of the amount stolen. His most frequent ability by a wide margin - spread out and keep the raid topped up."}
+            lines = {"Drains health from every enemy nearby and heals himself for a multiple of the amount stolen."}
         }, {
             name = "Devour Essence",
             icon = "Interface\\Icons\\Spell_Shadow_SummonFelHunter",
@@ -265,12 +264,12 @@ local WORLD_BOSSES = {
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Black",
             warning = true,
             roles = {"tank"},
-            lines = {"A self-buff that increases his Physical damage by 30% and his armor by 45%. Tank damage spikes and raid DPS drops while it is up."}
+            lines = {"A self-buff that increases his Physical damage by 30% and his armor by 45%."}
         }, {
             name = "Shadow Flame",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
-            lines = {"Inflicts heavy Shadow damage to enemies in a cone in front of him. Do not stand in front."}
+            lines = {"Inflicts heavy Shadow damage to enemies in a cone in front of him."}
         }, {
             name = "Knock Away",
             icon = "Interface\\Icons\\INV_Gauntlets_05",
@@ -295,13 +294,13 @@ local WORLD_BOSSES = {
             icon = "Interface\\Icons\\Spell_Nature_NaturesWrath",
             warning = true,
             roles = {"tank"},
-            lines = {"Inflicts Physical damage to everyone nearby. His most frequent ability - melee take constant incoming damage."}
+            lines = {"Inflicts Physical damage to everyone nearby."}
         }, {
             name = "Terrifying Roar",
             icon = "Interface\\Icons\\Stampede",
             warning = true,
             roles = {"shaman", "tank"},
-            lines = {"Fears nearby raid members. Keep a Tremor Totem down for the main tank."}
+            lines = {"Fears nearby raid members."}
         }, {
             name = "Vicious Rend",
             icon = "Interface\\Icons\\Ability_Gouge",
@@ -311,7 +310,7 @@ local WORLD_BOSSES = {
         }, {
             name = "Primal Vitality",
             icon = "Interface\\Icons\\INV_Relics_IdolofRejuvenation",
-            lines = {"Passive - regenerates a percentage of his total health every few seconds. The raid must out-damage the regeneration."}
+            lines = {"Passive - regenerates a percentage of his total health every few seconds."}
         }}
     },
 }
