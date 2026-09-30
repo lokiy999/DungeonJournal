@@ -371,12 +371,14 @@ local BWL_BOSSES = {
             lines = {"Strikes his target and its nearest allies."}
         }, {
             -- CHANGED: spell 35187, from BWL combat log. AuraDescription is
-            -- "Reflecting Frost spells." - amount / duration not in Spell.xlsx.
+            -- "Reflecting Frost spells." CHANGED 2026-09-29: Spell.csv has
+            -- aura 74 (reflect spells of a school) at 99 + 1 = 100% chance,
+            -- school Frost, duration 20s.
             name = "Frost Reflection",
             icon = "Interface\\Icons\\Spell_Frost_FrostArmor02",
             warning = true,
             roles = {"caster"},
-            lines = {"Reflects Frost spells cast at him back at the caster - stop casting Frost while it is up. Duration needs testing."}
+            lines = {"Reflects 100% of Frost spells cast at him back at the caster for 20 seconds - stop casting Frost while it is up."}
         }}
     },
 
@@ -438,8 +440,13 @@ local BWL_BOSSES = {
             -- CHANGED: the four below are from the BWL combat log (spells 35272
             -- / 35488 / 35273 / 35274). Text from Spell.xlsx where present;
             -- "$s2" on Disrupting Ray = EffectBasePoints_2 (99) + 1 = 100,
-            -- DurationIndex 2 = 30s. Shrink Ray / Death Ray only have flavour
-            -- aura text, so damage/effect still needs testing.
+            -- DurationIndex 2 = 30s. CHANGED 2026-09-29: Shrink Ray / Death
+            -- Ray only have flavour aura text, so their numbers come from the
+            -- effect/aura columns in Spell.csv instead - Shrink Ray: aura 79
+            -- (damage done %) -75, aura 61 (scale) -50, aura 33 (slow) -25,
+            -- 30s. Death Ray: School Damage 11999 + 1 to + 5001 = 12000 to
+            -- 17000 Physical, plus aura 12 (stun) with the spell's 30s
+            -- duration - a 30s stun is unusually long, check in-game.
             name = "Disrupting Ray",
             icon = "Interface\\Icons\\INV_Misc_EngGizmos_03",
             warning = true,
@@ -454,12 +461,12 @@ local BWL_BOSSES = {
             name = "Shrink Ray",
             icon = "Interface\\Icons\\INV_Misc_EngGizmos_06",
             warning = true,
-            lines = {"Shrinks the target ('So tiny!', spell 35273) - reads as a damage / stat reduction debuff. Values need testing."}
+            lines = {"Shrinks the target for 30 seconds: 75% less damage dealt, 50% smaller and 25% slower movement (spell 35273)."}
         }, {
             name = "Death Ray",
             icon = "Interface\\Icons\\INV_Misc_EngGizmos_01",
             warning = true,
-            lines = {"A heavy single-target shock (spell 35274). Damage needs testing."}
+            lines = {"Inflicts 12000 to 17000 Physical damage and stuns the target for 30 seconds (spell 35274)."}
         }}
     },
 
@@ -1091,10 +1098,13 @@ local BWL_TRASH_MOBS = {
             warning = true,
             lines = {"Calls down a pillar of fire, burning the area plus an additional burn over time - move out of it."}
         }, {
+            -- CHANGED 2026-09-29: the only "Greatest Polymorph" in Spell.csv is
+            -- spell 35168 (sheep, 20s - the one Grethok logs). The Spellbinder
+            -- itself is not in "BWL stuff.csv", so its spell ID is assumed.
             name = "Greatest Polymorph",
             icon = "Interface\\Icons\\Spell_Nature_Polymorph",
             warning = true,
-            lines = {"Transforms a random raid member into a critter for X seconds, unable to act."}
+            lines = {"Transforms a random raid member into a sheep for up to 20 seconds, unable to act."}
         }}
     },
 
@@ -1127,7 +1137,9 @@ local BWL_TRASH_MOBS = {
             -- "$s1" = EffectBasePoints_1 + 1; DurationIndex 32 = 6s (Bronze
             -- uses index 28 = 5s). These are the debuff counterparts of
             -- Chromaggus's "Brood Affliction: <colour>" - see the Chromaggus
-            -- entry. Tick interval ($t1 on Red) still unknown.
+            -- entry. CHANGED 2026-09-29: from Spell.csv - Red's tick interval
+            -- is 1000 ms (aura 89, % of health per tick); Blue's aura 138
+            -- (melee haste) is -100, i.e. attacks slow down.
             separator = true,
             name = "Brood Powers",
             expanded = true,
@@ -1140,7 +1152,7 @@ local BWL_TRASH_MOBS = {
             name = "Brood Power: Blue",
             icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
             warning = true,
-            lines = {"Alters the time between the target's attacks by 100% and drains mana for 6 seconds (spell 22559). In-game sign of the attack-speed change not confirmed."}
+            lines = {"Increases the time between the target's attacks by 100% and drains mana for 6 seconds (spell 22559)."}
         }, {
             name = "Brood Power: Bronze",
             icon = "Interface\\Icons\\Spell_Nature_TimeStop",
@@ -1155,7 +1167,7 @@ local BWL_TRASH_MOBS = {
             name = "Brood Power: Red",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
-            lines = {"Deals 5% of the target's health as damage every few seconds for 6 seconds (spell 22558)."}
+            lines = {"Deals 5% of the target's health as damage every second for 6 seconds (spell 22558)."}
         }}
     },
 }

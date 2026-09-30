@@ -313,7 +313,9 @@ throw the derived Lua data into the normal `RAIDS` table; don't have the addon r
 these files itself.
 
 - **`Spell.xlsx`** — spell names, icons, and descriptions. Single "Spell" sheet, ~12MB.
-  Good for looking up an ability's real icon path/tooltip text by name.
+  Good for looking up an ability's real icon path/tooltip text by name. For numbers,
+  prefer the external Spell.csv reader + `tools/*.py` - see
+  [SPELL_DATA_WORKFLOW.md](SPELL_DATA_WORKFLOW.md) for the full workflow and file paths.
 - **`mob_abilities_summary.txt`** — a pre-generated, human-readable summary of every
   spell/ability name seen in `WoWCombatLog.txt`, grouped by source mob (~8.7MB text).
   **Prefer this over the raw combat log** for "what abilities does mob X use" —

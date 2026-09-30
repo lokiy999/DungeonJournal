@@ -26,6 +26,8 @@ advice.
   global. Loaded via the `.toc` before `DungeonJournal.lua`.
 - `DungeonJournal.toc` — addon manifest (interface version, file/asset list).
 - `Icons/*.blp` — portrait textures actually loaded in-game.
+- `SPELL_DATA_WORKFLOW.md` + `tools/*.py` — how ability numbers are filled from the
+  client's Spell.csv (external reader folder), with every file path and step.
 - `Spell.xlsx`, `mob_abilities_summary.txt`, `V+ Lists.xlsx`, `WoWCombatLog.txt`,
   `Tips_Tricks*.docx` — research-only reference files, not loaded by the addon.
 

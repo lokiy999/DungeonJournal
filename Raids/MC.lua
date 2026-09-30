@@ -181,14 +181,14 @@ local MC_BOSSES = {
                 roles = {"tank"},
                 lines = {"Strikes at an enemy, inflicting normal damage plus 25."}
             }, {
-                -- CHANGED: spell 15502 ("MC FULL.csv"). Spell.xlsx text
-                -- confirms the wording + 30s; its per-stack armor value is 0
-                -- in the sheet (same gap as the UBRS/LBRS Sunder Armor ranks),
-                -- so the number still needs testing.
+                -- CHANGED: spell 15502 (Spell.csv). Base armor reduction is 0 but the
+                -- effect scales with caster level: 8 armor per level above
+                -- spell level 1 (no max-level cap), i.e. 8 * (level - 1) per
+                -- stack; about 472 at level 60. 5 stacks, 30s.
                 name = "Sunder Armor",
                 icon = "Interface\\Icons\\ability_warrior_sunder",
                 roles = {"tank"},
-                lines = {"Hacks at nearby enemies, reducing their armor per stack (amount not known). Stacks up to 5 times. Lasts 30 sec."}
+                lines = {"Hacks at nearby enemies, reducing their armor by 8 per level of the caster per stack (about 472 at level 60). Stacks up to 5 times. Lasts 30 sec."}
             }, {
                 name = "Fist of Ragnaros",
                 icon = "Interface\\Icons\\spell_holy_sealofwrath",
@@ -273,13 +273,15 @@ local MC_BOSSES = {
             warning = true,
             -- CHANGED: spell 34471 ("MC FULL.csv"). Spell.xlsx confirms the
             -- "damage divided evenly among all affected targets after $t1"
-            -- mechanic and DurationIndex 32 = 6s; the damage amount is not in
-            -- the sheet.
-            lines = {"Baron Geddon ignites a player; after 6 seconds it detonates for an unknown amount of Fire damage, split evenly among that player and everyone within range."},
+            -- mechanic and DurationIndex 32 = 6s. CHANGED 2026-09-29: damage
+            -- from the triggered spell 34472 in Spell.csv (School Damage
+            -- 31999 + 1 = 32000, Fire, radius index 13 = 10 yards).
+            lines = {"Baron Geddon ignites a player; after 6 seconds it detonates for 32000 Fire damage, split evenly among that player and everyone within 10 yards."},
             abilities = {{
                 name = "Molten Ground",
                 icon = "Interface\\Icons\\spell_fire_selfdestruct",
-                lines = {"Spreading Flames leaves Molten Ground on the floor for 2 minutes, dealing 54000 Fire damage over 2 minutes to anyone standing in it. (Hits every second?)"}
+                -- CHANGED: tick interval/damage from Spell.csv spell 34731 (Molten Ground): 1000ms tick, 450 per tick, 120000ms duration.
+                lines = {"Spreading Flames leaves Molten Ground on the floor for 2 minutes, dealing 54000 Fire damage over 2 minutes to anyone standing in it (450 Fire damage every 1 second)."}
             }}
         }, {
             name = "Inferno",
@@ -663,10 +665,14 @@ local MC_BOSSES = {
                      "Ragnaros will resurface after 90 seconds or until all Sons of Flame are dead, whichever comes first.",
                      "Ragnaros heals 1% of his maximum health every 2 seconds while submerged."}
         }, {
+            -- CHANGED 2026-09-29: spell 21155 from Spell.csv - School Damage
+            -- 1999 + 1 = 2000 Fire (1 die side, so a flat value) plus a
+            -- Knock Back effect, radius index 9 = 20 yards. "MC FULL.csv"
+            -- logs it under the "Flame of Ragnaros" NPC; timing still unknown.
             name = "Intense Heat",
             icon = "Interface\\Icons\\spell_fire_fire",
             warning = true,
-            lines = {"Deals 1500 to 2000 damage to enemies? unknown when"}
+            lines = {"Deals 2000 Fire damage to enemies within 20 yards and knocks them back. How often it happens is not known yet."}
         }, {
             separator = true,
             passive = true,

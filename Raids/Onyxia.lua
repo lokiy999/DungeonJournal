@@ -59,7 +59,9 @@ local ONY_TRASH_MOBS = {
             name = "Cleave",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
-            lines = {"Inflicts normal damage plus 50 to an enemy and its nearest allies, affecting up to X targets."}
+            -- CHANGED 2026-09-29: $x1 resolved from Spell.csv (spell 19983,
+            -- chain targets = 10).
+            lines = {"Inflicts normal damage plus 50 to an enemy and its nearest allies, affecting up to 10 targets."}
         }, {
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 19707 - not reverse-engineered from raw effect codes.
             name = "Hate to 50%",

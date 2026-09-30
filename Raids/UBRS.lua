@@ -82,7 +82,8 @@ local UBRS_TRASH_MOBS = {
             name = "Blind",
             icon = "Interface\\Icons\\Spell_Shadow_MindSteal",
             warning = true,
-            lines = {"Blinds the target, causing it to wander disoriented for up to X seconds. Any damage caused will remove the effect."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 2094).
+            lines = {"Blinds the target, causing it to wander disoriented for up to 1 minute. Any damage caused will remove the effect."}
         },
         {
             name = "Eviscerate",
@@ -94,7 +95,8 @@ local UBRS_TRASH_MOBS = {
             name = "Gouge",
             icon = "Interface\\Icons\\Ability_Gouge",
             warning = true,
-            lines = {"Inflicts 20 damage to an enemy and stuns it for up to X seconds. Target must be facing the caster. Any damage received by the stunned target will revive it."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 12540).
+            lines = {"Inflicts 20 damage to an enemy and stuns it for up to 8 seconds. Target must be facing the caster. Any damage received by the stunned target will revive it."}
         },
         {
             name = "Kidney Shot",
@@ -126,7 +128,8 @@ local UBRS_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
             warning = true,
             roles = {"decurse"},
-            lines = {"Curses an enemy for X seconds, giving it a chance to take X damage on attack (bonus damage lives on a separate linked spell not captured in this pass)."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 16247).
+            lines = {"Curses an enemy for 3 minutes, giving it a 50% chance to take 38 to 82 damage on attack."}
         },
         {
             name = "Death Coil",
@@ -138,7 +141,8 @@ local UBRS_TRASH_MOBS = {
             name = "Howl of Terror",
             icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
             warning = true,
-            lines = {"Howl, causing enemies within X yards to flee in terror for X seconds. Damage caused may interrupt the effect."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 17928).
+            lines = {"Howl, causing up to X enemies within 10 yards to flee in terror for 15 seconds. Damage caused may interrupt the effect."}
         },
         {
             name = "Shadow Bolt",
@@ -151,7 +155,8 @@ local UBRS_TRASH_MOBS = {
             name = "Veil of Shadow",
             icon = "Interface\\Icons\\Spell_Shadow_GatherShadows",
             warning = true,
-            lines = {"Reduces healing effects on an enemy by 75% for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 7068).
+            lines = {"Reduces healing effects on an enemy by 75% for 15 seconds."}
         }
         }
     },
@@ -173,7 +178,8 @@ local UBRS_TRASH_MOBS = {
         {
             name = "Head Crack",
             icon = "Interface\\Icons\\Ability_ThunderBolt",
-            lines = {"X - reduces an enemy's Stamina for X seconds (raw sheet value of 1 looks implausibly small for a Stamina debuff, left as X)."}
+            -- CHANGED 2026-09-29: spell 16172 in Spell.csv is level-scaled - base -1 at level 1, -1 per level, no cap.
+            lines = {"Reduces an enemy's Stamina by an amount equal to the caster's level (e.g. 60 at level 60) for 20 seconds."}
         },
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
@@ -185,14 +191,16 @@ local UBRS_TRASH_MOBS = {
         {
             name = "Sap Visual",
             icon = "Interface\\Icons\\Ability_Sap",
-            lines = {"X - no ability description available (name suggests a cosmetic 'fake sap' animation, not a real crowd control effect)."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 35762).
+            lines = {"X - a scripted Dummy effect (1 yard) with no values in the spell data; the name suggests a cosmetic sap animation."}
         },
         {
             name = "Retaliation",
             icon = "Interface\\Icons\\Ability_Warrior_Challange",
             warning = true,
+            -- CHANGED 2026-09-29: from Spell.csv (spell 22857).
             lines = {
-                "Instantly counterattacks any enemy that strikes it in melee for X seconds. Attacks from behind cannot be counterattacked.",
+                "Instantly counterattacks any enemy that strikes it in melee for 15 seconds. Attacks from behind cannot be counterattacked.",
                 "(Spell ID 22858 is a companion trigger for this same effect, not a separate ability.)"
             }
         },
@@ -237,7 +245,8 @@ local UBRS_TRASH_MOBS = {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Reflection",
             icon = "Interface\\Icons\\Ability_Warrior_ShieldReflection",
-            lines = {"Raises its shield, reflecting a spell cast on it. Lasts 5 seconds, but will only reflect X spells."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 34073).
+            lines = {"Raises its shield, reflecting a spell cast on it. Lasts 5 seconds, but will only reflect 1 spell."}
         },
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
@@ -250,15 +259,17 @@ local UBRS_TRASH_MOBS = {
             name = "Shield Toss",
             icon = "Interface\\Icons\\Ability_UpgradeMoonGlaive",
             warning = true,
+            -- CHANGED 2026-09-29: from Spell.csv (spell 34130).
             lines = {
-                "Hurls a shield at the enemy, causing 308 to 348 damage (increased by Attack Power) and knocks it down for X seconds.",
+                "Hurls a shield at the enemy, causing 308 to 348 damage (increased by Attack Power) and knocks it down for 2 seconds.",
                 "This ability causes a high amount of threat."
             }
         },
         {
             name = "Shield Wall",
             icon = "Interface\\Icons\\Ability_Warrior_ShieldWall",
-            lines = {"Reduces the Physical and magical damage taken by the caster by 75% for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 15062).
+            lines = {"Reduces the Physical and magical damage taken by the caster by 75% for 10 seconds."}
         },
         {
             separator = true,
@@ -285,13 +296,15 @@ local UBRS_TRASH_MOBS = {
             name = "Fireball",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
-            lines = {"X - no ability description available."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 12466).
+            lines = {"Inflicts 258 to 332 Fire damage to an enemy."}
         },
         {
             name = "Frost Nova",
             icon = "Interface\\Icons\\Spell_Frost_FrostNova",
             warning = true,
-            lines = {"X - no ability description available."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 15532).
+            lines = {"Inflicts 42 to 48 Frost damage to enemies within 10 yards, immobilizing them for up to 8 seconds."}
         },
         {
             name = "Summon Blackhand Dreadweaver",
@@ -319,7 +332,8 @@ local UBRS_TRASH_MOBS = {
         abilities = {{
             name = "Sap Visual",
             icon = "Interface\\Icons\\Ability_Sap",
-            lines = {"X - no ability description available (name suggests a cosmetic 'fake sap' animation, not a real crowd control effect)."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 35762).
+            lines = {"X - a scripted Dummy effect (1 yard) with no values in the spell data; the name suggests a cosmetic sap animation."}
         },
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 11972) + SpellDuration.csv lookup - not in-game tested.
@@ -418,7 +432,8 @@ local UBRS_TRASH_MOBS = {
             name = "Knockdown",
             icon = "Interface\\Icons\\Ability_GolemThunderClap",
             warning = true,
-            lines = {"Inflicts 60 to 80 damage to an enemy and its nearest allies, stunning them for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 16790).
+            lines = {"Inflicts 60 to 80 damage to an enemy and its nearest allies, stunning them for 2 seconds. Affects up to 3 targets."}
         },
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
@@ -436,7 +451,8 @@ local UBRS_TRASH_MOBS = {
             name = "Sunder Armor",
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             warning = true,
-            lines = {"Hacks at an enemy's armor, reducing it by 1000 per stack (up to 5 stacks). Lasts X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 24317).
+            lines = {"Hacks at an enemy's armor, reducing it by 1000 per stack (up to 5 stacks). Lasts 20 seconds."}
         }
         }
     },
@@ -459,7 +475,8 @@ local UBRS_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
             warning = true,
             roles = {"kick"},
-            lines = {"Inflicts 72 to 96 Frost damage to an enemy and reduces its movement speed by 50% for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 16249).
+            lines = {"Inflicts 72 to 96 Frost damage to an enemy and reduces its movement speed by 50% for 4 seconds."}
         },
         {
             name = "Lightning Bolt",
@@ -541,7 +558,8 @@ local UBRS_TRASH_MOBS = {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Reflection",
             icon = "Interface\\Icons\\Ability_Warrior_ShieldReflection",
-            lines = {"Raises its shield, reflecting a spell cast on it. Lasts 5 seconds, but will only reflect X spells."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 34073).
+            lines = {"Raises its shield, reflecting a spell cast on it. Lasts 5 seconds, but will only reflect 1 spell."}
         },
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
@@ -559,7 +577,8 @@ local UBRS_TRASH_MOBS = {
             name = "Sunder Armor",
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             warning = true,
-            lines = {"Hacks at an enemy's armor, reducing it by 24 per stack (up to 5 stacks). Lasts X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 16145).
+            lines = {"Hacks at an enemy's armor, reducing it by 24 per stack (up to 5 stacks). Lasts 30 seconds."}
         }
         }
     },
@@ -575,12 +594,14 @@ local UBRS_TRASH_MOBS = {
             name = "Charge",
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
-            lines = {"Charges an enemy, inflicting normal damage plus X and stuns the opponent for X seconds (raw bonus-damage value of 1 looks implausibly small, left as X)."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 24023).
+            lines = {"Charges an enemy, inflicting normal damage plus 1 and stuns the opponent for X seconds (no duration in the spell data)."}
         },
         {
             name = "Enrage",
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
-            lines = {"Increases the caster's attack speed by 60% and the Physical damage it deals by 50, for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 8269).
+            lines = {"Increases the caster's attack speed by 60% and the Physical damage it deals by 50, for 2 minutes."}
         },
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 12021) + SpellDuration.csv lookup - not in-game tested.
@@ -597,7 +618,8 @@ local UBRS_TRASH_MOBS = {
             name = "Sunder Armor",
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             warning = true,
-            lines = {"Hacks at an enemy's armor, reducing it by 1000 per stack (up to 5 stacks). Lasts X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 24317).
+            lines = {"Hacks at an enemy's armor, reducing it by 1000 per stack (up to 5 stacks). Lasts 20 seconds."}
         },
         {
             name = "Sweeping Strikes",
@@ -618,7 +640,8 @@ local UBRS_TRASH_MOBS = {
             name = "Conflagration",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
-            lines = {"X - no ability description available (see Conflagration for General Drakkisath's version of the base effect)."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 34418).
+            lines = {"Burns enemies within 5 yards for 100 Fire damage every second for 10 seconds."}
         },
         {
             name = "Fire Blast",
@@ -642,7 +665,8 @@ local UBRS_TRASH_MOBS = {
             name = "Flame Buffet",
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
-            lines = {"Inflicts 555 to 645 Fire damage to an enemy and increases the Fire damage it takes by 300, for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 16168).
+            lines = {"Inflicts 555 to 645 Fire damage to an enemy and increases the Fire damage it takes by 300, for 20 seconds."}
         }
         }
     },
@@ -658,7 +682,8 @@ local UBRS_TRASH_MOBS = {
             name = "Conflagration",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
-            lines = {"X - no ability description available (see Conflagration for General Drakkisath's version of the base effect)."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 34418).
+            lines = {"Burns enemies within 5 yards for 100 Fire damage every second for 10 seconds."}
         },
         {
             name = "Fire Nova",
@@ -676,7 +701,8 @@ local UBRS_TRASH_MOBS = {
             name = "Flamestrike",
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
-            lines = {"Calls down a pillar of flame, burning all enemies in the area for 228 to 264 Fire damage plus an additional 48 damage every X seconds, for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 16102).
+            lines = {"Calls down a pillar of flame, burning all enemies in the area for 228 to 264 Fire damage plus an additional 48 damage every 2 seconds, for 8 seconds."}
         }
         }
     },
@@ -704,7 +730,8 @@ local UBRS_TRASH_MOBS = {
             name = "Sunder Armor",
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             warning = true,
-            lines = {"X - hacks at an enemy's armor per stack (up to 5 stacks), lasts X seconds; raw sheet value (0) looks implausibly small for the per-stack amount, left as X."}
+            -- CHANGED 2026-09-29: spell 15572 in Spell.csv is level-scaled - base 0, -12 armor per caster level, no cap.
+            lines = {"Hacks at an enemy's armor, reducing it by 12 per caster level per stack (about 700 at level 60). Stacks up to 5 times, lasts 30 seconds."}
         }
         }
     },
@@ -719,7 +746,8 @@ local UBRS_TRASH_MOBS = {
         abilities = {{
             name = "Disturb Rookery Egg",
             icon = "Interface\\Icons\\Temp",
-            lines = {"X - no ability description available."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 15746).
+            lines = {"Activates a nearby Rookery Egg (Activate Object effect)."}
         },
         {
             name = "Strike",
@@ -730,7 +758,8 @@ local UBRS_TRASH_MOBS = {
             name = "Sunder Armor",
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             warning = true,
-            lines = {"X - hacks at an enemy's armor per stack (up to 5 stacks), lasts X seconds; raw sheet value (0) looks implausibly small for the per-stack amount, left as X."}
+            -- CHANGED 2026-09-29: spell 15572 in Spell.csv is level-scaled - base 0, -12 armor per caster level, no cap.
+            lines = {"Hacks at an enemy's armor, reducing it by 12 per caster level per stack (about 700 at level 60). Stacks up to 5 times, lasts 30 seconds."}
         }
         }
     },
@@ -762,7 +791,8 @@ local UBRS_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Shadow_ShadowWordPain",
             warning = true,
             roles = {"dispel"},
-            lines = {"Utters a word of darkness, inflicting 70 Shadow damage to an enemy every X seconds, for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 14032).
+            lines = {"Utters a word of darkness, inflicting 70 Shadow damage to an enemy every 3 seconds, for 18 seconds."}
         }
         }
     },
@@ -807,7 +837,8 @@ local UBRS_TRASH_MOBS = {
         {
             name = "Improved Blocking",
             icon = "Interface\\Icons\\Spell_Fire_FireArmor",
-            lines = {"Increases the caster's chance to block by 55%, for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 3248).
+            lines = {"Increases the caster's chance to block by 55%, for 10 seconds."}
         }
         }
     },
@@ -830,7 +861,8 @@ local UBRS_TRASH_MOBS = {
             name = "Blast Wave",
             icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
             warning = true,
-            lines = {"A wave of flame radiates outward from the caster, damaging all enemies caught within the blast for 462 to 544 Fire damage and dazing them for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 13021).
+            lines = {"A wave of flame radiates outward from the caster, damaging all enemies caught within the blast for 462 to 544 Fire damage and dazing them for 6 seconds."}
         },
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
@@ -843,15 +875,17 @@ local UBRS_TRASH_MOBS = {
             name = "Frost Nova",
             icon = "Interface\\Icons\\Spell_Frost_FrostNova",
             warning = true,
-            lines = {"Inflicts 111 to 129 Frost damage to nearby enemies, immobilizing them for up to X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 22645).
+            lines = {"Inflicts 111 to 129 Frost damage to nearby enemies, immobilizing them for up to 8 seconds."}
         },
         {
             name = "Greater Polymorph",
             icon = "Interface\\Icons\\Spell_Nature_Brilliance",
             warning = true,
             roles = {"dispel"},
+            -- CHANGED 2026-09-29: from Spell.csv (spell 22274).
             lines = {
-                "Transforms an enemy into a sheep, forcing it to wander around for up to X seconds. While wandering, the sheep cannot attack or cast spells, but regenerates quickly.",
+                "Transforms an enemy into a sheep, forcing it to wander around for up to 20 seconds. While wandering, the sheep cannot attack or cast spells, but regenerates quickly.",
                 "Only one target can be polymorphed at a time. Only works on beasts, dragons, giants, humanoids, and critters."
             }
         },
@@ -864,7 +898,8 @@ local UBRS_TRASH_MOBS = {
         {
             name = "Resist Fire",
             icon = "Interface\\Icons\\Spell_Fire_FireArmor",
-            lines = {"X - increases an ally's Fire resistance for X seconds; raw sheet value (2) looks implausibly small, left as X."}
+            -- CHANGED 2026-09-29: spell 15123 in Spell.csv - base 2, +1.5 per caster level, no cap.
+            lines = {"Increases an ally's Fire resistance for 2 hours. Scales with the caster's level: 2 plus 1.5 per level above 1 (X - exact amount depends on the mob's level)."}
         }
         }
     },
@@ -880,7 +915,8 @@ local UBRS_TRASH_MOBS = {
             name = "Fear",
             icon = "Interface\\Icons\\Spell_Shadow_Possession",
             warning = true,
-            lines = {"Strikes fear in the enemy, causing it to run in terror for up to X seconds. Damage caused may interrupt the effect. Only 1 target can be feared at a time."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 6215).
+            lines = {"Strikes fear in the enemy, causing it to run in terror for up to 20 seconds. Damage caused may interrupt the effect. Only 1 target can be feared at a time."}
         },
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 15125) + SpellDuration.csv lookup - not in-game tested.
@@ -909,7 +945,8 @@ local UBRS_TRASH_MOBS = {
             name = "Defile",
             icon = "Interface\\Icons\\Spell_Shadow_GatherShadows",
             warning = true,
-            lines = {"X - no ability description available."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 27177).
+            lines = {"Stuns the target for 10 seconds and pulses every second. X - what each pulse does is not in the spell data."}
         },
         {
             name = "Shadow Shock",
@@ -937,13 +974,15 @@ local UBRS_BOSSES = {
         {
             name = "Emberseer Growing",
             icon = "Interface\\Icons\\Ability_GolemThunderClap",
-            lines = {"X - no ability description available (likely the scripted 'growing' event as he powers up before the fight, not a combat ability)."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 16049).
+            lines = {"Grows 5% larger per stack, stacking up to 50 times; never expires. Also has a scripted Dummy effect."}
         },
         {
             name = "Flame Buffet",
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
-            lines = {"Inflicts 150 to 300 Fire damage to an enemy and increases the Fire damage it takes by 200, for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 23341).
+            lines = {"Inflicts 150 to 300 Fire damage to an enemy and increases the Fire damage it takes by 200, for 20 seconds."}
         },
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 20228) + SpellDuration.csv lookup - not in-game tested.
@@ -972,7 +1011,8 @@ local UBRS_BOSSES = {
             name = "Conflagration",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
-            lines = {"X - no ability description available (see Conflagration for General Drakkisath's version of the base effect)."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 34418).
+            lines = {"Burns enemies within 5 yards for 100 Fire damage every second for 10 seconds."}
         },
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 8255) + SpellDuration.csv lookup - not in-game tested.
@@ -985,13 +1025,15 @@ local UBRS_BOSSES = {
             name = "Fire Storm",
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
-            lines = {"Calls down a pillar of flame, burning all enemies in the area for 475 to 627 Fire damage plus an additional 375 to 465 damage every X seconds, for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 13899).
+            lines = {"Calls down a pillar of flame, burning all enemies in the area for 475 to 627 Fire damage plus an additional 375 to 465 damage every 2 seconds, for 30 seconds."}
         },
         {
             name = "War Stomp",
             icon = "Interface\\Icons\\Ability_BullRush",
             warning = true,
-            lines = {"Inflicts normal damage plus 50 to nearby enemies, knocking them back and stunning them for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 16727).
+            lines = {"Inflicts normal damage plus 50 to nearby enemies, knocking them back and stunning them for 5 seconds."}
         },
         {
             name = "Hate to 50%",
@@ -1017,7 +1059,8 @@ local UBRS_BOSSES = {
         {
             name = "Head Crack",
             icon = "Interface\\Icons\\Ability_ThunderBolt",
-            lines = {"X - reduces an enemy's Stamina for X seconds (raw sheet value of 1 looks implausibly small for a Stamina debuff, left as X)."}
+            -- CHANGED 2026-09-29: spell 16172 in Spell.csv is level-scaled - base -1 at level 1, -1 per level, no cap.
+            lines = {"Reduces an enemy's Stamina by an amount equal to the caster's level (e.g. 60 at level 60) for 20 seconds."}
         },
         {
             name = "Strike",
@@ -1066,12 +1109,14 @@ local UBRS_BOSSES = {
             name = "Disarm",
             icon = "Interface\\Icons\\Ability_Warrior_Disarm",
             warning = true,
-            lines = {"Disarms the target's weapon for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 13534).
+            lines = {"Disarms the target's weapon for 10 seconds."}
         },
         {
             name = "Enrage",
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
-            lines = {"Increases the caster's attack speed by 60% and the Physical damage it deals by 50, for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 8269).
+            lines = {"Increases the caster's attack speed by 60% and the Physical damage it deals by 50, for 2 minutes."}
         },
         {
             -- CHANGED: merges two logged ranks (spell 19134, real description;
@@ -1095,7 +1140,8 @@ local UBRS_BOSSES = {
             name = "Whirlwind",
             icon = "Interface\\Icons\\Ability_Whirlwind",
             warning = true,
-            lines = {"Attacks nearby enemies in a whirlwind of steel that lasts X seconds and inflicts normal damage plus X (bonus damage lives on a separate linked spell not captured in this pass; raw sheet value was an implausible -9900, also left as X)."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 26083 + 26084).
+            lines = {"Spins for 15 seconds, hitting enemies within 6 yards every 0.3 seconds for normal damage plus 280 to 390. While spinning he does not auto-attack and moves 40% slower."}
         }
         }
     },
@@ -1110,7 +1156,8 @@ local UBRS_BOSSES = {
             name = "Chromatic Chaos",
             icon = "Interface\\Icons\\Spell_Arcane_StarFire",
             warning = true,
-            lines = {"X - no ability description available."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 16337).
+            lines = {"Increases the caster's hit chance by 40% and reduces the melee damage it takes by 25% for 5 minutes."}
         },
         {
             name = "Knock Away",
@@ -1135,7 +1182,8 @@ local UBRS_BOSSES = {
             name = "Freeze",
             icon = "Interface\\Icons\\Spell_Frost_Glacier",
             warning = true,
-            lines = {"Sends out an ice blast that stuns and damages enemies in a cone in front of the caster for 339 to 361 Frost damage, then inflicts an additional 840 to 1160 Frost damage every X seconds, for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 16350).
+            lines = {"Sends out an ice blast that stuns enemies in a 20 yard cone in front of the caster and deals 840 to 1160 Frost damage, then 339 to 361 Frost damage every 3 seconds for 10 seconds."}
         },
         {
             name = "Wing Buffet",
@@ -1200,7 +1248,8 @@ local UBRS_BOSSES = {
         {
             name = "Frenzy",
             icon = "Interface\\Icons\\Ability_Druid_ChallangingRoar",
-            lines = {"X - no ability description available."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 28371).
+            lines = {"Increases attack speed by 100%, damage dealt by 50% and size by 25% for 12 seconds."}
         }
         }
     },
@@ -1223,8 +1272,9 @@ local UBRS_BOSSES = {
             name = "Conflagration",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
+            -- CHANGED 2026-09-29: from Spell.csv (spell 16805).
             lines = {
-                "Sets an enemy aflame, inflicting 700 Fire damage over X seconds and sending it into a state of panic.",
+                "Sets an enemy aflame, inflicting 7000 Fire damage over 10 seconds (700 per second) and sending it into a state of panic.",
                 "While affected, the flames periodically scorch its nearby allies for 500 damage as well."
             }
         },
@@ -1232,7 +1282,8 @@ local UBRS_BOSSES = {
             name = "Flamestrike",
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
-            lines = {"Calls down a pillar of flame, burning all enemies in the area for 342 to 396 Fire damage plus an additional 72 damage every X seconds, for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 16419).
+            lines = {"Calls down a pillar of flame, burning all enemies in the area for 342 to 396 Fire damage plus an additional 72 damage every 2 seconds, for 8 seconds."}
         },
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 16789) + SpellDuration.csv lookup - not in-game tested.
@@ -1244,19 +1295,22 @@ local UBRS_BOSSES = {
             name = "Thunderclap",
             icon = "Interface\\Icons\\Spell_Nature_ThunderClap",
             warning = true,
-            lines = {"Inflicts 1407 to 1593 Nature damage to nearby enemies, slowing their movement by 60% and increasing the time between their attacks by 100% for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 23931).
+            lines = {"Inflicts 1407 to 1593 Nature damage to nearby enemies, slowing their movement by 60% and increasing the time between their attacks by 100% for 10 seconds."}
         },
         {
             name = "Dominance",
             icon = "Interface\\Icons\\Spell_Shadow_Charm",
             warning = true,
-            lines = {"X - no ability description available."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 34432).
+            lines = {"Mind-controls a player for 20 seconds, increasing their damage dealt by 300% and size by 50%."}
         },
         {
             name = "True Fulfillment",
             icon = "Interface\\Icons\\Temp",
             warning = true,
-            lines = {"X - no ability description available; raw sheet value (100000) looks like a sentinel, not a real number."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 2313).
+            lines = {"Lasts 20 seconds (cast alongside Dominance): +40% movement speed and +50 resistance. X - its third effect is a 100000 casting-speed modifier whose in-game result is unconfirmed."}
         }
         }
     },
@@ -1270,7 +1324,8 @@ local UBRS_BOSSES = {
         {
             name = "Enrage",
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
-            lines = {"Increases the caster's attack speed by 60% and the Physical damage it deals by 50, for X seconds."}
+            -- CHANGED 2026-09-29: from Spell.csv (spell 8269).
+            lines = {"Increases the caster's attack speed by 60% and the Physical damage it deals by 50, for 2 minutes."}
         },
         {
             name = "Summon Spectral Assassin",

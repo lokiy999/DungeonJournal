@@ -17,6 +17,68 @@ Sulfuron, and Ragnaros), BWL still has its 6 placeholder abilities (Known
 Issues in AGENTS.md), and ZG/UBRS/LBRS trash `stats` are still `"X"`
 wholesale.
 
+**Spell.csv pass 2026-09-29** - used the external Spell.csv reader
+(`C:\Users\Leon_\Desktop\Wow stuff\Spell.csv reader`, `python sp.py <id>`),
+which reads the raw client spell table directly instead of `Spell.xlsx`.
+Beyond the columns in its README, three more were verified against known
+spells: col 1 = school (0 Physical, 2 Fire, 3 Nature, 4 Frost, 5 Shadow,
+6 Arcane), cols 61-63 = effect type (2 School Damage, 6 Apply Aura, 98 Knock
+Back, ...), cols 91-93 = aura type (3 periodic damage, 12 stun, 33 slow, 61
+scale, 74 reflect school, 79 damage done %, 87 damage taken %, 89 % health
+per tick, 138 melee haste). Columns 91+ need the same row shift as 70+.
+Resolved:
+- MC: Baron Geddon Spreading Flames = 32000 Fire split within 10 yd (spell
+  34472); Ragnaros Intense Heat = 2000 Fire within 20 yd + knockback (spell
+  21155, logged under "Flame of Ragnaros"; timing still unknown).
+- BWL: Broodlord Frost Reflection 100% / 20s; Krixix Shrink Ray (-75% damage
+  done, -50% size, -25% move speed, 30s) and Death Ray (12000-17000 Physical
+  + 30s stun - verify, unusually long); Spellbinder Greatest Polymorph 20s
+  (ID assumed 35168, Spellbinder not in the log); Brood Power: Red ticks
+  every 1s; Brood Power: Blue's attack-speed sign confirmed as a slow.
+- Onyxia: Warder Cleave hits up to 10 targets.
+- ZG: 42 trash `X` lines filled (durations, tick intervals, radii, target
+  counts) - each marked with a `-- CHANGED 2026-09-29` comment + spell ID.
+- **Bug fixed:** the earlier `Spell.xlsx` pass turned negative values into
+  `abs(bp) + 1` instead of `abs(bp + 1)`, so every negative percentage/stat
+  was 2 too high (77% instead of 75%, Sunder 1002 instead of 1000, ...).
+  Fixed 19 such numbers in ZG (5 while filling `X`s, 14 from a sweep of
+  every raid file against Spell.csv); no other raid had a hit.
+
+- Same day, continued: ZG's 32 "no ability description" entries written
+  from their effect/aura columns; UBRS 55 lines and LBRS 80 lines filled
+  the same way. Real errors found and fixed along the way: Gyth's Freeze
+  had its direct/periodic numbers swapped, Drakkisath's Conflagration said
+  700 total (it's 700 per second = 7000 over 10s), Rend's Whirlwind is
+  +280-390 every 0.3s (not "+50"), and LBRS's two Bloodlust entries had
+  30%/60% swapped.
+
+**Level-scaled spells (important).** Spell.csv stores a *points per level*
+value next to the base points (raw cols 73-75, before the row shift - a
+decimal like 0.2 is split into two fields there, same as elsewhere). The
+real value is `base + perLevel x (casterLevel - spellLevel)`, capped at
+the max level (col 27; spell level is col 29). Every "raw sheet value looks
+implausibly small" note in this file was this: e.g. Head Crack 16172 is
+-1 Stamina per level, Sunder Armor 15572 is -12 armor per level per stack,
+**Flamewaker Sunder Armor 15502 is -8 armor per level per stack** (resolves
+the MC item below - now filled into `MC.lua`), Forked Lightning 8435 is +5
+per level, Lightning Shield 13585 is +2 per level. Lines touched today
+state the scaling instead of the base value. Not yet done: many older
+lines still quote the level-1 base of a scaled spell without saying so
+(Enrage 8269's "+50 damage" is +2 per level from 26; Cleave 19983's "plus
+50" is +5 per level from 10; Improved Blocking, Earth Shock, Blast Wave,
+Knockdown, Infected Bite, War Stomp, ...) - needs a sweep, and the mob
+levels to turn formulas into single numbers. Snap Kick 15618's per-level
+split is ambiguous in the export and was left as X.
+
+Still not resolvable from Spell.csv (numbers are 0 / computed server-side
+/ spell not in any log): Flamewaker Sunder Armor per stack (0), Firesworn
+Separation Anxiety distance (no radius - scripted), Lava Spawn Fireball
+(data says 192-258 with no DoT effect at all - conflicts with the ~980-1300
+observed), Loksey Power Shot damage (0), Grethok's Dominate Mind (not in
+any log, 9 candidate IDs), Onyxian Warder Hate to 50% (a scripted Dummy
+effect), and every ZG "no ability description" entry (these need a
+description written from their effect/aura columns - not done yet).
+
 ## Molten Core trash ([raids/MC.lua](raids/MC.lua))
 
 Status update 2026-08-23, from in-game testing:
