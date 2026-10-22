@@ -84,4 +84,20 @@ grep -o '}' raids/MC.lua | wc -l
   generic warrior-class visual/return-flight effect tied to Shield Toss,
   not a real mob-specific ability — also stripped out everywhere
   (2026-08-23). Only add it back if explicitly told to.
+- **Scripted/internal effects can be removed, not just left as `X`.**
+  Abilities whose only content is a scripted Dummy / Script Effect with no
+  player-facing mechanic (e.g. "Hate to 50%", "Hate to Zero", "Sap Visual")
+  have nothing to fill in from Spell.csv. When the workflow leaves one as
+  an unresolvable `X`, delete the entry instead of keeping a "no ability
+  description" placeholder. Keep it only if it has a real, describable
+  effect (e.g. "Disturb Rookery Egg" activates an egg).
+- **Always write "weapon damage", never "normal damage".** The client's
+  tooltips say "normal damage plus N" for weapon-damage effects (the mob's
+  regular swing plus a flat bonus). Write it as "weapon damage plus N" in
+  every ability line, including new ones filled from Spell.csv tooltips.
+- **The spell data file (Spell.csv) wins over everything else.** When an
+  existing line disagrees with the data (hand-written numbers, older
+  Spell.xlsx values, remembered or observed figures), change the line to
+  match Spell.csv - don't leave it and flag it. Keep a `-- CHANGED` comment
+  with the spell ID and the old value.
 

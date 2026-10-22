@@ -78,7 +78,8 @@ local MC_BOSSES = {
             icon = "Interface\\Icons\\spell_shadow_shadowbolt",
             roles = {},
             color = "ffff7d0a",
-            lines = {"Instantly lashes an enemy with dark magic, inflicting 2000 to 3000(?) Shadow damage."}
+            -- CHANGED 2026-09-30: spell 19460 in Spell.csv - 419-485 Shadow (data wins over the old 2000-3000(?)).
+            lines = {"Instantly lashes an enemy with dark magic, inflicting 419 to 485 Shadow damage."}
         }, {
             name = "Tortures",
             icon = "Interface\\Icons\\spell_shadow_shadowwordpain",
@@ -124,6 +125,12 @@ local MC_BOSSES = {
             roles = {"tank"},
             lines = {"Magmadar breaths lava in a frontal cone in front of him dealing 2857 to 3743 Fire damage."}
         }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 19428 in Spell.csv.
+            name = "Conflagration",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            warning = true,
+            lines = {"Burns enemies within 5 yards for 500 Fire damage every second for 8 seconds."}
+        }, {
             name = "Panic",
             icon = "Interface\\Icons\\spell_shadow_deathscream",
             roles = {},
@@ -167,7 +174,14 @@ local MC_BOSSES = {
             name = "Shadow Bolt",
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             roles = {"kick"},
-            lines = {"Gehennas fires a Shadow Bolt at a random player dealing 2250 to 2750 Shadow damage."}
+            -- CHANGED 2026-09-30: spell 19728 in Spell.csv - 3350-4250 Shadow (data wins over the old 2250-2750).
+            lines = {"Gehennas fires a Shadow Bolt at a random player dealing 3350 to 4250 Shadow damage."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 19729 in Spell.csv.
+            name = "Shadow Shock",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
+            warning = true,
+            lines = {"Hurls a bolt of dark magic at an enemy, inflicting 3250 to 4050 Shadow damage."}
         }},
         adds = {{
             name = "Flamewaker",
@@ -179,7 +193,7 @@ local MC_BOSSES = {
                 name = "Strike",
                 icon = "Interface\\Icons\\ability_rogue_ambush",
                 roles = {"tank"},
-                lines = {"Strikes at an enemy, inflicting normal damage plus 25."}
+                lines = {"Strikes at an enemy, inflicting weapon damage plus 25."}
             }, {
                 -- CHANGED: spell 15502 (Spell.csv). Base armor reduction is 0 but the
                 -- effect scales with caster level: 8 armor per level above
@@ -208,6 +222,11 @@ local MC_BOSSES = {
             icon = "Interface\\Icons\\spell_nature_earthbind",
             roles = {"dispel"},
             lines = {"Reduces the movement speed of nearby enemies by 60% for 15 sec."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 19516 in Spell.csv.
+            name = "Enrage",
+            icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
+            lines = {"Increases attack speed by 10% and size by 5%, and reduces its own armor by 300. Stacks up to 10 times. Lasts 30 minutes."}
         }, {
             name = "Antimagic Pulse",
             icon = "Interface\\Icons\\spell_holy_dispelmagic",
@@ -329,7 +348,7 @@ local MC_BOSSES = {
             icon = "Interface\\Icons\\spell_shadow_deathpact",
             warning = true,
             roles = {"tank"},
-            lines = {"Blasts an enemy with Arcane magic, inflicting normal damage plus 1050 to 1350 and knocking the enemy back 50? yards."}
+            lines = {"Blasts an enemy with Arcane magic, inflicting weapon damage plus 1050 to 1350 and knocking the enemy back 50? yards."}
         }, {
             name = "Deaden Magic",
             icon = "Interface\\Icons\\spell_holy_sealofsalvation",
@@ -345,6 +364,11 @@ local MC_BOSSES = {
             icon = "Interface\\Icons\\spell_arcane_blink",
             roles = {"tank"},
             lines = {"Shazzrah teleports on top of a random player every ~30 seconds, clearing all threat in the process."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 10058 in Spell.csv.
+            name = "Replenish Mana",
+            icon = "Interface\\Icons\\Spell_Magic_ManaGain",
+            lines = {"Restores 1000 to 1200 mana. 60 second cooldown."}
         }, {
             name = "Counterspell",
             icon = "Interface\\Icons\\spell_frost_iceshock",
@@ -448,6 +472,18 @@ local MC_BOSSES = {
             roles = {"tank"},
             lines = {"Increases the Physical damage dealt by an ally by 50% and speeds its attacks by 100% for 10 sec. 45y range."}
         }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 19778 in Spell.csv.
+            name = "Demoralizing Shout",
+            icon = "Interface\\Icons\\Ability_Warrior_WarCry",
+            warning = true,
+            lines = {"Reduces the melee and ranged attack power of enemies within 45 yards by 300 for 30 seconds. Which stance uses it is unconfirmed."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 13847 in Spell.csv.
+            name = "Recklessness",
+            icon = "Interface\\Icons\\Ability_CriticalStrike",
+            warning = true,
+            lines = {"Increases the caster's critical strike chance by 100% and reduces its resistances by 35% for 15 seconds. Also grants an immunity (aura 38) - X, which one is unconfirmed. Which stance uses it is unconfirmed."}
+        }, {
             name = "Drain Life",
             icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
             roles = {"tank"},
@@ -488,7 +524,7 @@ local MC_BOSSES = {
             icon = "Interface\\Icons\\Ability_BullRush",
             warning = true,
             roles = {"melee"},
-            lines = {"Inflicts normal damage plus 936 to 1064 to nearby enemies and stuns them for 5 seconds."}
+            lines = {"Inflicts weapon damage plus 936 to 1064 to nearby enemies and stuns them for 5 seconds."}
         }, {
             name = "Shield Wall",
             icon = "Interface\\Icons\\Ability_Warrior_ShieldWall",
@@ -498,7 +534,8 @@ local MC_BOSSES = {
             name = "Sunder Armor",
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             roles = {"tank"},
-            lines = {"Reduces the target's armor by 1000 per stack. Can be applied up to 5 times, lasting 30 seconds."}
+            -- CHANGED 2026-09-30: spell 27991 in Spell.csv is level-scaled - base 48, +48 armor per caster level above 1, no cap.
+            lines = {"Reduces the target's armor by 48 per caster level per stack (about 2880 at level 60). Can be applied up to 5 times, lasting 30 seconds."}
         }, {
             separator = true,
             name = "Berserker Stance"
@@ -507,7 +544,7 @@ local MC_BOSSES = {
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
             roles = {"tank"},
-            lines = {"Charges at an enemy, knocking them back and inflicting normal damage plus 300."}
+            lines = {"Charges at an enemy, knocking them back and inflicting weapon damage plus 300."}
         }},
         adds = {{
             name = "Flamewaker Priest",
@@ -716,7 +753,7 @@ local MC_TRASH_MOBS = {
             name = "Knock Away",
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             roles = {"tank"},
-            lines = {"Inflicts normal damage plus 100 to an enemy and knocks it back."}
+            lines = {"Inflicts weapon damage plus 100 to an enemy and knocks it back."}
         }, {
             -- CHANGED: confirmed via testing - 1410 to 1890 damage.
             name = "Smash",
@@ -866,6 +903,12 @@ local MC_TRASH_MOBS = {
             warning = true,
             lines = {"Inflicts 2388 to 3812 Fire damage to enemies in a cone in front of the caster."}
         }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 19372 in Spell.csv.
+            name = "Ancient Hysteria",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowWordDominate",
+            warning = true,
+            lines = {"Curses enemies within 45 yards, increasing the cost of their spells and abilities by 100% for 15 minutes."}
+        }, {
             name = "Serrated Bite",
             icon = "Interface\\Icons\\Ability_Gouge",
             roles = {"tank"},
@@ -962,7 +1005,8 @@ local MC_TRASH_MOBS = {
             name = "Strike",
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             roles = {"tank"},
-            lines = {"Strikes at an enemy, inflicting weapon damage plus 30."}
+            -- CHANGED 2026-09-30: spell 19644 in Spell.csv is level-scaled - bonus 30, +9 per caster level above 1.
+            lines = {"Strikes at an enemy, inflicting weapon damage plus 30, plus 9 per caster level above 1 (about 561 at level 60)."}
         }, {
             -- CHANGED: no usable Description_enUS match in Spell.xlsx (and
             -- the sourced icon, "phoenix", looks like a placeholder rather
@@ -987,6 +1031,11 @@ local MC_TRASH_MOBS = {
             icon = "Interface\\Icons\\stoneskinz_3",
             roles = {"tank"},
             lines = {"Increases the Physical damage taken by an enemy by 100 for 60 seconds. Stacks indefinitely."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 12970 in Spell.csv.
+            name = "Flurry",
+            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            lines = {"Increases attack speed by 25% for 8 seconds."}
         }, {
             separator = true,
             passive = true,

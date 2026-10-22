@@ -171,7 +171,7 @@ local SM_TRASH_MOBS = {
             name = "Charge",
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
-            lines = {"Charges an enemy, inflicting normal damage plus 500 and stunning it for 3 seconds."}
+            lines = {"Charges an enemy, inflicting weapon damage plus 500 and stunning it for 3 seconds."}
         }, {
             name = "Thunder Clap",
             icon = "Interface\\Icons\\Spell_Nature_ThunderClap",
@@ -246,7 +246,7 @@ local SM_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_Rogue_Sprint",
             warning = true,
             -- CHANGED: matched spell ID 36078 (custom range) via Spell.xlsx.
-            lines = {"Charges an enemy, inflicting normal damage plus 800 and stunning it for 4 seconds."}
+            lines = {"Charges an enemy, inflicting weapon damage plus 800 and stunning it for 4 seconds."}
         }, {
             -- CHANGED: Spell.xlsx id 36080; damage and 1%-per-stack healing
             -- reduction (up to 50 stacks) confirmed by user report.
@@ -290,6 +290,12 @@ local SM_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_Kick",
             warning = true,
             lines = {"Kicks the target, dealing 2500 to 3000 damage and knocking it down for 10 seconds."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 36063 in Spell.csv.
+            name = "Knockout",
+            icon = "Interface\\Icons\\Ability_Warrior_PunishingBlow",
+            warning = true,
+            lines = {"Stuns the target for 10 seconds."}
         }}
     },
 
@@ -569,7 +575,8 @@ local SM_TRASH_MOBS = {
             name = "Power Word: Requital",
             icon = "Interface\\Icons\\Spell_Fire_ElementalDevastation",
             warning = true,
-            lines = {"Blasts an enemy with Light, causing 2697 to 3122 Holy damage (full amount if the target is feared, stunned, or incapacitated)."}
+            -- CHANGED 2026-09-30: spell 36143 in Spell.csv is level-scaled - damage 2697-3122, +6 per caster level.
+            lines = {"Blasts an enemy with Light, causing 2697 to 3122 Holy damage plus 6 per caster level (about 3057 to 3482 at level 60) (full amount if the target is feared, stunned, or incapacitated)."}
         }, {
             name = "Prayer of Fortitude",
             icon = "Interface\\Icons\\Spell_Holy_PrayerOfFortitude",
@@ -640,7 +647,8 @@ local SM_TRASH_MOBS = {
             name = "Crusader Strike",
             icon = "Interface\\Icons\\Spell_Holy_HolySmite",
             warning = true,
-            lines = {"Inflicts 400 to 550 damage to an enemy and increases the Holy damage it takes by 180 per stack (up to 5 stacks). Lasts 25 seconds."}
+            -- CHANGED 2026-09-30: spell 36135 in Spell.csv is level-scaled - Holy damage taken 180, +1 per caster level.
+            lines = {"Inflicts 400 to 550 damage to an enemy and increases the Holy damage it takes by 180 plus 1 per caster level (about 240 at level 60) per stack (up to 5 stacks). Lasts 25 seconds."}
         }, {
             name = "Divine Shield",
             icon = "Interface\\Icons\\Spell_Holy_DivineIntervention",
@@ -669,7 +677,7 @@ local SM_TRASH_MOBS = {
             -- CHANGED: matched spell ID 36133 (custom range), % from linked spell 20424.
             name = "Seal of Command",
             icon = "Interface\\Icons\\Ability_Warrior_InnerRage",
-            lines = {"Attacks deal additional Holy damage equal to 50% of normal weapon damage."}
+            lines = {"Attacks deal additional Holy damage equal to 50% of weapon damage."}
         }}
     },
 
@@ -716,7 +724,7 @@ local SM_TRASH_MOBS = {
         }, {
             name = "Prophecy: Callousness",
             icon = "Interface\\Icons\\Spell_Holy_DevotionAura",
-            lines = {"Damage taken reduced by 75%.", "Trigger line: unknown - to be found/tested."}
+            lines = {"Damage taken reduced by 75%.", "Trigger line: \"You stand while mountains fall.\""}
         }, {
             name = "Prophecy: Cinderborn",
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
@@ -735,7 +743,7 @@ local SM_TRASH_MOBS = {
             -- CHANGED: AuraDescription_enUS (spell 36175-36204 range) is literally
             -- just "Mirrored Presence." - no numbers, no further mechanic detail
             -- to extract from Spell.xlsx.
-            lines = {"Mirrored Presence."}
+            lines = {"Mirrored Presence.", "Trigger line: \"One shall become two.\""}
         }, {
             name = "Prophecy: Double-Edged",
             icon = "Interface\\Icons\\Ability_CriticalStrike",
@@ -753,7 +761,7 @@ local SM_TRASH_MOBS = {
         }, {
             name = "Prophecy: Gloom",
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
-            lines = {"Immune to Shadow damage."}
+            lines = {"Immune to Shadow damage.", "Trigger line: \"Shadow will not engulf you.\""}
         }, {
             name = "Prophecy: Hailbound",
             icon = "Interface\\Icons\\Spell_Frost_ChillingArmor",
@@ -783,7 +791,7 @@ local SM_TRASH_MOBS = {
             name = "Prophecy: Negation",
             icon = "Interface\\Icons\\Ability_BackStab",
             warning = true,
-            lines = {"Your attacks and spells ignore Armor and Resistances."}
+            lines = {"Your attacks and spells ignore Armor and Resistances.", "Trigger line: \"Nothing will stand before you.\""}
         }, {
             name = "Prophecy: Nullify",
             icon = "Interface\\Icons\\Ability_BackStab",
@@ -826,11 +834,11 @@ local SM_TRASH_MOBS = {
         }, {
             name = "Prophecy: Vitality",
             icon = "Interface\\Icons\\Spell_Nature_UndyingStrength",
-            lines = {"Healing taken increased by 100%, regenerating 1% of health every 1 sec.", "Trigger line: unknown - to be found/tested."}
+            lines = {"Healing taken increased by 100%, regenerating 1% of health every 1 sec.", "Trigger line: \"Your life will not fade.\""}
         }, {
             name = "Prophecy: Weakness",
             icon = "Interface\\Icons\\Spell_Shadow_CurseOfMannoroth",
-            lines = {"Damage caused reduced by 75%."}
+            lines = {"Damage caused reduced by 75%.", "Trigger line (probably, guessed from the wording): \"Your strikes leave no mark.\""}
         }}
     },
 
@@ -945,7 +953,7 @@ local SM_BOSSES = {
             icon = "Interface\\Icons\\Ability_Warrior_VictoryRush",
             warning = true,
             roles = {"tank"},
-            lines = {"Charges an enemy, inflicting normal damage plus 500, gaining aggro and stunning them."}
+            lines = {"Charges an enemy, inflicting weapon damage plus 500, gaining aggro and stunning them."}
         }, {
             name = "Shield Bash",
             icon = "Interface\\Icons\\INV_Shield_05",
@@ -981,7 +989,8 @@ local SM_BOSSES = {
             name = "Stormbolt",
             icon = "Interface\\Icons\\Ability_ThunderClap",
             roles = {"healer", "tank", "reflect"},
-            lines = {"Hurls a hammer that strikes an enemy for 1897 to 2327 Holy damage every 1.5 seconds. Reflectable"}
+            -- CHANGED 2026-09-30: spell 35863 in Spell.csv is level-scaled - damage 1897-2327, +2 per caster level.
+            lines = {"Hurls a hammer that strikes an enemy for 1897 to 2327 Holy damage plus 2 per caster level (about 2017 to 2447 at level 60) every 1.5 seconds. Reflectable"}
         }, {
             name = "Hoof Kick",
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
@@ -1335,7 +1344,8 @@ local SM_BOSSES = {
                 abilities = {{
                     name = "Frozen Solid",
                     icon = "Interface\\Icons\\spell_frost_frost",
-                    lines = {"Your frozen in place for 10 seconds and get X Frost Damage every X seconds."}
+                    -- CHANGED 2026-09-30: spell 35986 in Spell.csv is a 10 second stun with no damage effect; the Frost damage is not in the data.
+                    lines = {"Your frozen in place (stunned) for 10 seconds. X - the Frost damage every X seconds is not in the spell data, unconfirmed."}
                 }}
             }}
         }, {
@@ -1362,12 +1372,19 @@ local SM_BOSSES = {
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             warning = true,
             roles = {"tank"},
-            lines = {"Inflicts 1850 to 2230 Fire damage in a cone in front of Doan. This will set any bookshelves ablaze which he hits."},
+            -- CHANGED 2026-09-30: spell 35963 in Spell.csv is level-scaled - damage 1850-2230, +4 per caster level above 1.
+            lines = {"Inflicts 1850 to 2230 Fire damage plus 4 per caster level above 1 (about 2086 to 2466 at level 60) in a cone in front of Doan. This will set any bookshelves ablaze which he hits."},
             abilities = {{
                 name = "Searing Heat",
                 icon = "Interface\\Icons\\Spell_Fire_Incinerate",
                 lines = {"Continually inflicts Fire damage on the raid."}
             }}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 35969 in Spell.csv.
+            name = "Great Polymorph",
+            icon = "Interface\\Icons\\Spell_Nature_Polymorph",
+            warning = true,
+            lines = {"Transforms an enemy into a sheep, forcing it to wander around for up to 60 seconds. While wandering, the sheep cannot attack or cast spells, but regenerates very quickly."}
         }}
     },
 

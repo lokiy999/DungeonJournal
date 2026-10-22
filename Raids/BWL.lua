@@ -88,7 +88,8 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
             roles = {"healer"},
-            lines = {"Razorgore's most frequent ability by far - burns the target for 100 Fire damage every second."}
+            -- CHANGED 2026-09-30: spell 23023 in Spell.csv - 500 Fire/s for 10s (30 yd range), confuse, and a 500 Fire pulse to nearby allies each second (old line said 100/s).
+            lines = {"Razorgore's most frequent ability by far - sets the target aflame for 500 Fire damage every second for 10 seconds and sends it into a state of panic. While affected, the flames scorch nearby allies for 500 Fire damage every second."}
         }, {
             name = "Fireball Volley",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
@@ -107,7 +108,8 @@ local BWL_BOSSES = {
             name = "Cleave",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank", "melee"},
-            lines = {"Strikes his target and its nearest allies."}
+            -- CHANGED 2026-09-30: spell 19632 in Spell.csv is level-scaled - bonus 50, +5 per caster level above 10, chain 10.
+            lines = {"Strikes his target and its nearest allies for weapon damage plus 50, plus 5 per caster level above 10 (about 300 at level 60), affecting up to 10 targets."}
         }, {
             -- CHANGED: spell 35177, from BWL combat log "BWL stuff.csv". Text
             -- from Spell.xlsx AuraDescription; "$s1" = EffectBasePoints_1 (19)
@@ -144,7 +146,8 @@ local BWL_BOSSES = {
                 name = "Cleave",
                 icon = "Interface\\Icons\\Ability_Warrior_Cleave",
                 roles = {"tank"},
-                lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+                -- CHANGED 2026-09-30: spell 19632 in Spell.csv is level-scaled - bonus 50, +5 per caster level above 10, chain 10.
+                lines = {"A sweeping attack that strikes its target and nearest ally for weapon damage plus 50, plus 5 per caster level above 10 (about 300 at level 60), affecting up to 10 targets."}
             }, {
                 name = "Concussion Blow",
                 icon = "Interface\\Icons\\Ability_ThunderBolt",
@@ -171,7 +174,7 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Spell_Shadow_ShadowWordDominate",
             roles = {"kick", "dispel"},
             color = "ffcc6600",
-            lines = {"Guards the eggs during the egg-destruction phase - if left alive too long it can Dominate Mind a raid member. Kill or interrupt it quickly."},
+            lines = {"Guards the eggs during the egg-destruction phase - if left alive too long it can Dominate Mind a raid member."},
             abilities = {{
                 -- CHANGED: spell 35169 in the BWL combat log. Spell.xlsx
                 -- Description: "inflicting $s1 Arcane damage and interrupting
@@ -214,7 +217,7 @@ local BWL_BOSSES = {
                 name = "Ring Cleave",
                 icon = "Interface\\Icons\\Ability_Whirlwind",
                 roles = {"tank"},
-                lines = {"Attacks all nearby enemies in a whirlwind, causing weapon damage to each - avoid clumping melee on it."}
+                lines = {"Attacks all nearby enemies in a whirlwind, causing weapon damage to each."}
             }}
         }, {
             key = "blackwing_legionnaire",
@@ -227,7 +230,8 @@ local BWL_BOSSES = {
                 name = "Cleave",
                 icon = "Interface\\Icons\\Ability_Warrior_Cleave",
                 roles = {"tank"},
-                lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+                -- CHANGED 2026-09-30: spell 19632 in Spell.csv is level-scaled - bonus 50, +5 per caster level above 10, chain 10.
+                lines = {"A sweeping attack that strikes its target and nearest ally for weapon damage plus 50, plus 5 per caster level above 10 (about 300 at level 60), affecting up to 10 targets."}
             }, {
                 name = "Strike",
                 icon = "Interface\\Icons\\Ability_Rogue_Ambush",
@@ -240,17 +244,17 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             roles = {"kick"},
             color = "ffcc6600",
-            lines = {"Caster add during the Razorgore encounter - priority CC or interrupt."},
+            lines = {"Caster add during the Razorgore encounter."},
             abilities = {{
                 name = "Fireball",
                 icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
                 warning = true,
                 roles = {"kick"},
-                lines = {"Hurls a fiery ball that causes Fire damage plus a burn over time - priority CC or interrupt target."}
+                lines = {"Hurls a fiery ball that causes Fire damage plus a burn over time."}
             }, {
                 name = "Arcane Intellect",
                 icon = "Interface\\Icons\\Spell_Holy_MagicalSentry",
-                lines = {"Buffs its own Intellect - kill or CC quickly to limit its casting."}
+                lines = {"Buffs its own Intellect."}
             }, {
                 -- CHANGED: spell 35174, from BWL combat log. Text from
                 -- Spell.xlsx Description; DurationIndex 1 = 10s.
@@ -303,7 +307,8 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Spell_Fire_MeteorStorm",
             warning = true,
             roles = {"tank"},
-            lines = {"Inflicts 3000 to 6000 Fire damage to enemies in a cone in front of it. Keep it faced away from the raid."}
+            -- CHANGED 2026-09-30: spell 35146 in Spell.csv - 3000-4000 Fire plus a second 200-250 Fire effect (old line said 3000-6000).
+            lines = {"Inflicts 3000 to 4000 Fire damage, plus an additional 200 to 250 Fire damage, to enemies in a cone in front of it."}
         }, {
             -- CHANGED: spell 35135, from BWL combat log. Text from Spell.xlsx
             -- AuraDescription; "$s1" = EffectBasePoints_1 (24) + 1 = 25;
@@ -357,18 +362,19 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
             warning = true,
             roles = {"tank"},
-            lines = {"Resets or reduces threat. Any DPS who pulls threat must run towards the boss so the tanks can recover him - the tanks are slowed and cannot chase."}
+            lines = {"Resets or reduces threat. The tanks are slowed and cannot chase."}
         }, {
             name = "Mortal Strike",
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             warning = true,
             roles = {"tank", "healer"},
-            lines = {"A brutal strike that also reduces healing received on the target. Tank healing must account for this."}
+            lines = {"A brutal strike that also reduces healing received on the target."}
         }, {
             name = "Cleave",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank", "melee"},
-            lines = {"Strikes his target and its nearest allies."}
+            -- CHANGED 2026-09-30: spell 15284 in Spell.csv is level-scaled - bonus 10, +1 per caster level above 10, chain 3.
+            lines = {"Strikes his target and its nearest allies for weapon damage plus 10, plus 1 per caster level above 10 (about 60 at level 60), affecting up to 3 targets."}
         }, {
             -- CHANGED: spell 35187, from BWL combat log. AuraDescription is
             -- "Reflecting Frost spells." CHANGED 2026-09-29: Spell.csv has
@@ -393,8 +399,7 @@ local BWL_BOSSES = {
             warning = true,
             roles = {"tank"},
             lines = {"Firemaw's defining mechanic and his most frequent ability by an enormous margin (37000+ log entries).",
-                     "Increases Fire damage taken and stacks indefinitely. It CANNOT be removed with Vial of Elune's Light.",
-                     "Tanks never run away to reset stacks - maximum threat is required, so healers must rotate to keep them alive. Ensure only one tank is hit by Wing Buffet at a time."}
+                     "Increases Fire damage taken and stacks indefinitely. It CANNOT be removed with Vial of Elune's Light."}
         }, {
             name = "Shadow Flame",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
@@ -406,6 +411,11 @@ local BWL_BOSSES = {
             warning = true,
             roles = {"tank"},
             lines = {"Knocks nearby enemies back for around 1500 damage, shedding threat."}
+        }, {
+            -- CHANGED 2026-09-30: per the devs, the orbs Firemaw spawns are called Flame Rifts. Not in the combat log; damage and behavior unknown.
+            name = "Flame Rifts",
+            icon = "Interface\\Icons\\Spell_Fire_Fire",
+            lines = {"The orbs Firemaw spawns are Flame Rifts (per the devs). X - their effect is not yet documented."}
         }, {
             separator = true,
             passive = true,
@@ -483,7 +493,7 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Ability_Hunter_Pet_Dragonhawk",
             warning = true,
             roles = {"tank"},
-            lines = {"Both dragons are active at once and must be tanked far apart with casters in between, so their auras do not overlap."}
+            lines = {"Both dragons are active at once, each with its own aura."}
         }, {
             name = "Shadow Flame",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
@@ -500,7 +510,7 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             warning = true,
             roles = {"hunter"},
-            lines = {"Both dragons enrage, causing heavy raid-wide damage. MUST be removed with Tranquilizing Shot - ideally 2 hunters per dragon.",
+            lines = {"Both dragons enrage, causing heavy raid-wide damage. Can be removed with Tranquilizing Shot.",
                      "Logged as spell 35238 (Ebonroc) / 23342 (Flamegor) in BWL combat log."}
         }, {
             -- CHANGED: spell 3391, from BWL combat log "BWL stuff.csv" - both
@@ -559,56 +569,55 @@ local BWL_BOSSES = {
             name = "Double Bite",
             icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
             roles = {"tank"},
-            lines = {"Chromaggus bites twice, hitting a second enemy as well. His most frequent melee ability."}
+            -- CHANGED 2026-09-30: spell 34429 in Spell.csv - inflicts 100% weapon damage to a second enemy.
+            lines = {"Inflicts 100% weapon damage to a second enemy as well. His most frequent melee ability."}
         }, {
             name = "Enrage",
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             warning = true,
-            lines = {"Enrages at 20% health. Cannot be removed - time your damage so he reaches enrage just after a breath to maximise DPS."}
+            -- CHANGED 2026-09-30: spell 28747 in Spell.csv - +100% damage done, +50% attack speed, +15% size, 10 minutes.
+            lines = {"Enrages at 20% health, increasing damage done by 100%, attack speed by 50% and size by 15%. Cannot be removed."}
         }, {
             name = "Frenzy",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             warning = true,
             roles = {"hunter"},
-            lines = {"Must be removed with Tranquilizing Shot. Still occurs during the enrage phase - the Frenzy can be removed even though the Enrage cannot."}
+            -- CHANGED 2026-09-30: spell 28371 in Spell.csv - +100% attack speed, +50% damage done, +25% size, 12 seconds.
+            lines = {"Increases attack speed by 100%, damage done by 50% and size by 25% for 12 seconds. Can be removed with Tranquilizing Shot, and still occurs during the enrage phase."}
         }, {
             separator = true,
-            name = "Brood Afflictions - dispel assignments"
+            name = "Brood Afflictions"
         }, {
             name = "Brood Affliction: Black",
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_01",
             warning = true,
             roles = {"decurse", "dps"},
-            lines = {"Curse. Increases all damage you cause by 10% but magical damage taken by 100%.",
-                     "All DPS keep this one and remove the rest."}
+            lines = {"Curse. Increases all damage you cause by 10% but magical damage taken by 100%. Lasts 10 minutes."}
         }, {
             name = "Brood Affliction: Blue",
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Blue",
             warning = true,
             roles = {"dispel", "tank"},
-            lines = {"Magic. Burns 1% mana every second, reduces casting speed by 100% and increases armour by 3000.",
-                     "All tanks keep this one and remove the rest. Do not dispel Blue from tanks."}
+            lines = {"Magic. Burns 1% mana every second, reduces casting speed by 100% and increases armor by 3000. Lasts 10 minutes."}
         }, {
             name = "Brood Affliction: Green",
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Green",
             warning = true,
             roles = {"poison", "healer"},
-            lines = {"Poison. Deals 300 damage every 5 seconds, reduces healing received by 50% and increases healing done by 20%.",
-                     "All healers keep this one and remove the rest."}
+            lines = {"Poison. Deals 300 damage every 5 seconds, reduces healing received by 50% and increases healing done by 20%. Lasts 10 minutes."}
         }, {
             name = "Brood Affliction: Red",
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Red",
             warning = true,
             roles = {"disease", "healer"},
-            lines = {"Disease. Deals 3% health damage every 3 seconds and increases melee attack speed by 10%.",
-                     "Heals Chromaggus when the afflicted player dies."}
+            lines = {"Disease. Deals 3% health damage every 3 seconds and increases melee attack speed by 10%. Lasts 10 minutes.",
+                     "Heals Chromaggus for 300000 when the afflicted player dies."}
         }, {
             name = "Brood Affliction: Bronze",
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Bronze",
             warning = true,
             roles = {"dispel"},
-            lines = {"Increases movement speed by 40%, then periodically stops time - stunning the target and reducing magical damage taken by 100%.",
-                     "Removed with a Free Action Potion (Sand)."}
+            lines = {"Increases movement speed by 40%, then every 6 seconds stops time - stunning the target and reducing magical damage taken by 100%. Lasts 10 minutes."}
         }, {
             separator = true,
             name = "Breaths"
@@ -617,30 +626,32 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             warning = true,
             lines = {"He uses all five breath attacks in a single encounter rather than only two.",
-                     "Everyone except the current tank must hide for a breath - including off tanks, who need to pick him up afterwards.",
-                     "Stack tightly against the wall so dispels stay in line of sight."}
+                     "Its breaths can be avoided by breaking line of sight."}
         }, {
             name = "Caustic Breath",
             icon = "Interface\\Icons\\Spell_Nature_Acid_01",
             warning = true,
             roles = {"tank", "healer"},
-            lines = {"'Caustic Pain!' - deals 475 to 700 damage every 3 seconds, reduces armour by 8000 to 9000 and increases casting speed by 33%.",
-                     "Off tanks must avoid this. During the enrage phase only one tank should ever carry it."}
+            -- CHANGED 2026-09-30: spell 35277 in Spell.csv - 15 seconds, 475-700 per 3s, armor -8000, casting speed +33%.
+            lines = {"'Caustic Pain!' - deals 475 to 700 Nature damage every 3 seconds, reduces armor by 8000 and increases casting speed by 33% for 15 seconds."}
         }, {
             name = "Ignite Flesh",
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
             warning = true,
-            lines = {"Deals 5% health damage every 3 seconds and increases physical damage done by 5%."}
+            -- CHANGED 2026-09-30: spell 35278 in Spell.csv - 160 seconds, stacks up to 10.
+            lines = {"Deals 5% health damage every 3 seconds and increases damage done by 5% for 160 seconds. Stacks up to 10 times."}
         }, {
             name = "Incinerate",
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
             warning = true,
-            lines = {"One of Chromaggus' breath attacks (spell 35275)."}
+            -- CHANGED 2026-09-30: spell 35275 in Spell.csv - 4800-6000 Fire to everyone within 100 yards.
+            lines = {"Breath attack that inflicts 4800 to 6000 Fire damage to all enemies within 100 yards."}
         }, {
             name = "Frost Burn",
             icon = "Interface\\Icons\\Spell_Frost_ChillingBlast",
             warning = true,
-            lines = {"A Frost breath that increases the time between the target's attacks (spell 35279)."}
+            -- CHANGED 2026-09-30: spell 35279 in Spell.csv - 2500-3000 Frost, attack time +400%, 20 seconds.
+            lines = {"Breath attack that inflicts 2500 to 3000 Frost damage to all enemies within 100 yards and increases the time between their attacks by 400% for 20 seconds."}
         }, {
             -- CHANGED: spell 35276, from BWL combat log - the fifth breath,
             -- previously missing. Aura text "Frozen in time!"; "$s2" =
@@ -649,7 +660,7 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Spell_Nature_TimeStop",
             warning = true,
             roles = {"healer"},
-            lines = {"Chromaggus' fifth breath - stuns the raid and reduces maximum health by 50% for 15 seconds. Healers must not overheal into the drop."}
+            lines = {"Chromaggus' fifth breath - stuns the raid and reduces maximum health by 50% for 15 seconds."}
         }, {
             -- CHANGED: spells 22278 / 22279 / 22281, from BWL combat log - one
             -- per breath school. No Spell.xlsx description text.
@@ -671,7 +682,7 @@ local BWL_BOSSES = {
             name = "Essence of the Red",
             icon = "Interface\\Icons\\Spell_Fire_FelFireNova",
             lines = {"A beneficial effect granting mana, energy and rage regeneration. Applied once at the start and lasts 3 minutes.",
-                     "Killing Vaelastrasz removes it, so he must be kept alive for the full 3 minutes and then killed swiftly."}
+                     "Killing Vaelastrasz removes it."}
         }, {
             name = "Burning Adrenaline",
             icon = "Interface\\Icons\\Spell_Fire_Fireball02",
@@ -684,7 +695,7 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
             roles = {"tank"},
-            lines = {"Tanks position front and back, away from the raid during phase 1.",
+            lines = {"Inflicts 1600 to 2100 damage on enemies in a 15 yard cone behind it, knocking them back.",
                      "Logged as Tail Sweep (spell 15847) in the BWL combat log."}
         }, {
             -- CHANGED: spell 23461, from BWL combat log. "$s1" =
@@ -692,7 +703,7 @@ local BWL_BOSSES = {
             name = "Flame Breath",
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
-            lines = {"Vaelastrasz breathes fire in a frontal cone for around 3500 Fire damage. Keep him faced away from the raid."}
+            lines = {"Vaelastrasz breathes fire in a frontal cone for around 3500 Fire damage."}
         }, {
             -- CHANGED: spell 35301, from BWL combat log. AuraDescription
             -- "Deals $s1 fire damage a second"; "$s1" = EffectBasePoints_1
@@ -724,7 +735,7 @@ local BWL_BOSSES = {
             name = "Tunnel adds",
             icon = "Interface\\Icons\\Ability_Hunter_Pet_Dragonhawk",
             warning = true,
-            lines = {"Tunnel mobs spawn continuously and are the number one priority - they overwhelm the raid quickly.",
+            lines = {"Tunnel mobs spawn continuously.",
                      "Roughly 42-84 must die to enter phase 2. Green Drakonid stun (dispellable), Red deal Fire damage, Blue reduce attack speed."}
         }, {
             separator = true,
@@ -756,7 +767,7 @@ local BWL_BOSSES = {
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
             warning = true,
             roles = {"decurse", "healer"},
-            lines = {"A curse reducing healing received by 75%. Decurse it as a priority."}
+            lines = {"A curse reducing healing received by 75%."}
         }, {
             name = "Dropped Weapon",
             icon = "Interface\\Icons\\Ability_Warrior_Disarm",
@@ -799,7 +810,7 @@ local BWL_BOSSES = {
             name = "Bone Construct",
             icon = "Interface\\Icons\\INV_Misc_Bone_HumanSkull_01",
             color = "ffcc6600",
-            lines = {"Raised from the bone piles on the floor during phase 2 (the 'Bone Constructs!' shout). Slow-moving; block or kite them off the healers."},
+            lines = {"Raised from the bone piles on the floor during phase 2 (the 'Bone Constructs!' shout). Slow-moving."},
             abilities = {{
                 -- CHANGED: spell 8355. Spell.xlsx Description: "Inflicts normal
                 -- damage plus $s1 on an enemy, but only if attacking from
@@ -807,7 +818,8 @@ local BWL_BOSSES = {
                 name = "Exploit Weakness",
                 icon = "Interface\\Icons\\Ability_BackStab",
                 warning = true,
-                lines = {"Hits for normal melee damage plus a bonus when striking from behind - keep it facing the tank."}
+                -- CHANGED 2026-09-30: spell 8355 in Spell.csv is level-scaled - weapon damage bonus 28-32, +3 per caster level above 10, no cap unless stated.
+                lines = {"Inflicts weapon damage plus 28 to 32, plus 3 per caster level above 10 (about 178 to 182 at level 60), if attacking from behind."}
             }}
         }}
     },
@@ -838,7 +850,8 @@ local BWL_TRASH_MOBS = {
             name = "Cleave",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
-            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+            -- CHANGED 2026-09-30: spell 15496 in Spell.csv is level-scaled - bonus 10, +1 per caster level above 10, chain 2.
+            lines = {"A sweeping attack that strikes its target and nearest ally for weapon damage plus 10, plus 1 per caster level above 10 (about 60 at level 60)."}
         }, {
             -- CHANGED: spell 25050 (Death Talon Captain, BWL combat log). Text
             -- from Spell.xlsx AuraDescription: "$s1" = EffectBasePoints_1 (999)
@@ -864,7 +877,7 @@ local BWL_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             roles = {"tank"},
-            lines = {"Inflicts Fire damage to an enemy and increases the Fire damage it takes - tanks should rotate."}
+            lines = {"Inflicts Fire damage to an enemy and increases the Fire damage it takes."}
         }, {
             name = "Frenzy",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
@@ -990,7 +1003,7 @@ local BWL_TRASH_MOBS = {
         }, {
             name = "Healing Circle",
             icon = "Interface\\Icons\\Spell_Holy_PrayerOfHealing02",
-            lines = {"Heals nearby allies - kill or interrupt to limit its support."}
+            lines = {"Heals nearby allies."}
         }}
     },
 
@@ -1029,7 +1042,7 @@ local BWL_TRASH_MOBS = {
             name = "Summon Felguard Portal",
             icon = "Interface\\Icons\\Spell_Shadow_SummonFelGuard",
             warning = true,
-            lines = {"Opens a portal that summons a Felguard - destroy the portal quickly."}
+            lines = {"Opens a portal that summons a Felguard."}
         }}
     },
 
@@ -1072,12 +1085,12 @@ local BWL_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_Warrior_Challange",
             warning = true,
             roles = {"melee"},
-            lines = {"Instantly counterattacks any enemy that strikes it in melee - melee should stop attacking while this is active."}
+            lines = {"Instantly counterattacks any enemy that strikes it in melee."}
         }, {
             name = "Cleave",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
-            lines = {"A sweeping attack that strikes its target and nearest ally - avoid clumping melee on it."}
+            lines = {"A sweeping attack that strikes its target and nearest ally."}
         }}
     },
 
@@ -1091,7 +1104,7 @@ local BWL_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             roles = {"kick"},
-            lines = {"Blasts a target for Arcane damage - priority CC or interrupt target."}
+            lines = {"Blasts a target for Arcane damage."}
         }, {
             name = "Flamestrike",
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
@@ -1123,12 +1136,13 @@ local BWL_TRASH_MOBS = {
             name = "War Stomp",
             icon = "Interface\\Icons\\Ability_BullRush",
             warning = true,
-            lines = {"Knocks nearby enemies back, stunning them - melee should not clump on it."}
+            lines = {"Knocks nearby enemies back, stunning them."}
         }, {
             name = "Cleave",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
-            lines = {"A sweeping attack that strikes its target and nearest ally."}
+            -- CHANGED 2026-09-30: spell 15284 in Spell.csv is level-scaled - bonus 10, +1 per caster level above 10, chain 3.
+            lines = {"A sweeping attack that strikes its target and nearest ally for weapon damage plus 10, plus 1 per caster level above 10 (about 60 at level 60), affecting up to 3 targets."}
         }, {
             -- CHANGED: the five Brood Powers below are real spell IDs from the
             -- BWL combat log ("BWL stuff.csv") - the Wyrmguard rolls one at

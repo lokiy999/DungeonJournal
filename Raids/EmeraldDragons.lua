@@ -153,7 +153,7 @@ local GREEN_BOSSES = {
             name = "Arcane Blast",
             icon = "Interface\\Icons\\Spell_Shadow_DeathPact",
             warning = true,
-            lines = {"Blasts an enemy for normal damage plus 1050 to 1350 Arcane damage and knocks them back."}
+            lines = {"Blasts an enemy for weapon damage plus 1050 to 1350 Arcane damage and knocks them back."}
         }, {
             name = "Bellowing Roar",
             icon = "Interface\\Icons\\Spell_Shadow_Charm",

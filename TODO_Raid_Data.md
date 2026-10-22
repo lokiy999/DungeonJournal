@@ -18,7 +18,7 @@ Issues in AGENTS.md), and ZG/UBRS/LBRS trash `stats` are still `"X"`
 wholesale.
 
 **Spell.csv pass 2026-09-29** - used the external Spell.csv reader
-(`C:\Users\Leon_\Desktop\Wow stuff\Spell.csv reader`, `python sp.py <id>`),
+(`C:\Users\Leon_\Documents\WoW Website Project\projects\Spell.csv reader`, `python sp.py <id>`),
 which reads the raw client spell table directly instead of `Spell.xlsx`.
 Beyond the columns in its README, three more were verified against known
 spells: col 1 = school (0 Physical, 2 Fire, 3 Nature, 4 Frost, 5 Shadow,
@@ -51,6 +51,87 @@ Resolved:
   700 total (it's 700 per second = 7000 over 10s), Rend's Whirlwind is
   +280-390 every 0.3s (not "+50"), and LBRS's two Bloodlust entries had
   30%/60% swapped.
+
+**Spell.csv pass 2026-09-30** (uncommitted until tested in-game):
+- **Scripted/internal entries removed** (new CLAUDE.md rule): Hate to 50% /
+  Hate to Zero / Sap Visual from UBRS (7), LBRS (7) and Onyxia (1); ZG's
+  Intoxicating Venom (Dummy) and both Poisonous Blood entries (Script Effect).
+  Kept: UBRS Disturb Rookery Egg and ZG "Hate to Zero(Reset)" (described
+  effects) - say if they should go too.
+- **Level-scaling sweep** of every spell ID cited in a `-- CHANGED` comment.
+  Fixed lines that quoted the level-1 base: Sulfuron's Sunder Armor
+  (27991: 48/level, not 1000), UBRS Sunder Armor 16145 (24/level), Enrage
+  8269/8599, Rage 16789, Cleave 19983, Knockdown 16790, War Stomp
+  11876/16727, Lightning Shield 34881, Ravage 24333, Devour 34938, Improved
+  Blocking 3248, Exploit Weakness 8355, Blast Wave 13021, Earth Shock
+  10414, Infected Bite 16128 (per-slot reading from a 3-field row - verify),
+  and filled Stun Bomb 16497, Snap Kick 15618 and Eviscerate 15691 from
+  their per-level values. Only IDs cited in comments were swept.
+- **Mana Burn** damage per mana: 0.5 (15785, 15980), 1 (15800).
+- **Charge** 24023 is 75 bonus damage + triggers Fixate (no stun in the
+  data); Charge 25821 is +1300; Greater Polymorph 22274 is 20s; Soul Tap
+  burns 500 mana/s (aura 162).
+- Dropped unresolvable target counts ("up to X enemies") from Howl of
+  Terror, Psychic Scream, Whirlwind, Sweeping Strikes rather than keep an `X`.
+- **Still `X` (not in the data):** Flamecrack stun duration, Defile /
+  Touch of Death pulse effect, Recklessness's immunity type, True
+  Fulfillment, Cleanse Nova (ZG line's spell match looks wrong), ZG
+  Whirlwind (34930 line), BWL Dominate Mind, Loksey Power Shot, Doan Frozen
+  Solid, and every trash/boss `stats` block.
+
+**Same day, later:**
+- **Strategy wording removed** (CLAUDE.md scope rule) from BWL, ZG,
+  Onyxia and World Bosses: priority/CC/interrupt calls, dispel/decurse
+  assignments, tank/healer instructions, class tips. The Onyxia
+  "Preparation" and "Landing" abilities were pure strategy and were deleted
+  (with the "Pre-pull & positioning" separator). Short factual notes such as
+  "move out of it" were kept. BWL's Chromaggus Tail Sweep line is now the
+  real effect (spell 15847: 1600-2100 in a 15 yd cone behind, knockback).
+- **Second level-scaling sweep, by (mob, ability) from the combat logs** -
+  now states the per-level scaling on Cleave (15284/15496/19632/19983),
+  Strike (19730, 11976, 13446, 18368, 15580, 14516, 19644), Sinister Strike,
+  Kick, Mighty Blow, Backstab, Arcing Smash, Shield Slam, Thunderclap,
+  Demoralizing Shout (16244/23511/13730), Stormbolt, Dragon Breath, Power
+  Word: Requital, Crusader Strike, Spit and Slowing Poison. "Increased melee
+  damage" lines on Strike got real numbers. Thunderclap 15588 and Slowing
+  Poison 7992 read their per-level value from a split-decimal row - verify.
+  Mobs' levels aren't known, so the "about N at level 60" figures are
+  illustrative.
+- Other known scaled spells left alone: Death Coil 28412 (+3/level, capped
+  at 64), Flame Shock 29228 and Chain Burn 24684 (odd per-level layout).
+- Resist Fire now says "about 90 at level 60" instead of an `X`.
+
+**Full audit pass (2026-09-30, uncommitted):** every mob's logged abilities
+were compared against its entry, and every number in a line was compared
+against the spell data.
+- **Chromaggus** rewritten from the data: Double Bite (100% weapon damage to
+  a second enemy), Enrage/Frenzy numbers, the Brood Affliction durations,
+  Caustic Breath (armor -8000, 15s), Ignite Flesh (160s, stacks to 10),
+  Incinerate (4800-6000 Fire) and Frost Burn (2500-3000 Frost, attack time
+  +400%, 20s). Strategy notes removed.
+- **Wrong numbers fixed:** Venoxis Venom Spit (2000-2500 + 325-375 every 2s,
+  not 850 + 200 every 5s), Razorgore Conflagration (500/s, not 100/s), Coke
+  Ejection (3000-4000 + 200-250, not 3000-6000), Shadow Nova's heal.
+- **~40 missing abilities added** from the logs: MC (Magmadar Conflagration,
+  Gehennas Shadow Shock, Garr Enrage, Shazzrah Replenish Mana, Sulfuron
+  Demoralizing Shout / Recklessness, Ancient Hysteria, Annihilator Flurry),
+  Onyxia Heated Ground, SM (Monk Knockout, Doan Great Polymorph), LBRS
+  (Shield Bash, Counterspell, Scarshield Portal), UBRS Acolyte Psychic
+  Scream, and ZG (Jeklik Mind Flay/Mind Blast/SW:Pain, Venoxis Renew /
+  Parasitic Serpent / snake form, Mar'li Drain Life / spider form, Mandokir
+  Guillotine, Gahz'ranka Acidic Ink, Thekal Killing Frenzy / tiger form,
+  Arlokk Hamstring / SW:Pain / Curse of Tongues / Chainlink Lasso / Mark of
+  Arlokk / panther form, Jin'do's healing ward). Icons for these were
+  picked by name and are not verified in-game.
+- **Data vs. existing lines disagreed - changed to the data** (user rule:
+  Spell.csv wins): Gehennas Shadow Bolt 3350-4250 (was 2250-2750),
+  Lucifron Shadow Shock 419-485 (was 2000-3000(?)), Venoxis Poison Cloud
+  500/s for 20s with no slow (was 575/s + slow), Hakkar Blood Siphon is an
+  8s stun + script effect (was a 700/s drain).
+- Not added on purpose: visual/animation spells, transform sound effects,
+  totem summons with no effect data (Charged / Brain Wash Totem), Kill
+  Command (unclear aura effect), and names that only differ by spelling from
+  an existing entry.
 
 **Level-scaled spells (important).** Spell.csv stores a *points per level*
 value next to the base points (raw cols 73-75, before the row shift - a

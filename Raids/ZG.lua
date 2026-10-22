@@ -151,7 +151,8 @@ local ZG_TRASH_MOBS = {
             name = "Charge",
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
-            lines = {"Charges an enemy, inflicting normal damage plus 1 and stuns the opponent for X seconds."}
+            -- CHANGED 2026-09-30: spell 24023: weapon damage 75, triggers Fixate (spell 12021) - there is no stun effect in the data.
+            lines = {"Charges an enemy, inflicting weapon damage plus 75 and causing it to fixate on the caster, which gains 50% attack speed for 10 seconds."}
         }}
     },
 
@@ -171,7 +172,8 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 19629 - not reverse-engineered from raw effect codes.
             -- CHANGED 2026-09-29: written from Spell.csv effect/aura data (spell 19629).
-            lines = {"Places flames on the ground (a game object) that last 15 seconds. X - their damage is not in the spell data."}
+            -- CHANGED 2026-09-30: spell 19629 is only the game-object summon; the flames' damage is not in the spell data.
+            lines = {"Places flames on the ground (a game object) that last 15 seconds."}
         }, {
             name = "Throw Liquid Fire",
             icon = "Interface\\Icons\\Spell_Fire_MeteorStorm",
@@ -203,7 +205,8 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             warning = true,
             -- CHANGED 2026-09-29: X filled from Spell.csv (spell 8269).
-            lines = {"Increases the caster's attack speed by 60% and the Physical damage it deals by 50 for 2 minutes."}
+            -- CHANGED 2026-09-30: spell 8269 in Spell.csv is level-scaled - base 50, +2 per caster level above 26, no cap unless stated.
+            lines = {"Increases the caster's attack speed by 60% and the Physical damage it deals by 50 plus 2 per caster level above 26 (about 118 at level 60) for 2 minutes."}
         }}
     },
 
@@ -219,7 +222,8 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Shadow_CallofBone",
             warning = true,
             -- CHANGED 2026-09-29: X filled from Spell.csv (spell 16128).
-            lines = {"Inflicts Nature damage to an enemy every 10 seconds and increases the Physical damage it takes for 180 seconds."}
+            -- CHANGED 2026-09-30: spell 16128 in Spell.csv is level-scaled - DoT 45 +2/level above 20; damage taken 30 +5/level above 20 (per-slot split read from a 3-field row - verify), no cap unless stated.
+            lines = {"Inflicts 45 plus 2 per caster level above 20 (about 125 at level 60) Nature damage to an enemy every 10 seconds and increases the Physical damage it takes by 30 plus 5 per caster level above 20 (about 230 at level 60) for 180 seconds."}
         }, {
             name = "Flames",
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
@@ -230,12 +234,14 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 19629 - not reverse-engineered from raw effect codes.
             -- CHANGED 2026-09-29: written from Spell.csv effect/aura data (spell 19629).
-            lines = {"Places flames on the ground (a game object) that last 15 seconds. X - their damage is not in the spell data."}
+            -- CHANGED 2026-09-30: spell 19629 is only the game-object summon; the flames' damage is not in the spell data.
+            lines = {"Places flames on the ground (a game object) that last 15 seconds."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Demoralizing Shout",
             icon = "Interface\\Icons\\Ability_Warrior_WarCry",
-            lines = {"Reduces the attack power of nearby enemies by 40 for 30 seconds."}
+            -- CHANGED 2026-09-30: spell 23511 in Spell.csv is level-scaled - AP reduction 40, +10 per caster level above 5.
+            lines = {"Reduces the attack power of nearby enemies by 40 plus 10 per caster level above 5 (about 590 at level 60) for 30 seconds."}
         }, {
             name = "Throw Liquid Fire",
             icon = "Interface\\Icons\\Spell_Fire_MeteorStorm",
@@ -270,17 +276,19 @@ local ZG_TRASH_MOBS = {
             name = "Knock Away",
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             warning = true,
-            lines = {"Inflicts normal damage plus 30 to nearby enemies and knocks them back."}
+            lines = {"Inflicts weapon damage plus 30 to nearby enemies and knocks them back."}
         }, {
             name = "Sweeping Strikes",
             icon = "Interface\\Icons\\Ability_Rogue_SliceDice",
-            lines = {"Your next X melee weapon swings strike an additional nearby opponent."}
+            -- CHANGED 2026-09-30: swing count is not in the spell data (spell 12723).
+            lines = {"Its next melee weapon swings strike an additional nearby opponent."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Thunderclap",
             icon = "Interface\\Icons\\Spell_Nature_ThunderClap",
             warning = true,
-            lines = {"Inflicts 71 to 79 Nature damage to nearby enemies, increasing the time between their attacks by 33% and slowing their movement by 40% for 10 seconds."}
+            -- CHANGED 2026-09-30: spell 15588 in Spell.csv is level-scaled - damage 71-79 +3/level above 20; slow 40% +0.5/level above 20 (split-decimal reading - verify).
+            lines = {"Inflicts 71 to 79 Nature damage plus 3 per caster level above 20 (about 191 to 199 at level 60) to nearby enemies, increasing the time between their attacks by 33% and slowing their movement by 40% plus 0.5% per caster level above 20 (about 60% at level 60) for 10 seconds."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 16508) + SpellDuration.csv lookup - not in-game tested.
             name = "Intimidating Roar",
@@ -292,7 +300,8 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             warning = true,
             -- CHANGED 2026-09-29: X filled from Spell.csv (spell 8269).
-            lines = {"Increases the caster's attack speed by 60% and the Physical damage it deals by 50 for 2 minutes."}
+            -- CHANGED 2026-09-30: spell 8269 in Spell.csv is level-scaled - base 50, +2 per caster level above 26, no cap unless stated.
+            lines = {"Increases the caster's attack speed by 60% and the Physical damage it deals by 50 plus 2 per caster level above 26 (about 118 at level 60) for 2 minutes."}
         }}
     },
 
@@ -333,7 +342,8 @@ local ZG_TRASH_MOBS = {
             name = "Shield Slam",
             icon = "Interface\\Icons\\Ability_Warrior_ShieldBash",
             warning = true,
-            lines = {"Inflicts 100 to 300 damage to an enemy, stunning it for 2 seconds."}
+            -- CHANGED 2026-09-30: spell 15655 in Spell.csv is level-scaled - damage 100-300, +10 per caster level above 10.
+            lines = {"Inflicts 100 to 300 damage plus 10 per caster level above 10 (about 600 to 800 at level 60) to an enemy, stunning it for 2 seconds."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Reflection",
@@ -386,7 +396,7 @@ local ZG_TRASH_MOBS = {
             name = "Whirling Trip",
             icon = "Interface\\Icons\\INV_Spear_05",
             warning = true,
-            lines = {"Inflicts normal damage plus 50 to nearby enemies."}
+            lines = {"Inflicts weapon damage plus 50 to nearby enemies."}
         }}
     },
 
@@ -400,12 +410,6 @@ local ZG_TRASH_MOBS = {
             name = "Dispel Magic",
             icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
             lines = {"Dispels magic on an ally, removing 1 harmful effects."}
-        }, {
-            name = "Poisonous Blood",
-            icon = "Interface\\Icons\\Spell_Nature_Regenerate",
-            -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 24321 - not reverse-engineered from raw effect codes.
-            -- CHANGED 2026-09-29: written from Spell.csv effect/aura data (spell 24321).
-            lines = {"Inflicts 325 Nature damage every 3 seconds for 90 seconds."}
         }, {
             name = "Blood Funnel",
             icon = "Interface\\Icons\\Spell_Shadow_LifeDrain",
@@ -432,7 +436,8 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Shadow_PsychicScream",
             warning = true,
             -- CHANGED 2026-09-29: X filled from Spell.csv (spell 13704).
-            lines = {"Lets out a psychic scream, causing up to X nearby enemies to flee for 6 seconds."}
+            -- CHANGED 2026-09-30: target count is not in the spell data (spell 13704).
+            lines = {"Lets out a psychic scream, causing nearby enemies to flee for 6 seconds."}
         }, {
             name = "Anti-Magic Shield",
             icon = "Interface\\Icons\\Spell_Shadow_AntiMagicShell",
@@ -443,13 +448,15 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Holy_HolyBolt",
             warning = true,
             roles = {"kick"},
-            lines = {"Causes an explosion of divine light, inflicting 1 Holy damage to nearby enemies and reducing the caster's threat level for X seconds."}
+            -- CHANGED 2026-09-30: spell 24022 in Spell.csv (the logged ID) - effects are Dispel + Heal 25188 to 25812 within 15 yards; the old line described a different spell.
+            lines = {"Causes an explosion of divine light within 15 yards that dispels effects and heals for 25188 to 25812."}
         }, {
             name = "Psychic Scream",
             icon = "Interface\\Icons\\Spell_Shadow_PsychicScream",
             warning = true,
             -- CHANGED 2026-09-29: X filled from Spell.csv (spell 34865).
-            lines = {"Lets out a psychic scream, causing up to X nearby enemies to flee for 10 seconds."}
+            -- CHANGED 2026-09-30: target count is not in the spell data (spell 34865).
+            lines = {"Lets out a psychic scream, causing nearby enemies to flee for 10 seconds."}
         }}
     },
 
@@ -492,7 +499,7 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Shadow_ShadeTrueSight",
             warning = true,
             -- CHANGED 2026-09-29: X filled from Spell.csv (spell 34873).
-            lines = {"Causes an explosion of Shadow around the caster, causing 500 to 750 Shadow damage to all enemy targets within 10 yards and healing all party members within 10 yards for 302 to 350."}
+            lines = {"Causes an explosion of Shadow around the caster, causing 500 to 750 Shadow damage to all enemy targets within 10 yards and healing all allies within 10 yards for 5000 to 7500."}
         }, {
             name = "Shadow Nova",
             icon = "Interface\\Icons\\Spell_Shadow_ShadeTrueSight",
@@ -664,7 +671,8 @@ local ZG_TRASH_MOBS = {
             name = "Spit",
             icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
             warning = true,
-            lines = {"Shoots at an enemy, inflicting Nature damage."}
+            -- CHANGED 2026-09-30: spell 27919 in Spell.csv is level-scaled - damage 85-115, +10 per caster level above 20.
+            lines = {"Shoots at an enemy, inflicting 85 to 115 Nature damage plus 10 per caster level above 20 (about 485 to 515 at level 60) and knocking it back."}
         }, {
             name = "Poison Cloud",
             icon = "Interface\\Icons\\Spell_Nature_NatureTouchDecay",
@@ -703,7 +711,8 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Shadow_CallofBone",
             warning = true,
             -- CHANGED 2026-09-29: X filled from Spell.csv (spell 24339).
-            lines = {"Inflicts Nature damage to an enemy every 10 seconds and increases the Physical damage it takes for 180 seconds."}
+            -- CHANGED 2026-09-30: spell 16128 in Spell.csv is level-scaled - DoT 45 +2/level above 20; damage taken 30 +5/level above 20 (per-slot split read from a 3-field row - verify), no cap unless stated.
+            lines = {"Inflicts 45 plus 2 per caster level above 20 (about 125 at level 60) Nature damage to an enemy every 10 seconds and increases the Physical damage it takes by 30 plus 5 per caster level above 20 (about 230 at level 60) for 180 seconds."}
         }, {
             separator = true,
             passive = true,
@@ -756,19 +765,13 @@ local ZG_TRASH_MOBS = {
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
-            name = "Intoxicating Venom",
-            icon = "Interface\\Icons\\Ability_Creature_Poison_01",
-            roles = {"dispel"},
-            -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 24596 - not reverse-engineered from raw effect codes.
-            -- CHANGED 2026-09-29: written from Spell.csv effect/aura data (spell 24596).
-            lines = {"Lasts 2 minutes. X - the effect itself is scripted, no values in the spell data."}
-        }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Slowing Poison",
             icon = "Interface\\Icons\\Spell_Nature_SlowPoison",
             warning = true,
             roles = {"dispel"},
-            lines = {"Increases the time between an enemy's attacks by 25% and slows its movement by 30% for 25 seconds."}
+            -- CHANGED 2026-09-30: spell 7992 in Spell.csv is level-scaled - slow 30%, +1 per caster level above 20 (split-decimal reading - verify).
+            lines = {"Increases the time between an enemy's attacks by 25% and slows its movement by 30% plus 1% per caster level above 20 (about 70% at level 60) for 25 seconds."}
         }}
     },
 
@@ -797,7 +800,7 @@ local ZG_TRASH_MOBS = {
             name = "Whirling Trip",
             icon = "Interface\\Icons\\INV_Spear_05",
             warning = true,
-            lines = {"Inflicts normal damage plus 50 to nearby enemies."}
+            lines = {"Inflicts weapon damage plus 50 to nearby enemies."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Head Crack",
@@ -819,13 +822,8 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_GolemThunderClap",
             warning = true,
             -- CHANGED 2026-09-29: X filled from Spell.csv (spell 16790).
-            lines = {"Inflicts 60 to 80 damage to an enemy and its nearest allies, stunning them for 2 seconds. Affects up to 3 targets."}
-        }, {
-            name = "Poisonous Blood",
-            icon = "Interface\\Icons\\Ability_PoisonSting",
-            -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 24320 - not reverse-engineered from raw effect codes.
-            -- CHANGED 2026-09-29: written from Spell.csv effect/aura data (spell 24320).
-            lines = {"Hits enemies within 8 yards. X - the effect is scripted, no values in the spell data."}
+            -- CHANGED 2026-09-30: spell 16790 in Spell.csv is level-scaled - damage 60-80, +1.5 per caster level above 1, no cap unless stated.
+            lines = {"Inflicts 60 to 80 damage plus 1.5 per caster level above 1 (about 149 to 169 at level 60) to an enemy and its nearest allies, stunning them for 2 seconds. Affects up to 3 targets."}
         }, {
             separator = true,
             passive = true,
@@ -854,13 +852,14 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 24619 - not reverse-engineered from raw effect codes.
             -- CHANGED 2026-09-29: written from Spell.csv effect/aura data (spell 24619).
-            lines = {"Silences the target for 12 seconds. Also applies a 500-per-second periodic effect for the same duration - X, the type is unconfirmed (aura 162, possibly a mana burn)."}
+            -- CHANGED 2026-09-30: spell 24619: aura 162 is a periodic mana burn.
+            lines = {"Silences the target for 12 seconds and burns 500 of its mana every second for the same duration."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 30112) + SpellDuration.csv lookup - not in-game tested.
             name = "Frenzied Dive",
             icon = "Interface\\Icons\\Ability_Hunter_Pet_Bat",
             warning = true,
-            lines = {"Dives upon an enemy, inflicting normal damage plus 2 and stuns the opponent for 2 seconds."}
+            lines = {"Dives upon an enemy, inflicting weapon damage plus 2 and stuns the opponent for 2 seconds."}
         }, {
             name = "Thrash",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
@@ -876,7 +875,8 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             warning = true,
             -- CHANGED 2026-09-29: X filled from Spell.csv (spell 8269).
-            lines = {"Increases the caster's attack speed by 60% and the Physical damage it deals by 50 for 2 minutes."}
+            -- CHANGED 2026-09-30: spell 8269 in Spell.csv is level-scaled - base 50, +2 per caster level above 26, no cap unless stated.
+            lines = {"Increases the caster's attack speed by 60% and the Physical damage it deals by 50 plus 2 per caster level above 26 (about 118 at level 60) for 2 minutes."}
         }}
     },
 
@@ -890,13 +890,15 @@ local ZG_TRASH_MOBS = {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Demoralizing Shout",
             icon = "Interface\\Icons\\Ability_Warrior_WarCry",
-            lines = {"Reduces the melee attack power of nearby enemies by 10 for 30 seconds."}
+            -- CHANGED 2026-09-30: spell 13730 in Spell.csv is level-scaled - AP reduction 10, +2 per caster level above 5.
+            lines = {"Reduces the melee attack power of nearby enemies by 10 plus 2 per caster level above 5 (about 120 at level 60) for 30 seconds."}
         }, {
             name = "Enrage",
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 8599 - not reverse-engineered from raw effect codes.
             -- CHANGED 2026-09-29: written from Spell.csv effect/aura data (spell 8599).
-            lines = {"Increases the caster's attack speed by 40% for 2 minutes."}
+            -- CHANGED 2026-09-30: spell 8599 in Spell.csv is level-scaled - damage effect base 1, +2 per caster level above 1, no cap unless stated.
+            lines = {"Increases the caster's attack speed by 40% and the Physical damage it deals by 1 plus 2 per caster level above 1 (about 119 at level 60) for 2 minutes."}
         }}
     },
 
@@ -960,7 +962,8 @@ local ZG_TRASH_MOBS = {
             warning = true,
             roles = {"kick"},
             -- CHANGED 2026-09-29: X filled from Spell.csv (spell 10414).
-            lines = {"Instantly shocks the target with concussive force, causing 517 to 545 Nature damage. It also interrupts spellcasting and prevents any spell in that school from being cast for 2 seconds. Causes a high amount of threat."}
+            -- CHANGED 2026-09-30: spell 10414 in Spell.csv is level-scaled - 517-545 at level 60, +3.1 per level up to level 65, no cap unless stated.
+            lines = {"Instantly shocks the target with concussive force, causing 517 to 545 Nature damage (plus 3.1 per caster level above 60, up to level 65). It also interrupts spellcasting and prevents any spell in that school from being cast for 2 seconds. Causes a high amount of threat."}
         }, {
             name = "Lightning Bolt",
             icon = "Interface\\Icons\\Spell_Nature_Lightning",
@@ -1042,7 +1045,7 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_Druid_Rake",
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 24187 - not reverse-engineered from raw effect codes.
             -- CHANGED 2026-09-29: written from Spell.csv effect/aura data (spell 24187).
-            lines = {"Inflicts normal damage plus 100 to an enemy."}
+            lines = {"Inflicts weapon damage plus 100 to an enemy."}
         }}
     },
 
@@ -1063,7 +1066,8 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             warning = true,
             -- CHANGED 2026-09-29: X filled from Spell.csv (spell 24333).
-            lines = {"Inflicts normal damage plus 3 to an enemy, stunning it for 4 seconds."}
+            -- CHANGED 2026-09-30: spell 24333 in Spell.csv is level-scaled - bonus 3, +0.5 per caster level above 6, no cap unless stated.
+            lines = {"Inflicts weapon damage plus 3 plus 0.5 per caster level above 6 (about 30 at level 60) to an enemy, stunning it for 4 seconds."}
         }}
     },
 
@@ -1111,7 +1115,8 @@ local ZG_TRASH_MOBS = {
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             warning = true,
             -- CHANGED 2026-09-29: X filled from Spell.csv (spell 24333).
-            lines = {"Inflicts normal damage plus 3 to an enemy, stunning it for 4 seconds."}
+            -- CHANGED 2026-09-30: spell 24333 in Spell.csv is level-scaled - bonus 3, +0.5 per caster level above 6, no cap unless stated.
+            lines = {"Inflicts weapon damage plus 3 plus 0.5 per caster level above 6 (about 30 at level 60) to an enemy, stunning it for 4 seconds."}
         }}
     },
 
@@ -1134,6 +1139,24 @@ local ZG_BOSSES = {
             roles = {"kick"},
             lines = {"Inflicts around 1950 damage to nearby enemies and prevents them from casting spells. Her most frequent ability."}
         }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 23953 in Spell.csv.
+            name = "Mind Flay",
+            icon = "Interface\\Icons\\Spell_Shadow_SiphonMana",
+            warning = true,
+            lines = {"Inflicts 750 to 1000 Shadow damage every second for 10 seconds and reduces movement speed by 80%. Affects up to 5 targets."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 34876 in Spell.csv.
+            name = "Mind Blast",
+            icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
+            warning = true,
+            lines = {"Blasts the target for 2557 to 3057 Shadow damage."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 23952 in Spell.csv.
+            name = "Shadow Word: Pain",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowWordPain",
+            warning = true,
+            lines = {"Inflicts 422 to 478 Shadow damage to an enemy every 3 seconds for 30 seconds."}
+        }, {
             name = "Swoop",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
@@ -1150,7 +1173,7 @@ local ZG_BOSSES = {
             icon = "Interface\\Icons\\Spell_Shadow_RitualOfSacrifice",
             warning = true,
             roles = {"decurse"},
-            lines = {"Increases Physical damage taken by 500. Decurse the tanks."}
+            lines = {"Increases Physical damage taken by 500."}
         }, {
             name = "Charge",
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
@@ -1169,6 +1192,23 @@ local ZG_BOSSES = {
             warning = true,
             lines = {"His second most frequent ability. Chains to nearby targets."}
         }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 23895 in Spell.csv.
+            name = "Renew",
+            icon = "Interface\\Icons\\Spell_Holy_Renew",
+            lines = {"Heals an ally for 3000 every second for 15 seconds."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 23865 in Spell.csv.
+            name = "Parasitic Serpent",
+            icon = "Interface\\Icons\\Spell_Nature_NullifyPoison_02",
+            warning = true,
+            lines = {"Inflicts 300 Nature damage every 2 seconds for 10 seconds."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 23849 in Spell.csv.
+            name = "Venoxis Transform",
+            icon = "Interface\\Icons\\Spell_Nature_Regeneration",
+            warning = true,
+            lines = {"Transforms into a snake, increasing damage done by 100% and regenerating health over time."}
+        }, {
             name = "Holy Smite",
             icon = "Interface\\Icons\\Spell_Holy_HolySmite",
             roles = {"kick"},
@@ -1183,12 +1223,14 @@ local ZG_BOSSES = {
             icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
             warning = true,
             roles = {"poison"},
-            lines = {"Spits poison at nearby enemies for 850 Nature damage plus 200 Nature damage every 5 seconds."}
+            -- CHANGED 2026-09-30: spell 23862 in Spell.csv - 2000-2500 direct, 325-375 every 2s for 10s, stacks to 3 (old line said 850 + 200 every 5s).
+            lines = {"Spits poison at an enemy for 2000 to 2500 Nature damage, then 325 to 375 Nature damage every 2 seconds for 10 seconds. Stacks up to 3 times."}
         }, {
             name = "Poison Cloud",
             icon = "Interface\\Icons\\Spell_Nature_NatureTouchDecay",
             warning = true,
-            lines = {"Inflicts 575 Nature damage every second and slows movement by 50%. Move out of the cloud."}
+            -- CHANGED 2026-09-30: spell 23861 in Spell.csv - 500 Nature/s in an 8 yard area for 20s; no slow in the data (data wins over the old 575/s + 50% slow).
+            lines = {"Inflicts 500 Nature damage every second to enemies within 8 yards for 20 seconds. Move out of the cloud."}
         }, {
             name = "Dispel Magic",
             icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
@@ -1207,6 +1249,17 @@ local ZG_BOSSES = {
             warning = true,
             roles = {"poison"},
             lines = {"Her most frequent ability by far - a volley of poison bolts hitting multiple targets."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 24300 in Spell.csv.
+            name = "Drain Life",
+            icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
+            warning = true,
+            lines = {"Drains 500 health every second from an enemy for 7 seconds, transferring it to the caster."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 24084 in Spell.csv.
+            name = "Mar'li Transform",
+            icon = "Interface\\Icons\\Spell_Nature_Regeneration",
+            lines = {"Transforms into a spider, increasing critical strike chance by 10% and regenerating health over time."}
         }, {
             name = "Enveloping Webs",
             icon = "Interface\\Icons\\Spell_Nature_EarthBind",
@@ -1251,7 +1304,8 @@ local ZG_BOSSES = {
             icon = "Interface\\Icons\\Ability_Whirlwind",
             warning = true,
             roles = {"melee"},
-            lines = {"Spins in a whirlwind, hitting all nearby enemies. His most frequent ability."}
+            -- CHANGED 2026-09-30: spells 13736 / 15589 in Spell.csv - hits within 8 yards for weapon damage plus 300 (+6 per caster level above 1, about 654 at level 60).
+            lines = {"Spins in a whirlwind, hitting all enemies within 8 yards for weapon damage plus 300, plus 6 per caster level above 1 (about 654 at level 60). His most frequent ability."}
         }, {
             name = "Threatening Gaze",
             icon = "Interface\\Icons\\Ability_Hunter_AspectMastery",
@@ -1267,6 +1321,12 @@ local ZG_BOSSES = {
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             roles = {"tank", "healer"},
             lines = {"A heavy strike that reduces healing received."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 24316 in Spell.csv.
+            name = "Guillotine",
+            icon = "Interface\\Icons\\Ability_Warrior_Decapitate",
+            warning = true,
+            lines = {"Inflicts weapon damage plus 7500 to 12500."}
         }, {
             name = "Intimidating Shout",
             icon = "Interface\\Icons\\Ability_GolemThunderClap",
@@ -1292,7 +1352,7 @@ local ZG_BOSSES = {
                 icon = "Interface\\Icons\\Ability_Warrior_Charge",
                 warning = true,
                 -- CHANGED 2026-09-29: X filled from Spell.csv (spell 24408).
-                lines = {"Charges an enemy, inflicting normal damage and stuns the opponent for 2 seconds."}
+                lines = {"Charges an enemy, inflicting weapon damage and stuns the opponent for 2 seconds."}
             }, {
                 name = "Thrash",
                 icon = "Interface\\Icons\\Ability_GhoulFrenzy",
@@ -1363,7 +1423,7 @@ local ZG_BOSSES = {
             name = "Chain Burn",
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
-            lines = {"Fire damage that chains to nearby targets - spread out."}
+            lines = {"Fire damage that chains to nearby targets ."}
         }, {
             name = "Sleep",
             icon = "Interface\\Icons\\Spell_Nature_Sleep",
@@ -1400,7 +1460,7 @@ local ZG_BOSSES = {
             name = "Chain Lightning",
             icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
             warning = true,
-            lines = {"Lightning that chains to nearby targets - spread out."}
+            lines = {"Lightning that chains to nearby targets ."}
         }}
     },
 
@@ -1414,6 +1474,12 @@ local ZG_BOSSES = {
             warning = true,
             roles = {"tank"},
             lines = {"Inflicts Frost damage in a cone in front of him and stuns the targets."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 34911 in Spell.csv.
+            name = "Acidic Ink",
+            icon = "Interface\\Icons\\Spell_Nature_Acid_01",
+            warning = true,
+            lines = {"Reduces the armor of enemies within 8 yards by 75% for 20 seconds."}
         }, {
             name = "Mighty Slam",
             icon = "Interface\\Icons\\Ability_Devour",
@@ -1459,6 +1525,18 @@ local ZG_BOSSES = {
                 roles = {"tank"},
                 lines = {"His most frequent ability - a heavy melee strike."}
             }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 34888 in Spell.csv.
+            name = "Killing Frenzy",
+            icon = "Interface\\Icons\\Ability_GhoulFrenzy",
+            warning = true,
+            lines = {"Increases attack speed by 100% for 15 seconds."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 24169 in Spell.csv.
+            name = "Thekal Transform",
+            icon = "Interface\\Icons\\Spell_Nature_Regeneration",
+            warning = true,
+            lines = {"Transforms into a tiger, healing to full health and increasing attack speed by 100%."}
+        }, {
                 name = "Mortal Cleave",
                 icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
                 warning = true,
@@ -1497,7 +1575,8 @@ local ZG_BOSSES = {
                 icon = "Interface\\Icons\\Spell_Nature_LightningShield",
                 warning = true,
                 -- CHANGED 2026-09-29: X filled from Spell.csv (spell 34881).
-                lines = {"Surrounds the caster with balls of lightning that have 100% chance of striking melee or ranged attackers for 8 damage. The shield expires after 10 minutes."}
+                -- CHANGED 2026-09-30: spell 34881 in Spell.csv is level-scaled - strike damage 8, +4 per caster level above 1, no cap unless stated.
+                lines = {"Surrounds the caster with balls of lightning that have 100% chance of striking melee or ranged attackers for 8 damage plus 4 per caster level above 1 (about 244 at level 60). The shield expires after 10 minutes."}
             }, {
                 name = "Disarm",
                 icon = "Interface\\Icons\\Ability_Warrior_Disarm",
@@ -1513,7 +1592,8 @@ local ZG_BOSSES = {
                 name = "Sinister Strike",
                 icon = "Interface\\Icons\\Spell_Shadow_RitualOfSacrifice",
                 warning = true,
-                lines = {"Inflicts normal damage plus 2 to an enemy."}
+                -- CHANGED 2026-09-30: spell 15667 in Spell.csv is level-scaled - bonus 2, +2.4 per caster level above 20.
+                lines = {"Inflicts weapon damage plus 2, plus 2.4 per caster level above 20 (about 98 at level 60) to an enemy."}
             }, {
                 -- CHANGED: duration confirmed from Spell.xlsx (spell 21060) + SpellDuration.csv lookup - not in-game tested.
                 name = "Blind",
@@ -1556,7 +1636,43 @@ local ZG_BOSSES = {
             icon = "Interface\\Icons\\Ability_Whirlwind",
             warning = true,
             roles = {"melee"},
-            lines = {"Spins in a whirlwind, hitting all nearby enemies. Her most frequent ability - melee watch out."}
+            -- CHANGED 2026-09-30: spell 15589 in Spell.csv - hits within 8 yards for weapon damage plus 300 (+6 per caster level above 1, about 654 at level 60).
+            lines = {"Spins in a whirlwind, hitting all enemies within 8 yards for weapon damage plus 300, plus 6 per caster level above 1 (about 654 at level 60). Her most frequent ability."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 34890 in Spell.csv.
+            name = "Hamstring",
+            icon = "Interface\\Icons\\Ability_ShockWave",
+            warning = true,
+            lines = {"Inflicts weapon damage plus 1, plus 1 per caster level (about 61 at level 60), to an enemy and reduces its movement speed by 40% for 12 seconds."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 24212 in Spell.csv.
+            name = "Shadow Word: Pain",
+            icon = "Interface\\Icons\\Spell_Shadow_ShadowWordPain",
+            warning = true,
+            lines = {"Inflicts 704 to 796 Shadow damage to an enemy every 3 seconds for 18 seconds."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 1714 in Spell.csv.
+            name = "Curse of Tongues",
+            icon = "Interface\\Icons\\Spell_Shadow_CurseOfTounges",
+            warning = true,
+            lines = {"Slows the casting time of all spells by 40% for 30 seconds."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 34891 in Spell.csv.
+            name = "Strangulating Chainlink Lasso",
+            icon = "Interface\\Icons\\Spell_Frost_ChainsOfIce",
+            warning = true,
+            lines = {"After 4 seconds, stuns the target for 30 seconds and inflicts 10% of its health as Frost damage every 2 seconds."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 24210 in Spell.csv.
+            name = "Mark of Arlokk",
+            icon = "Interface\\Icons\\Spell_Shadow_CurseOfMannoroth",
+            warning = true,
+            lines = {"Pacifies the target for 60 seconds and generates 5000 threat against it every 2 seconds."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 24190 in Spell.csv.
+            name = "Arlokk Transform",
+            icon = "Interface\\Icons\\Spell_Nature_Regeneration",
+            lines = {"Transforms into a panther, increasing damage done by 50%."}
         }, {
             name = "Ravage",
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
@@ -1572,7 +1688,8 @@ local ZG_BOSSES = {
         }, {
             name = "Backstab",
             icon = "Interface\\Icons\\Ability_BackStab",
-            lines = {"Backstabs a target for heavy damage. Keep her faced away from the raid."}
+            -- CHANGED 2026-09-30: spell 15582 in Spell.csv is level-scaled - bonus 30, +5.25 per caster level above 4.
+            lines = {"Backstabs a target for weapon damage plus 30, plus 5.25 per caster level above 4 (about 324 at level 60)."}
         }}
     },
 
@@ -1585,6 +1702,12 @@ local ZG_BOSSES = {
             icon = "Interface\\Icons\\Spell_Nature_Polymorph",
             warning = true,
             lines = {"Transforms nearby enemies into frogs, preventing them from attacking or casting. His signature mechanic."}
+        }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 24309 in Spell.csv.
+            name = "Powerful Healing Ward",
+            icon = "Interface\\Icons\\Spell_Holy_PrayerOfHealing02",
+            warning = true,
+            lines = {"Summons a ward that lasts 4 minutes and periodically heals allies in an area around it."}
         }, {
             name = "Delusions of Jin'do",
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
@@ -1606,7 +1729,7 @@ local ZG_BOSSES = {
             name = "Call of Jin'do",
             icon = "Interface\\Icons\\Spell_Nature_AstralRecal",
             warning = true,
-            lines = {"Charms a player - damage increased by 300%, spells cast instantly, and resistances boosted. They must be crowd-controlled, not killed."}
+            lines = {"Charms a player - damage increased by 300%, spells cast instantly, and resistances boosted."}
         }},
         -- CHANGED: Shade of Jin'do moved out of trash - it's his add.
         adds = {{
@@ -1632,19 +1755,20 @@ local ZG_BOSSES = {
             icon = "Interface\\Icons\\Spell_Shadow_CorpseExplode",
             warning = true,
             roles = {"healer"},
-            lines = {"Deals 263 damage every 2 seconds and spreads to nearby players. His most frequent ability - spread out to limit the chain."}
+            lines = {"Deals 263 damage every 2 seconds and spreads to nearby players. His most frequent ability."}
         }, {
             name = "Blood Siphon",
             icon = "Interface\\Icons\\Spell_Shadow_LifeDrain",
             warning = true,
             roles = {"healer"},
-            lines = {"Drains 700 health per second from the raid and feeds Hakkar health in return."}
+            -- CHANGED 2026-09-30: spell 24324 in Spell.csv - script effect (100 yd) + 8s stun; no drain amount in the data (data wins over the old 700/s).
+            lines = {"Stuns enemies within 100 yards for 8 seconds. X - the scripted effect is not in the spell data."}
         }, {
             name = "Curse of Nemesis",
             icon = "Interface\\Icons\\Spell_Shadow_CurseOfTounges",
             warning = true,
             roles = {"decurse"},
-            lines = {"Deals 20% health damage every 2 seconds. If dispelled it causes instant Shadow damage, so only decurse when the target can survive the burst."}
+            lines = {"Deals 20% health damage every 2 seconds. If dispelled it causes instant Shadow damage."}
         }, {
             name = "Hysteria",
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
@@ -1728,7 +1852,8 @@ local ZG_BOSSES = {
             icon = "Interface\\Icons\\Spell_Shadow_SummonFelHunter",
             -- CHANGED: Description_enUS empty in Spell.xlsx - number below computed from raw effect fields (spell ID 34938).
             warning = true,
-            lines = {"Deals 3000 to 3500 damage to an enemy."}
+            -- CHANGED 2026-09-30: spell 34938 in Spell.csv is level-scaled - damage 3000-3500, +2 per caster level, no cap unless stated.
+            lines = {"Deals 3000 to 3500 damage plus 2 per caster level (about 3120 to 3620 at level 60) to an enemy."}
         }, {
             name = "Silence",
             icon = "Interface\\Icons\\Spell_Holy_Silence",
@@ -1740,7 +1865,8 @@ local ZG_BOSSES = {
             icon = "Interface\\Icons\\Ability_Whirlwind",
             warning = true,
             roles = {"melee"},
-            lines = {"Attacks up to X enemies within X yards, causing weapon damage to each."}
+            -- CHANGED 2026-09-30: spell 1680 in Spell.csv - radius 8 yards; target count is not in the data.
+            lines = {"Attacks nearby enemies within 8 yards, causing weapon damage to each."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 34934) + SpellDuration.csv lookup - not in-game tested.
             name = "Wild Charge",

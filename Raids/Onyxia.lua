@@ -61,12 +61,8 @@ local ONY_TRASH_MOBS = {
             roles = {"tank"},
             -- CHANGED 2026-09-29: $x1 resolved from Spell.csv (spell 19983,
             -- chain targets = 10).
-            lines = {"Inflicts normal damage plus 50 to an enemy and its nearest allies, affecting up to 10 targets."}
-        }, {
-            -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 19707 - not reverse-engineered from raw effect codes.
-            name = "Hate to 50%",
-            icon = "Interface\\Icons\\Spell_Shadow_SacrificialShield",
-            lines = {"X - no ability description available."}
+            -- CHANGED 2026-09-30: spell 19983 in Spell.csv is level-scaled - bonus 50, +5 per caster level above 10, no cap unless stated.
+            lines = {"Inflicts weapon damage plus 50 plus 5 per caster level above 10 (about 300 at level 60) to an enemy and its nearest allies, affecting up to 10 targets."}
         }}
     },
 }
@@ -83,15 +79,6 @@ local ONY_BOSSES = {
         flags = {"damage_fire"},
         stats = {armor = 5550, fire = "immune", nature = 92, frost = 92, shadow = 102, arcane = 88},
         abilities = {{
-            separator = true,
-            name = "Pre-pull & positioning"
-        }, {
-            name = "Preparation",
-            icon = "Interface\\Icons\\INV_Potion_24",
-            lines = {"Stack and buff OUTSIDE the instance - spells are more expensive inside.",
-                     "Use Greater Fire Protection Potions. Tremor Totem, Fire Resistance Totem and Devotion Aura in the main tank's group.",
-                     "Stack on one side if possible; otherwise keep at least a tank and healer on the other side. Mark a star to move to on the pull."}
-        }, {
             name = "Tail Sweep",
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
@@ -106,7 +93,8 @@ local ONY_BOSSES = {
             name = "Cleave",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank", "melee"},
-            lines = {"Strikes her target and its nearest allies, knocking them back."}
+            -- CHANGED 2026-09-30: spell 19983 in Spell.csv is level-scaled - bonus 50, +5 per caster level above 10, chain 10.
+            lines = {"Strikes her target and its nearest allies for weapon damage plus 50, plus 5 per caster level above 10 (about 300 at level 60), affecting up to 10 targets, and knocking them back."}
         }, {
             name = "Knock Away",
             icon = "Interface\\Icons\\INV_Gauntlets_05",
@@ -135,19 +123,24 @@ local ONY_BOSSES = {
             warning = true,
             lines = {"The phase 2 wipe mechanic. Call out safe spots when she moves to a new position and never stand in the middle of the room."}
         }, {
+            -- CHANGED 2026-09-30: added from the combat log - spell 22191 in Spell.csv.
+            name = "Heated Ground",
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            warning = true,
+            lines = {"Sets the ground within 13 yards ablaze, inflicting 413 to 587 Fire damage every second for 4 seconds. The fire repeats."}
+        }, {
             name = "Fireball",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
             roles = {"healer"},
-            lines = {"An AoE conflagration - spread out so it cannot chain through the raid.",
+            lines = {"An AoE conflagration that can chain through the raid.",
                      "She telegraphs the target, who receives a mark roughly 3 seconds before impact, so it can be dodged or avoided with defensive abilities."}
         }, {
             name = "Whelps",
             icon = "Interface\\Icons\\Ability_Hunter_Pet_Dragonhawk",
             warning = true,
             roles = {"tank", "dps"},
-            lines = {"Assign a dedicated whelp tank and kill every whelp that spawns.",
-                     "Make sure healers do not pick up whelp aggro."}
+            lines = {"Onyxian Whelps spawn during the fight."}
         }, {
             name = "Eruption",
             icon = "Interface\\Icons\\Spell_Fire_Fire",
@@ -167,22 +160,14 @@ local ONY_BOSSES = {
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             warning = true,
             roles = {"shaman", "tank"},
-            lines = {"An AoE fear - a TREMOR TOTEM must be up.",
-                     "Druid tanks can spec Enrage to avoid every fear, warriors can stance dance most of them, and paladins can spec Improved Morale."}
+            lines = {"An AoE fear."}
         }, {
             name = "Engulfing Flames",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
             roles = {"healer"},
             lines = {"Sets enemies aflame with a Fire damage-over-time effect and sends them into a panic.",
-                     "By far her most frequent ability in logs (16000+ entries) - track this debuff."}
-        }, {
-            name = "Landing",
-            icon = "Interface\\Icons\\Ability_Warrior_Charge",
-            warning = true,
-            roles = {"tank"},
-            lines = {"Slow DPS as she lands and let the main tank reposition to the phase 1 tanking spot.",
-                     "Be careful with damage-over-time aggro during the phase change."}
+                     "By far her most frequent ability in logs (16000+ entries)."}
         }},
         -- CHANGED: Onyxian Whelp is a real encounter add (spawns during the
         -- fight). Onyxian Warder was here too but is actually pre-fight

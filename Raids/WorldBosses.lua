@@ -112,36 +112,34 @@ local WORLD_BOSSES = {
             icon = "Interface\\Icons\\Spell_Shadow_CurseOfMannoroth",
             warning = true,
             roles = {"decurse", "tank"},
-            lines = {"Reduces Physical damage dealt. Decurse tanks first, then hunters and melee DPS - skip the rest."}
+            lines = {"Reduces Physical damage dealt."}
         }, {
             name = "Impotence",
             icon = "Interface\\Icons\\Spell_Shadow_ChillTouch",
             warning = true,
             roles = {"dispel"},
-            lines = {"Reduces magical damage dealt by 90%. Dispel priority: shaman/paladin tank, then DPS shaman/warlock, then mages and boomkins.",
-                     "DPS priests and paladins should dispel themselves."}
+            lines = {"Reduces magical damage dealt by 90%."}
         }, {
             name = "Sonic Lash",
             icon = "Interface\\Icons\\Spell_Shadow_Curse",
             warning = true,
             roles = {"tank"},
-            lines = {"Nature damage in a cone in front of her, knocking enemies back and wiping aggro. Keep a Nature Resistance totem in the main tank's group."}
+            lines = {"Nature damage in a cone in front of her, knocking enemies back and wiping aggro."}
         }, {
             name = "Lash of Pain",
             icon = "Interface\\Icons\\Spell_Shadow_Curse",
-            lines = {"Shadow damage lash. Fire damage component - keep a Fire Resistance totem in the main tank's group."}
+            lines = {"Shadow damage lash with a Fire damage component."}
         }, {
             name = "Mind Control",
             icon = "Interface\\Icons\\Spell_Shadow_ShadowWordDominate",
             warning = true,
-            lines = {"Crowd control the mind controlled player - do NOT kill them."}
+            lines = {"Takes control of a player."}
         }, {
             name = "Adds",
             icon = "Interface\\Icons\\Ability_Hunter_Pet_Bat",
             warning = true,
             roles = {"tank"},
-            lines = {"Requires 5 tanks total: a main tank plus 2 tanks for each add. Off tanks must pull.",
-                     "Tanks taunt off each other at 3 stacks of Sunder Armor, and must taunt immediately when adds charge the main tank."}
+            lines = {"Adds spawn during the encounter."}
         }}
     },
 
@@ -232,7 +230,7 @@ local WORLD_BOSSES = {
             name = "Wide Slash",
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
-            lines = {"Inflicts normal damage plus around 500 to enemies in a cone in front of him."}
+            lines = {"Inflicts weapon damage plus around 500 to enemies in a cone in front of him."}
         }, {
             name = "Enrage",
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
