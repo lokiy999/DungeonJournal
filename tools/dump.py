@@ -5,7 +5,7 @@ radius, tick interval, and the spells they trigger (followed recursively). Use i
 write a description for a spell that has no tooltip text. Read-only.
 """
 import csv, os, sys
-READER = os.environ.get("SPELL_READER", r"C:\Users\Leon_\Desktop\Wow stuff\Spell.csv reader")
+READER = os.environ.get("SPELL_READER", r"C:\Users\Leon_\Documents\WoW Website Project\projects\Spell.csv reader")
 sys.path.insert(0, READER)
 import gen_custom_spell_tooltips as g
 C = os.path.join(READER, "CSV's")

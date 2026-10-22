@@ -7,7 +7,7 @@ you accept with apply_lines.py. Example: python tools/propose.py ZG "ZG Spell GO
 """
 import csv, os, re, sys
 
-READER = os.environ.get("SPELL_READER", r"C:\Users\Leon_\Desktop\Wow stuff\Spell.csv reader")
+READER = os.environ.get("SPELL_READER", r"C:\Users\Leon_\Documents\WoW Website Project\projects\Spell.csv reader")
 sys.path.insert(0, READER)
 import gen_custom_spell_tooltips as g
 

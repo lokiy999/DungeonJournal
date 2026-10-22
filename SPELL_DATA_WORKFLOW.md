@@ -11,7 +11,7 @@ First used 2026-09-29 for MC, BWL, Onyxia, ZG, UBRS and LBRS - see
 |---|---|
 | Raid data being edited | `Raids/<RAID>.lua` in this repo |
 | Combat logs (spell IDs per mob) | `*.csv` in this repo root: `MC FULL.csv`, `BWL stuff.csv`, `Onyxia.csv`, `ZG Spell GO.csv`, `ZG 2.csv`, `UBRS.csv`, `LBRS.csv`, `SM 6 bosses.csv`, `SM mograine fairbanks.csv`, `Scarlet Monestary Trash (most of it).csv` |
-| Spell.csv reader (external, not in this repo) | `C:\Users\Leon_\Desktop\Wow stuff\Spell.csv reader\` - `sp.py`, `gen_custom_spell_tooltips.py`, `README.md` |
+| Spell.csv reader (external, not in this repo) | `C:\Users\Leon_\Documents\WoW Website Project\projects\Spell.csv reader\` - `sp.py`, `gen_custom_spell_tooltips.py`, `README.md` |
 | Client spell tables | `...\Spell.csv reader\CSV's\` - `Spell.csv`, `SpellDuration.csv`, `SpellRadius.csv`, `SpellIcon.csv` |
 | Helper scripts (this repo) | `tools/propose.py`, `tools/dump.py`, `tools/scaling.py`, `tools/apply_lines.py` |
 | Notes on what's done / open | `TODO_Raid_Data.md` |

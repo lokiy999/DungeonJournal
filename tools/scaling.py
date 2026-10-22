@@ -12,7 +12,7 @@ and looks like a long digit string (or a lone digit like "5" in "1","5") is its 
 """
 import csv, os, re, sys
 
-READER = os.environ.get("SPELL_READER", r"C:\Users\Leon_\Desktop\Wow stuff\Spell.csv reader")
+READER = os.environ.get("SPELL_READER", r"C:\Users\Leon_\Documents\WoW Website Project\projects\Spell.csv reader")
 NUM = re.compile(r"^-?(0x[0-9A-Fa-f]+|\d+(\.\d+)?)$")
 want = set(sys.argv[1:])
 for r in csv.reader(open(os.path.join(READER, "CSV's", "Spell.csv"), encoding="utf-8")):
