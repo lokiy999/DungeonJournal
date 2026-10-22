@@ -28,8 +28,11 @@ advice.
 - `Icons/*.blp` — portrait textures actually loaded in-game.
 - `SPELL_DATA_WORKFLOW.md` + `tools/*.py` — how ability numbers are filled from the
   client's Spell.csv (external reader folder), with every file path and step.
-- `Spell.xlsx`, `mob_abilities_summary.txt`, `V+ Lists.xlsx`, `WoWCombatLog.txt`,
-  `Tips_Tricks*.docx` — research-only reference files, not loaded by the addon.
+- `Spell.xlsx`, `mob_abilities_summary.txt`, `V+ Lists.xlsx`, `Tips_Tricks*.docx` — research-only
+  reference files, not loaded by the addon. The raw `WoWCombatLog.txt` (4.2 GB) now lives in
+  `C:\Users\Leon_\Documents\WoW Website Project\logs\WoWCombatLog 2026-08-09.txt`.
+- This repo lives in `C:\Users\Leon_\Documents\WoW Website Project\projects\DungeonJournal` (moved 2026-10-22);
+  that folder's `CLAUDE.md` / `MAP.md` explain how it ties into the website.
 
 ## Build / test
 

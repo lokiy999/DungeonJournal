@@ -320,7 +320,8 @@ these files itself.
   spell/ability name seen in `WoWCombatLog.txt`, grouped by source mob (~8.7MB text).
   **Prefer this over the raw combat log** for "what abilities does mob X use" —
   it's already the distilled answer.
-- **`WoWCombatLog.txt`** — the raw combat log the summary above was generated from.
+- **`WoWCombatLog.txt`** — the raw combat log the summary above was generated from. Moved out of the repo on
+  2026-10-22: `C:\Users\Leon_\Documents\WoW Website Project\logs\WoWCombatLog 2026-08-09.txt`.
   **~4.2GB — do not read or grep this without explicitly confirming with the user
   first**, even for a narrow search; it can burn an enormous number of tokens or time
   out. If `mob_abilities_summary.txt` doesn't answer the question, ask before touching
