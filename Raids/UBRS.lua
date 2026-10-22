@@ -74,6 +74,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Backstab",
+            spellId = 15582,
             icon = "Interface\\Icons\\Ability_BackStab",
             warning = true,
             -- CHANGED 2026-09-30: spell 15582 in Spell.csv is level-scaled - bonus 30, +5.25 per caster level above 4.
@@ -81,6 +82,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Blind",
+            spellId = 2094,
             icon = "Interface\\Icons\\Spell_Shadow_MindSteal",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 2094).
@@ -88,6 +90,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Eviscerate",
+            spellId = 15691,
             icon = "Interface\\Icons\\Ability_Rogue_Eviscerate",
             warning = true,
             -- CHANGED 2026-09-30: spell 15691 in Spell.csv is level-scaled - damage 1, +50 per caster level above 1.
@@ -95,6 +98,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Gouge",
+            spellId = 12540,
             icon = "Interface\\Icons\\Ability_Gouge",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 12540).
@@ -109,6 +113,7 @@ local UBRS_TRASH_MOBS = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 6434) + SpellDuration.csv lookup - not in-game tested.
             name = "Slice and Dice",
+            spellId = 6434,
             icon = "Interface\\Icons\\Ability_Rogue_SliceDice",
             lines = {"Increases the caster's attack speed by 30% for 10 seconds."}
         }
@@ -127,6 +132,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Curse of Thorns",
+            spellId = 16247,
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
             warning = true,
             roles = {"decurse"},
@@ -141,6 +147,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Howl of Terror",
+            spellId = 17928,
             icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 17928).
@@ -156,6 +163,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Veil of Shadow",
+            spellId = 7068,
             icon = "Interface\\Icons\\Spell_Shadow_GatherShadows",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 7068).
@@ -180,6 +188,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Head Crack",
+            spellId = 16172,
             icon = "Interface\\Icons\\Ability_ThunderBolt",
             -- CHANGED 2026-09-29: spell 16172 in Spell.csv is level-scaled - base -1 at level 1, -1 per level, no cap.
             lines = {"Reduces an enemy's Stamina by an amount equal to the caster's level (e.g. 60 at level 60) for 20 seconds."}
@@ -193,6 +202,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Retaliation",
+            spellId = 22857,
             icon = "Interface\\Icons\\Ability_Warrior_Challange",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 22857).
@@ -203,6 +213,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Strike",
+            spellId = 15580,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             -- CHANGED 2026-09-30: spell 15580 in Spell.csv is level-scaled - bonus 15, +4.5 per caster level above 1.
             lines = {"Strikes at an enemy, inflicting weapon damage plus 15, plus 4.5 per caster level above 1 (about 281 at level 60)."}
@@ -220,12 +231,14 @@ local UBRS_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell 16045) + SpellDuration.csv lookup - not in-game tested.
             name = "Encage",
+            spellId = 16045,
             icon = "Interface\\Icons\\Ability_ThunderBolt",
             warning = true,
             lines = {"Encages an enemy, stunning it for 30 seconds."}
         },
         {
             name = "Strike",
+            spellId = 15580,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             -- CHANGED 2026-09-30: spell 15580 in Spell.csv is level-scaled - bonus 15, +4.5 per caster level above 1.
             lines = {"Strikes at an enemy, inflicting weapon damage plus 15, plus 4.5 per caster level above 1 (about 281 at level 60)."}
@@ -243,6 +256,7 @@ local UBRS_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Reflection",
+            spellId = 34073,
             icon = "Interface\\Icons\\Ability_Warrior_ShieldReflection",
             -- CHANGED 2026-09-29: from Spell.csv (spell 34073).
             lines = {"Raises its shield, reflecting a spell cast on it. Lasts 5 seconds, but will only reflect 1 spell."}
@@ -250,6 +264,7 @@ local UBRS_TRASH_MOBS = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Slam",
+            spellId = 15655,
             icon = "Interface\\Icons\\Ability_Warrior_ShieldBash",
             warning = true,
             -- CHANGED 2026-09-30: spell 15655 in Spell.csv is level-scaled - damage 100-300, +10 per caster level above 10.
@@ -257,6 +272,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Shield Toss",
+            spellId = 34130,
             icon = "Interface\\Icons\\Ability_UpgradeMoonGlaive",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 34130).
@@ -267,6 +283,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Shield Wall",
+            spellId = 15062,
             icon = "Interface\\Icons\\Ability_Warrior_ShieldWall",
             -- CHANGED 2026-09-29: from Spell.csv (spell 15062).
             lines = {"Reduces the Physical and magical damage taken by the caster by 75% for 10 seconds."}
@@ -278,6 +295,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             -- CHANGED: percentages resolved from Spell.xlsx spell ID 7376 (the linked passive), not from in-game testing.
+            -- spellId: uncertain - only the passive 7376 is known; the stance itself may be 71, 7164 or 34477.
             name = "Defensive Stance",
             icon = "Interface\\Icons\\Ability_Warrior_DefensiveStance",
             lines = {"A defensive stance. Decreases damage taken from all sources by 10%. Decreases damage caused by 10%. Increases threat generated by 30%."}
@@ -294,6 +312,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Fireball",
+            spellId = 12466,
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 12466).
@@ -301,6 +320,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Frost Nova",
+            spellId = 15532,
             icon = "Interface\\Icons\\Spell_Frost_FrostNova",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 15532).
@@ -332,6 +352,7 @@ local UBRS_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell 11972) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Bash",
+            spellId = 11972,
             icon = "Interface\\Icons\\Ability_Warrior_ShieldBash",
             warning = true,
             roles = {"kick"},
@@ -345,6 +366,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Strike",
+            spellId = 14516,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             -- CHANGED 2026-09-30: spell 14516 in Spell.csv is level-scaled - bonus 10, +3 per caster level above 1.
             lines = {"Strikes at an enemy, inflicting weapon damage plus 10, plus 3 per caster level above 1 (about 187 at level 60)."}
@@ -361,6 +383,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Mana Burn",
+            spellId = 15980,
             icon = "Interface\\Icons\\Spell_Shadow_ManaBurn",
             warning = true,
             -- CHANGED 2026-09-30: spell 15980, damage multiplier per mana read from the effect multiplier column (0.5, matching the player Mana Burn tooltip).
@@ -394,6 +417,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Cleave",
+            spellId = 15284,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             -- CHANGED 2026-09-30: spell 15284 in Spell.csv is level-scaled - bonus 10, +1 per caster level above 10.
@@ -401,6 +425,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Strike",
+            spellId = 15580,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             -- CHANGED 2026-09-30: spell 15580 in Spell.csv is level-scaled - bonus 15, +4.5 per caster level above 1.
             lines = {"Strikes at an enemy, inflicting weapon damage plus 15, plus 4.5 per caster level above 1 (about 281 at level 60)."}
@@ -417,6 +442,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Cleave",
+            spellId = 15284,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             -- CHANGED 2026-09-30: spell 15284 in Spell.csv is level-scaled - bonus 10, +1 per caster level above 10.
@@ -424,6 +450,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Knockdown",
+            spellId = 16790,
             icon = "Interface\\Icons\\Ability_GolemThunderClap",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 16790).
@@ -439,12 +466,14 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Strike",
+            spellId = 15580,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             -- CHANGED 2026-09-30: spell 15580 in Spell.csv is level-scaled - bonus 15, +4.5 per caster level above 1.
             lines = {"Strikes at an enemy, inflicting weapon damage plus 15, plus 4.5 per caster level above 1 (about 281 at level 60)."}
         },
         {
             name = "Sunder Armor",
+            spellId = 16145,
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 24317).
@@ -468,6 +497,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Frostbolt",
+            spellId = 16249,
             icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
             warning = true,
             roles = {"kick"},
@@ -493,6 +523,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Arcing Smash",
+            spellId = 16169,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             -- CHANGED 2026-09-30: spell 16169 in Spell.csv is level-scaled - bonus 5, +5 per caster level above 1.
@@ -535,6 +566,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Cleave",
+            spellId = 15284,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             -- CHANGED 2026-09-30: spell 15284 in Spell.csv is level-scaled - bonus 10, +1 per caster level above 10.
@@ -543,6 +575,7 @@ local UBRS_TRASH_MOBS = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 22427) + SpellDuration.csv lookup - not in-game tested.
             name = "Concussion Blow",
+            spellId = 22427,
             icon = "Interface\\Icons\\Ability_ThunderBolt",
             warning = true,
             lines = {"A brutal strike that deals weapon damage and stuns the opponent for 5 seconds."}
@@ -550,6 +583,7 @@ local UBRS_TRASH_MOBS = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Reflection",
+            spellId = 34073,
             icon = "Interface\\Icons\\Ability_Warrior_ShieldReflection",
             -- CHANGED 2026-09-29: from Spell.csv (spell 34073).
             lines = {"Raises its shield, reflecting a spell cast on it. Lasts 5 seconds, but will only reflect 1 spell."}
@@ -557,6 +591,7 @@ local UBRS_TRASH_MOBS = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Slam",
+            spellId = 15655,
             icon = "Interface\\Icons\\Ability_Warrior_ShieldBash",
             warning = true,
             -- CHANGED 2026-09-30: spell 15655 in Spell.csv is level-scaled - damage 100-300, +10 per caster level above 10.
@@ -569,6 +604,7 @@ local UBRS_TRASH_MOBS = {
             -- rank (24317) used elsewhere in this file; used as-is rather than
             -- borrowed from another rank.
             name = "Sunder Armor",
+            spellId = 16145,
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             warning = true,
             -- CHANGED 2026-09-30: spell 16145 in Spell.csv is level-scaled - base 24, +24 armor per caster level above 1, no cap.
@@ -586,6 +622,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Charge",
+            spellId = 24023,
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 24023).
@@ -594,6 +631,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Enrage",
+            spellId = 8269,
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             -- CHANGED 2026-09-29: from Spell.csv (spell 8269).
             -- CHANGED 2026-09-30: spell 8269 in Spell.csv is level-scaled - base 50, +2 per caster level above 26, no cap unless stated.
@@ -602,17 +640,20 @@ local UBRS_TRASH_MOBS = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 12021) + SpellDuration.csv lookup - not in-game tested.
             name = "Fixate",
+            spellId = 12021,
             icon = "Interface\\Icons\\Spell_Shadow_Charm",
             lines = {"Causes an enemy to fixate upon the caster and increases the caster's attack speed by 50% for 10 seconds. While fixated, the target is very reluctant to attack anything else."}
         },
         {
             name = "Strike",
+            spellId = 15580,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             -- CHANGED 2026-09-30: spell 15580 in Spell.csv is level-scaled - bonus 15, +4.5 per caster level above 1.
             lines = {"Strikes at an enemy, inflicting weapon damage plus 15, plus 4.5 per caster level above 1 (about 281 at level 60)."}
         },
         {
             name = "Sunder Armor",
+            spellId = 16145,
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 24317).
@@ -620,6 +661,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Sweeping Strikes",
+            spellId = 12723,
             icon = "Interface\\Icons\\Ability_Rogue_SliceDice",
             -- CHANGED 2026-09-30: swing count is not in the spell data (spell 12723).
             lines = {"Its next melee weapon swings strike an additional nearby opponent."}
@@ -636,6 +678,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Conflagration",
+            spellId = 16805,
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 34418).
@@ -661,6 +704,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Flame Buffet",
+            spellId = 16168,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 16168).
@@ -678,6 +722,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Conflagration",
+            spellId = 16805,
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 34418).
@@ -697,6 +742,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Flamestrike",
+            spellId = 16102,
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 16102).
@@ -714,6 +760,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Strike",
+            spellId = 15580,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             -- CHANGED 2026-09-30: spell 15580 in Spell.csv is level-scaled - bonus 15, +4.5 per caster level above 1.
             lines = {"Strikes at an enemy, inflicting weapon damage plus 15, plus 4.5 per caster level above 1 (about 281 at level 60)."}
@@ -721,12 +768,14 @@ local UBRS_TRASH_MOBS = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 8255) + SpellDuration.csv lookup - not in-game tested.
             name = "Strong Cleave",
+            spellId = 8255,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             lines = {"Inflicts weapon damage plus 55 to an enemy and its nearest allies, increasing the time between their attacks by 33%, for 10 seconds."}
         },
         {
             name = "Sunder Armor",
+            spellId = 16145,
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             warning = true,
             -- CHANGED 2026-09-29: spell 15572 in Spell.csv is level-scaled - base 0, -12 armor per caster level, no cap.
@@ -744,18 +793,21 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Disturb Rookery Egg",
+            spellId = 15746,
             icon = "Interface\\Icons\\Temp",
             -- CHANGED 2026-09-29: from Spell.csv (spell 15746).
             lines = {"Activates a nearby Rookery Egg (Activate Object effect)."}
         },
         {
             name = "Strike",
+            spellId = 15580,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             -- CHANGED 2026-09-30: spell 15580 in Spell.csv is level-scaled - bonus 15, +4.5 per caster level above 1.
             lines = {"Strikes at an enemy, inflicting weapon damage plus 15, plus 4.5 per caster level above 1 (about 281 at level 60)."}
         },
         {
             name = "Sunder Armor",
+            spellId = 16145,
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             warning = true,
             -- CHANGED 2026-09-29: spell 15572 in Spell.csv is level-scaled - base 0, -12 armor per caster level, no cap.
@@ -788,6 +840,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Shadow Word: Pain",
+            spellId = 14032,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowWordPain",
             warning = true,
             roles = {"dispel"},
@@ -796,6 +849,7 @@ local UBRS_TRASH_MOBS = {
         }, {
             -- CHANGED 2026-09-30: added from the combat log - spell 27610 in Spell.csv.
             name = "Psychic Scream",
+            spellId = 27610,
             icon = "Interface\\Icons\\Spell_Shadow_PsychicScream",
             warning = true,
             lines = {"The caster lets out a psychic scream, causing nearby enemies within 8 yards to flee for 8 seconds."}
@@ -812,6 +866,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Cleave",
+            spellId = 15496,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             -- CHANGED 2026-09-30: spell 15496 in Spell.csv is level-scaled - bonus 10, +1 per caster level above 10.
@@ -820,6 +875,7 @@ local UBRS_TRASH_MOBS = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 11972) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Bash",
+            spellId = 11972,
             icon = "Interface\\Icons\\Ability_Warrior_ShieldBash",
             warning = true,
             roles = {"kick"},
@@ -838,6 +894,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Improved Blocking",
+            spellId = 3248,
             icon = "Interface\\Icons\\Spell_Fire_FireArmor",
             -- CHANGED 2026-09-29: from Spell.csv (spell 3248).
             -- CHANGED 2026-09-30: spell 3248 in Spell.csv is level-scaled - base 55%, +0.5 per caster level above 9, no cap unless stated.
@@ -862,6 +919,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Blast Wave",
+            spellId = 13021,
             icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 13021).
@@ -877,6 +935,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Frost Nova",
+            spellId = 22645,
             icon = "Interface\\Icons\\Spell_Frost_FrostNova",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 22645).
@@ -884,6 +943,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Greater Polymorph",
+            spellId = 22274,
             icon = "Interface\\Icons\\Spell_Nature_Brilliance",
             warning = true,
             roles = {"dispel"},
@@ -895,6 +955,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Mana Burn",
+            spellId = 15785,
             icon = "Interface\\Icons\\Spell_Shadow_ManaBurn",
             warning = true,
             -- CHANGED 2026-09-30: spell 15785, damage multiplier per mana read from the effect multiplier column (0.5, matching the player Mana Burn tooltip).
@@ -902,6 +963,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Resist Fire",
+            spellId = 15123,
             icon = "Interface\\Icons\\Spell_Fire_FireArmor",
             -- CHANGED 2026-09-29: spell 15123 in Spell.csv - base 2, +1.5 per caster level, no cap.
             lines = {"Increases an ally's Fire resistance for 2 hours. Scales with the caster's level: 2 plus 1.5 per level above 1 (about 90 at level 60)."}
@@ -918,6 +980,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Fear",
+            spellId = 6215,
             icon = "Interface\\Icons\\Spell_Shadow_Possession",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 6215).
@@ -926,6 +989,7 @@ local UBRS_TRASH_MOBS = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 15125) + SpellDuration.csv lookup - not in-game tested.
             name = "Scarshield Portal",
+            spellId = 15125,
             icon = "Interface\\Icons\\Spell_Arcane_TeleportOrgrimmar",
             lines = {"Opens a portal into the Twisting Nether that periodically summons demonic minions to aid the caster in battle, for 30 seconds."}
         },
@@ -948,6 +1012,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Defile",
+            spellId = 27177,
             icon = "Interface\\Icons\\Spell_Shadow_GatherShadows",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 27177).
@@ -978,12 +1043,14 @@ local UBRS_BOSSES = {
         abilities = {
         {
             name = "Emberseer Growing",
+            spellId = 16049,
             icon = "Interface\\Icons\\Ability_GolemThunderClap",
             -- CHANGED 2026-09-29: from Spell.csv (spell 16049).
             lines = {"Grows 5% larger per stack, stacking up to 50 times; never expires. Also has a scripted Dummy effect."}
         },
         {
             name = "Flame Buffet",
+            spellId = 23341,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 23341).
@@ -992,6 +1059,7 @@ local UBRS_BOSSES = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 20228) + SpellDuration.csv lookup - not in-game tested.
             name = "Pyroblast",
+            spellId = 20228,
             icon = "Interface\\Icons\\Spell_Fire_Fireball02",
             warning = true,
             roles = {"kick"},
@@ -1014,6 +1082,7 @@ local UBRS_BOSSES = {
         abilities = {
         {
             name = "Conflagration",
+            spellId = 16805,
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 34418).
@@ -1022,12 +1091,14 @@ local UBRS_BOSSES = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 8255) + SpellDuration.csv lookup - not in-game tested.
             name = "Strong Cleave",
+            spellId = 8255,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             lines = {"Inflicts weapon damage plus 55 to an enemy and its nearest allies, increasing the time between their attacks by 33%, for 10 seconds."}
         },
         {
             name = "Fire Storm",
+            spellId = 13899,
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 13899).
@@ -1035,6 +1106,7 @@ local UBRS_BOSSES = {
         },
         {
             name = "War Stomp",
+            spellId = 16727,
             icon = "Interface\\Icons\\Ability_BullRush",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 16727).
@@ -1059,12 +1131,14 @@ local UBRS_BOSSES = {
         },
         {
             name = "Head Crack",
+            spellId = 16172,
             icon = "Interface\\Icons\\Ability_ThunderBolt",
             -- CHANGED 2026-09-29: spell 16172 in Spell.csv is level-scaled - base -1 at level 1, -1 per level, no cap.
             lines = {"Reduces an enemy's Stamina by an amount equal to the caster's level (e.g. 60 at level 60) for 20 seconds."}
         },
         {
             name = "Strike",
+            spellId = 15580,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             -- CHANGED 2026-09-30: spell 15580 in Spell.csv is level-scaled - bonus 15, +4.5 per caster level above 1.
             lines = {"Strikes at an enemy, inflicting weapon damage plus 15, plus 4.5 per caster level above 1 (about 281 at level 60)."}
@@ -1098,6 +1172,7 @@ local UBRS_BOSSES = {
         abilities = {
         {
             name = "Cleave",
+            spellId = 15284,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             -- CHANGED 2026-09-30: spell 15284 in Spell.csv is level-scaled - bonus 10, +1 per caster level above 10.
@@ -1105,6 +1180,7 @@ local UBRS_BOSSES = {
         },
         {
             name = "Disarm",
+            spellId = 13534,
             icon = "Interface\\Icons\\Ability_Warrior_Disarm",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 13534).
@@ -1112,6 +1188,7 @@ local UBRS_BOSSES = {
         },
         {
             name = "Enrage",
+            spellId = 8269,
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             -- CHANGED 2026-09-29: from Spell.csv (spell 8269).
             -- CHANGED 2026-09-30: spell 8269 in Spell.csv is level-scaled - base 50, +2 per caster level above 26, no cap unless stated.
@@ -1124,6 +1201,7 @@ local UBRS_BOSSES = {
             -- Retaliation elsewhere in this file - it's the same named ability,
             -- not two distinct ones. Duration confirmed from Spell.xlsx + SpellDuration.csv - not in-game tested.
             name = "Intimidating Shout",
+            spellId = 19134,
             icon = "Interface\\Icons\\Ability_GolemThunderClap",
             warning = true,
             lines = {"Shouts at an enemy, paralyzing it with terror for 8 seconds and causing all other nearby enemies to flee in fear."}
@@ -1136,7 +1214,9 @@ local UBRS_BOSSES = {
             lines = {"Inflicts 500% weapon damage and leaves the target wounded, reducing the effectiveness of any healing by 50% for 5 seconds."}
         },
         {
+            -- spellId: 26083 is the cast, 26084 the damage.
             name = "Whirlwind",
+            spellId = 26083,
             icon = "Interface\\Icons\\Ability_Whirlwind",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 26083 + 26084).
@@ -1153,6 +1233,7 @@ local UBRS_BOSSES = {
         abilities = {
         {
             name = "Chromatic Chaos",
+            spellId = 16337,
             icon = "Interface\\Icons\\Spell_Arcane_StarFire",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 16337).
@@ -1179,6 +1260,7 @@ local UBRS_BOSSES = {
         },
         {
             name = "Freeze",
+            spellId = 16350,
             icon = "Interface\\Icons\\Spell_Frost_Glacier",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 16350).
@@ -1246,6 +1328,7 @@ local UBRS_BOSSES = {
         },
         {
             name = "Frenzy",
+            spellId = 28371,
             icon = "Interface\\Icons\\Ability_Druid_ChallangingRoar",
             -- CHANGED 2026-09-29: from Spell.csv (spell 28371).
             lines = {"Increases attack speed by 100%, damage dealt by 50% and size by 25% for 12 seconds."}
@@ -1269,6 +1352,7 @@ local UBRS_BOSSES = {
         {
             -- CHANGED: splash damage resolved from Spell.xlsx spell ID 16806 (the linked splash effect), not from in-game testing.
             name = "Conflagration",
+            spellId = 16805,
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 16805).
@@ -1279,6 +1363,7 @@ local UBRS_BOSSES = {
         },
         {
             name = "Flamestrike",
+            spellId = 16419,
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 16419).
@@ -1287,12 +1372,14 @@ local UBRS_BOSSES = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 16789) + SpellDuration.csv lookup - not in-game tested.
             name = "Rage",
+            spellId = 16789,
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             -- CHANGED 2026-09-30: spell 16789 in Spell.csv is level-scaled - base 50, +2 per caster level above 26, no cap unless stated.
             lines = {"Increases the Physical damage dealt by the caster by 50 plus 2 per caster level above 26 (about 118 at level 60) and speeds its attacks by 50% for 15 seconds."}
         },
         {
             name = "Thunderclap",
+            spellId = 23931,
             icon = "Interface\\Icons\\Spell_Nature_ThunderClap",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 23931).
@@ -1300,6 +1387,7 @@ local UBRS_BOSSES = {
         },
         {
             name = "Dominance",
+            spellId = 34432,
             icon = "Interface\\Icons\\Spell_Shadow_Charm",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 34432).
@@ -1307,6 +1395,7 @@ local UBRS_BOSSES = {
         },
         {
             name = "True Fulfillment",
+            spellId = 2313,
             icon = "Interface\\Icons\\Temp",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 2313).
@@ -1323,6 +1412,7 @@ local UBRS_BOSSES = {
         abilities = {
         {
             name = "Enrage",
+            spellId = 8269,
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             -- CHANGED 2026-09-29: from Spell.csv (spell 8269).
             -- CHANGED 2026-09-30: spell 8269 in Spell.csv is level-scaled - base 50, +2 per caster level above 26, no cap unless stated.

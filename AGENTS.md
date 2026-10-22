@@ -77,6 +77,7 @@ call — edit the `{ ... }` raid table, same shape as before the split:
     flags = { "nottauntable", "potion_fire" },                   -- keys of BOSS_FLAGS
     abilities = {{
         name = "Lucifron's Curse",
+        spellId = 19703,             -- optional, the spell's ID in Spell.csv (key for db.lokiy.dev); not read by the addon
         icon = "Interface\\Icons\\Spell_Shadow_BlackPlague",
         roles = { "decurse" },       -- keys of UTILITY_ICONS (roles, dispels, classes)
         color = "ffa335ee",          -- optional ARGB hex for the name text

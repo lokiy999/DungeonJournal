@@ -57,6 +57,7 @@ local ONY_TRASH_MOBS = {
             lines = {"Inflicts 464 to 596 Fire damage to nearby enemies."}
         }, {
             name = "Cleave",
+            spellId = 19983,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
             -- CHANGED 2026-09-29: $x1 resolved from Spell.csv (spell 19983,
@@ -91,6 +92,7 @@ local ONY_BOSSES = {
             lines = {"Inflicts Fire damage in a cone in front of her plus a damage-over-time effect. Do not stand in front unless you are tanking."}
         }, {
             name = "Cleave",
+            spellId = 19983,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank", "melee"},
             -- CHANGED 2026-09-30: spell 19983 in Spell.csv is level-scaled - bonus 50, +5 per caster level above 10, chain 10.
@@ -125,6 +127,7 @@ local ONY_BOSSES = {
         }, {
             -- CHANGED 2026-09-30: added from the combat log - spell 22191 in Spell.csv.
             name = "Heated Ground",
+            spellId = 22191,
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
             lines = {"Sets the ground within 13 yards ablaze, inflicting 413 to 587 Fire damage every second for 4 seconds. The fire repeats."}

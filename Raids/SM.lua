@@ -104,6 +104,7 @@ local SM_TRASH_MOBS = {
             lines = {"Disarms the enemy's weapon for 6 seconds."}
         }, {
             name = "Impale",
+            spellId = 36051,
             icon = "Interface\\Icons\\Ability_Gouge",
             -- CHANGED: matched spell ID 36051 (>=35800, this content pack's custom range).
             lines = {"Wounds the target, causing it to bleed for 450 damage every 3 sec."}
@@ -119,6 +120,7 @@ local SM_TRASH_MOBS = {
             -- CHANGED: matched spell ID 36047 (custom range) - aura text is just "Disarmed.",
             -- duration/proc chance not confirmed from durationIndex alone.
             name = "Riposte",
+            spellId = 36047,
             icon = "Interface\\Icons\\Ability_Warrior_Challange",
             lines = {"A counterattack that disarms the enemy's weapon for 5 seconds."}
         }}
@@ -165,6 +167,7 @@ local SM_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: radius confirmed from Spell.xlsx (spell 36043) + SpellRadius.csv lookup - not in-game tested.
             name = "Battle Shout",
+            spellId = 36043,
             icon = "Interface\\Icons\\Ability_Warrior_BattleShout",
             lines = {"Shouts, increasing damage done of nearby allies within 30 yards by 30%. Lasts 20 seconds."}
         }, {
@@ -180,6 +183,7 @@ local SM_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 22857) + SpellDuration.csv lookup - not in-game tested.
             name = "Retaliation",
+            spellId = 22857,
             icon = "Interface\\Icons\\Ability_Warrior_Challange",
             warning = true,
             lines = {"Instantly counterattacks any enemy that strikes it in melee for 15 seconds. Attacks from behind cannot be counterattacked."}
@@ -205,6 +209,7 @@ local SM_TRASH_MOBS = {
             -- CHANGED: found via Spell.xlsx (id 36269, linked to 36270 "Duelling!" aura) -
             -- the live DBC site's 20-result cap on "Duel" hid this custom-range match.
             name = "Duel",
+            spellId = 36269,
             icon = "Interface\\Icons\\Ability_Warrior_Challange",
             lines = {"Forces the target to attack the caster for 5 seconds."},
             abilities = {{
@@ -212,6 +217,7 @@ local SM_TRASH_MOBS = {
                 -- -1% (not implausible) - user confirmed this is granted to the player
                 -- when they die during/after losing the duel. Duration index 367 = 2 hours.
                 name = "Duel Loooser",
+                spellId = 36132,
                 icon = "Interface\\Icons\\Spell_Shadow_MindSteal",
                 lines = {"Applied when the duel ends in the caster's death. All stats reduced by 1% for 2 hours."}
             }, {
@@ -221,12 +227,14 @@ local SM_TRASH_MOBS = {
                 -- goralia.sk DBC lookup: effectAura_2 is AuraModScale (the size increase)
                 -- and effect_3 is EffectHealMaxHealth (heals to full on grant).
                 name = "Duel Winner",
+                spellId = 36131,
                 icon = "Interface\\Icons\\Ability_Racial_Avatar",
                 lines = {"Granted when the Champion dies while duelling. Heals to full, increases damage done by 1%, and increases size by 5%. Lasts 2 hours."}
             }}
         }, {
             -- CHANGED: Spell.xlsx "Vengeance" entries (36127, 36129) are empty;
             -- values below are from user report, not tested.
+            -- spellId: uncertain - 36127 or 36129 (both empty "Vengeance" entries).
             name = "Vengeance",
             icon = "Interface\\Icons\\Ability_Racial_Avatar",
             warning = true,
@@ -243,6 +251,7 @@ local SM_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Intercept",
+            spellId = 36078,
             icon = "Interface\\Icons\\Ability_Rogue_Sprint",
             warning = true,
             -- CHANGED: matched spell ID 36078 (custom range) via Spell.xlsx.
@@ -251,6 +260,7 @@ local SM_TRASH_MOBS = {
             -- CHANGED: Spell.xlsx id 36080; damage and 1%-per-stack healing
             -- reduction (up to 50 stacks) confirmed by user report.
             name = "Rend",
+            spellId = 36080,
             icon = "Interface\\Icons\\Ability_Gouge",
             lines = {"Bleeding for 75 damage every 3 sec. Each application also reduces healing effects on the target by 1%, stacking up to 50 times."}
         }, {
@@ -293,6 +303,7 @@ local SM_TRASH_MOBS = {
         }, {
             -- CHANGED 2026-09-30: added from the combat log - spell 36063 in Spell.csv.
             name = "Knockout",
+            spellId = 36063,
             icon = "Interface\\Icons\\Ability_Warrior_PunishingBlow",
             warning = true,
             lines = {"Stuns the target for 10 seconds."}
@@ -415,6 +426,7 @@ local SM_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: matched spell ID 36145 (custom range).
             name = "Chilled",
+            spellId = 36145,
             icon = "Interface\\Icons\\Spell_Frost_FrostArmor02",
             lines = {"Movement slowed by 40% and time between attacks increased by 80%."}
         }, {
@@ -425,12 +437,14 @@ local SM_TRASH_MOBS = {
         }, {
             -- CHANGED: matched spell ID 36149 (custom range).
             name = "Cryo Zone",
+            spellId = 36149,
             icon = "Interface\\Icons\\Spell_Frost_FrostNova",
             lines = {"Movement speed slowed by 70%. Increases Frost damage taken by 100%."}
         }, {
             -- CHANGED: found via Spell.xlsx (id 36092, linked to 36093 for the damage
             -- value) - the live DBC site's 20-result cap on "Fire Shield" hid this.
             name = "Fire Shield",
+            spellId = 36092,
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
             lines = {"Surrounds nearby allies with a shield of flame that inflicts 495 Fire damage to nearby enemies every 3 sec. Lasts 60 seconds."}
         }, {
@@ -465,12 +479,14 @@ local SM_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: matched spell ID 36088 (custom range).
             name = "Fiery Purge",
+            spellId = 36088,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             lines = {"Purges an enemy target, removing 1 magic effect."}
         }, {
             -- CHANGED: found via Spell.xlsx (id 36092, linked to 36093 for the damage
             -- value) - the live DBC site's 20-result cap on "Fire Shield" hid this.
             name = "Fire Shield",
+            spellId = 36092,
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
             roles = {"dispel"},
             lines = {"Surrounds nearby allies with a shield of flame that inflicts 495 Fire damage to nearby enemies every 3 sec. Lasts 60 seconds."}
@@ -489,6 +505,7 @@ local SM_TRASH_MOBS = {
             -- CHANGED: spell ID 36086; effectBasePoints 99 -> 100 via the +1 formula,
             -- confirmed by user as removing up to 100 effects.
             name = "Purifying Flames",
+            spellId = 36086,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             lines = {"Cleanses a friendly target, removing up to 100 curse, disease, and magic effects.",
                      "Heals for 1000 to 1100 every 2 sec. Lasts 8 seconds."}
@@ -506,6 +523,7 @@ local SM_TRASH_MOBS = {
             -- CHANGED: spell ID 36110; restore-to-full and trigger conditions
             -- from user report, not tested.
             name = "Consume Elemental",
+            spellId = 36110,
             icon = "Interface\\Icons\\Spell_Shadow_SacrificialShield",
             warning = true,
             lines = {"Consumes one of its elementals, restoring itself to full health and mana. Only used when at low health, and at most once every 30 seconds.",
@@ -573,6 +591,7 @@ local SM_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Power Word: Requital",
+            spellId = 36143,
             icon = "Interface\\Icons\\Spell_Fire_ElementalDevastation",
             warning = true,
             -- CHANGED 2026-09-30: spell 36143 in Spell.csv is level-scaled - damage 2697-3122, +6 per caster level.
@@ -614,6 +633,7 @@ local SM_TRASH_MOBS = {
         }, {
             -- CHANGED: heal amount resolved from Spell.xlsx spell ID 36071 (the linked heal effect), not from in-game testing.
             name = "Judgement of Light",
+            spellId = 36071,
             icon = "Interface\\Icons\\Spell_Holy_HealingAura",
             lines = {"Melee attacks against the afflicted target heal the attacker for 875 to 1095."}
         }, {
@@ -631,6 +651,7 @@ local SM_TRASH_MOBS = {
         }, {
             -- CHANGED: radius confirmed from Spell.xlsx (spell 36068) + SpellRadius.csv lookup - not in-game tested.
             name = "Protection Aura",
+            spellId = 36068,
             icon = "Interface\\Icons\\INV_Gauntlets_06",
             lines = {"Reduces damage taken by nearby allies within 30 yards by 30% for 20 seconds."}
         }}
@@ -645,6 +666,7 @@ local SM_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Crusader Strike",
+            spellId = 36135,
             icon = "Interface\\Icons\\Spell_Holy_HolySmite",
             warning = true,
             -- CHANGED 2026-09-30: spell 36135 in Spell.csv is level-scaled - Holy damage taken 180, +1 per caster level.
@@ -671,11 +693,13 @@ local SM_TRASH_MOBS = {
         }, {
             -- CHANGED: radius confirmed from Spell.xlsx (spell 36136) + SpellRadius.csv lookup - not in-game tested.
             name = "Sanctity Aura",
+            spellId = 36136,
             icon = "Interface\\Icons\\Spell_Holy_MindVision",
             lines = {"Increases Holy damage done by nearby party members within 30 yards by 30%."}
         }, {
             -- CHANGED: matched spell ID 36133 (custom range), % from linked spell 20424.
             name = "Seal of Command",
+            spellId = 36133,
             icon = "Interface\\Icons\\Ability_Warrior_InnerRage",
             lines = {"Attacks deal additional Holy damage equal to 50% of weapon damage."}
         }}
@@ -739,6 +763,7 @@ local SM_TRASH_MOBS = {
             lines = {"Damage taken increased by 300%."}
         }, {
             name = "Prophecy: Doppelganger",
+            spellId = 36199,
             icon = "Interface\\Icons\\Spell_Nature_MirrorImage",
             -- CHANGED: AuraDescription_enUS (spell 36175-36204 range) is literally
             -- just "Mirrored Presence." - no numbers, no further mechanic detail
@@ -897,6 +922,7 @@ local SM_BOSSES = {
                      "At 5 stacks it stuns the user for 10/11 seconds and removes all stacks."}
         }, {
             name = "Power Shot",
+            spellId = 35841,
             icon = "Interface\\Icons\\inv_spear_07",
             warning = true,
             color = "ffff7d0a",
@@ -987,6 +1013,7 @@ local SM_BOSSES = {
             lines = {"Casts at 20% health left. She summons her mount, increasing her speed by 100%."}
         }, {
             name = "Stormbolt",
+            spellId = 35863,
             icon = "Interface\\Icons\\Ability_ThunderClap",
             roles = {"healer", "tank", "reflect"},
             -- CHANGED 2026-09-30: spell 35863 in Spell.csv is level-scaled - damage 1897-2327, +2 per caster level.
@@ -1025,6 +1052,7 @@ local SM_BOSSES = {
             -- the same always-on trait as the Scarlet trash. No Spell.xlsx
             -- text; 55% is the value used on the trash entries.
             name = "Improved Blocking",
+            spellId = 36172,
             icon = "Interface\\Icons\\Ability_Defend",
             lines = {"Increases her chance to block by 55%."}
         }},
@@ -1236,6 +1264,7 @@ local SM_BOSSES = {
             -- keeps up. Spell.xlsx: "$s1" = -21+1 = -20, "$s2" = 19+1 = 20;
             -- DurationIndex 3 = 60s. (Same effect as the Scarlet Monk's.)
             name = "Inner Fire",
+            spellId = 36155,
             icon = "Interface\\Icons\\Spell_Holy_InnerFire",
             lines = {"Increases the damage he deals by 20% and reduces damage he takes by 20%. Refreshed roughly every 60 seconds."}
         }}
@@ -1277,6 +1306,7 @@ local SM_BOSSES = {
             -- absorb value is the 999,999,999 "unlimited" sentinel - it is
             -- mana-bound, same as the Scarlet Sorcerer's.
             name = "Mana Shield",
+            spellId = 35955,
             icon = "Interface\\Icons\\Spell_Shadow_DetectLesserInvisibility",
             lines = {"Absorbs incoming damage by draining his own mana instead."}
         }, {
@@ -1304,6 +1334,7 @@ local SM_BOSSES = {
             -- CHANGED: spell 35959, logged in "SM 6 bosses.csv". Spell.xlsx:
             -- "Reflects Arcane spells back at their caster"; DurationIndex 3 = 60s.
             name = "Arcane Ward",
+            spellId = 35959,
             icon = "Interface\\Icons\\Spell_Arcane_PrismaticCloak",
             warning = true,
             roles = {"caster"},
@@ -1326,6 +1357,7 @@ local SM_BOSSES = {
             -- CHANGED: spell 35958, logged in "SM 6 bosses.csv". Spell.xlsx:
             -- "Reflects Frost spells back at their caster"; DurationIndex 3 = 60s.
             name = "Frost Ward",
+            spellId = 35958,
             icon = "Interface\\Icons\\Spell_Frost_FrostWard",
             warning = true,
             roles = {"caster"},
@@ -1343,6 +1375,7 @@ local SM_BOSSES = {
                 lines = {"Your unable to move and your attack and casting speed is reduced by 50% and after 5 seconds become Frozen Solid."},
                 abilities = {{
                     name = "Frozen Solid",
+                    spellId = 35986,
                     icon = "Interface\\Icons\\spell_frost_frost",
                     -- CHANGED 2026-09-30: spell 35986 in Spell.csv is a 10 second stun with no damage effect; the Frost damage is not in the data.
                     lines = {"Your frozen in place (stunned) for 10 seconds. X - the Frost damage every X seconds is not in the spell data, unconfirmed."}
@@ -1359,6 +1392,7 @@ local SM_BOSSES = {
             -- CHANGED: spell 35957, logged in "SM 6 bosses.csv". Spell.xlsx:
             -- "Reflects Fire spells back at their caster"; DurationIndex 3 = 60s.
             name = "Fire Ward",
+            spellId = 35957,
             icon = "Interface\\Icons\\Spell_Fire_FireArmor",
             warning = true,
             roles = {"caster"},
@@ -1369,6 +1403,7 @@ local SM_BOSSES = {
             lines = {"Calls down a pillar of fire for 1555 to 1840 Fire damage on a random target, then 575 Fire damage every second to anyone standing in it for 8 seconds."}
         }, {
             name = "Dragon Breath",
+            spellId = 35963,
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             warning = true,
             roles = {"tank"},
@@ -1382,6 +1417,7 @@ local SM_BOSSES = {
         }, {
             -- CHANGED 2026-09-30: added from the combat log - spell 35969 in Spell.csv.
             name = "Great Polymorph",
+            spellId = 35969,
             icon = "Interface\\Icons\\Spell_Nature_Polymorph",
             warning = true,
             lines = {"Transforms an enemy into a sheep, forcing it to wander around for up to 60 seconds. While wandering, the sheep cannot attack or cast spells, but regenerates very quickly."}
@@ -1416,6 +1452,7 @@ local SM_BOSSES = {
             -- CHANGED: spell 36003, logged in "SM mograine fairbanks.csv".
             -- Spell.xlsx: blind, DurationIndex 32 = 6s.
             name = "Blinding Light",
+            spellId = 36003,
             icon = "Interface\\Icons\\Spell_Holy_MindVision",
             warning = true,
             lines = {"Emits a flash of light that blinds nearby enemies facing him for 6 seconds."}
@@ -1427,6 +1464,7 @@ local SM_BOSSES = {
             -- CHANGED: spell 1020, logged in "SM mograine fairbanks.csv";
             -- user: cast at 25% health. DurationIndex 1 = 10s.
             name = "Divine Shield",
+            spellId = 1020,
             icon = "Interface\\Icons\\Spell_Holy_DivineIntervention",
             warning = true,
             lines = {"At 25% health he becomes immune to all attacks and spells for 10 seconds, but cannot take offensive actions during it."}
@@ -1434,6 +1472,7 @@ local SM_BOSSES = {
             -- CHANGED: spell 9257, logged in "SM mograine fairbanks.csv" -
             -- every cast targets Sally Whitemane, not himself.
             name = "Lay on Hands",
+            spellId = 9257,
             icon = "Interface\\Icons\\Spell_Holy_LayOnHands",
             warning = true,
             lines = {"Mograine heals Sally Whitemane to full health (roughly once per attempt), draining all of his remaining mana."}
@@ -1476,6 +1515,7 @@ local SM_BOSSES = {
             -- User: only cast at the phase change (with the resurrect), not
             -- on a timer.
             name = "Deep Sleep",
+            spellId = 9256,
             icon = "Interface\\Icons\\Spell_Nature_Sleep",
             warning = true,
             lines = {"Cast together with Scarlet Resurrection - sleeps the nearby raid while she brings Mograine back. Everyone wakes the moment Mograine is resurrected."}
@@ -1519,6 +1559,7 @@ local SM_BOSSES = {
             lines = {"Shields herself, absorbing 15000 damage."}
         }, {
             name = "Dominate Mind",
+            spellId = 36013,
             icon = "Interface\\Icons\\spell_shadow_shadowworddominate",
             warning = true,
             roles = {"cc"},
@@ -1546,6 +1587,7 @@ local SM_BOSSES = {
             -- radius increased"; user confirms it also visibly enlarges
             -- players. DurationIndex 18 = 20s.
             name = "Claustrophobia",
+            spellId = 36027,
             icon = "Interface\\Icons\\Spell_Shadow_Shadesofdarkness",
             warning = true,
             lines = {"The walls press inward for 20 seconds - all players grow in size and the damage and radius of his Stomp are increased."}

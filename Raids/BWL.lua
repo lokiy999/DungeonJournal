@@ -85,6 +85,7 @@ local BWL_BOSSES = {
         stats = {armor = 5675, fire = 243, nature = 71, frost = 71, shadow = 71, arcane = 108},
         abilities = {{
             name = "Conflagration",
+            spellId = 23023,
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
             roles = {"healer"},
@@ -106,6 +107,7 @@ local BWL_BOSSES = {
             lines = {"Heals his allies but burns enemies, ticking every second."}
         }, {
             name = "Cleave",
+            spellId = 19632,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank", "melee"},
             -- CHANGED 2026-09-30: spell 19632 in Spell.csv is level-scaled - bonus 50, +5 per caster level above 10, chain 10.
@@ -115,6 +117,7 @@ local BWL_BOSSES = {
             -- from Spell.xlsx AuraDescription; "$s1" = EffectBasePoints_1 (19)
             -- + 1 = 20; StackAmount 5.
             name = "Untamed Fury",
+            spellId = 35177,
             icon = "Interface\\Icons\\Spell_Nature_BloodLust",
             warning = true,
             lines = {"Increases Razorgore's attack speed by 20% per stack, up to 5 stacks."}
@@ -123,12 +126,14 @@ local BWL_BOSSES = {
             -- (icon is the Temp placeholder). May be the same mechanic as the
             -- existing Eternal Livingflame entry above.
             name = "Summon Livingflame",
+            spellId = 35176,
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             warning = true,
             lines = {"Summons a Livingflame add (spell 35176). Behaviour needs in-game testing."}
         }, {
             -- CHANGED: spell 23040, from BWL combat log. No Spell.xlsx text.
             name = "Warming Flames",
+            spellId = 23040,
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             lines = {"No ability description available (spell 23040) - retail Razorgore uses this to regenerate health while near the orb; not confirmed for this server."}
         }},
@@ -144,6 +149,7 @@ local BWL_BOSSES = {
             lines = {"Guards the eggs during the egg-destruction phase alongside Grethok the Controller."},
             abilities = {{
                 name = "Cleave",
+                spellId = 19632,
                 icon = "Interface\\Icons\\Ability_Warrior_Cleave",
                 roles = {"tank"},
                 -- CHANGED 2026-09-30: spell 19632 in Spell.csv is level-scaled - bonus 50, +5 per caster level above 10, chain 10.
@@ -159,6 +165,7 @@ local BWL_BOSSES = {
                 -- Spell.xlsx Description; "$s2" = EffectBasePoints_2 (-51)
                 -- + 1 = -50; DurationIndex 29 = 12s.
                 name = "Thunder Clap",
+                spellId = 35166,
                 icon = "Interface\\Icons\\Spell_Nature_ThunderClap",
                 warning = true,
                 lines = {"Blasts nearby enemies with thunder, increasing the time between their melee attacks by 50% and reducing movement speed by 50% for 12 seconds."}
@@ -180,6 +187,7 @@ local BWL_BOSSES = {
                 -- Description: "inflicting $s1 Arcane damage and interrupting
                 -- spellcasting"; "$s1" = EffectBasePoints_1 (1899) + 1 = 1900.
                 name = "Arcane Missiles",
+                spellId = 35169,
                 icon = "Interface\\Icons\\Spell_Nature_StarFall",
                 warning = true,
                 roles = {"kick"},
@@ -195,6 +203,7 @@ local BWL_BOSSES = {
                 -- logged this run in place of Dominate Mind. Text from
                 -- Spell.xlsx Description; DurationIndex 18 = 20s.
                 name = "Greatest Polymorph",
+                spellId = 35168,
                 icon = "Interface\\Icons\\Spell_Nature_Brilliance",
                 warning = true,
                 roles = {"dispel"},
@@ -202,6 +211,7 @@ local BWL_BOSSES = {
             }, {
                 -- CHANGED: spell 13747, from BWL combat log.
                 name = "Slow",
+                spellId = 13747,
                 icon = "Interface\\Icons\\Spell_Nature_Slow",
                 warning = true,
                 lines = {"Reduces the target's movement speed and increases the time between its attacks."}
@@ -228,6 +238,7 @@ local BWL_BOSSES = {
             lines = {"Melee orc add during the Razorgore encounter."},
             abilities = {{
                 name = "Cleave",
+                spellId = 19632,
                 icon = "Interface\\Icons\\Ability_Warrior_Cleave",
                 roles = {"tank"},
                 -- CHANGED 2026-09-30: spell 19632 in Spell.csv is level-scaled - bonus 50, +5 per caster level above 10, chain 10.
@@ -259,6 +270,7 @@ local BWL_BOSSES = {
                 -- CHANGED: spell 35174, from BWL combat log. Text from
                 -- Spell.xlsx Description; DurationIndex 1 = 10s.
                 name = "Counterspell",
+                spellId = 35174,
                 icon = "Interface\\Icons\\Spell_Frost_IceShock",
                 warning = true,
                 roles = {"kick"},
@@ -267,6 +279,7 @@ local BWL_BOSSES = {
                 -- CHANGED: spell 35171, from BWL combat log. Text from
                 -- Spell.xlsx; DurationIndex 7 = 5s.
                 name = "Ice Mirror",
+                spellId = 35171,
                 icon = "Interface\\Icons\\Spell_Frost_FrostArmor02",
                 warning = true,
                 roles = {"caster"},
@@ -285,6 +298,7 @@ local BWL_BOSSES = {
                 -- CHANGED: spell 35165, from BWL combat log. Custom V+, no
                 -- Spell.xlsx text.
                 name = "Mental Strike",
+                spellId = 35165,
                 icon = "Interface\\Icons\\Spell_Shadow_MindTwisting",
                 warning = true,
                 lines = {"No ability description available (spell 35165) - reads as the backlash on whoever is controlling the orb. Needs in-game testing."}
@@ -304,6 +318,7 @@ local BWL_BOSSES = {
             lines = {"Lobs grenades at the raid - by far its most frequent ability (26000+ log entries)."}
         }, {
             name = "Coke Ejection",
+            spellId = 35146,
             icon = "Interface\\Icons\\Spell_Fire_MeteorStorm",
             warning = true,
             roles = {"tank"},
@@ -315,6 +330,7 @@ local BWL_BOSSES = {
             -- DurationIndex 387 = 16s. (Same debuff wording as MC Firelord's
             -- Incinerate.)
             name = "Sticky Oil Tar",
+            spellId = 35135,
             icon = "Interface\\Icons\\INV_Misc_Slime_02",
             warning = true,
             lines = {"Coats the target in tar, increasing the Fire damage it takes by 25% for 16 seconds. Stacks."}
@@ -322,6 +338,7 @@ local BWL_BOSSES = {
             -- CHANGED: spells 35147 (Ice Sprinkler) + 35148 (its slow), from
             -- BWL combat log. Neither has Spell.xlsx description text.
             name = "Ice Sprinkler",
+            spellId = 35147,
             icon = "Interface\\Icons\\Spell_Frost_FrostNova",
             warning = true,
             lines = {"A Frost spray (spell 35147) that applies a movement slow (spell 35148). Damage / slow amount need testing."}
@@ -332,6 +349,7 @@ local BWL_BOSSES = {
         -- under the boss itself are the launch visual + the blade's stun.
         adds = {{
             key = "sawblade",
+            -- spellId: uncertain - only the 'Stun 5s' effect (35162) is known, not the blade's own spell.
             name = "Sawblade",
             icon = "Interface\\Icons\\Ability_Whirlwind",
             color = "ffcc6600",
@@ -339,6 +357,7 @@ local BWL_BOSSES = {
             abilities = {{
                 -- CHANGED: spell 35138. "$s1" = EffectBasePoints_1 (1349) + 1.
                 name = "Saw Blade",
+                spellId = 35138,
                 icon = "Interface\\Icons\\INV_Misc_SawBlade_01",
                 warning = true,
                 lines = {"Inflicts 1350 damage to anyone the blade passes through."}
@@ -371,6 +390,7 @@ local BWL_BOSSES = {
             lines = {"A brutal strike that also reduces healing received on the target."}
         }, {
             name = "Cleave",
+            spellId = 15284,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank", "melee"},
             -- CHANGED 2026-09-30: spell 15284 in Spell.csv is level-scaled - bonus 10, +1 per caster level above 10, chain 3.
@@ -381,6 +401,7 @@ local BWL_BOSSES = {
             -- aura 74 (reflect spells of a school) at 99 + 1 = 100% chance,
             -- school Frost, duration 20s.
             name = "Frost Reflection",
+            spellId = 35187,
             icon = "Interface\\Icons\\Spell_Frost_FrostArmor02",
             warning = true,
             roles = {"caster"},
@@ -423,6 +444,7 @@ local BWL_BOSSES = {
         }, {
             -- CHANGED: spell 3391, from BWL combat log "BWL stuff.csv".
             name = "Thrash",
+            spellId = 3391,
             icon = "Interface\\Icons\\Ability_Warrior_DecisiveStrike",
             roles = {"tank"},
             lines = {"Passive - occasionally grants an extra melee attack or two on the same swing."}
@@ -458,22 +480,26 @@ local BWL_BOSSES = {
             -- 17000 Physical, plus aura 12 (stun) with the spell's 30s
             -- duration - a 30s stun is unusually long, check in-game.
             name = "Disrupting Ray",
+            spellId = 35272,
             icon = "Interface\\Icons\\INV_Misc_EngGizmos_03",
             warning = true,
             roles = {"tank"},
             lines = {"Completely strips the target's defences and increases the damage it takes by 100% for 30 seconds."}
         }, {
             name = "Gravity Defied",
+            spellId = 35488,
             icon = "Interface\\Icons\\Spell_Nature_Levitate",
             warning = true,
             lines = {"Hooks the targeted player and pulls them back to Krixix (spell 35488)."}
         }, {
             name = "Shrink Ray",
+            spellId = 35273,
             icon = "Interface\\Icons\\INV_Misc_EngGizmos_06",
             warning = true,
             lines = {"Shrinks the target for 30 seconds: 75% less damage dealt, 50% smaller and 25% slower movement (spell 35273)."}
         }, {
             name = "Death Ray",
+            spellId = 35274,
             icon = "Interface\\Icons\\INV_Misc_EngGizmos_01",
             warning = true,
             lines = {"Inflicts 12000 to 17000 Physical damage and stuns the target for 30 seconds (spell 35274)."}
@@ -506,7 +532,9 @@ local BWL_BOSSES = {
             lines = {"Knocks nearby enemies back for around 1500 damage, shedding threat.",
                      "High threat players drop threat with a timed Wing Buffet - Shadow Flame follows 2 seconds after."}
         }, {
+            -- spellId: 35238 is Ebonroc's Frenzy; Flamegor's is 23342 (same ability, two spells).
             name = "Frenzy",
+            spellId = 35238,
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             warning = true,
             roles = {"hunter"},
@@ -516,6 +544,7 @@ local BWL_BOSSES = {
             -- CHANGED: spell 3391, from BWL combat log "BWL stuff.csv" - both
             -- dragons use it.
             name = "Thrash",
+            spellId = 3391,
             icon = "Interface\\Icons\\Ability_Warrior_DecisiveStrike",
             roles = {"tank"},
             lines = {"Passive - occasionally grants an extra melee attack or two on the same swing. Both dragons have it."}
@@ -567,18 +596,21 @@ local BWL_BOSSES = {
         stats = {armor = 6440, fire = 73, nature = 73, frost = 73, shadow = 73, arcane = 73},
         abilities = {{
             name = "Double Bite",
+            spellId = 34429,
             icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
             roles = {"tank"},
             -- CHANGED 2026-09-30: spell 34429 in Spell.csv - inflicts 100% weapon damage to a second enemy.
             lines = {"Inflicts 100% weapon damage to a second enemy as well. His most frequent melee ability."}
         }, {
             name = "Enrage",
+            spellId = 28747,
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             warning = true,
             -- CHANGED 2026-09-30: spell 28747 in Spell.csv - +100% damage done, +50% attack speed, +15% size, 10 minutes.
             lines = {"Enrages at 20% health, increasing damage done by 100%, attack speed by 50% and size by 15%. Cannot be removed."}
         }, {
             name = "Frenzy",
+            spellId = 28371,
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             warning = true,
             roles = {"hunter"},
@@ -629,6 +661,7 @@ local BWL_BOSSES = {
                      "Its breaths can be avoided by breaking line of sight."}
         }, {
             name = "Caustic Breath",
+            spellId = 35277,
             icon = "Interface\\Icons\\Spell_Nature_Acid_01",
             warning = true,
             roles = {"tank", "healer"},
@@ -636,18 +669,21 @@ local BWL_BOSSES = {
             lines = {"'Caustic Pain!' - deals 475 to 700 Nature damage every 3 seconds, reduces armor by 8000 and increases casting speed by 33% for 15 seconds."}
         }, {
             name = "Ignite Flesh",
+            spellId = 35278,
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
             warning = true,
             -- CHANGED 2026-09-30: spell 35278 in Spell.csv - 160 seconds, stacks up to 10.
             lines = {"Deals 5% health damage every 3 seconds and increases damage done by 5% for 160 seconds. Stacks up to 10 times."}
         }, {
             name = "Incinerate",
+            spellId = 35275,
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
             warning = true,
             -- CHANGED 2026-09-30: spell 35275 in Spell.csv - 4800-6000 Fire to everyone within 100 yards.
             lines = {"Breath attack that inflicts 4800 to 6000 Fire damage to all enemies within 100 yards."}
         }, {
             name = "Frost Burn",
+            spellId = 35279,
             icon = "Interface\\Icons\\Spell_Frost_ChillingBlast",
             warning = true,
             -- CHANGED 2026-09-30: spell 35279 in Spell.csv - 2500-3000 Frost, attack time +400%, 20 seconds.
@@ -657,6 +693,7 @@ local BWL_BOSSES = {
             -- previously missing. Aura text "Frozen in time!"; "$s2" =
             -- EffectBasePoints_2 (-51) + 1 = -50; DurationIndex 8 = 15s.
             name = "Time Lapse",
+            spellId = 35276,
             icon = "Interface\\Icons\\Spell_Nature_TimeStop",
             warning = true,
             roles = {"healer"},
@@ -664,7 +701,9 @@ local BWL_BOSSES = {
         }, {
             -- CHANGED: spells 22278 / 22279 / 22281, from BWL combat log - one
             -- per breath school. No Spell.xlsx description text.
+            -- spellId: one shield per breath school - 22278 / 22279 / 22281; 22278 is listed.
             name = "Elemental Shield",
+            spellId = 22278,
             icon = "Interface\\Icons\\Spell_Fire_FireArmor",
             lines = {"Passive - Chromaggus resists the two damage schools that match his current pair of breaths (spells 22278 / 22279 / 22281)."}
         }}
@@ -692,6 +731,7 @@ local BWL_BOSSES = {
                      "On death the victim deals 6250 to 8100 damage to surrounding allies - run out before dying."}
         }, {
             name = "Tail Swipe",
+            spellId = 15847,
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
             roles = {"tank"},
@@ -701,6 +741,7 @@ local BWL_BOSSES = {
             -- CHANGED: spell 23461, from BWL combat log. "$s1" =
             -- EffectBasePoints_1 (3499) + 1 = 3500.
             name = "Flame Breath",
+            spellId = 23461,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             lines = {"Vaelastrasz breathes fire in a frontal cone for around 3500 Fire damage."}
@@ -709,6 +750,7 @@ local BWL_BOSSES = {
             -- "Deals $s1 fire damage a second"; "$s1" = EffectBasePoints_1
             -- (274) + 1 = 275; DurationIndex 28 = 5s.
             name = "Flame Aura",
+            spellId = 35301,
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
             warning = true,
             lines = {"Burns players near Vaelastrasz for around 275 Fire damage per second."}
@@ -717,16 +759,19 @@ local BWL_BOSSES = {
             -- phase 1 - spells 22665 / 22666 / 22667 / 22678 in the BWL combat
             -- log. He is untargetable; the effects still land on the raid.
             name = "Shadow Bolt Volley",
+            spellId = 22665,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
             lines = {"Lord Victor Nefarius (on the balcony) hits the raid with a volley of Shadow Bolts (spell 22665)."}
         }, {
             name = "Silence",
+            spellId = 22666,
             icon = "Interface\\Icons\\Spell_Shadow_ImpPhaseShift",
             warning = true,
             lines = {"Lord Victor Nefarius silences part of the raid (spell 22666)."}
         }, {
             name = "Shadow Command",
+            spellId = 22667,
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             warning = true,
             roles = {"dispel"},
@@ -784,6 +829,7 @@ local BWL_BOSSES = {
             -- from Spell.xlsx Description; "$s1" = EffectBasePoints_1 (-76)
             -- + 1 = -75; DurationIndex 32 = 6s.
             name = "Veil of Shadow",
+            spellId = 22687,
             icon = "Interface\\Icons\\Spell_Shadow_GatherShadows",
             warning = true,
             roles = {"healer"},
@@ -792,6 +838,7 @@ local BWL_BOSSES = {
             -- CHANGED: spell 35324, from BWL combat log. Only flavour aura text
             -- ("You become arrogant...") in Spell.xlsx.
             name = "Dragon sickness",
+            spellId = 35324,
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Black",
             warning = true,
             lines = {"A debuff (spell 35324) - 'You become arrogant...'. Real effect needs in-game testing."}
@@ -799,6 +846,7 @@ local BWL_BOSSES = {
             -- CHANGED: spell 17131, from BWL combat log - Nefarian lifts off
             -- briefly between phases / positions.
             name = "Hover",
+            spellId = 17131,
             icon = "Interface\\Icons\\Ability_Hunter_Pet_Dragonhawk",
             lines = {"Nefarian takes to the air briefly - he is untargetable and immune while hovering."}
         }},
@@ -816,6 +864,7 @@ local BWL_BOSSES = {
                 -- damage plus $s1 on an enemy, but only if attacking from
                 -- behind."
                 name = "Exploit Weakness",
+                spellId = 8355,
                 icon = "Interface\\Icons\\Ability_BackStab",
                 warning = true,
                 -- CHANGED 2026-09-30: spell 8355 in Spell.csv is level-scaled - weapon damage bonus 28-32, +3 per caster level above 10, no cap unless stated.
@@ -848,6 +897,7 @@ local BWL_TRASH_MOBS = {
         stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
             name = "Cleave",
+            spellId = 15496,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
             -- CHANGED 2026-09-30: spell 15496 in Spell.csv is level-scaled - bonus 10, +1 per caster level above 10, chain 2.
@@ -857,6 +907,7 @@ local BWL_TRASH_MOBS = {
             -- from Spell.xlsx AuraDescription: "$s1" = EffectBasePoints_1 (999)
             -- + 1 = 1000; DurationIndex 4 = 120s.
             name = "Mark of Flames",
+            spellId = 25050,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             lines = {"Marks the target, increasing the Fire damage it takes by 1000 for 2 minutes."}
@@ -996,6 +1047,7 @@ local BWL_TRASH_MOBS = {
             -- damage plus an aura "Healing effects reduced by $s2%" - "$s2" =
             -- EffectBasePoints_2 (-31) + 1 = -30; DurationIndex 7 = 5s.
             name = "Shadow Shock",
+            spellId = 35183,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
             roles = {"kick"},
@@ -1115,6 +1167,7 @@ local BWL_TRASH_MOBS = {
             -- spell 35168 (sheep, 20s - the one Grethok logs). The Spellbinder
             -- itself is not in "BWL stuff.csv", so its spell ID is assumed.
             name = "Greatest Polymorph",
+            spellId = 35168,
             icon = "Interface\\Icons\\Spell_Nature_Polymorph",
             warning = true,
             lines = {"Transforms a random raid member into a sheep for up to 20 seconds, unable to act."}
@@ -1139,6 +1192,7 @@ local BWL_TRASH_MOBS = {
             lines = {"Knocks nearby enemies back, stunning them."}
         }, {
             name = "Cleave",
+            spellId = 15284,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
             -- CHANGED 2026-09-30: spell 15284 in Spell.csv is level-scaled - bonus 10, +1 per caster level above 10, chain 3.
@@ -1159,26 +1213,31 @@ local BWL_TRASH_MOBS = {
             expanded = true,
         }, {
             name = "Brood Power: Black",
+            spellId = 22560,
             icon = "Interface\\Icons\\Spell_Shadow_CorpseExplode",
             warning = true,
             lines = {"Increases the target's damage taken by 10% for 6 seconds (spell 22560)."}
         }, {
             name = "Brood Power: Blue",
+            spellId = 22559,
             icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
             warning = true,
             lines = {"Increases the time between the target's attacks by 100% and drains mana for 6 seconds (spell 22559)."}
         }, {
             name = "Brood Power: Bronze",
+            spellId = 22291,
             icon = "Interface\\Icons\\Spell_Nature_TimeStop",
             warning = true,
             lines = {"'Caught in a sandstorm' - periodically stops time on the target for 5 seconds (spell 22291)."}
         }, {
             name = "Brood Power: Green",
+            spellId = 22561,
             icon = "Interface\\Icons\\Spell_Nature_NullifyPoison",
             warning = true,
             lines = {"Periodically stuns the target for 6 seconds (spell 22561)."}
         }, {
             name = "Brood Power: Red",
+            spellId = 22558,
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
             lines = {"Deals 5% of the target's health as damage every second for 6 seconds (spell 22558)."}

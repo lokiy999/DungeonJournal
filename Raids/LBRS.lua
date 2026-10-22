@@ -92,6 +92,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Hurls a magical bolt at an enemy, inflicting 155 to 205 Arcane damage."}
         }, {
             name = "Blast Wave",
+            spellId = 15744,
             icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 15744).
@@ -118,12 +119,14 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Cleave",
+            spellId = 15284,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             -- CHANGED 2026-09-30: spell 15284 in Spell.csv is level-scaled - bonus 10, +1 per caster level above 10.
             lines = {"Inflicts weapon damage plus 10, plus 1 per caster level above 10 (about 60 at level 60) to all enemies in front of the caster."}
         }, {
             name = "Sunder Armor",
+            spellId = 15572,
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             warning = true,
             -- CHANGED: duration confirmed from Spell.xlsx (spell ID 15572, DurationIndex 9) + SpellDuration.csv -> 30s; per-stack armor is level-scaled (see below).
@@ -144,6 +147,7 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Arcane Missiles",
+            spellId = 15791,
             icon = "Interface\\Icons\\Spell_Nature_StarFall",
             warning = true,
             -- CHANGED: merges the channel-tick rank (spell ID 15790, empty Description_enUS) with the
@@ -161,6 +165,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Teleports 1 enemy target to the caster."}
         }, {
             name = "Frost Nova",
+            spellId = 15532,
             icon = "Interface\\Icons\\Spell_Frost_FrostNova",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 15532).
@@ -176,11 +181,13 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Strike",
+            spellId = 19730,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             -- CHANGED 2026-09-30: spell 19730 in Spell.csv is level-scaled - bonus 25, +7.5 per caster level above 1.
             lines = {"Strikes at an enemy, inflicting weapon damage plus 25, plus 7.5 per caster level above 1 (about 468 at level 60)."}
         }, {
             name = "Disarm",
+            spellId = 8379,
             icon = "Interface\\Icons\\Ability_Warrior_Disarm",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 8379).
@@ -193,6 +200,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Pummels an enemy for 44 damage and interrupts the spell being cast for 5 seconds."}
         }, {
             name = "Snap Kick",
+            spellId = 15618,
             icon = "Interface\\Icons\\Ability_Kick",
             warning = true,
             -- CHANGED: duration confirmed from Spell.xlsx (spell ID 15618, DurationIndex 39) + SpellDuration.csv -> 2s; stun-damage value still left as X (raw sheet value implausibly small).
@@ -204,6 +212,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Allows one-hand and off-hand weapons to be equipped in the off-hand."}
         }, {
             name = "Recklessness",
+            spellId = 13847,
             icon = "Interface\\Icons\\Ability_CriticalStrike",
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 13847 - not reverse-engineered from raw effect codes (likely a self-buff based on the name).
             -- CHANGED 2026-09-29: from Spell.csv (spell 13847).
@@ -231,6 +240,7 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: radius confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellRadius.csv lookup - not in-game tested.
             name = "Whirlwind",
+            spellId = 34421,
             icon = "Interface\\Icons\\Ability_Whirlwind",
             warning = true,
             -- CHANGED 2026-09-30: target count is not in the spell data (spell 34421).
@@ -238,11 +248,13 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Demoralizing Shout",
+            spellId = 16244,
             icon = "Interface\\Icons\\Ability_Warrior_WarCry",
             -- CHANGED 2026-09-30: spell 16244 in Spell.csv is level-scaled - AP reduction 20, +4 per caster level above 5.
             lines = {"Reduces the melee attack power of nearby enemies by 20 plus 4 per caster level above 5 (about 240 at level 60) for 30 seconds."}
         }, {
             name = "Enrage",
+            spellId = 8269,
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 8269).
@@ -276,6 +288,7 @@ local LBRS_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell 16071) + SpellDuration.csv lookup - not in-game tested.
             name = "Curse of the Firebrand",
+            spellId = 16071,
             icon = "Interface\\Icons\\Ability_Creature_Cursed_03",
             warning = true,
             roles = {"decurse"},
@@ -293,6 +306,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Hurls a bolt of dark magic at an enemy, inflicting 192 to 258 Shadow damage."}
         }, {
             name = "Mark of Flames",
+            spellId = 15128,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 15128).
@@ -315,6 +329,7 @@ local LBRS_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell 16071) + SpellDuration.csv lookup - not in-game tested.
             name = "Curse of the Firebrand",
+            spellId = 16071,
             icon = "Interface\\Icons\\Ability_Creature_Cursed_03",
             warning = true,
             roles = {"decurse"},
@@ -322,18 +337,21 @@ local LBRS_TRASH_MOBS = {
             lines = {"Inflicts 1457 to 1843 Fire damage to an enemy every 20 seconds for 300 seconds."}
         }, {
             name = "Mark of Flames",
+            spellId = 15128,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 15128).
             lines = {"Increases the Fire damage taken by an enemy by 1000 for 5 minutes."}
         }, {
             name = "Plague Cloud",
+            spellId = 15728,
             icon = "Interface\\Icons\\Spell_Shadow_CallofBone",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 15728).
             lines = {"Reduces Strength, Agility and Intellect of all enemies within 5 yards of the target area for 4 minutes. Each stat drops by 1 plus 2 per caster level above 1 (about 119 at level 60)."}
         }, {
             name = "Howl of Terror",
+            spellId = 5484,
             icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 5484).
@@ -351,6 +369,7 @@ local LBRS_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell 8255) + SpellDuration.csv lookup - not in-game tested.
             name = "Strong Cleave",
+            spellId = 8255,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 8255).
@@ -364,16 +383,19 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 18499) + SpellDuration.csv lookup - not in-game tested.
             name = "Berserker Rage",
+            spellId = 18499,
             icon = "Interface\\Icons\\Spell_Nature_AncestralGuardian",
             lines = {"The warrior enters a berserker rage, becoming immune to Fear and Incapacitate effects and generating double amount of rage when taking damage. Lasts 10 seconds."}
         }, {
             name = "Mark of Flames",
+            spellId = 15128,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 15128).
             lines = {"Increases the Fire damage taken by an enemy by 1000 for 5 minutes."}
         }, {
             name = "Enrage",
+            spellId = 8269,
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 8269).
@@ -381,6 +403,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Increases the caster's attack speed by 60% and the Physical damage it deals by 50 plus 2 per caster level above 26 (about 118 at level 60) for 2 minutes."}
         }, {
             name = "Charge",
+            spellId = 25821,
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 25821).
@@ -388,6 +411,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Charges an enemy, inflicting weapon damage plus 1300 and stunning it for 2 seconds."}
         }, {
             name = "Retaliation",
+            spellId = 22857,
             icon = "Interface\\Icons\\Ability_Warrior_Challange",
             warning = true,
             -- CHANGED: duration confirmed from Spell.xlsx (spell ID 22857, DurationIndex 8) + SpellDuration.csv -> 15s.
@@ -401,6 +425,7 @@ local LBRS_TRASH_MOBS = {
             name = "Passives"
         }, {
             name = "Berserker Stance",
+            spellId = 2458,
             icon = "Interface\\Icons\\Ability_Racial_Avatar",
             -- CHANGED: crit chance and damage taken resolved from Spell.xlsx spell ID 7381 (the linked passive), not from in-game testing. That spell does not document a "chance of being critically hit" value, so that figure is left as X.
             -- CHANGED 2026-09-29: from Spell.csv (spell 2458).
@@ -427,12 +452,14 @@ local LBRS_TRASH_MOBS = {
             lines = {"Inflicts Fire damage to an enemy."}
         }, {
             name = "Mark of Flames",
+            spellId = 15128,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 15128).
             lines = {"Increases the Fire damage taken by an enemy by 1000 for 5 minutes."}
         }, {
             name = "Counterspell",
+            spellId = 2139,
             icon = "Interface\\Icons\\Spell_Frost_IceShock",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 2139).
@@ -440,6 +467,7 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Flamestrike",
+            spellId = 12468,
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 12468).
@@ -461,6 +489,7 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Reflection",
+            spellId = 34073,
             icon = "Interface\\Icons\\Ability_Warrior_ShieldReflection",
             -- CHANGED 2026-09-29: from Spell.csv (spell 34073).
             lines = {"Raise your shield, reflecting spell cast on you. Lasts 5 seconds, but will only reflect 1 spell."}
@@ -473,18 +502,21 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 11972) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Bash",
+            spellId = 11972,
             icon = "Interface\\Icons\\Ability_Warrior_ShieldBash",
             warning = true,
             roles = {"kick"},
             lines = {"Bashes an enemy with the caster's shield, inflicting Physical damage and interrupting the spell being cast for 8 seconds."}
         }, {
             name = "Disarm",
+            spellId = 27581,
             icon = "Interface\\Icons\\Ability_Warrior_Disarm",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 27581).
             lines = {"Disarm the enemy's weapon for 10 seconds."}
         }, {
             name = "Mark of Flames",
+            spellId = 15128,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 15128).
@@ -505,6 +537,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"A defensive combat stance that decreases damage taken by 10% and damage caused by 10%. Increases threat generated by 30%."}
         }, {
             name = "Improved Blocking",
+            spellId = 3248,
             icon = "Interface\\Icons\\Spell_Fire_FireArmor",
             -- CHANGED 2026-09-29: from Spell.csv (spell 3248).
             -- CHANGED 2026-09-30: spell 3248 in Spell.csv is level-scaled - base 55%, +0.5 per caster level above 9, no cap unless stated.
@@ -521,18 +554,21 @@ local LBRS_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Flame Shock",
+            spellId = 15096,
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 15096).
             lines = {"Instantly burns an enemy, then inflicts additional Fire damage every 3 seconds for 12 seconds."}
         }, {
             name = "Mark of Flames",
+            spellId = 15128,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 15128).
             lines = {"Increases the Fire damage taken by an enemy by 1000 for 5 minutes."}
         }, {
             name = "Blast Wave",
+            spellId = 23039,
             icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 23039).
@@ -540,6 +576,7 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 20294) + SpellDuration.csv lookup - not in-game tested.
             name = "Immolate",
+            spellId = 20294,
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 20294).
@@ -555,6 +592,7 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Shadow Word: Pain",
+            spellId = 14032,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowWordPain",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 14032).
@@ -586,6 +624,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Charges an enemy, knocking it back and inflicting weapon damage plus 150."}
         }, {
             name = "Cleave",
+            spellId = 15496,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             -- CHANGED 2026-09-30: spell 15496 in Spell.csv is level-scaled - bonus 10, +1 per caster level above 10.
@@ -593,6 +632,7 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED 2026-09-30: added from the combat log - spell 11972 in Spell.csv.
             name = "Shield Bash",
+            spellId = 11972,
             icon = "Interface\\Icons\\Ability_Warrior_ShieldBash",
             warning = true,
             lines = {"Bashes an enemy with the caster's shield, inflicting 10 Physical damage and interrupting the spell being cast for 8 seconds."}
@@ -602,6 +642,7 @@ local LBRS_TRASH_MOBS = {
             name = "Passives"
         }, {
             name = "Improved Blocking",
+            spellId = 3248,
             icon = "Interface\\Icons\\Spell_Fire_FireArmor",
             -- CHANGED 2026-09-29: from Spell.csv (spell 3248).
             -- CHANGED 2026-09-30: spell 3248 in Spell.csv is level-scaled - base 55%, +0.5 per caster level above 9, no cap unless stated.
@@ -617,6 +658,7 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Strike",
+            spellId = 11976,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             -- CHANGED 2026-09-30: spell 11976 in Spell.csv is level-scaled - bonus 5, +1.5 per caster level above 1.
             lines = {"Strikes at an enemy, inflicting weapon damage plus 5, plus 1.5 per caster level above 1 (about 94 at level 60)."}
@@ -635,6 +677,7 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Greater Polymorph",
+            spellId = 22274,
             icon = "Interface\\Icons\\Spell_Nature_Brilliance",
             warning = true,
             roles = {"dispel"},
@@ -646,17 +689,20 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED 2026-09-30: added from the combat log - spell 15122 in Spell.csv.
             name = "Counterspell",
+            spellId = 15122,
             icon = "Interface\\Icons\\Spell_Frost_IceShock",
             warning = true,
             lines = {"Counters an enemy's spell, preventing the enemy from casting that spell again for 15 seconds."}
         }, {
             name = "Frost Nova",
+            spellId = 22645,
             icon = "Interface\\Icons\\Spell_Frost_FrostNova",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 22645).
             lines = {"Inflicts 111 to 129 Frost damage to nearby enemies, immobilizing them for up to 8 seconds."}
         }, {
             name = "Resist Fire",
+            spellId = 15123,
             icon = "Interface\\Icons\\Spell_Fire_FireArmor",
             -- CHANGED 2026-09-29: from Spell.csv (spell 15123).
             lines = {"Increases an ally's Fire resistance for 2 hours. Scales with the caster's level: 2 plus 1.5 per level above 1 (about 90 at level 60)."}
@@ -667,12 +713,14 @@ local LBRS_TRASH_MOBS = {
             lines = {"Hurls a magical bolt at an enemy, inflicting 155 to 205 Arcane damage."}
         }, {
             name = "Mana Burn",
+            spellId = 15785,
             icon = "Interface\\Icons\\Spell_Shadow_ManaBurn",
             warning = true,
             -- CHANGED 2026-09-30: spell 15785, damage multiplier per mana read from the effect multiplier column (0.5, matching the player Mana Burn tooltip).
             lines = {"Hits an enemy with an anti-mana bolt, draining 363 to 401 mana; each point of mana consumed deals 0.5 Shadow damage to the target."}
         }, {
             name = "Blast Wave",
+            spellId = 13021,
             icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 13021).
@@ -695,6 +743,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Hurls a bolt of dark magic at an enemy, inflicting 145 to 177 Shadow damage."}
         }, {
             name = "Fear",
+            spellId = 6215,
             icon = "Interface\\Icons\\Spell_Shadow_Possession",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 6215).
@@ -702,6 +751,7 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED 2026-09-30: added from the combat log - spell 15125 in Spell.csv.
             name = "Scarshield Portal",
+            spellId = 15125,
             icon = "Interface\\Icons\\Spell_Arcane_PortalOrgrimmar",
             warning = true,
             lines = {"Opens a portal into the Twisting Nether that periodically summons demonic minions to aid the caster in battle for 30 seconds."}
@@ -716,6 +766,7 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Throw Axe",
+            spellId = 16075,
             icon = "Interface\\Icons\\INV_Axe_08",
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 16075 - not reverse-engineered from raw effect codes.
             -- CHANGED 2026-09-29: from Spell.csv (spell 16075).
@@ -729,6 +780,7 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 24018) + SpellDuration.csv lookup - not in-game tested.
             name = "Axe Flurry",
+            spellId = 24018,
             icon = "Interface\\Icons\\INV_Axe_06",
             lines = {"Attacks nearby enemies in a flurry of axes that lasts 10 seconds."}
         }, {
@@ -750,11 +802,13 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Sweeping Strikes",
+            spellId = 12723,
             icon = "Interface\\Icons\\Ability_Rogue_SliceDice",
             -- CHANGED 2026-09-30: swing count is not in the spell data (spell 12723).
             lines = {"Its next melee weapon swings strike an additional nearby opponent."}
         }, {
             name = "Strike",
+            spellId = 13446,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             -- CHANGED 2026-09-30: spell 13446 in Spell.csv is level-scaled - bonus 8, +2.25 per caster level above 1.
             lines = {"Strikes at an enemy, inflicting weapon damage plus 8, plus 2.25 per caster level above 1 (about 141 at level 60)."}
@@ -765,6 +819,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Inflicts weapon damage plus 950 to 1050 to an enemy, knocking it back."}
         }, {
             name = "War Stomp",
+            spellId = 11876,
             icon = "Interface\\Icons\\Ability_BullRush",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 11876).
@@ -777,6 +832,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Inflicts weapon damage plus 30 to nearby enemies and knocks them back."}
         }, {
             name = "Enrage",
+            spellId = 8269,
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 8269).
@@ -793,6 +849,7 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Impale",
+            spellId = 16001,
             icon = "Interface\\Icons\\Ability_Throw",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 16001).
@@ -820,20 +877,24 @@ local LBRS_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell 4979) + SpellDuration.csv lookup - not in-game tested.
             name = "Quick Flame Ward",
+            spellId = 4979,
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
             lines = {"Renders an ally immune to Fire spells for 10 seconds."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 8177) + SpellDuration.csv lookup - not in-game tested.
             name = "Grounding Totem",
+            spellId = 8177,
             icon = "Interface\\Icons\\Spell_Nature_GroundingTotem",
             lines = {"Summons a Grounding Totem with 5 health at the feet of the caster that will redirect one harmful spell cast on a nearby party member to itself every 40 seconds. Will not redirect area of effect spells. Lasts 40 seconds."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 4980) + SpellDuration.csv lookup - not in-game tested.
             name = "Quick Frost Ward",
+            spellId = 4980,
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
             lines = {"Renders an ally immune to Frost spells for 10 seconds."}
         }, {
             name = "Earth Shock",
+            spellId = 24685,
             icon = "Interface\\Icons\\Spell_Nature_EarthShock",
             warning = true,
             roles = {"kick"},
@@ -841,6 +902,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Shocks an enemy with concussive force, inflicting Nature damage and interrupting the spell being cast for 4 seconds."}
         }, {
             name = "Chain Heal",
+            spellId = 15799,
             icon = "Interface\\Icons\\Spell_Nature_HealingWaveGreater",
             roles = {"tank"},
             -- CHANGED 2026-09-29: from Spell.csv (spell 15799).
@@ -856,6 +918,7 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Lightning Shield",
+            spellId = 13585,
             icon = "Interface\\Icons\\Spell_Nature_LightningShield",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 13585).
@@ -871,12 +934,14 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Sinister Strike",
+            spellId = 15581,
             icon = "Interface\\Icons\\Spell_Shadow_RitualOfSacrifice",
             -- CHANGED 2026-09-30: spell 15581 in Spell.csv is level-scaled - bonus 3, +3.6 per caster level above 20.
             lines = {"Inflicts weapon damage plus 3, plus 3.6 per caster level above 20 (about 147 at level 60) to an enemy."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Kick",
+            spellId = 15614,
             icon = "Interface\\Icons\\Ability_Kick",
             warning = true,
             roles = {"kick"},
@@ -884,6 +949,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Kicks an enemy for 4 damage plus 2 per caster level above 20 (about 84 at level 60), interrupting the spell being cast for 6 seconds."}
         }, {
             name = "Gouge",
+            spellId = 12540,
             icon = "Interface\\Icons\\Ability_Gouge",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 12540).
@@ -891,11 +957,13 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 21060) + SpellDuration.csv lookup - not in-game tested.
             name = "Blind",
+            spellId = 21060,
             icon = "Interface\\Icons\\Spell_Shadow_MindSteal",
             warning = true,
             lines = {"Blinds the target and its nearby allies, causing them to wander confused for up to 10 seconds."}
         }, {
             name = "Eviscerate",
+            spellId = 15691,
             icon = "Interface\\Icons\\Ability_Rogue_Eviscerate",
             warning = true,
             -- CHANGED 2026-09-30: spell 15691 in Spell.csv is level-scaled - damage 1, +50 per caster level above 1.
@@ -915,6 +983,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Dispels magic on the target, removing 1 harmful spell from an ally or 1 beneficial spell from an enemy."}
         }, {
             name = "Hex",
+            spellId = 11641,
             icon = "Interface\\Icons\\Spell_Nature_Polymorph",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 11641).
@@ -925,6 +994,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Assumes a Shadowform, increasing Shadow damage dealt by 40% and reducing melee damage taken by 40%. Shadowform lasts until cancelled."}
         }, {
             name = "Silence",
+            spellId = 18327,
             icon = "Interface\\Icons\\Spell_Holy_Silence",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 18327).
@@ -938,6 +1008,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Assault the target's mind with Shadow energy, causing 180 Shadow damage over 5 seconds and slowing their movement speed by 50%."}
         }, {
             name = "Mana Burn",
+            spellId = 15800,
             icon = "Interface\\Icons\\Spell_Shadow_ManaBurn",
             warning = true,
             -- CHANGED 2026-09-30: spell 15800, damage multiplier per mana read from the effect multiplier column (1).
@@ -954,12 +1025,14 @@ local LBRS_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell 15867) + SpellDuration.csv lookup - not in-game tested.
             name = "Flame Buffet Totem",
+            spellId = 15867,
             icon = "Interface\\Icons\\Spell_Fire_SearingTotem",
             warning = true,
             lines = {"Summons a Flame Buffet Totem at the caster's feet. Totem lasts for 35 seconds. and attacks an enemy every 2 sec."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 15869) + SpellDuration.csv lookup - not in-game tested.
             name = "Superior Healing Ward",
+            spellId = 15869,
             icon = "Interface\\Icons\\Spell_Holy_LayOnHands",
             lines = {"Summons a ward that lasts 30 seconds. and periodically heals allies in an area around it."}
         }}
@@ -982,17 +1055,20 @@ local LBRS_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell 16104) + SpellDuration.csv lookup - not in-game tested.
             name = "Crystallize",
+            spellId = 16104,
             icon = "Interface\\Icons\\Spell_Shadow_Teleport",
             warning = true,
             lines = {"Stuns enemies in a cone in front of the caster, rendering them unable to move or attack for 6 seconds."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 3609) + SpellDuration.csv lookup - not in-game tested.
             name = "Paralyzing Poison",
+            spellId = 3609,
             icon = "Interface\\Icons\\Ability_PoisonSting",
             warning = true,
             lines = {"Stuns an enemy, rendering it unable to move or attack for 8 seconds."}
         }, {
             name = "Summon Spire Spiderling",
+            spellId = 16103,
             icon = "Interface\\Icons\\Spell_Frost_FrostShock",
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 16103 - not reverse-engineered from raw effect codes.
             -- CHANGED 2026-09-29: from Spell.csv (spell 16103).
@@ -1030,6 +1106,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Instantly sears the target with fire, causing 320 Fire damage immediately and 90 Fire damage over 15 seconds."}
         }, {
             name = "Tremor Totem",
+            spellId = 8143,
             icon = "Interface\\Icons\\Spell_Nature_TremorTotem",
             roles = {"shaman"},
             -- CHANGED 2026-09-29: from Spell.csv (spell 8143).
@@ -1042,6 +1119,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Inflicts Frost damage to an enemy and reduces its movement speed for 8 seconds."}
         }, {
             name = "Blast Wave",
+            spellId = 13021,
             icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 13021).
@@ -1049,11 +1127,13 @@ local LBRS_TRASH_MOBS = {
             lines = {"A wave of flame radiates outward from the caster, damaging all enemies caught within the blast for 462 to 544 Fire damage (plus 1.9 per caster level above 60, up to level 66) and dazing them for 6 seconds."}
         }, {
             name = "Bloodlust",
+            spellId = 16170,
             icon = "Interface\\Icons\\Spell_Nature_BloodLust",
             -- CHANGED 2026-09-29: from Spell.csv (spell 16170).
             lines = {"Increases an ally's attack speed by 60% for 30 seconds."}
         }, {
             name = "Chain Lightning",
+            spellId = 15305,
             icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 15305).
@@ -1061,6 +1141,7 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Fire Nova Totem",
+            spellId = 11315,
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 11315).
@@ -1076,6 +1157,7 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Cleave",
+            spellId = 15496,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             -- CHANGED 2026-09-30: spell 15496 in Spell.csv is level-scaled - bonus 10, +1 per caster level above 10.
@@ -1092,6 +1174,7 @@ local LBRS_TRASH_MOBS = {
             name = "Passives"
         }, {
             name = "Berserker Stance",
+            spellId = 2458,
             icon = "Interface\\Icons\\Ability_Racial_Avatar",
             -- CHANGED: "chance of being critically hit" resolved from Spell.xlsx spell ID 35490 (the linked passive), not from in-game testing. That spell's other two effect slots are undocumented in its description text, so crit chance and damage taken are left as X.
             -- CHANGED 2026-09-29: from Spell.csv (spell 2458).
@@ -1108,18 +1191,21 @@ local LBRS_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Rejuvenation",
+            spellId = 15981,
             icon = "Interface\\Icons\\Spell_Nature_Rejuvenation",
             roles = {"tank"},
             -- CHANGED 2026-09-29: from Spell.csv (spell 15981).
             lines = {"Heals an ally every 3 seconds for 12 seconds."}
         }, {
             name = "Chain Lightning",
+            spellId = 15659,
             icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 15659).
             lines = {"Strikes an enemy with a lightning bolt that arcs to another nearby enemy. The spell affects up to 3 targets, causing Nature damage to each."}
         }, {
             name = "Forked Lightning",
+            spellId = 8435,
             icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 8435).
@@ -1135,6 +1221,7 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Slow",
+            spellId = 13747,
             icon = "Interface\\Icons\\Spell_Nature_Slow",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 13747).
@@ -1146,6 +1233,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Hurls magic at nearby enemies, inflicting Arcane damage."}
         }, {
             name = "Bloodlust",
+            spellId = 6742,
             icon = "Interface\\Icons\\Spell_Nature_BloodLust",
             -- CHANGED 2026-09-29: from Spell.csv (spell 6742).
             lines = {"Increases an ally's attack speed by 30% for 30 seconds."}
@@ -1161,18 +1249,21 @@ local LBRS_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: radius confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellRadius.csv lookup - not in-game tested.
             name = "Whirlwind",
+            spellId = 34421,
             icon = "Interface\\Icons\\Ability_Whirlwind",
             warning = true,
             -- CHANGED 2026-09-30: target count is not in the spell data (spell 34421).
             lines = {"In a whirlwind of steel you attack nearby enemies within 8 yards, causing weapon damage to each enemy."}
         }, {
             name = "Cleave",
+            spellId = 15284,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             -- CHANGED 2026-09-30: spell 15284 in Spell.csv is level-scaled - bonus 10, +1 per caster level above 10.
             lines = {"Inflicts weapon damage plus 10, plus 1 per caster level above 10 (about 60 at level 60) to all enemies in front of the caster."}
         }, {
             name = "War Stomp",
+            spellId = 11876,
             icon = "Interface\\Icons\\Ability_BullRush",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 11876).
@@ -1193,17 +1284,20 @@ local LBRS_TRASH_MOBS = {
             lines = {"Dispels 1 polymorph, charm, or knockout effect from nearby allies."}
         }, {
             name = "Haste",
+            spellId = 13533,
             icon = "Interface\\Icons\\Spell_Nature_Invisibilty",
             -- CHANGED 2026-09-29: from Spell.csv (spell 13533).
             lines = {"Increases your attack speed by 30% for 10 seconds."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Demoralizing Shout",
+            spellId = 23511,
             icon = "Interface\\Icons\\Ability_Warrior_WarCry",
             -- CHANGED 2026-09-30: spell 23511 in Spell.csv is level-scaled - AP reduction 40, +10 per caster level above 5.
             lines = {"Reduces the attack power of nearby enemies by 40 plus 10 per caster level above 5 (about 590 at level 60) for 30 seconds."}
         }, {
             name = "Enrage",
+            spellId = 8269,
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 8269).
@@ -1235,6 +1329,7 @@ local LBRS_BOSSES = {
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
         abilities = {{
             name = "Sunder Armor",
+            spellId = 24317,
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 24317).
@@ -1246,6 +1341,7 @@ local LBRS_BOSSES = {
             lines = {"Inflicts weapon damage plus 30 to nearby enemies and knocks them back."}
         }, {
             name = "Stormstrike",
+            spellId = 17364,
             icon = "Interface\\Icons\\Spell_Holy_SealOfMight",
             warning = true,
             -- CHANGED: merges the off-hand companion cast (spell ID 34592, Description_enUS is just "OH")
@@ -1254,24 +1350,28 @@ local LBRS_BOSSES = {
             lines = {"Instantly attack with both weapons. In addition, Nature damage taken by the target is increased by 10%. Lasts 10 seconds."}
         }, {
             name = "Strike",
+            spellId = 18368,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             -- CHANGED 2026-09-30: spell 18368 in Spell.csv is level-scaled - bonus 15, +4.5 per caster level above 1.
             lines = {"Strikes at an enemy, inflicting weapon damage plus 15, plus 4.5 per caster level above 1 (about 281 at level 60)."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Vicious Rend",
+            spellId = 14331,
             icon = "Interface\\Icons\\Ability_Gouge",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 14331).
             lines = {"Inflicts Physical damage to an enemy every 3 seconds for 15 seconds."}
         }, {
             name = "Slow",
+            spellId = 22356,
             icon = "Interface\\Icons\\Spell_Nature_GroundingTotem",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 22356).
             lines = {"Increases the time between nearby enemies' attacks by 54%, their casting speed 54% and slows their movement by 60% for 10 seconds."}
         }, {
             name = "War Stomp",
+            spellId = 24375,
             icon = "Interface\\Icons\\Ability_BullRush",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 24375).
@@ -1287,17 +1387,20 @@ local LBRS_BOSSES = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell 34420) + SpellDuration.csv lookup - not in-game tested.
             name = "Lingering Death",
+            spellId = 34420,
             icon = "Interface\\Icons\\Ability_Gouge",
             warning = true,
             lines = {"Wounds the target causing them to bleed for 50 damage over 120 seconds."}
         }, {
             name = "Cleave",
+            spellId = 20691,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 20691).
             lines = {"Inflicts weapon damage to an enemy and its nearest allies, affecting up to 5 targets."}
         }, {
             name = "Hex",
+            spellId = 16708,
             icon = "Interface\\Icons\\Spell_Nature_Polymorph",
             warning = true,
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 16708 - not reverse-engineered from raw effect codes.
@@ -1320,6 +1423,7 @@ local LBRS_BOSSES = {
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
         abilities = {{
             name = "Throw Axe",
+            spellId = 16075,
             icon = "Interface\\Icons\\INV_Axe_08",
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 16075 - not reverse-engineered from raw effect codes.
             -- CHANGED 2026-09-29: from Spell.csv (spell 16075).
@@ -1333,6 +1437,7 @@ local LBRS_BOSSES = {
         }, {
             -- CHANGED: radius confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellRadius.csv lookup - not in-game tested.
             name = "Whirlwind",
+            spellId = 34421,
             icon = "Interface\\Icons\\Ability_Whirlwind",
             warning = true,
             -- CHANGED 2026-09-30: target count is not in the spell data (spell 34421).
@@ -1340,6 +1445,7 @@ local LBRS_BOSSES = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 19134) + SpellDuration.csv lookup - not in-game tested.
             name = "Intimidating Shout",
+            spellId = 19134,
             icon = "Interface\\Icons\\Ability_GolemThunderClap",
             warning = true,
             lines = {"Shouts at an enemy, paralyzing it with terror for 8 seconds and causing all other nearby enemies to flee in fear."}
@@ -1363,6 +1469,7 @@ local LBRS_BOSSES = {
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
         abilities = {{
             name = "Intoxication",
+            spellId = 34422,
             icon = "Interface\\Icons\\Ability_Poisons",
             warning = true,
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 34422 - not reverse-engineered from raw effect codes.
@@ -1370,6 +1477,7 @@ local LBRS_BOSSES = {
             lines = {"After 5 seconds, deals 1750 to 2500 Nature damage to the target and enemies within 8 yards."}
         }, {
             name = "Summon Spire Spiderling",
+            spellId = 16103,
             icon = "Interface\\Icons\\Spell_Frost_FrostShock",
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 16103 - not reverse-engineered from raw effect codes.
             -- CHANGED 2026-09-29: from Spell.csv (spell 16103).
@@ -1382,6 +1490,7 @@ local LBRS_BOSSES = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 16104) + SpellDuration.csv lookup - not in-game tested.
             name = "Crystallize",
+            spellId = 16104,
             icon = "Interface\\Icons\\Spell_Shadow_Teleport",
             warning = true,
             lines = {"Stuns enemies in a cone in front of the caster, rendering them unable to move or attack for 6 seconds."}
@@ -1408,6 +1517,7 @@ local LBRS_BOSSES = {
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
         abilities = {{
             name = "Stun Bomb",
+            spellId = 16497,
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 16497).
@@ -1415,6 +1525,7 @@ local LBRS_BOSSES = {
             lines = {"Hurls a stun bomb, inflicting weapon damage plus 1 plus 1.5 per caster level above 1 (about 90 at level 60) to all enemies in a selected area and stunning them for 5 seconds."}
         }, {
             name = "Gas Bomb",
+            spellId = 8901,
             icon = "Interface\\Icons\\INV_Misc_Ammo_Bullet_01",
             warning = true,
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 8901 - not reverse-engineered from raw effect codes.
@@ -1441,6 +1552,7 @@ local LBRS_BOSSES = {
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
         abilities = {{
             name = "Mighty Blow",
+            spellId = 14099,
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             warning = true,
             -- CHANGED 2026-09-30: spell 14099 in Spell.csv is level-scaled - bonus 25, +2 per caster level above 20.
@@ -1448,11 +1560,13 @@ local LBRS_BOSSES = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 8715) + SpellDuration.csv lookup - not in-game tested.
             name = "Terrifying Howl",
+            spellId = 8715,
             icon = "Interface\\Icons\\Ability_Devour",
             warning = true,
             lines = {"Causes nearby enemies to flee in fear for 3 seconds."}
         }, {
             name = "Frenzy",
+            spellId = 28371,
             icon = "Interface\\Icons\\Ability_Druid_ChallangingRoar",
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 28371 - not reverse-engineered from raw effect codes.
             -- CHANGED 2026-09-29: from Spell.csv (spell 28371).
@@ -1460,6 +1574,7 @@ local LBRS_BOSSES = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 10887) + SpellDuration.csv lookup - not in-game tested.
             name = "Crowd Pummel",
+            spellId = 10887,
             icon = "Interface\\Icons\\INV_Gauntlets_04",
             warning = true,
             lines = {"Pummels nearby enemies for weapon damage plus 10 and interrupts any spell being cast 75% of the time for 5 seconds."}
@@ -1474,6 +1589,7 @@ local LBRS_BOSSES = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Infected Bite",
+            spellId = 16128,
             icon = "Interface\\Icons\\Spell_Shadow_CallofBone",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 16128).
@@ -1486,12 +1602,14 @@ local LBRS_BOSSES = {
             lines = {"Inflicts weapon damage plus 30 to an enemy and knocks it back."}
         }, {
             name = "Frenzy",
+            spellId = 28371,
             icon = "Interface\\Icons\\Ability_Druid_ChallangingRoar",
             -- CHANGED: Description_enUS empty in Spell.xlsx for spell ID 28371 - not reverse-engineered from raw effect codes.
             -- CHANGED 2026-09-29: from Spell.csv (spell 28371).
             lines = {"Increases attack speed by 100%, damage dealt by 50% and size by 25% for 12 seconds."}
         }, {
             name = "Enrage",
+            spellId = 8269,
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 8269).
@@ -1508,17 +1626,20 @@ local LBRS_BOSSES = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell 20229) + SpellDuration.csv lookup - not in-game tested.
             name = "Blast Wave",
+            spellId = 20229,
             icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
             warning = true,
             lines = {"Inflicts 994 to 1406 Fire damage to nearby enemies and reduces their movement speed by 50% for 12 seconds."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Demoralizing Shout",
+            spellId = 23511,
             icon = "Interface\\Icons\\Ability_Warrior_WarCry",
             -- CHANGED 2026-09-30: spell 23511 in Spell.csv is level-scaled - AP reduction 40, +10 per caster level above 5.
             lines = {"Reduces the attack power of nearby enemies by 40 plus 10 per caster level above 5 (about 590 at level 60) for 30 seconds."}
         }, {
             name = "Disarm",
+            spellId = 13534,
             icon = "Interface\\Icons\\Ability_Warrior_Disarm",
             warning = true,
             -- CHANGED 2026-09-29: from Spell.csv (spell 13534).
@@ -1526,6 +1647,7 @@ local LBRS_BOSSES = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell 34424) + SpellDuration.csv lookup - not in-game tested.
             name = "Brutal Knockout",
+            spellId = 34424,
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             warning = true,
             lines = {"Inflicts weapon damage plus 500 to an enemy, reducing healing taken by 100% and stunning it for 8 seconds."}

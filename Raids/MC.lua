@@ -75,6 +75,7 @@ local MC_BOSSES = {
             lines = {"This ability inflicts 2000 Shadow damage to the target after 10 seconds."}
         }, {
             name = "Shadow Shock",
+            spellId = 19460,
             icon = "Interface\\Icons\\spell_shadow_shadowbolt",
             roles = {},
             color = "ffff7d0a",
@@ -127,6 +128,7 @@ local MC_BOSSES = {
         }, {
             -- CHANGED 2026-09-30: added from the combat log - spell 19428 in Spell.csv.
             name = "Conflagration",
+            spellId = 19428,
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             warning = true,
             lines = {"Burns enemies within 5 yards for 500 Fire damage every second for 8 seconds."}
@@ -172,6 +174,7 @@ local MC_BOSSES = {
             lines = {"Gehennas curses all players, reducing the effectiveness of healing spells cast on them by 75% for 60 seconds."}
         }, {
             name = "Shadow Bolt",
+            spellId = 19728,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             roles = {"kick"},
             -- CHANGED 2026-09-30: spell 19728 in Spell.csv - 3350-4250 Shadow (data wins over the old 2250-2750).
@@ -179,6 +182,7 @@ local MC_BOSSES = {
         }, {
             -- CHANGED 2026-09-30: added from the combat log - spell 19729 in Spell.csv.
             name = "Shadow Shock",
+            spellId = 19729,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
             lines = {"Hurls a bolt of dark magic at an enemy, inflicting 3250 to 4050 Shadow damage."}
@@ -200,6 +204,7 @@ local MC_BOSSES = {
                 -- spell level 1 (no max-level cap), i.e. 8 * (level - 1) per
                 -- stack; about 472 at level 60. 5 stacks, 30s.
                 name = "Sunder Armor",
+                spellId = 15502,
                 icon = "Interface\\Icons\\ability_warrior_sunder",
                 roles = {"tank"},
                 lines = {"Hacks at nearby enemies, reducing their armor by 8 per level of the caster per stack (about 472 at level 60). Stacks up to 5 times. Lasts 30 sec."}
@@ -225,6 +230,7 @@ local MC_BOSSES = {
         }, {
             -- CHANGED 2026-09-30: added from the combat log - spell 19516 in Spell.csv.
             name = "Enrage",
+            spellId = 19516,
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             lines = {"Increases attack speed by 10% and size by 5%, and reduces its own armor by 300. Stacks up to 10 times. Lasts 30 minutes."}
         }, {
@@ -256,6 +262,7 @@ local MC_BOSSES = {
                 -- CHANGED: spell 19497 ("MC FULL.csv"). "$s1" =
                 -- EffectBasePoints_1 (2349) + 1.
                 name = "Eruption",
+                spellId = 19497,
                 icon = "Interface\\Icons\\spell_fire_fire",
                 roles = {"tank", "dps"},
                 warning = true,
@@ -269,6 +276,7 @@ local MC_BOSSES = {
                 -- EffectBasePoints_1 (299) + 1 = 300; the distance threshold
                 -- is not in Spell.xlsx.
                 name = "Separation Anxiety",
+                spellId = 23492,
                 icon = "Interface\\Icons\\spell_fire_volcano",
                 lines = {"Firesworn deal 300% additional damage while more than a short distance from Garr - keep them stacked on him."}
             }}
@@ -287,6 +295,7 @@ local MC_BOSSES = {
             lines = {"Baron Geddon throws a bomb at a random raid member. After 6 sec. the bomb explodes, inflicting 3800 to 4300 Fire damage to the target and its nearby allies."}
         }, {
             name = "Spreading Flames",
+            spellId = 34471,
             icon = "Interface\\Icons\\spell_fire_selfdestruct",
             roles = { "dps", "healer" },
             warning = true,
@@ -298,6 +307,7 @@ local MC_BOSSES = {
             lines = {"Baron Geddon ignites a player; after 6 seconds it detonates for 32000 Fire damage, split evenly among that player and everyone within 10 yards."},
             abilities = {{
                 name = "Molten Ground",
+                spellId = 34731,
                 icon = "Interface\\Icons\\spell_fire_selfdestruct",
                 -- CHANGED: tick interval/damage from Spell.csv spell 34731 (Molten Ground): 1000ms tick, 450 per tick, 120000ms duration.
                 lines = {"Spreading Flames leaves Molten Ground on the floor for 2 minutes, dealing 54000 Fire damage over 2 minutes to anyone standing in it (450 Fire damage every 1 second)."}
@@ -337,6 +347,7 @@ local MC_BOSSES = {
             lines = {"Sends out a blast wave of magic, inflicting 925 to 1400 Arcane damage to nearby enemies."}
         }, {
             name = "Arcane Volley",
+            spellId = 34469,
             icon = "Interface\\Icons\\spell_nature_starfall",
             roles = {"ranged"},
             -- CHANGED: spells 34469 (the volley) + 34470 (the "Detonation"
@@ -367,6 +378,7 @@ local MC_BOSSES = {
         }, {
             -- CHANGED 2026-09-30: added from the combat log - spell 10058 in Spell.csv.
             name = "Replenish Mana",
+            spellId = 10058,
             icon = "Interface\\Icons\\Spell_Magic_ManaGain",
             lines = {"Restores 1000 to 1200 mana. 60 second cooldown."}
         }, {
@@ -474,12 +486,14 @@ local MC_BOSSES = {
         }, {
             -- CHANGED 2026-09-30: added from the combat log - spell 19778 in Spell.csv.
             name = "Demoralizing Shout",
+            spellId = 19778,
             icon = "Interface\\Icons\\Ability_Warrior_WarCry",
             warning = true,
             lines = {"Reduces the melee and ranged attack power of enemies within 45 yards by 300 for 30 seconds. Which stance uses it is unconfirmed."}
         }, {
             -- CHANGED 2026-09-30: added from the combat log - spell 13847 in Spell.csv.
             name = "Recklessness",
+            spellId = 13847,
             icon = "Interface\\Icons\\Ability_CriticalStrike",
             warning = true,
             lines = {"Increases the caster's critical strike chance by 100% and reduces its resistances by 35% for 15 seconds. Also grants an immunity (aura 38) - X, which one is unconfirmed. Which stance uses it is unconfirmed."}
@@ -532,6 +546,7 @@ local MC_BOSSES = {
             lines = {"Reduces Physical and magical damage taken by 75% for 20 seconds."}
         }, {
             name = "Sunder Armor",
+            spellId = 27991,
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             roles = {"tank"},
             -- CHANGED 2026-09-30: spell 27991 in Spell.csv is level-scaled - base 48, +48 armor per caster level above 1, no cap.
@@ -559,6 +574,7 @@ local MC_BOSSES = {
                 -- 49999 + 1 = 50000 absorb, "$s2" = 474 + 1 = 475 to melee
                 -- attackers; DurationIndex 9 = 30s.
                 name = "Shadow Shield",
+                spellId = 34788,
                 icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
                 warning = true,
                 roles = {"kick"},
@@ -568,6 +584,7 @@ local MC_BOSSES = {
                 -- (spell 19775), same as the Flamewaker Healer. "$s1" =
                 -- 127749 + 1.
                 name = "Dark Mending",
+                spellId = 19775,
                 icon = "Interface\\Icons\\spell_shadow_chilltouch",
                 warning = true,
                 roles = {"kick"},
@@ -576,6 +593,7 @@ local MC_BOSSES = {
                 -- CHANGED: spell 19776 ("MC FULL.csv"). "$s1" = 143 + 1 = 144
                 -- per tick; DurationIndex 85 = 18s.
                 name = "Shadow Word: Pain",
+                spellId = 19776,
                 icon = "Interface\\Icons\\Spell_Shadow_ShadowWordPain",
                 roles = {"dispel"},
                 lines = {"Afflicts an enemy with a Shadow damage-over-time effect dealing about 144 damage per tick for 18 seconds."}
@@ -707,6 +725,7 @@ local MC_BOSSES = {
             -- Knock Back effect, radius index 9 = 20 yards. "MC FULL.csv"
             -- logs it under the "Flame of Ragnaros" NPC; timing still unknown.
             name = "Intense Heat",
+            spellId = 21155,
             icon = "Interface\\Icons\\spell_fire_fire",
             warning = true,
             lines = {"Deals 2000 Fire damage to enemies within 20 yards and knocks them back. How often it happens is not known yet."}
@@ -716,6 +735,7 @@ local MC_BOSSES = {
             name = "Passives"
         }, {
             name = "Melt Weapon",
+            spellId = 21388,
             icon = "Interface\\Icons\\spell_fire_meteorstorm",
             roles = {"melee"},
             -- CHANGED: spell 21388. Spell.xlsx has no numbers; user: 25% proc
@@ -905,6 +925,7 @@ local MC_TRASH_MOBS = {
         }, {
             -- CHANGED 2026-09-30: added from the combat log - spell 19372 in Spell.csv.
             name = "Ancient Hysteria",
+            spellId = 19372,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowWordDominate",
             warning = true,
             lines = {"Curses enemies within 45 yards, increasing the cost of their spells and abilities by 100% for 15 minutes."}
@@ -1003,6 +1024,7 @@ local MC_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: confirmed via testing - plus 30.
             name = "Strike",
+            spellId = 19644,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             roles = {"tank"},
             -- CHANGED 2026-09-30: spell 19644 in Spell.csv is level-scaled - bonus 30, +9 per caster level above 1.
@@ -1034,6 +1056,7 @@ local MC_TRASH_MOBS = {
         }, {
             -- CHANGED 2026-09-30: added from the combat log - spell 12970 in Spell.csv.
             name = "Flurry",
+            spellId = 12970,
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             lines = {"Increases attack speed by 25% for 8 seconds."}
         }, {
@@ -1064,6 +1087,7 @@ local MC_TRASH_MOBS = {
             -- CHANGED: spell 20602 ("MC FULL.csv"). "$s1" = EffectBasePoints_1
             -- (147) + 1 = 148.
             name = "Fire Nova",
+            spellId = 20602,
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
             warning = true,
             lines = {"Inflicts around 148 Fire damage to nearby enemies."}
