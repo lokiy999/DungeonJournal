@@ -493,6 +493,19 @@ boss adds / non-pulls. Remaining gaps:
 - Icons and mob-level (portrait) icons were picked reasonably from each
   mob's own real abilities, not verified in-game.
 
+### Scarlet Diviner Prophecy trigger lines (2026-10-23)
+
+Lokiy's list of spoken lines covers 29 of the 30 Prophecies in Spell.csv
+(36175-36204). Added the 11 lines the cards were missing (Alacrity,
+Cinderborn, Execution, Exposure, Helpless, Momentum, Sanctified, Shared
+Fate, Undying, Unfettered, Untouchable) and confirmed Weakness's line
+(was marked as a guess). **Spellward** had Untouchable's line ("You walk
+between the rain."); now "All Magic will fail against you."
+
+Still open:
+- **Doomed** - trigger line unknown, to be found in-game.
+- Doppelganger / Instability - real effect unknown (see above).
+
 ### Passive-trait classification pass (2026-08-29)
 
 New `passive = true` separator support (see AGENTS.md "Passive heading" /

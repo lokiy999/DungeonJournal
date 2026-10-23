@@ -720,8 +720,8 @@ local SM_TRASH_MOBS = {
         -- Instability remain genuinely vague ("Mirrored Presence." / "Fate
         -- remains unknown.") even in AuraDescription_enUS - real effect still
         -- needs external research.
-        -- Prophecy trigger lines: some quotes real (from user), the rest still
-        -- need to be found/tested in-game.
+        -- Prophecy trigger lines: all quotes real (from user, 2026-10-23 list
+        -- covers 29 of 30); only Doomed's line is still unknown.
         abilities = {{
             name = "Cast Prophecy",
             icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
@@ -739,7 +739,7 @@ local SM_TRASH_MOBS = {
             name = "Prophecy: Alacrity",
             icon = "Interface\\Icons\\Ability_Warrior_InnerRage",
             warning = true,
-            lines = {"Attack speed increased by 200%, movement speed increased by 50%. Spells are instant."}
+            lines = {"Attack speed increased by 200%, movement speed increased by 50%. Spells are instant.", "Trigger line: \"Time bends to your stride.\""}
         }, {
             name = "Prophecy: At the Edge",
             icon = "Interface\\Icons\\Racial_Troll_Berserk",
@@ -752,7 +752,7 @@ local SM_TRASH_MOBS = {
         }, {
             name = "Prophecy: Cinderborn",
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
-            lines = {"Immune to Fire damage."}
+            lines = {"Immune to Fire damage.", "Trigger line: \"You walk the fire unscathed.\""}
         }, {
             name = "Prophecy: Cripple",
             icon = "Interface\\Icons\\Spell_Shadow_Cripple",
@@ -760,7 +760,7 @@ local SM_TRASH_MOBS = {
         }, {
             name = "Prophecy: Doomed",
             icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
-            lines = {"Damage taken increased by 300%."}
+            lines = {"Damage taken increased by 300%.", "Trigger line: unknown - to be found/tested."}
         }, {
             name = "Prophecy: Doppelganger",
             spellId = 36199,
@@ -778,11 +778,11 @@ local SM_TRASH_MOBS = {
             name = "Prophecy: Execution",
             icon = "Interface\\Icons\\INV_Sword_48",
             warning = true,
-            lines = {"Deals 5x damage to targets below 50% HP."}
+            lines = {"Deals 5x damage to targets below 50% HP.", "Trigger line: \"Your scythe reaps them all.\""}
         }, {
             name = "Prophecy: Exposure",
             icon = "Interface\\Icons\\Ability_Hunter_SniperShot",
-            lines = {"Damage taken increased by 20%. Cannot turn invisible."}
+            lines = {"Damage taken increased by 20%. Cannot turn invisible.", "Trigger line: \"You are a beacon for their malice.\""}
         }, {
             name = "Prophecy: Gloom",
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
@@ -794,7 +794,7 @@ local SM_TRASH_MOBS = {
         }, {
             name = "Prophecy: Helpless",
             icon = "Interface\\Icons\\Spell_Nature_RemoveCurse",
-            lines = {"Healing taken reduced by 100%."}
+            lines = {"Healing taken reduced by 100%.", "Trigger line: \"No one will save you.\""}
         }, {
             name = "Prophecy: Instability",
             icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
@@ -811,7 +811,7 @@ local SM_TRASH_MOBS = {
             name = "Prophecy: Momentum",
             icon = "Interface\\Icons\\Spell_Shadow_DeathPact",
             warning = true,
-            lines = {"Next attack's damage increased by 500%."}
+            lines = {"Next attack's damage increased by 500%.", "Trigger line: \"Your first blow will decide all.\""}
         }, {
             name = "Prophecy: Negation",
             icon = "Interface\\Icons\\Ability_BackStab",
@@ -824,15 +824,17 @@ local SM_TRASH_MOBS = {
         }, {
             name = "Prophecy: Sanctified",
             icon = "Interface\\Icons\\Spell_Holy_PrayerOfHealing02",
-            lines = {"Immune to Holy damage."}
+            lines = {"Immune to Holy damage.", "Trigger line: \"The Light will not sear you.\""}
         }, {
             name = "Prophecy: Shared Fate",
             icon = "Interface\\Icons\\SpiritLink",
-            lines = {"Shares damage taken with nearby allies."}
+            lines = {"Shares damage taken with nearby allies.", "Trigger line: \"Your fate is not yours alone.\""}
         }, {
             name = "Prophecy: Spellward",
             icon = "Interface\\Icons\\INV_Ore_Arcanite_01",
-            lines = {"Immune to Spell damage.", "Trigger line: \"You walk between the rain.\""}
+            -- CHANGED: trigger line was "You walk between the rain." - that line
+            -- belongs to Untouchable (user's list, 2026-10-23).
+            lines = {"Immune to Spell damage.", "Trigger line: \"All Magic will fail against you.\""}
         }, {
             name = "Prophecy: Terrifying",
             icon = "Interface\\Icons\\Spell_Shadow_Possession",
@@ -842,16 +844,16 @@ local SM_TRASH_MOBS = {
             name = "Prophecy: Undying",
             icon = "Interface\\Icons\\Spell_Shadow_AnimateDead",
             warning = true,
-            lines = {"Cannot die."}
+            lines = {"Cannot die.", "Trigger line: \"Death averts its gaze!\""}
         }, {
             name = "Prophecy: Unfettered",
             icon = "Interface\\Icons\\Ability_Rogue_Trip",
-            lines = {"Free from any bonds.", "Trigger line: unknown - to be found/tested."}
+            lines = {"Free from any bonds.", "Trigger line: \"No chain can hold you.\""}
         }, {
             name = "Prophecy: Untouchable",
             icon = "Interface\\Icons\\INV_Shield_04",
             warning = true,
-            lines = {"Immune to all damage."}
+            lines = {"Immune to all damage.", "Trigger line: \"You walk between the rain.\""}
         }, {
             name = "Prophecy: Verdant",
             icon = "Interface\\Icons\\Spell_Nature_SpiritArmor",
@@ -863,7 +865,7 @@ local SM_TRASH_MOBS = {
         }, {
             name = "Prophecy: Weakness",
             icon = "Interface\\Icons\\Spell_Shadow_CurseOfMannoroth",
-            lines = {"Damage caused reduced by 75%.", "Trigger line (probably, guessed from the wording): \"Your strikes leave no mark.\""}
+            lines = {"Damage caused reduced by 75%.", "Trigger line: \"Your strikes leave no mark.\""}
         }}
     },
 
