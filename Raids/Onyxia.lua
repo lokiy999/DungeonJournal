@@ -41,17 +41,20 @@ local ONY_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Pierce Armor",
+            spellId = 12097,
             icon = "Interface\\Icons\\Spell_Shadow_VampiricAura",
             warning = true,
             lines = {"Reduces an enemy's armor by 75% for 20 seconds."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Flame Lash",
+            spellId = 18958,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             lines = {"Burns an enemy for 56 to 64 damage and reduces its Fire resistance by 20 for 45 seconds."}
         }, {
             name = "Fire Nova",
+            spellId = 20203,
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
             warning = true,
             lines = {"Inflicts 464 to 596 Fire damage to nearby enemies."}
@@ -81,11 +84,13 @@ local ONY_BOSSES = {
         stats = {armor = 5550, fire = "immune", nature = 92, frost = 92, shadow = 102, arcane = 88},
         abilities = {{
             name = "Tail Sweep",
+            spellId = 15847,
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
             lines = {"Damages and knocks back enemies behind her. Never stand behind Onyxia."}
         }, {
             name = "Flame Breath",
+            spellId = 18435,
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             warning = true,
             roles = {"tank"},
@@ -99,6 +104,7 @@ local ONY_BOSSES = {
             lines = {"Strikes her target and its nearest allies for weapon damage plus 50, plus 5 per caster level above 10 (about 300 at level 60), affecting up to 10 targets, and knocking them back."}
         }, {
             name = "Knock Away",
+            spellId = 19633,
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             roles = {"tank"},
             lines = {"Inflicts damage to nearby enemies and knocks them back, shedding threat."}
@@ -107,6 +113,7 @@ local ONY_BOSSES = {
             name = "Phase 1 (100% - 66%)"
         }, {
             name = "Threatening Gaze",
+            spellId = 34444,
             icon = "Interface\\Icons\\Ability_Hunter_AspectMastery",
             warning = true,
             lines = {"'Onyxia is watching you closely...' - the target must STOP ALL ACTIONS or they will pull her aggro.",
@@ -133,6 +140,7 @@ local ONY_BOSSES = {
             lines = {"Sets the ground within 13 yards ablaze, inflicting 413 to 587 Fire damage every second for 4 seconds. The fire repeats."}
         }, {
             name = "Fireball",
+            spellId = 18392,
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
             roles = {"healer"},
@@ -146,11 +154,13 @@ local ONY_BOSSES = {
             lines = {"Onyxian Whelps spawn during the fight."}
         }, {
             name = "Eruption",
+            spellId = 17731,
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             warning = true,
             lines = {"Damage from the erupting floor as she takes flight and repositions."}
         }, {
             name = "Wing Buffet",
+            spellId = 18500,
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
             warning = true,
             roles = {"tank"},
@@ -160,12 +170,14 @@ local ONY_BOSSES = {
             name = "Phase 3 (40% - 0%) - landed"
         }, {
             name = "Bellowing Roar",
+            spellId = 18431,
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             warning = true,
             roles = {"shaman", "tank"},
             lines = {"An AoE fear."}
         }, {
             name = "Engulfing Flames",
+            spellId = 20019,
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
             roles = {"healer"},

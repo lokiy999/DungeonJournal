@@ -843,3 +843,19 @@ trash roster (Onyxian Warder - see the Onyxia's Lair section above,
 updated 2026-08-23 once she turned out to have real pre-fight trash
 after all), and that every raid that *does* have trash
 (MC/BWL/SM/ZG/UBRS/LBRS) is unaffected.
+
+## spellId pass from lokiy.dev/spells + combat logs (2026-10-23)
+
+456 more abilities got a `spellId` (914 in total), across every raid file:
+- 416 from a combat-log line where **their own mob** cast a spell of that exact name (one ID only).
+- 40 from a name that exists **only once** in lokiy.dev/spells (`db/index.json`) - incl. all 29
+  remaining Scarlet Diviner Prophecies.
+
+Not filled:
+- 19 where the mob's own log has two or three IDs under the same name (cast + effect, or ranks;
+  the log only has cast events, so it can't tell which) - each has a `-- spellId: uncertain` note.
+- 116 with several same-named spells and no log line from their own mob - listed in
+  `SPELLID_OPEN.md` with the candidates. "other mob" there means only another mob's cast is in the
+  logs; it's a hint, not proof, so none were filled from it.
+
+The addon still doesn't read `spellId`; it's the key for db.lokiy.dev.

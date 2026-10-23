@@ -59,12 +59,14 @@ local GREEN_BOSSES = {
             }}
         }, {
             name = "Corruption of the Earth",
+            spellId = 24910,
             icon = "Interface\\Icons\\Ability_Creature_Cursed_03",
             warning = true,
             roles = {"healer"},
             lines = {"Fired at 75%, 50% and 25% health. A Shadow DoT hitting every player within 100 yards for 20% of their maximum health every 2 seconds for 10 seconds."}
         }, {
             name = "Noxious Breath",
+            spellId = 24818,
             icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
             warning = true,
             roles = {"tank"},
@@ -104,6 +106,7 @@ local GREEN_BOSSES = {
             lines = {"Fires rotating waves of shadow bolts at one side of him at a time for 800 to 1200 damage each, then alternates to the other side."}
         }, {
             name = "Draw Spirit",
+            spellId = 24811,
             icon = "Interface\\Icons\\Spell_Shadow_SummonInfernal",
             warning = true,
             roles = {"dps"},
@@ -117,6 +120,7 @@ local GREEN_BOSSES = {
             }}
         }, {
             name = "Noxious Breath",
+            spellId = 24818,
             icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
             warning = true,
             roles = {"tank"},
@@ -186,6 +190,7 @@ local GREEN_BOSSES = {
             }}
         }, {
             name = "Noxious Breath",
+            spellId = 24818,
             icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
             warning = true,
             roles = {"tank"},
@@ -220,6 +225,7 @@ local GREEN_BOSSES = {
         stats = {armor = 4691, fire = 126, nature = 126, frost = 126, shadow = 126, arcane = 126},
         abilities = {{
             name = "Lightning Wave",
+            spellId = 24819,
             icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
             warning = true,
             lines = {"Strikes a random player for 463 to 537 Nature damage, then arcs to up to 10 nearby players, dealing more to each successive target."}
@@ -255,6 +261,7 @@ local GREEN_BOSSES = {
             }}
         }, {
             name = "Noxious Breath",
+            spellId = 24818,
             icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
             warning = true,
             roles = {"tank"},

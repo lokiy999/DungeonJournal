@@ -87,6 +87,7 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Arcane Bolt",
+            spellId = 13748,
             icon = "Interface\\Icons\\Spell_Arcane_StarFire",
             warning = true,
             lines = {"Hurls a magical bolt at an enemy, inflicting 155 to 205 Arcane damage."}
@@ -100,11 +101,13 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Cone of Cold",
+            spellId = 30095,
             icon = "Interface\\Icons\\Spell_Frost_Glacier",
             warning = true,
             lines = {"Inflicts Frost damage to enemies in a cone in front of the caster, reducing their movement speed for 8 seconds."}
         }, {
             name = "Flamecrack",
+            spellId = 15743,
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             warning = true,
             lines = {"Inflicts 1250 Fire damage to all enemies in a selected area, knocking them back and stunning them for X seconds."}
@@ -134,6 +137,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Hacks at an enemy's armor, reducing it by 12 per caster level per stack (about 700 at level 60). Can be applied up to 5 times, lasts 30 seconds."}
         }, {
             name = "Summon Bloodaxe Worg",
+            spellId = 34485,
             icon = "Interface\\Icons\\Ability_Mount_WhiteDireWolf",
             lines = {"Summons a Bloodaxe Worg to aid it in battle."}
         }}
@@ -155,11 +159,13 @@ local LBRS_TRASH_MOBS = {
             lines = {"Launches magical missiles at an enemy, inflicting 139 Arcane damage."}
         }, {
             name = "Arcane Explosion",
+            spellId = 21073,
             icon = "Interface\\Icons\\Spell_Nature_WispSplode",
             warning = true,
             lines = {"Sends out a blast wave of magic, inflicting 190 to 195 Arcane damage to nearby enemies."}
         }, {
             name = "Summon",
+            spellId = 15734,
             icon = "Interface\\Icons\\Spell_Arcane_Blink",
             warning = true,
             lines = {"Teleports 1 enemy target to the caster."}
@@ -195,6 +201,7 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Pummel",
+            spellId = 15615,
             icon = "Interface\\Icons\\INV_Gauntlets_04",
             warning = true,
             lines = {"Pummels an enemy for 44 damage and interrupts the spell being cast for 5 seconds."}
@@ -208,6 +215,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Inflicts 4 plus 4 per caster level above 1 (about 240 at level 60) damage to an enemy, stunning it for 2 seconds."}
         }, {
             name = "Dual Wield",
+            spellId = 674,
             icon = "Interface\\Icons\\Ability_DualWield",
             lines = {"Allows one-hand and off-hand weapons to be equipped in the off-hand."}
         }, {
@@ -229,11 +237,13 @@ local LBRS_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Mortal Strike",
+            spellId = 17547,
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             warning = true,
             lines = {"Inflicts 200% weapon damage and leaves the target wounded, reducing the effectiveness of any healing by 50% for 5 seconds."}
         }, {
             name = "Uppercut",
+            spellId = 10966,
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             warning = true,
             lines = {"Inflicts weapon damage plus 50 to an enemy, knocking it back."}
@@ -296,10 +306,12 @@ local LBRS_TRASH_MOBS = {
             lines = {"Inflicts 1457 to 1843 Fire damage to an enemy every 20 seconds for 300 seconds."}
         }, {
             name = "Dispel Magic",
+            spellId = 15090,
             icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
             lines = {"Dispels magic on the target, removing 1 harmful spell from an ally or 1 beneficial spell from an enemy."}
         }, {
             name = "Shadow Bolt",
+            spellId = 15232,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
             roles = {"kick"},
@@ -313,6 +325,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Increases the Fire damage taken by an enemy by 1000 for 5 minutes."}
         }, {
             name = "Shadow Bolt Volley",
+            spellId = 14887,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
             roles = {"kick"},
@@ -377,6 +390,7 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Mortal Strike",
+            spellId = 13737,
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             warning = true,
             lines = {"Inflicts 130% weapon damage and leaves the target wounded, reducing the effectiveness of any healing by 50% for 5 seconds."}
@@ -441,11 +455,13 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Fire Nova",
+            spellId = 12470,
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
             warning = true,
             lines = {"Inflicts 298 to 320 Fire damage to nearby enemies."}
         }, {
             name = "Fireball",
+            spellId = 15242,
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
             roles = {"kick"},
@@ -483,6 +499,7 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Shield Slam",
+            spellId = 23925,
             icon = "Interface\\Icons\\INV_Shield_05",
             warning = true,
             lines = {"Slam the target with your shield, causing 394 to 427 damage, modified by your shield block value, and dispels 1 magic effect on the target. This ability causes a high amount of threat."}
@@ -496,6 +513,7 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Toss",
+            spellId = 34130,
             icon = "Interface\\Icons\\Ability_UpgradeMoonGlaive",
             warning = true,
             lines = {"Hurls a shield at the enemy, causing 308 to 348 damage, increased by Attack Power and knocks down for 2 seconds. This ability causes a high amount of threat."}
@@ -523,6 +541,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Increases the Fire damage taken by an enemy by 1000 for 5 minutes."}
         }, {
             name = "Shield Charge",
+            spellId = 15749,
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
             lines = {"Charges an enemy, knocking it back and inflicting weapon damage plus 150."}
@@ -532,6 +551,7 @@ local LBRS_TRASH_MOBS = {
             name = "Passives"
         }, {
             name = "Defensive Stance",
+            spellId = 71,
             icon = "Interface\\Icons\\Ability_Warrior_DefensiveStance",
             -- CHANGED 2026-09-29: from Spell.csv (spell 71).
             lines = {"A defensive combat stance that decreases damage taken by 10% and damage caused by 10%. Increases threat generated by 30%."}
@@ -599,11 +619,13 @@ local LBRS_TRASH_MOBS = {
             lines = {"Utters a word of darkness, inflicting 70 Shadow damage to an enemy every 3 seconds, for 18 seconds."}
         }, {
             name = "Dispel Magic",
+            spellId = 15090,
             icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
             lines = {"Dispels magic on the target, removing 1 harmful spell from an ally or 1 beneficial spell from an enemy."}
         }, {
             -- CHANGED: duration and radius confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv + SpellRadius.csv lookup - not in-game tested.
             name = "Psychic Scream",
+            spellId = 27610,
             icon = "Interface\\Icons\\Spell_Shadow_PsychicScream",
             warning = true,
             -- CHANGED 2026-09-30: target count is not in the spell data, wording no longer claims a number.
@@ -619,6 +641,7 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Shield Charge",
+            spellId = 15749,
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
             lines = {"Charges an enemy, knocking it back and inflicting weapon damage plus 150."}
@@ -664,6 +687,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Strikes at an enemy, inflicting weapon damage plus 5, plus 1.5 per caster level above 1 (about 94 at level 60)."}
         }, {
             name = "Summon Scarshield Worg",
+            spellId = 34484,
             icon = "Interface\\Icons\\Ability_Mount_WhiteDireWolf",
             lines = {"Summons a Scarshield Worg to aid it in battle."}
         }}
@@ -708,6 +732,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Increases an ally's Fire resistance for 2 hours. Scales with the caster's level: 2 plus 1.5 per level above 1 (about 90 at level 60)."}
         }, {
             name = "Arcane Bolt",
+            spellId = 13748,
             icon = "Interface\\Icons\\Spell_Arcane_StarFire",
             warning = true,
             lines = {"Hurls a magical bolt at an enemy, inflicting 155 to 205 Arcane damage."}
@@ -737,6 +762,7 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Shadow Bolt",
+            spellId = 12471,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
             roles = {"kick"},
@@ -774,6 +800,7 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Knockdown",
+            spellId = 11428,
             icon = "Interface\\Icons\\Ability_GolemThunderClap",
             warning = true,
             lines = {"Inflicts 60 to 80 damage to an enemy, stunning it for 2 seconds."}
@@ -789,6 +816,7 @@ local LBRS_TRASH_MOBS = {
             name = "Passives"
         }, {
             name = "Thrash",
+            spellId = 3391,
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             lines = {"Gives the caster 2 extra attacks."}
         }}
@@ -814,6 +842,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Strikes at an enemy, inflicting weapon damage plus 8, plus 2.25 per caster level above 1 (about 141 at level 60)."}
         }, {
             name = "Uppercut",
+            spellId = 26007,
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             warning = true,
             lines = {"Inflicts weapon damage plus 950 to 1050 to an enemy, knocking it back."}
@@ -827,6 +856,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Inflicts weapon damage plus 23 plus 0.5 per caster level above 45 (about 30 at level 60) to nearby enemies, knocking them back and stunning them for 5 seconds."}
         }, {
             name = "Knock Away",
+            spellId = 11130,
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             warning = true,
             lines = {"Inflicts weapon damage plus 30 to nearby enemies and knocks them back."}
@@ -856,12 +886,14 @@ local LBRS_TRASH_MOBS = {
             lines = {"Inflicts Physical damage to an enemy every 1 second for 9 seconds."}
         }, {
             name = "Throw",
+            spellId = 22887,
             icon = "Interface\\Icons\\Ability_Throw",
             warning = true,
             lines = {"Throws a weapon at an enemy, inflicting Physical damage."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Viper Sting",
+            spellId = 14280,
             icon = "Interface\\Icons\\Ability_Hunter_AimedShot",
             warning = true,
             lines = {"Stings the target, draining 60 mana over 15 seconds. Only one Sting per Hunter can be active on any one target."}
@@ -979,6 +1011,7 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Dispel Magic",
+            spellId = 15090,
             icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
             lines = {"Dispels magic on the target, removing 1 harmful spell from an ally or 1 beneficial spell from an enemy."}
         }, {
@@ -990,6 +1023,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Transforms an enemy into a frog, rendering it unable to attack or cast spells for 10 seconds."}
         }, {
             name = "Shadowform",
+            spellId = 22917,
             icon = "Interface\\Icons\\Spell_Shadow_SummonVoidWalker",
             lines = {"Assumes a Shadowform, increasing Shadow damage dealt by 40% and reducing melee damage taken by 40%. Shadowform lasts until cancelled."}
         }, {
@@ -1002,6 +1036,7 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Mind Flay",
+            spellId = 18807,
             icon = "Interface\\Icons\\Spell_Shadow_SiphonMana",
             warning = true,
             roles = {"kick"},
@@ -1079,6 +1114,7 @@ local LBRS_TRASH_MOBS = {
             name = "Passives"
         }, {
             name = "Thrash",
+            spellId = 3391,
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             lines = {"Gives the caster 2 extra attacks."}
         }}
@@ -1101,6 +1137,7 @@ local LBRS_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Flame Shock",
+            spellId = 29228,
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
             warning = true,
             lines = {"Instantly sears the target with fire, causing 320 Fire damage immediately and 90 Fire damage over 15 seconds."}
@@ -1114,6 +1151,7 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Frost Shock",
+            spellId = 23115,
             icon = "Interface\\Icons\\Spell_Frost_FrostShock",
             warning = true,
             lines = {"Inflicts Frost damage to an enemy and reduces its movement speed for 8 seconds."}
@@ -1165,6 +1203,7 @@ local LBRS_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Mortal Strike",
+            spellId = 16856,
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             warning = true,
             lines = {"Inflicts 200% weapon damage and leaves the target wounded, reducing the effectiveness of any healing by 50% for 5 seconds."}
@@ -1228,6 +1267,7 @@ local LBRS_TRASH_MOBS = {
             lines = {"Increases the time between nearby enemies' melee and ranged attacks by 60%, slows their movement by 60% and reduces their casting speed by 60% for 10 seconds."}
         }, {
             name = "Arcane Bolt",
+            spellId = 15979,
             icon = "Interface\\Icons\\Spell_Arcane_StarFire",
             warning = true,
             lines = {"Hurls magic at nearby enemies, inflicting Arcane damage."}
@@ -1280,6 +1320,7 @@ local LBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Empower Will",
+            spellId = 16171,
             icon = "Interface\\Icons\\Ability_Warrior_BattleShout",
             lines = {"Dispels 1 polymorph, charm, or knockout effect from nearby allies."}
         }, {
@@ -1309,6 +1350,7 @@ local LBRS_TRASH_MOBS = {
             name = "Passives"
         }, {
             name = "Haste Aura",
+            spellId = 13589,
             icon = "Interface\\Icons\\Spell_Holy_FistOfJustice",
             lines = {"Increases the attack speed of all nearby party members by 20%. Players may only have one aura on them per paladin at any one time. The aura lasts until cancelled."}
         }}
@@ -1336,6 +1378,7 @@ local LBRS_BOSSES = {
             lines = {"Hacks at an enemy's armor, reducing it by 1000 per Sunder Armor. Can be applied up to 5 times. Lasts 20 seconds."}
         }, {
             name = "Knock Away",
+            spellId = 20686,
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             warning = true,
             lines = {"Inflicts weapon damage plus 30 to nearby enemies and knocks them back."}
@@ -1409,6 +1452,7 @@ local LBRS_BOSSES = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Curse of Blood",
+            spellId = 24673,
             icon = "Interface\\Icons\\Spell_Shadow_RitualOfSacrifice",
             warning = true,
             roles = {"decurse"},
@@ -1431,6 +1475,7 @@ local LBRS_BOSSES = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Snap Kick",
+            spellId = 24671,
             icon = "Interface\\Icons\\Ability_Kick",
             warning = true,
             lines = {"Inflicts 875 to 1125 damage to an enemy, stunning it for 2 seconds."}
@@ -1451,11 +1496,13 @@ local LBRS_BOSSES = {
             lines = {"Shouts at an enemy, paralyzing it with terror for 8 seconds and causing all other nearby enemies to flee in fear."}
         }, {
             name = "Berserker Charge",
+            spellId = 19471,
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
             lines = {"Charges at an enemy, knocking it back and inflicting weapon damage plus 150."}
         }, {
             name = "Uppercut",
+            spellId = 10966,
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             warning = true,
             lines = {"Inflicts weapon damage plus 50 to an enemy, knocking it back."}
@@ -1484,6 +1531,7 @@ local LBRS_BOSSES = {
             lines = {"Summons 4 Spire Spiderlings, which last 90 seconds."}
         }, {
             name = "Mother's Milk",
+            spellId = 16468,
             icon = "Interface\\Icons\\Ability_Creature_Poison_02",
             warning = true,
             lines = {"Poisons nearby enemies. Until the poison is entirely removed from the bloodstream by a knowledgeable medical professional, it will periodically immobilize a poisoned individual and any nearby allies."}
@@ -1533,12 +1581,14 @@ local LBRS_BOSSES = {
             lines = {"Stuns enemies within 3 yards of the impact for 20 seconds."}
         }, {
             name = "Shoot",
+            spellId = 16496,
             icon = "Interface\\Icons\\Ability_Marksmanship",
             warning = true,
             lines = {"Shoots at an enemy, inflicting Physical damage."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Hooked Net",
+            spellId = 15609,
             icon = "Interface\\Icons\\Ability_Ensnare",
             warning = true,
             lines = {"Immobilizes nearby enemies for 10 seconds. and inflicts Physical damage."}
@@ -1597,6 +1647,7 @@ local LBRS_BOSSES = {
             lines = {"Inflicts 45 plus 2 per caster level above 20 (about 125 at level 60) Nature damage to an enemy every 10 seconds and increases the Physical damage it takes by 30 plus 5 per caster level above 20 (about 230 at level 60) for 180 seconds."}
         }, {
             name = "Forceful Howl",
+            spellId = 30121,
             icon = "Interface\\Icons\\Ability_BullRush",
             warning = true,
             lines = {"Inflicts weapon damage plus 30 to an enemy and knocks it back."}

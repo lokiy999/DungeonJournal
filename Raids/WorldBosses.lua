@@ -91,6 +91,7 @@ local WORLD_BOSSES = {
         stats = {armor = 4316, fire = 93, nature = 93, frost = 93, shadow = 93, arcane = 55},
         abilities = {{
             name = "Bloating Toxins",
+            spellId = 34809,
             icon = "Interface\\Icons\\Ability_Creature_Disease_02",
             warning = true,
             roles = {"poison"},
@@ -98,6 +99,7 @@ local WORLD_BOSSES = {
                      "Targets must break line of sight with the whole raid. Each cast marks 2 players: the furthest raid member and someone in the top 3 threat."}
         }, {
             name = "Flesh Explosion",
+            spellId = 34810,
             icon = "Interface\\Icons\\Ability_Poisons",
             warning = true,
             roles = {"poison", "healer"},
@@ -115,12 +117,14 @@ local WORLD_BOSSES = {
             lines = {"Reduces Physical damage dealt."}
         }, {
             name = "Impotence",
+            spellId = 34692,
             icon = "Interface\\Icons\\Spell_Shadow_ChillTouch",
             warning = true,
             roles = {"dispel"},
             lines = {"Reduces magical damage dealt by 90%."}
         }, {
             name = "Sonic Lash",
+            spellId = 34693,
             icon = "Interface\\Icons\\Spell_Shadow_Curse",
             warning = true,
             roles = {"tank"},
@@ -247,18 +251,21 @@ local WORLD_BOSSES = {
         flags = {"damage_shadow"},
         abilities = {{
             name = "Soul Consumption",
+            spellId = 12667,
             icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
             warning = true,
             roles = {"healer"},
             lines = {"Drains health from every enemy nearby and heals himself for a multiple of the amount stolen."}
         }, {
             name = "Devour Essence",
+            spellId = 35675,
             icon = "Interface\\Icons\\Spell_Shadow_SummonFelHunter",
             warning = true,
             roles = {"healer"},
             lines = {"Channels on the target ('Feeding the Devourer...'), dealing damage every second, stunning them, and healing himself for the damage dealt."}
         }, {
             name = "Unrestrained Corruption",
+            spellId = 35676,
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Black",
             warning = true,
             roles = {"tank"},

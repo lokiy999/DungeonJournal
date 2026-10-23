@@ -101,6 +101,7 @@ local ZG_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Snap Kick",
+            spellId = 24671,
             icon = "Interface\\Icons\\Ability_Kick",
             warning = true,
             lines = {"Inflicts 875 to 1125 damage to an enemy, stunning it for 2 seconds."}
@@ -110,6 +111,7 @@ local ZG_TRASH_MOBS = {
             name = "Passives"
         }, {
             name = "Thrash",
+            spellId = 3391,
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             lines = {"Gives the caster 2 extra attacks."}
         }}
@@ -124,6 +126,7 @@ local ZG_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Rend",
+            spellId = 18200,
             icon = "Interface\\Icons\\Ability_Gouge",
             warning = true,
             lines = {"Wounds the target causing them to bleed for 13 damage over 30 seconds."}
@@ -167,6 +170,7 @@ local ZG_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Flames",
+            spellId = 19628,
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
             warning = true,
             lines = {"Inflicts 750 Fire damage to nearby enemies."}
@@ -235,6 +239,7 @@ local ZG_TRASH_MOBS = {
             lines = {"Inflicts 45 plus 2 per caster level above 20 (about 125 at level 60) Nature damage to an enemy every 10 seconds and increases the Physical damage it takes by 30 plus 5 per caster level above 20 (about 230 at level 60) for 180 seconds."}
         }, {
             name = "Flames",
+            spellId = 19628,
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
             warning = true,
             lines = {"Inflicts 750 Fire damage to nearby enemies."}
@@ -269,6 +274,7 @@ local ZG_TRASH_MOBS = {
             lines = {"Explodes for 6375 to 7375 Fire damage to enemies within 13 yards, killing the caster."}
         }, {
             name = "Thrash",
+            spellId = 3391,
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             lines = {"Gives the caster 2 extra attacks."}
         }, {
@@ -288,6 +294,7 @@ local ZG_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Knock Away",
+            spellId = 11130,
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             warning = true,
             lines = {"Inflicts weapon damage plus 30 to nearby enemies and knocks them back."}
@@ -338,6 +345,7 @@ local ZG_TRASH_MOBS = {
             lines = {"Drains 1 health from an enemy over 5 seconds, transferring it to the caster."}
         }, {
             name = "Blood Leech",
+            spellId = 24437,
             icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
             warning = true,
             lines = {"Drains 340 to 414 health from nearby enemies, healing the caster for up to three times the amount stolen."}
@@ -375,6 +383,7 @@ local ZG_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Shield Toss",
+            spellId = 34130,
             icon = "Interface\\Icons\\Ability_UpgradeMoonGlaive",
             warning = true,
             lines = {"Hurls a shield at the enemy, causing 308 to 348 damage, increased by Attack Power and knocks down for 2 seconds. This ability causes a high amount of threat."}
@@ -384,6 +393,7 @@ local ZG_TRASH_MOBS = {
             name = "Passives"
         }, {
             name = "Defensive Stance",
+            spellId = 71,
             icon = "Interface\\Icons\\Ability_Warrior_DefensiveStance",
             warning = true,
             -- CHANGED 2026-09-29: X filled from Spell.csv (spell 71).
@@ -400,22 +410,26 @@ local ZG_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Viper Sting",
+            spellId = 14280,
             icon = "Interface\\Icons\\Ability_Hunter_AimedShot",
             warning = true,
             lines = {"Stings the target, draining 60 mana over 15 seconds. Only one Sting per Hunter can be active on any one target."}
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Mortal Strike",
+            spellId = 15708,
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             warning = true,
             lines = {"Inflicts 300% weapon damage and leaves the target wounded, reducing the effectiveness of any healing by 50% for 5 seconds."}
         }, {
             name = "Throw",
+            spellId = 22887,
             icon = "Interface\\Icons\\Ability_Throw",
             warning = true,
             lines = {"Throws a weapon at an enemy, inflicting Physical damage."}
         }, {
             name = "Whirling Trip",
+            spellId = 24048,
             icon = "Interface\\Icons\\INV_Spear_05",
             warning = true,
             lines = {"Inflicts weapon damage plus 50 to nearby enemies."}
@@ -430,6 +444,7 @@ local ZG_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Dispel Magic",
+            spellId = 17201,
             icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
             lines = {"Dispels magic on an ally, removing 1 harmful effects."}
         }, {
@@ -520,6 +535,7 @@ local ZG_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Shadow Bolt Volley",
+            spellId = 20741,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
             roles = {"kick"},
@@ -540,6 +556,7 @@ local ZG_TRASH_MOBS = {
             lines = {"Heals allies within 10 yards for 5000 to 7500."}
         }, {
             name = "Shadow Bolt",
+            spellId = 34875,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
             roles = {"kick"},
@@ -555,6 +572,7 @@ local ZG_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Shadow Shock",
+            spellId = 17289,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
             roles = {"kick"},
@@ -569,6 +587,7 @@ local ZG_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Shrink",
+            spellId = 24054,
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
             lines = {"Reduces nearby enemies' Strength by 200 and Stamina by 100 for 120 seconds."}
         }, {
@@ -627,6 +646,7 @@ local ZG_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Fireball",
+            spellId = 24611,
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
             roles = {"kick"},
@@ -668,6 +688,7 @@ local ZG_TRASH_MOBS = {
             name = "Passives"
         }, {
             name = "Thrash",
+            spellId = 3391,
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             lines = {"Gives the caster 2 extra attacks."}
         }}
@@ -768,6 +789,7 @@ local ZG_TRASH_MOBS = {
             name = "Passives"
         }, {
             name = "Thrash",
+            spellId = 3417,
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             lines = {"Adds a chance to do two additional attacks"}
         }}
@@ -782,6 +804,7 @@ local ZG_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Pierce Armor",
+            spellId = 12097,
             icon = "Interface\\Icons\\Spell_Shadow_VampiricAura",
             lines = {"Reduces an enemy's armor by 75% for 20 seconds."}
         }, {
@@ -850,6 +873,7 @@ local ZG_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Whirling Trip",
+            spellId = 24048,
             icon = "Interface\\Icons\\INV_Spear_05",
             warning = true,
             lines = {"Inflicts weapon damage plus 50 to nearby enemies."}
@@ -884,6 +908,7 @@ local ZG_TRASH_MOBS = {
             name = "Passives"
         }, {
             name = "Thrash",
+            spellId = 3391,
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             lines = {"Gives the caster 2 extra attacks."}
         }}
@@ -919,6 +944,7 @@ local ZG_TRASH_MOBS = {
             lines = {"Dives upon an enemy, inflicting weapon damage plus 2 and stuns the opponent for 2 seconds."}
         }, {
             name = "Thrash",
+            spellId = 3391,
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             lines = {"Gives the caster 2 extra attacks."}
         }, {
@@ -972,6 +998,7 @@ local ZG_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Curse of the Elements",
+            spellId = 11722,
             icon = "Interface\\Icons\\Spell_Shadow_ChillTouch",
             warning = true,
             roles = {"dispel"},
@@ -979,12 +1006,14 @@ local ZG_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Curse of Shadow",
+            spellId = 17937,
             icon = "Interface\\Icons\\Spell_Shadow_CurseOfAchimonde",
             warning = true,
             roles = {"dispel"},
             lines = {"Curses the target for 60 seconds, reducing Shadow and Arcane resistances by 80 and increasing Shadow and Arcane damage taken by 10%. Only one Curse per Warlock can be active on any one target."}
         }, {
             name = "Shadow Bolt",
+            spellId = 24668,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
             roles = {"kick"},
@@ -1007,6 +1036,7 @@ local ZG_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Death Coil",
+            spellId = 28412,
             icon = "Interface\\Icons\\Spell_Shadow_DeathCoil",
             warning = true,
             lines = {"Causes the enemy target to run in horror for 3 seconds and causes 920 Shadow damage. The caster gains 100% of the damage caused in health."}
@@ -1030,6 +1060,7 @@ local ZG_TRASH_MOBS = {
             lines = {"Instantly shocks the target with concussive force, causing 517 to 545 Nature damage (plus 3.1 per caster level above 60, up to level 65). It also interrupts spellcasting and prevents any spell in that school from being cast for 2 seconds. Causes a high amount of threat."}
         }, {
             name = "Lightning Bolt",
+            spellId = 15801,
             icon = "Interface\\Icons\\Spell_Nature_Lightning",
             warning = true,
             roles = {"kick"},
@@ -1052,6 +1083,7 @@ local ZG_TRASH_MOBS = {
             lines = {"Transforms an enemy into a frog, rendering it unable to attack or cast spells for 5 seconds."}
         }, {
             name = "Dispel Magic",
+            spellId = 17201,
             icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
             lines = {"Dispels magic on an ally, removing 1 harmful effects."}
         }, {
@@ -1066,6 +1098,7 @@ local ZG_TRASH_MOBS = {
         }, {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Curse of Blood",
+            spellId = 24673,
             icon = "Interface\\Icons\\Spell_Shadow_RitualOfSacrifice",
             warning = true,
             roles = {"dispel"},
@@ -1151,6 +1184,7 @@ local ZG_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Thrash",
+            spellId = 3391,
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             lines = {"Gives the caster 2 extra attacks."}
         }}
@@ -1164,6 +1198,7 @@ local ZG_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Ambush",
+            spellId = 34431,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             warning = true,
             lines = {"Inflicts 400% weapon damage to wounded enemy."}
@@ -1208,6 +1243,7 @@ local ZG_BOSSES = {
         stats = {armor = 4222, fire = 92, nature = 92, frost = 27, shadow = 92, arcane = 27},
         abilities = {{
             name = "Sonic Burst",
+            spellId = 23918,
             icon = "Interface\\Icons\\Spell_Shadow_Teleport",
             warning = true,
             roles = {"kick"},
@@ -1235,12 +1271,14 @@ local ZG_BOSSES = {
             lines = {"Inflicts 422 to 478 Shadow damage to an enemy every 3 seconds for 30 seconds."}
         }, {
             name = "Swoop",
+            spellId = 23919,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             warning = true,
             roles = {"tank"},
             lines = {"Inflicts 500 damage in a cone in front of her and stuns the targets."}
         }, {
             name = "Terrifying Screech",
+            spellId = 6605,
             icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
             warning = true,
             roles = {"shaman"},
@@ -1266,6 +1304,7 @@ local ZG_BOSSES = {
         stats = {armor = 4691, fire = 23, nature = 270, frost = 23, shadow = 23, arcane = 23},
         abilities = {{
             name = "Holy Wrath",
+            spellId = 23979,
             icon = "Interface\\Icons\\Spell_Shadow_SiphonMana",
             warning = true,
             lines = {"His second most frequent ability. Chains to nearby targets."}
@@ -1291,11 +1330,13 @@ local ZG_BOSSES = {
             lines = {"Transforms into a snake, increasing damage done by 100% and regenerating health over time."}
         }, {
             name = "Holy Smite",
+            spellId = 34879,
             icon = "Interface\\Icons\\Spell_Holy_HolySmite",
             roles = {"kick"},
             lines = {"Smites a target for Holy damage. His most frequent cast."}
         }, {
             name = "Holy Nova",
+            spellId = 23858,
             icon = "Interface\\Icons\\Spell_Holy_HolyNova",
             warning = true,
             lines = {"AoE Holy damage to everyone nearby."}
@@ -1316,6 +1357,7 @@ local ZG_BOSSES = {
             lines = {"Inflicts 500 Nature damage every second to enemies within 8 yards for 20 seconds. Move out of the cloud."}
         }, {
             name = "Dispel Magic",
+            spellId = 23859,
             icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
             lines = {"Venoxis dispels magic from himself, removing your debuffs."}
         }}
@@ -1328,6 +1370,7 @@ local ZG_BOSSES = {
         stats = {armor = 4880, fire = 7, nature = 126, frost = 24, shadow = 126, arcane = 126},
         abilities = {{
             name = "Poison Bolt Volley",
+            spellId = 24099,
             icon = "Interface\\Icons\\Ability_Poisons",
             warning = true,
             roles = {"poison"},
@@ -1347,17 +1390,20 @@ local ZG_BOSSES = {
             lines = {"Transforms into a spider, increasing critical strike chance by 10% and regenerating health over time."}
         }, {
             name = "Enveloping Webs",
+            spellId = 24110,
             icon = "Interface\\Icons\\Spell_Nature_EarthBind",
             warning = true,
             lines = {"Immobilises the target, increases the time between their attacks, and prevents casting."}
         }, {
             name = "Corrosive Poison",
+            spellId = 24111,
             icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
             warning = true,
             roles = {"poison", "tank"},
             lines = {"Reduces armour by 9000 and inflicts 2660 Nature damage every 5 seconds. Cleanse from the tank immediately."}
         }, {
             name = "Enlarge",
+            spellId = 24109,
             icon = "Interface\\Icons\\Spell_Nature_Strength",
             lines = {"Buffs an ally, increasing their Physical damage by 50."}
         }, {
@@ -1397,6 +1443,7 @@ local ZG_BOSSES = {
             lines = {"Spins in a whirlwind, hitting all enemies within 8 yards for weapon damage plus 300, plus 6 per caster level above 1 (about 654 at level 60). His most frequent ability."}
         }, {
             name = "Threatening Gaze",
+            spellId = 24314,
             icon = "Interface\\Icons\\Ability_Hunter_AspectMastery",
             warning = true,
             lines = {"Mandokir watches a target closely - they must STOP ALL ACTIONS or they will pull aggro and be killed."}
@@ -1408,6 +1455,7 @@ local ZG_BOSSES = {
             lines = {"Charges a distant target, dealing heavy damage."}
         }, {
             name = "Mortal Strike",
+            spellId = 16856,
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             roles = {"tank", "healer"},
             lines = {"A heavy strike that reduces healing received."}
@@ -1419,6 +1467,7 @@ local ZG_BOSSES = {
             warning = true,
             lines = {"Inflicts weapon damage plus 7500 to 12500."}
         }, {
+            -- spellId: uncertain - the combat log has 19134 / 29544 for this mob under this name.
             name = "Intimidating Shout",
             icon = "Interface\\Icons\\Ability_GolemThunderClap",
             warning = true,
@@ -1448,6 +1497,7 @@ local ZG_BOSSES = {
                 lines = {"Charges an enemy, inflicting weapon damage and stuns the opponent for 2 seconds."}
             }, {
                 name = "Thrash",
+                spellId = 3391,
                 icon = "Interface\\Icons\\Ability_GhoulFrenzy",
                 lines = {"Gives the caster 2 extra attacks."}
             }}
@@ -1497,6 +1547,7 @@ local ZG_BOSSES = {
             lines = {"Roots a target in place."}
         }, {
             name = "Ground Tremor",
+            spellId = 6524,
             icon = "Interface\\Icons\\Ability_WarStomp",
             warning = true,
             lines = {"Damages and stuns nearby enemies."}
@@ -1508,17 +1559,20 @@ local ZG_BOSSES = {
         icon = "Interface\\Icons\\Spell_Nature_Sleep",
         abilities = {{
             name = "Earth Shock",
+            spellId = 24685,
             icon = "Interface\\Icons\\Spell_Nature_EarthShock",
             warning = true,
             roles = {"healer"},
             lines = {"Nature damage that also interrupts casting."}
         }, {
             name = "Chain Burn",
+            spellId = 24684,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             lines = {"Fire damage that chains to nearby targets ."}
         }, {
             name = "Sleep",
+            spellId = 24664,
             icon = "Interface\\Icons\\Spell_Nature_Sleep",
             warning = true,
             lines = {"Puts a target to sleep. Any damage will wake them."}
@@ -1563,6 +1617,7 @@ local ZG_BOSSES = {
         stats = {armor = 4400, fire = 15, nature = 15, frost = 15, shadow = 15, arcane = 15},
         abilities = {{
             name = "Frost Breath",
+            spellId = 16099,
             icon = "Interface\\Icons\\Spell_Frost_FrostNova",
             warning = true,
             roles = {"tank"},
@@ -1576,11 +1631,13 @@ local ZG_BOSSES = {
             lines = {"Reduces the armor of enemies within 8 yards by 75% for 20 seconds."}
         }, {
             name = "Mighty Slam",
+            spellId = 24326,
             icon = "Interface\\Icons\\Ability_Devour",
             warning = true,
             lines = {"Inflicts around 950 damage to nearby enemies and knocks them back."}
         }, {
             name = "Double Bite",
+            spellId = 34429,
             icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
             roles = {"tank"},
             lines = {"Bites twice, hitting a second enemy as well."}
@@ -1591,6 +1648,7 @@ local ZG_BOSSES = {
             lines = {"Bites three times, hitting additional enemies."}
         }, {
             name = "Tail Sweep",
+            spellId = 34416,
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
             lines = {"Damages and knocks back enemies behind him. Do not stand behind."}
@@ -1614,6 +1672,7 @@ local ZG_BOSSES = {
             lines = {"The warrior of the trio - primary melee target."},
             abilities = {{
                 name = "Force Punch",
+                spellId = 24189,
                 icon = "Interface\\Icons\\INV_Gauntlets_31",
                 warning = true,
                 roles = {"tank"},
@@ -1634,18 +1693,21 @@ local ZG_BOSSES = {
             lines = {"Transforms into a tiger, healing to full health and increasing attack speed by 100%."}
         }, {
                 name = "Mortal Cleave",
+                spellId = 22859,
                 icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
                 warning = true,
                 roles = {"tank", "healer"},
                 lines = {"Inflicts weapon damage and reduces healing effectiveness on the target by 75%."}
             }, {
                 name = "Panic",
+                spellId = 19408,
                 icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
                 warning = true,
                 roles = {"shaman"},
                 lines = {"Fears nearby enemies. Keep a Tremor Totem down."}
             }, {
                 name = "Silence",
+                spellId = 22666,
                 icon = "Interface\\Icons\\Spell_Frost_IceShock",
                 warning = true,
                 lines = {"Silences a target, preventing them from casting."}
@@ -1712,6 +1774,7 @@ local ZG_BOSSES = {
             }, {
                 -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
                 name = "Cloak of Shadows",
+                spellId = 34882,
                 icon = "Interface\\Icons\\Spell_Shadow_NetherCloak",
                 lines = {"Protects the rogue from spells for 5 seconds. Does not break stealth."}
             }, {
@@ -1787,12 +1850,14 @@ local ZG_BOSSES = {
             lines = {"Transforms into a panther, increasing damage done by 50%."}
         }, {
             name = "Ravage",
+            spellId = 24213,
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             warning = true,
             roles = {"tank"},
             lines = {"Inflicts 500 damage and stuns the target."}
         }, {
             name = "Gouge",
+            spellId = 12540,
             icon = "Interface\\Icons\\Ability_Gouge",
             warning = true,
             roles = {"tank"},
@@ -1812,6 +1877,7 @@ local ZG_BOSSES = {
         stats = {armor = 4950, fire = 44, nature = 168, frost = 30, shadow = 168, arcane = 168},
         abilities = {{
             name = "Hex",
+            spellId = 24053,
             icon = "Interface\\Icons\\Spell_Nature_Polymorph",
             warning = true,
             lines = {"Transforms nearby enemies into frogs, preventing them from attacking or casting. His signature mechanic."}
@@ -1824,6 +1890,7 @@ local ZG_BOSSES = {
             lines = {"Summons a ward that lasts 4 minutes and periodically heals allies in an area around it."}
         }, {
             name = "Delusions of Jin'do",
+            spellId = 24306,
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             warning = true,
             roles = {"healer"},
@@ -1835,11 +1902,13 @@ local ZG_BOSSES = {
             lines = {"A heavy Shadow bolt for around 1825 damage."}
         }, {
             name = "Touch of Shadow",
+            spellId = 34895,
             icon = "Interface\\Icons\\Spell_Nature_Drowsy",
             warning = true,
             roles = {"dispel"},
             lines = {"Increases Shadow damage taken by 300%. Dispel it promptly."}
         }, {
+            -- spellId: uncertain - the combat log has 34899 / 34902 for this mob under this name.
             name = "Call of Jin'do",
             icon = "Interface\\Icons\\Spell_Nature_AstralRecal",
             warning = true,
@@ -1852,6 +1921,7 @@ local ZG_BOSSES = {
             lines = {"An add summoned during the Jin'do encounter."},
             abilities = {{
                 name = "Shadow Shock",
+                spellId = 24458,
                 icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
                 warning = true,
                 roles = {"kick"},
@@ -1866,6 +1936,7 @@ local ZG_BOSSES = {
         stats = {armor = 4880, fire = 51, nature = 51, frost = 14, shadow = 141, arcane = 51},
         abilities = {{
             name = "Corrupted Blood",
+            spellId = 24328,
             icon = "Interface\\Icons\\Spell_Shadow_CorpseExplode",
             warning = true,
             roles = {"healer"},
@@ -1880,12 +1951,14 @@ local ZG_BOSSES = {
             lines = {"Stuns enemies within 100 yards for 8 seconds. X - the scripted effect is not in the spell data."}
         }, {
             name = "Curse of Nemesis",
+            spellId = 34957,
             icon = "Interface\\Icons\\Spell_Shadow_CurseOfTounges",
             warning = true,
             roles = {"decurse"},
             lines = {"Deals 20% health damage every 2 seconds. If dispelled it causes instant Shadow damage."}
         }, {
             name = "Hysteria",
+            spellId = 34956,
             icon = "Interface\\Icons\\Spell_Shadow_UnholyFrenzy",
             warning = true,
             lines = {"Increases the cost of spells and abilities. If you fail to cast three spells or abilities you become insane."}
@@ -1912,22 +1985,26 @@ local ZG_BOSSES = {
         stats = {armor = 4950, fire = 44, nature = 75, frost = 12, shadow = 44, arcane = 44},
         abilities = {{
             name = "Blood Leech",
+            spellId = 34928,
             icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
             warning = true,
             roles = {"healer"},
             lines = {"Drains health from nearby enemies and heals himself for up to three times the amount stolen. His most frequent ability by far."}
         }, {
+            -- spellId: uncertain - the combat log has 34916 / 34917 for this mob under this name.
             name = "Lacerate",
             icon = "Interface\\Icons\\Spell_Shadow_LifeDrain",
             warning = true,
             lines = {"'The blood seeps through your skin. It hurts to move.'"}
         }, {
             name = "Blood Cloud",
+            spellId = 34925,
             icon = "Interface\\Icons\\Spell_Nature_NatureTouchDecay",
             warning = true,
             lines = {"Inflicts 375 damage every second to nearby enemies and slows movement. Move out."}
         }, {
             name = "Blood Tide",
+            spellId = 34946,
             icon = "Interface\\Icons\\Spell_Holy_HolyBolt",
             warning = true,
             lines = {"A massive burst of 2875 damage."}

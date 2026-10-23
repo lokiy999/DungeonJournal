@@ -63,12 +63,14 @@ local MC_BOSSES = {
         stats = {armor = 5120, fire = 293, nature = 98, frost = 98, shadow = 186, arcane = 68},
         abilities = {{
             name = "Lucifron's Curse",
+            spellId = 19703,
             icon = "Interface\\Icons\\Spell_Shadow_BlackPlague",
             roles = {"decurse"},
             color = "ffa335ee",
             lines = {"Afflicts an enemy with a curse that doubles the cost of any spell."}
         }, {
             name = "Impending Doom",
+            spellId = 19702,
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
             roles = {"dispel"},
             color = "ffff7d0a",
@@ -83,6 +85,7 @@ local MC_BOSSES = {
             lines = {"Instantly lashes an enemy with dark magic, inflicting 419 to 485 Shadow damage."}
         }, {
             name = "Tortures",
+            spellId = 34459,
             icon = "Interface\\Icons\\spell_shadow_shadowwordpain",
             roles = {"tank"},
             color = "ffff7d0a",
@@ -102,6 +105,7 @@ local MC_BOSSES = {
                 lines = {"Randomly mind controls a raid member. Dispel or kill the add to break the effect."}
             }, {
                 name = "Cleave",
+                spellId = 20605,
                 icon = "Interface\\Icons\\ability_warrior_cleave",
                 roles = {"tank", "melee"},
                 color = "ff00ccff",
@@ -117,11 +121,13 @@ local MC_BOSSES = {
         stats = {armor = 5780, fire = 327, nature = 98, frost = 88, shadow = 85, arcane = 55},
         abilities = {{
             name = "Frenzy",
+            spellId = 19451,
             icon = "Interface\\Icons\\ability_druid_challangingroar",
             roles = {"hunter"},
             lines = {"Magmadar enters a frenzy, dramatically increasing his attack speed until removed by Tranquilizing Shot."}
         }, {
             name = "Lava Breath",
+            spellId = 19272,
             icon = "Interface\\Icons\\spell_fire_windsofwoe",
             roles = {"tank"},
             lines = {"Magmadar breaths lava in a frontal cone in front of him dealing 2857 to 3743 Fire damage."}
@@ -134,11 +140,13 @@ local MC_BOSSES = {
             lines = {"Burns enemies within 5 yards for 500 Fire damage every second for 8 seconds."}
         }, {
             name = "Panic",
+            spellId = 19408,
             icon = "Interface\\Icons\\spell_shadow_deathscream",
             roles = {},
             lines = {"Magmadar fears everyone in the raid for 8 seconds."}
         }, {
             name = "Lava Bomb",
+            spellId = 19411,
             icon = "Interface\\Icons\\spell_fire_selfdestruct",
             warning = true,
             roles = {"healer"},
@@ -146,11 +154,13 @@ local MC_BOSSES = {
                      "This ability creates a flame patch on the floor for 60? seconds which applies a debuff causing 4000 Fire damage over 8 seconds."}
         }, {
             name = "Magma Spit",
+            spellId = 19450,
             icon = "Interface\\Icons\\spell_fire_meteorstorm",
             roles = {"healer"},
             lines = {"Magmadar spits fire at nearby players, dealing 75 Fire damage every 3 seconds. Lasts 30 seconds and stacks up 3? times."}
         }, {
             name = "Double Bite",
+            spellId = 34429,
             icon = "Interface\\Icons\\ability_racial_cannibalize",
             roles = {"tank"},
             lines = {"Magmadar bites the target second in threat."}
@@ -164,11 +174,13 @@ local MC_BOSSES = {
         stats = {armor = 5120, fire = 256, nature = 88, frost = 88, shadow = 98, arcane = 68},
         abilities = {{
             name = "Rain of Fire",
+            spellId = 19717,
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
             lines = {"Gehennas rains down fire on a random area, dealing 925 to 1075 Fire damage every 2 seconds to anyone standing in it."}
         }, {
             name = "Gehennas' Curse",
+            spellId = 19716,
             icon = "Interface\\Icons\\Spell_Shadow_ChillTouch",
             roles = {"decurse"},
             lines = {"Gehennas curses all players, reducing the effectiveness of healing spells cast on them by 75% for 60 seconds."}
@@ -195,6 +207,7 @@ local MC_BOSSES = {
             lines = {"Two of these accompany Gehennas into battle."},
             abilities = {{
                 name = "Strike",
+                spellId = 19730,
                 icon = "Interface\\Icons\\ability_rogue_ambush",
                 roles = {"tank"},
                 lines = {"Strikes at an enemy, inflicting weapon damage plus 25."}
@@ -210,6 +223,7 @@ local MC_BOSSES = {
                 lines = {"Hacks at nearby enemies, reducing their armor by 8 per level of the caster per stack (about 472 at level 60). Stacks up to 5 times. Lasts 30 sec."}
             }, {
                 name = "Fist of Ragnaros",
+                spellId = 20277,
                 icon = "Interface\\Icons\\spell_holy_sealofwrath",
                 roles = {"tank", "dps"},
                 lines = {"Stuns nearby enemies, rendering them unable to move or attack for 5 sec."}
@@ -224,6 +238,7 @@ local MC_BOSSES = {
         stats = {armor = 8280, fire = 168, nature = 128, frost = 82, shadow = 82, arcane = 62},
         abilities = {{
             name = "Magma Shackles",
+            spellId = 19496,
             icon = "Interface\\Icons\\spell_nature_earthbind",
             roles = {"dispel"},
             lines = {"Reduces the movement speed of nearby enemies by 60% for 15 sec."}
@@ -235,11 +250,13 @@ local MC_BOSSES = {
             lines = {"Increases attack speed by 10% and size by 5%, and reduces its own armor by 300. Stacks up to 10 times. Lasts 30 minutes."}
         }, {
             name = "Antimagic Pulse",
+            spellId = 19492,
             icon = "Interface\\Icons\\spell_holy_dispelmagic",
             roles = {"healer", "dispel"},
             lines = {"Dispels magic on nearby enemies, removing 2 beneficial spell effects."}
         }, {
             name = "Annihilate",
+            spellId = 34448,
             icon = "INTERFACE\\ICONS\\stoneskinz_3",
             roles = {"tank"},
             lines = {"Increases the Physical damage taken by an enemy by 100 for 1 min. Stacks indefinitely."}
@@ -269,6 +286,7 @@ local MC_BOSSES = {
                 lines = {"Explodes on death dealing around 2350 Fire damage and heavy knockback to nearby players."}
             }, {
                 name = "Immolate",
+                spellId = 20294,
                 icon = "Interface\\Icons\\spell_fire_immolation",
                 lines = {"Inflicts 760 to 840 Fire damage to an enemy and scorches it for an additional 680 to 720 damage every 3 sec. for 21 sec."}
             }, {
@@ -290,6 +308,7 @@ local MC_BOSSES = {
         stats = {armor = 4922, fire = "immune", nature = 86, frost = 66, shadow = 84, arcane = 34},
         abilities = {{
             name = "Living Bomb",
+            spellId = 20475,
             icon = "Interface\\Icons\\inv_enchant_essenceastralsmall",
             warning = true,
             lines = {"Baron Geddon throws a bomb at a random raid member. After 6 sec. the bomb explodes, inflicting 3800 to 4300 Fire damage to the target and its nearby allies."}
@@ -313,12 +332,14 @@ local MC_BOSSES = {
                 lines = {"Spreading Flames leaves Molten Ground on the floor for 2 minutes, dealing 54000 Fire damage over 2 minutes to anyone standing in it (450 Fire damage every 1 second)."}
             }}
         }, {
+            -- spellId: uncertain - the combat log has 19695 / 19698 for this mob under this name.
             name = "Inferno",
             icon = "Interface\\Icons\\spell_fire_incinerate",
             roles = {"dps", "healer"},
             lines = {"Baron Geddon channels a raging inferno beneath him for 8 sec, dealing increasing (1000+?) Fire damage to nearby players."}
         }, {
             name = "Ignite Mana",
+            spellId = 19659,
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
             roles = {"dispel"},
             lines = {"Baron Geddon casts Ignite Mana on all players, burning 400 mana every 3(?) sec. for 1 min. Each point of mana that is destroyed also damages the target from which it is consumed."},
@@ -329,6 +350,7 @@ local MC_BOSSES = {
             }}
         }, {
             name = "Armageddon",
+            spellId = 20478,
             icon = "Interface\\Icons\\spell_fire_selfdestruct",
             warning = true,
             lines = {"Baron Geddon performs one last service for Ragnaros when he reaches 5% health. If Baron Geddon is not killed within 8 seconds he explodes dealing 8000(?) Fire Damage to all players in line of sight."},
@@ -342,6 +364,7 @@ local MC_BOSSES = {
         stats = {armor = 4800, fire = 203, nature = 124, frost = 124, shadow = 124, arcane = 344},
         abilities = {{
             name = "Arcane Explosion",
+            spellId = 19712,
             icon = "Interface\\Icons\\spell_nature_wispsplode",
             roles = {"dps"},
             lines = {"Sends out a blast wave of magic, inflicting 925 to 1400 Arcane damage to nearby enemies."}
@@ -356,17 +379,20 @@ local MC_BOSSES = {
             lines = {"Shazzrah throws arcanebolts at all enemies between 20 and 100 yards, each hitting for around 275 Arcane damage."}
         }, {
             name = "Arcane Blast",
+            spellId = 24857,
             icon = "Interface\\Icons\\spell_shadow_deathpact",
             warning = true,
             roles = {"tank"},
             lines = {"Blasts an enemy with Arcane magic, inflicting weapon damage plus 1050 to 1350 and knocking the enemy back 50? yards."}
         }, {
             name = "Deaden Magic",
+            spellId = 19714,
             icon = "Interface\\Icons\\spell_holy_sealofsalvation",
             roles = {"dispel"},
             lines = {"Reduces the magical damage taken by Shazzrah by 75% for 30 sec until dispelled."}
         }, {
             name = "Shazzrah's Curse",
+            spellId = 19713,
             icon = "Interface\\Icons\\Spell_shadow_antishadow",
             roles = {"decurse"},
             lines = {"Curses all players, increasing the magical damage taken by 100% for 1 min."}
@@ -383,16 +409,19 @@ local MC_BOSSES = {
             lines = {"Restores 1000 to 1200 mana. 60 second cooldown."}
         }, {
             name = "Counterspell",
+            spellId = 19715,
             icon = "Interface\\Icons\\spell_frost_iceshock",
             roles = {"caster"},
             lines = {"Counters the spellcasting of nearby enemies, preventing any spell from that school of magic from being cast for 10 sec."}
         }, {
             name = "Polymorph: Core Hound",
+            spellId = 34482,
             icon = "Interface\\Icons\\ability_druid_challangingroar",
             roles = {"tank"},
             lines = {"Transforms the highest threat target into a Core Hound, forcing it to wander around for up to 15 sec."}
         }, {
             name = "Gate of Shazzrah",
+            spellId = 23139,
             icon = "Interface\\Icons\\spell_arcane_portalironforge",
             warning = true,
             lines = {"Shazzrah summons an Arcane Rune at a target location. After 5 seconds, the rune erupts into an Arcane Dome. Anyone trapped within it is unable to take any actions for 30 seconds."}
@@ -406,18 +435,21 @@ local MC_BOSSES = {
         stats = {armor = 6200, fire = 422, nature = 137, frost = 98, shadow = 88, arcane = 48},
         abilities = {{
             name = "Magma Splash",
+            spellId = 13880,
             icon = "Interface\\Icons\\spell_fire_immolation",
             warning = true,
             roles = {"tank", "melee"},
             lines = {"Golemagg splashes magma at his attackers, dealing 50 Fire damage every 3 sec. and reducing their armor by 250? per stack. Stacks indefinitely."}
         }, {
             name = "Hateful Strike",
+            spellId = 34434,
             icon = "Interface\\Icons\\trade_engineering",
             roles = {"tank", "healer"},
             warning = true,
             lines = {"Inflicts 8000 to 10000 damage to the target with 2nd threat."}
         },{
             name = "Pyroblast",
+            spellId = 20228,
             icon = "Interface\\Icons\\spell_fire_fireball02",
             roles = {"healer"},
             warning = true,
@@ -429,6 +461,7 @@ local MC_BOSSES = {
             warning = true,
             lines = {"Golemagg encases an enemy in molten fire for 8 sec and is stunned. After 8 sec. the target explodes, dealing 2910 to 3710 Fire damage to all nearby enemies."}
         },{
+            -- spellId: uncertain - the combat log has 19953 / 28131 for this mob under this name.
             name = "Enrage",
             icon = "Interface\\Icons\\spell_shadow_unholyfrenzy",
             warning = true,
@@ -447,21 +480,25 @@ local MC_BOSSES = {
             lines = {"Golemagg is accompanied by two Core Ragers which cannot die while Golemagg is alive and will run off ."},
             abilities = {{
                 name = "Golemagg's Trust",
+                spellId = 20553,
                 icon = "Interface\\Icons\\ability_hunter_beasttaming",
                 warning = true,
                 roles = {"tank"},
                 lines = {"Passive - the Core Ragers deal increased damage and gain 50% attack speed while tanked too close to Golemagg (and turn bigger and glow red)."}
             }, {
                 name = "Mangle",
+                spellId = 19820,
                 icon = "Interface\\Icons\\ability_druid_disembowel",
                 lines = {"Inflicts 500 damage to an enemy every 2 sec. and slows its movement by 60% for 30 sec."}
             }, {
                 name = "Serrated Bite",
+                spellId = 19771,
                 icon = "Interface\\Icons\\ability_gouge",
                 roles = {"healer", "tank"},
                 lines = {"Inflicts a bleed of 1500 Physical damage to an enemy over 30 sec. Stacks indefinitely."}
             }, {
                 name = "Mark of Golemagg",
+                spellId = 34586,
                 icon = "Interface\\Icons\\ability_hunter_snipershot",
                 lines = {"Cast on tanks"}
             }}
@@ -480,6 +517,7 @@ local MC_BOSSES = {
             name = "All Stances"
         }, {
             name = "Inspire",
+            spellId = 19779,
             icon = "Interface\\Icons\\Ability_Warrior_OffensiveStance",
             roles = {"tank"},
             lines = {"Increases the Physical damage dealt by an ally by 50% and speeds its attacks by 100% for 10 sec. 45y range."}
@@ -499,16 +537,19 @@ local MC_BOSSES = {
             lines = {"Increases the caster's critical strike chance by 100% and reduces its resistances by 35% for 15 seconds. Also grants an immunity (aura 38) - X, which one is unconfirmed. Which stance uses it is unconfirmed."}
         }, {
             name = "Drain Life",
+            spellId = 34479,
             icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
             roles = {"tank"},
             lines = {"Steals 2000 to 3000 life from target enemy. Shadow damage ability."}
         }, {
             name = "Dark Strike",
+            spellId = 19777,
             icon = "Interface\\Icons\\Ability_ThunderBolt",
             roles = {"tank"},
             lines = {"Consecrates the caster's weapon, inflicting 570 to 630 additional damage on its next attack. All damage caused is considered Shadow damage."}
         }, {
             name = "Flame Spear",
+            spellId = 19781,
             icon = "Interface\\Icons\\Ability_Throw",
             lines = {"Tosses a spear of flame, inflicting 1850 to 2450 Fire damage to an enemy, as well as scorching any other enemies in the vicinity of the target."}
         }, {
@@ -526,6 +567,7 @@ local MC_BOSSES = {
             lines = {"Instantly counterattacks any enemy that strikes him in melee for 15 seconds."}
         }, {
             name = "Unbalancing Strike",
+            spellId = 26613,
             icon = "Interface\\Icons\\Ability_Warrior_DecisiveStrike",
             warning = true,
             roles = {"tank"},
@@ -533,14 +575,17 @@ local MC_BOSSES = {
         }, {
             separator = true,
             name = "Defensive Stance"
+            spellId = 34477,
         }, {
             name = "War Stomp",
+            spellId = 27758,
             icon = "Interface\\Icons\\Ability_BullRush",
             warning = true,
             roles = {"melee"},
             lines = {"Inflicts weapon damage plus 936 to 1064 to nearby enemies and stuns them for 5 seconds."}
         }, {
             name = "Shield Wall",
+            spellId = 29061,
             icon = "Interface\\Icons\\Ability_Warrior_ShieldWall",
             warning = true,
             lines = {"Reduces Physical and magical damage taken by 75% for 20 seconds."}
@@ -554,8 +599,10 @@ local MC_BOSSES = {
         }, {
             separator = true,
             name = "Berserker Stance"
+            spellId = 34476,
         }, {
             name = "Flame Charge",
+            spellId = 34474,
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
             roles = {"tank"},
@@ -616,11 +663,13 @@ local MC_BOSSES = {
             lines = {"Causes all nearby allies to reflect 100% of harmful spells for 10 sec."}
         }, {
             name = "Damage Shield",
+            spellId = 21075,
             icon = "Interface\\Icons\\spell_shadow_antishadow",
             roles = {"melee"},
             lines = {"Causes 300 arcane damage to any creature that strikes a nearby minion."}
         }, {
             name = "Polymorph: Core Hound",
+            spellId = 34482,
             icon = "Interface\\Icons\\ability_druid_challangingroar",
             lines = {"Transforms a random non-tank? into a Core Hound, forcing it to wander around for up to 15 sec."}
         }, {
@@ -646,14 +695,17 @@ local MC_BOSSES = {
             lines = {"Four of these accompany Gehennas into battle."},
             abilities = {{
                 name = "Silence",
+                spellId = 30225,
                 icon = "Interface\\Icons\\spell_holy_silence",
                 lines = {"Silences nearby enemies, preventing them from casting spells for 8 sec."}
             }, {
                 name = "Shadow Bolt",
+                spellId = 21077,
                 icon = "Interface\\Icons\\spell_shadow_shadowbolt",
                 lines = {"Hurls a bolt of dark magic at an enemy, inflicting 2000 to 2450 Shadow damage."}
             }, {
                 name = "Dark Mending",
+                spellId = 19775,
                 roles = {"kick"},
                 icon = "Interface\\Icons\\spell_shadow_chilltouch",
                 lines = {"Uses dark magic to heal an ally for 127750 to 142250 damage."}
@@ -666,10 +718,12 @@ local MC_BOSSES = {
             lines = {"Four of these accompany Gehennas into battle."},
             abilities = {{
                 name = "Fireball",
+                spellId = 20420,
                 icon = "Interface\\Icons\\spell_fire_flamebolt",
                 lines = {"Inflicts 2000 to 2450 Fire damage to an enemy."}
             }, {
                 name = "Blast Wave",
+                spellId = 20229,
                 icon = "Interface\\Icons\\spell_holy_excorcism_02",
                 lines = {"Inflicts 994 to 1406 Fire damage to nearby enemies and reduces their movement speed by 50% for 12 sec."}
             }}
@@ -683,17 +737,20 @@ local MC_BOSSES = {
         stats = {armor = 5350, fire = "immune", nature = 83, frost = 83, shadow = 83, arcane = 68},
         abilities = {{
             name = "Wrath of Ragnaros",
+            spellId = 20566,
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
             roles = {"melee", "tank"},
             warning = true,
             lines = {"Inflicts 1000 Fire damage to nearby enemies, knocking them back."}
         }, {
             name = "Magma Blast",
+            spellId = 20565,
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             roles = {"healer"},
             lines = {"Inflicts 6000 Fire damage to an enemy."}
         }, {
             name = "Decimate",
+            spellId = 34492,
             icon = "Interface\\Icons\\inv_hammer_unique_sulfuras",
             roles = {"healer", "tank"},
             lines = {"Increases a target's chance to be a victim of a critical strike by 100% for 20 sec."}
@@ -704,11 +761,13 @@ local MC_BOSSES = {
             lines = {"Inflicts 1500 to 2050 Fire damage to all enemies."}
         }, {
             name = "Elemental Fire",
+            spellId = 20564,
             icon = "Interface\\Icons\\spell_fire_flametounge",
             roles = {"melee"},
             lines = {""}
         }, {
             name = "Might of Ragnaros",
+            spellId = 21154,
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             roles = {"melee"},
             lines = {""}
@@ -750,6 +809,7 @@ local MC_BOSSES = {
             lines = {"Eight Sons of Flame emerge while Ragnaros is submerged and swarm the raid."},
             abilities = {{
                 name = "Lava Shield",
+                spellId = 21858,
                 icon = "Interface\\Icons\\spell_fire_immolation",
                 warning = true,
                 lines = {"Burns 250 to 350 mana of nearby enemies, and half of the mana burned is dealt as fire damage."}
@@ -771,12 +831,14 @@ local MC_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: confirmed via testing - plus 100.
             name = "Knock Away",
+            spellId = 18945,
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             roles = {"tank"},
             lines = {"Inflicts weapon damage plus 100 to an enemy and knocks it back."}
         }, {
             -- CHANGED: confirmed via testing - 1410 to 1890 damage.
             name = "Smash",
+            spellId = 18944,
             icon = "Interface\\Icons\\Ability_ThunderBolt",
             warning = true,
             lines = {"Smashes the ground, inflicting 1410 to 1890 damage to nearby enemies."}
@@ -791,6 +853,7 @@ local MC_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: confirmed via testing - 8000 to 10000 damage.
             name = "Hateful Strike",
+            spellId = 34434,
             icon = "Interface\\Icons\\Temp",
             warning = true,
             roles = {"tank", "healer"},
@@ -798,12 +861,14 @@ local MC_TRASH_MOBS = {
         }, {
             -- CHANGED: confirmed via testing - 900 to 1100 damage, 2 second interrupt.
             name = "Massive Tremor",
+            spellId = 19129,
             icon = "Interface\\Icons\\Ability_Smash",
             warning = true,
             lines = {"Causes a massive ground tremor, inflicting 900 to 1100 damage to nearby enemies and interrupting any spell being cast for 2 seconds."}
         }, {
             -- CHANGED: confirmed via testing - exact numbers/duration.
             name = "Pyroblast",
+            spellId = 20228,
             icon = "Interface\\Icons\\Spell_Fire_Fireball02",
             warning = true,
             lines = {"Inflicts 3588 to 4512 Fire damage to an enemy and scorches the target for an additional 474 damage every 2 sec. for 12 sec."}
@@ -819,18 +884,21 @@ local MC_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: confirmed via testing - 2388 to 3812 damage.
             name = "Cone of Fire",
+            spellId = 19630,
             icon = "Interface\\Icons\\Spell_Fire_WindsofWoe",
             warning = true,
             lines = {"Inflicts 2388 to 3812 Fire damage to enemies in a cone in front of the caster. Face away from the raid."}
         }, {
             -- CHANGED: confirmed via testing - 2000 armor, 1 min.
             name = "Melt Armor",
+            spellId = 19631,
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
             warning = true,
             lines = {"Reduces the armor of nearby enemies by 2000 for 1 min."}
         }, {
             -- CHANGED: confirmed via testing - 30 sec DoT and stun.
             name = "Fire Prison",
+            spellId = 34465,
             icon = "Interface\\Icons\\INV_Ammo_FireTar",
             warning = true,
             lines = {"Imprisons an enemy. DoT and stun for 30 sec."}
@@ -845,6 +913,7 @@ local MC_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: confirmed via testing - 6000 damage over 16 sec, -75%.
             name = "Soul Burn",
+            spellId = 19393,
             icon = "Interface\\Icons\\Spell_Fire_SoulBurn",
             warning = true,
             lines = {"Inflicts 6000 Fire damage to an enemy over 16 seconds, preventing it from casting spells and reducing the Physical damage it deals by 75%."}
@@ -854,6 +923,7 @@ local MC_TRASH_MOBS = {
             -- text below is a guess, icon reused from the thematically
             -- matching Spell_Fire_Incinerate.
             name = "Incinerate",
+            spellId = 19397,
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
             lines = {"Fire damage taken is increased by 25(%)?"}
@@ -862,6 +932,7 @@ local MC_TRASH_MOBS = {
             -- 500 splash, first applied 15 sec into the fight then every
             -- 12-15 sec afterward.
             name = "Conflagration",
+            spellId = 16805,
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
             lines = {"Sets an enemy aflame, inflicting 7000 Fire damage over 10 seconds and sending it into a state of panic. While affected, the flames periodically scorch nearby allies for 500 damage as well. First applied 15 seconds into the fight, then every 12 to 15 seconds afterward."}
@@ -880,6 +951,7 @@ local MC_TRASH_MOBS = {
                 lines = {"Hurls a fiery ball that causes 192-258 Fire damage (spellDB). Chronicle shows ~980-1300 damage though."}
             }, {
                 name = "Split",
+                spellId = 19569,
                 icon = "Interface\\Icons\\Spell_Shadow_SealOfKings",
                 warning = true,
                 lines = {"The Lava Spawn splits into two, each inheriting a portion of its remaining health."}
@@ -894,15 +966,18 @@ local MC_TRASH_MOBS = {
         stats = {armor = 3400, fire = "immune", nature = 50, frost = 50, shadow = 50, arcane = 50},
         abilities = {{
             name = "Lava Breath",
+            spellId = 34430,
             icon = "Interface\\Icons\\Spell_Fire_WindsofWoe",
             warning = true,
             lines = {"Inflicts 1557 to 2043 Fire damage to enemies in front of the caster."}
         }, {
             name = "Serrated Bite",
+            spellId = 19771,
             icon = "Interface\\Icons\\Ability_Gouge",
             lines = {"Inflicts 1500 Physical damage to an enemy over 30 seconds. Stacks to 50."}
         }, {
             name = "Piercing Howl",
+            spellId = 34457,
             icon = "Interface\\Icons\\Ability_Druid_ChallangingRoar",
             lines = {"Causes all enemies near the hound to be dazed for 20 seconds."}
         }}
@@ -915,10 +990,12 @@ local MC_TRASH_MOBS = {
         stats = {armor = 3800, fire = "immune", nature = 60, frost = 60, shadow = 60, arcane = 60},
         abilities = {{
             name = "Vicious Bite",
+            spellId = 19319,
             icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
             lines = {"Bites an enemy, inflicting (weapon damage) Physical damage."}
         }, {
             name = "Cone of Fire",
+            spellId = 19630,
             icon = "Interface\\Icons\\Spell_Fire_WindsofWoe",
             warning = true,
             lines = {"Inflicts 2388 to 3812 Fire damage to enemies in a cone in front of the caster."}
@@ -931,6 +1008,7 @@ local MC_TRASH_MOBS = {
             lines = {"Curses enemies within 45 yards, increasing the cost of their spells and abilities by 100% for 15 minutes."}
         }, {
             name = "Serrated Bite",
+            spellId = 19771,
             icon = "Interface\\Icons\\Ability_Gouge",
             roles = {"tank"},
             lines = {"Inflicts 1500 Physical damage to an enemy over 30 seconds. Stacks to 50."}
@@ -939,20 +1017,24 @@ local MC_TRASH_MOBS = {
             name = "One of Five (fixed per hound)",
         }, {
             name = "Withering Heat",
+            spellId = 19367,
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             roles = {"dispel"},
             lines = {"Maximum health reduced by 40%. Taking 1% health damage every 1 sec. Stuns and deals heavy damage over 5 seconds on dispel. Each hound only ever casts one of these five abilities, recasting it if not killed in time."}
         }, {
             name = "Ground Stomp",
+            spellId = 19364,
             icon = "Interface\\Icons\\temp",
             lines = {"Stomps the ground, stunning enemies within 30 yards for 8 seconds. Each hound only ever casts one of these five abilities, recasting it if not killed in time."}
         }, {
             name = "Ancient Dread",
+            spellId = 19365,
             icon = "Interface\\Icons\\temp",
             roles = {"decurse"},
             lines = {"Attack and casting speed reduced by 100%. Fears on dispel. Each hound only ever casts one of these five abilities, recasting it if not killed in time."}
         }, {
             name = "Cauterizing Flames",
+            spellId = 19366,
             icon = "Interface\\Icons\\Spell_Fire_Volcano",
             roles = {"dispel"},
             lines = {"Increases Fire damage taken by 50%. Deals 350 to 2075 damage to nearby allies on dispel. Each hound only ever casts one of these five abilities, recasting it if not killed in time."}
@@ -973,6 +1055,7 @@ local MC_TRASH_MOBS = {
             -- CHANGED: confirmed via testing - 500-800 initial hit 10-15 sec
             -- into the fight, plus 3600 over 8 sec.
             name = "Magma Strike",
+            spellId = 34454,
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
             lines = {"Calls down a pillar of fire 10 to 15 seconds into the fight, burning all enemies within the area for 500 to 800 Fire damage and an additional 3600 Fire damage over 8 seconds."}
@@ -981,6 +1064,7 @@ local MC_TRASH_MOBS = {
             -- fight against the closest enemy, 2000 to 3000 damage. Only
             -- triggers if an enemy is 10 to 45 yards away.
             name = "Surge",
+            spellId = 19196,
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
             lines = {"Charges the closest enemy at the start of the fight, inflicting 2000 to 3000 damage to the target and any of its nearby allies, as well as knocking them all back. Only triggers if an enemy is 10 to 45 yards away."}
@@ -989,6 +1073,7 @@ local MC_TRASH_MOBS = {
             -- entry), but confirmed via testing to slow by a different
             -- amount here (40% vs Garr's 60%) - not a copy-paste error.
             name = "Magma Shackles",
+            spellId = 34453,
             icon = "Interface\\Icons\\spell_nature_earthbind",
             lines = {"Reduces the movement speed of nearby enemies by 40% for 15 seconds."}
         }}
@@ -1003,6 +1088,7 @@ local MC_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: confirmed via testing - 4410 damage, 7 second stun.
             name = "Pyroclast Barrage",
+            spellId = 19641,
             icon = "Interface\\Icons\\Spell_Fire_Fireball02",
             warning = true,
             lines = {"Inflicts 4410 Fire damage to enemies in a cone in front of it, stunning them for 7 seconds."}
@@ -1010,6 +1096,7 @@ local MC_TRASH_MOBS = {
             -- CHANGED: damage + knockback confirmed via testing (no usable
             -- Description_enUS match in Spell.xlsx).
             name = "Lava Explosion",
+            spellId = 34464,
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
             lines = {"An explosive burst dealing 902 to 1202 Fire damage to nearby enemies and knocking them back."}
@@ -1034,6 +1121,7 @@ local MC_TRASH_MOBS = {
             -- the sourced icon, "phoenix", looks like a placeholder rather
             -- than a real match) - text and icon below are both guesses.
             name = "Lava Grasp",
+            spellId = 34467,
             icon = "Interface\\Icons\\Spell_Nature_StrangleVines",
             warning = true,
             roles = {"tank"},
@@ -1050,6 +1138,7 @@ local MC_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: confirmed via testing - 100 damage taken, 60 seconds.
             name = "Annihilate",
+            spellId = 34448,
             icon = "Interface\\Icons\\stoneskinz_3",
             roles = {"tank"},
             lines = {"Increases the Physical damage taken by an enemy by 100 for 60 seconds. Stacks indefinitely."}
@@ -1101,6 +1190,7 @@ local MC_TRASH_MOBS = {
         stats = {armor = 3600, fire = "immune", nature = 55, frost = 55, shadow = 55, arcane = 55},
         abilities = {{
             -- CHANGED: confirmed via testing - 3375 to 4325 damage over 6 sec.
+            -- spellId: uncertain - the combat log has 19636 / 19637 for this mob under this name.
             name = "Fire Blossom",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
@@ -1108,6 +1198,7 @@ local MC_TRASH_MOBS = {
         }, {
             -- CHANGED: confirmed via testing - 50 for 60 seconds.
             name = "Incite Flames",
+            spellId = 19635,
             icon = "Interface\\Icons\\Spell_Fire_FlameBlades",
             lines = {"Reduces the Fire resistance of nearby enemies by 50 for 60 seconds."}
         }}

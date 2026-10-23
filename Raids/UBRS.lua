@@ -106,6 +106,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Kidney Shot",
+            spellId = 27615,
             icon = "Interface\\Icons\\Ability_Rogue_KidneyShot",
             warning = true,
             lines = {"Finishing move that stuns the target."}
@@ -141,6 +142,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Death Coil",
+            spellId = 34386,
             icon = "Interface\\Icons\\Spell_Shadow_DeathCoil",
             warning = true,
             lines = {"Causes 400 to 700 Shadow damage to the enemy. The caster gains 100% of the damage caused as health."}
@@ -156,6 +158,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Shadow Bolt",
+            spellId = 12739,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
             roles = {"kick"},
@@ -182,6 +185,7 @@ local UBRS_TRASH_MOBS = {
         abilities = {{
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Backhand",
+            spellId = 6253,
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             warning = true,
             lines = {"Backhands an enemy, stunning it for 2 seconds."}
@@ -196,6 +200,7 @@ local UBRS_TRASH_MOBS = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Mortal Strike",
+            spellId = 19643,
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             warning = true,
             lines = {"Inflicts 150% weapon damage to an enemy and leaves it wounded, reducing the effectiveness of any healing on it by 50% for 5 seconds."}
@@ -328,11 +333,13 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Summon Blackhand Dreadweaver",
+            spellId = 15794,
             icon = "Interface\\Icons\\Spell_Shadow_Charm",
             lines = {"Summons a Blackhand Dreadweaver to aid it in battle."}
         },
         {
             name = "Summon Blackhand Veteran",
+            spellId = 15792,
             icon = "Interface\\Icons\\Spell_Shadow_Charm",
             lines = {"Summons a Blackhand Veteran to aid it in battle."}
         }
@@ -360,6 +367,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Shield Charge",
+            spellId = 15749,
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
             lines = {"Charges an enemy, knocking it back and inflicting weapon damage plus 150."}
@@ -401,6 +409,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Firebolt",
+            spellId = 20801,
             icon = "Interface\\Icons\\Spell_Fire_FireBolt",
             warning = true,
             lines = {"Shoots a bolt of flame at an enemy, inflicting 60 to 80 Fire damage."}
@@ -460,6 +469,7 @@ local UBRS_TRASH_MOBS = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Mortal Strike",
+            spellId = 15708,
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             warning = true,
             lines = {"Inflicts 300% weapon damage and leaves the target wounded, reducing the effectiveness of any healing by 50% for 5 seconds."}
@@ -491,6 +501,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Fireball Volley",
+            spellId = 16250,
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
             lines = {"Inflicts 97 to 129 Fire damage to nearby enemies."}
@@ -506,6 +517,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Lightning Bolt",
+            spellId = 12167,
             icon = "Interface\\Icons\\Spell_Nature_Lightning",
             warning = true,
             roles = {"kick"},
@@ -532,17 +544,20 @@ local UBRS_TRASH_MOBS = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Demoralizing Shout",
+            spellId = 19778,
             icon = "Interface\\Icons\\Ability_Warrior_WarCry",
             warning = true,
             lines = {"Reduces the melee and ranged attack power of nearby enemies by 300, for 30 seconds."}
         },
         {
             name = "Empower Will",
+            spellId = 16171,
             icon = "Interface\\Icons\\Ability_Warrior_BattleShout",
             lines = {"Dispels 1 polymorph, charm, or knockout effect from nearby allies."}
         },
         {
             name = "Knock Away",
+            spellId = 10101,
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             warning = true,
             lines = {"Inflicts weapon damage plus 30 to an enemy and knocks it back."}
@@ -550,6 +565,7 @@ local UBRS_TRASH_MOBS = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Mortal Strike",
+            spellId = 15708,
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             warning = true,
             lines = {"Inflicts 300% weapon damage and leaves the target wounded, reducing the effectiveness of any healing by 50% for 5 seconds."}
@@ -686,18 +702,21 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Fire Blast",
+            spellId = 16144,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             lines = {"Inflicts 360 Fire damage to an enemy."}
         },
         {
             name = "Fire Nova",
+            spellId = 16635,
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
             warning = true,
             lines = {"Inflicts 148 to 170 Fire damage to nearby enemies."}
         },
         {
             name = "Fireball Volley",
+            spellId = 15285,
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
             lines = {"Inflicts 128 to 172 Fire damage to nearby enemies."}
@@ -730,12 +749,14 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Fire Nova",
+            spellId = 12470,
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
             warning = true,
             lines = {"Inflicts 298 to 320 Fire damage to nearby enemies."}
         },
         {
             name = "Fireball Volley",
+            spellId = 15285,
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
             lines = {"Inflicts 128 to 172 Fire damage to nearby enemies."}
@@ -834,6 +855,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Dispel Magic",
+            spellId = 15090,
             icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
             roles = {"dispel"},
             lines = {"Dispels magic on the target, removing 1 harmful spell from an ally or 1 beneficial spell from an enemy."}
@@ -883,6 +905,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Shield Charge",
+            spellId = 15749,
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
             lines = {"Charges an enemy, knocking it back and inflicting weapon damage plus 150."}
@@ -912,6 +935,7 @@ local UBRS_TRASH_MOBS = {
         stats = {armor = "X", fire = "X", nature = "X", frost = "X", shadow = "X", arcane = "X"},
         abilities = {{
             name = "Arcane Bolt",
+            spellId = 13748,
             icon = "Interface\\Icons\\Spell_Arcane_StarFire",
             warning = true,
             roles = {"kick"},
@@ -929,6 +953,7 @@ local UBRS_TRASH_MOBS = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Counterspell",
+            spellId = 15122,
             icon = "Interface\\Icons\\Spell_Frost_IceShock",
             warning = true,
             lines = {"Counters an enemy's spell, preventing the enemy from casting that spell again for 15 seconds. Generates a high amount of threat."}
@@ -995,6 +1020,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Shadow Bolt",
+            spellId = 12471,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
             roles = {"kick"},
@@ -1020,6 +1046,7 @@ local UBRS_TRASH_MOBS = {
         },
         {
             name = "Shadow Shock",
+            spellId = 18663,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
             lines = {"Instantly lashes an enemy with dark magic, inflicting 210 to 242 Shadow damage."}
@@ -1067,6 +1094,7 @@ local UBRS_BOSSES = {
         },
         {
             name = "Fire Nova",
+            spellId = 34425,
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
             warning = true,
             lines = {"Inflicts 955 to 1155 Fire damage to nearby enemies."}
@@ -1125,6 +1153,7 @@ local UBRS_BOSSES = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Backhand",
+            spellId = 6253,
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             warning = true,
             lines = {"Backhands an enemy, stunning it for 2 seconds."}
@@ -1145,6 +1174,7 @@ local UBRS_BOSSES = {
         },
         {
             name = "Brutal Blow",
+            spellId = 34427,
             icon = "Interface\\Icons\\Spell_Shadow_VampiricAura",
             warning = true,
             lines = {"Attacks the target, causing damage equal to 50% of its target's current Health."}
@@ -1209,6 +1239,7 @@ local UBRS_BOSSES = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Mortal Strike",
+            spellId = 24573,
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             warning = true,
             lines = {"Inflicts 500% weapon damage and leaves the target wounded, reducing the effectiveness of any healing by 50% for 5 seconds."}
@@ -1241,6 +1272,7 @@ local UBRS_BOSSES = {
         },
         {
             name = "Knock Away",
+            spellId = 10101,
             icon = "Interface\\Icons\\INV_Gauntlets_05",
             warning = true,
             lines = {"Inflicts weapon damage plus 30 to an enemy and knocks it back."}
@@ -1248,12 +1280,14 @@ local UBRS_BOSSES = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Corrosive Acid Breath",
+            spellId = 20667,
             icon = "Interface\\Icons\\Spell_Nature_Acid_01",
             warning = true,
             lines = {"Shoots a cloud of acidic breath at enemies in a cone in front of the caster, reducing their armor by 90 and inflicting 150 Nature damage every 30 seconds, for 30 seconds."}
         },
         {
             name = "Flame Breath",
+            spellId = 20712,
             icon = "Interface\\Icons\\Spell_Fire_WindsofWoe",
             warning = true,
             lines = {"Inflicts 1233 to 1567 Fire damage to enemies in a cone in front of the caster."}
@@ -1268,6 +1302,7 @@ local UBRS_BOSSES = {
         },
         {
             name = "Wing Buffet",
+            spellId = 23339,
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
             warning = true,
             lines = {"Inflicts 1500 to 1998 damage to enemies in a cone in front of the caster, knocking them back."}
@@ -1283,6 +1318,7 @@ local UBRS_BOSSES = {
         abilities = {
         {
             name = "Berserker Charge",
+            spellId = 16636,
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
             lines = {"Charges at an enemy, knocking it back and inflicting weapon damage plus 300."}
@@ -1290,12 +1326,14 @@ local UBRS_BOSSES = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Immolate",
+            spellId = 15570,
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
             warning = true,
             lines = {"Burns an enemy for 42, then inflicts an additional 144 Fire damage every 21 seconds, for 21 seconds."}
         },
         {
             name = "Fireball",
+            spellId = 16788,
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
             roles = {"kick"},
@@ -1303,12 +1341,14 @@ local UBRS_BOSSES = {
         },
         {
             name = "Flamebreak",
+            spellId = 16785,
             icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
             warning = true,
             lines = {"Inflicts 232 to 268 Fire damage to nearby enemies, knocking them back."}
         },
         {
             name = "Double Bite",
+            spellId = 34429,
             icon = "Interface\\Icons\\Ability_Racial_Cannibalize",
             warning = true,
             lines = {"Inflicts 100% weapon damage to a second enemy."}
@@ -1316,12 +1356,14 @@ local UBRS_BOSSES = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Terrifying Roar",
+            spellId = 14100,
             icon = "Interface\\Icons\\Ability_Devour",
             warning = true,
             lines = {"Causes nearby enemies to flee in fear for 5 seconds."}
         },
         {
             name = "Lava Breath",
+            spellId = 34430,
             icon = "Interface\\Icons\\Spell_Fire_WindsofWoe",
             warning = true,
             lines = {"Inflicts 1557 to 2043 Fire damage to enemies in front of the caster."}
@@ -1345,6 +1387,7 @@ local UBRS_BOSSES = {
         {
             -- CHANGED: duration confirmed from Spell.xlsx (spell ambiguous rank, but value agrees across all matching ranks) + SpellDuration.csv lookup - not in-game tested.
             name = "Pierce Armor",
+            spellId = 12097,
             icon = "Interface\\Icons\\Spell_Shadow_VampiricAura",
             warning = true,
             lines = {"Reduces an enemy's armor by 75% for 20 seconds."}
@@ -1420,11 +1463,13 @@ local UBRS_BOSSES = {
         },
         {
             name = "Summon Spectral Assassin",
+            spellId = 27249,
             icon = "Interface\\Icons\\Spell_Shadow_Charm",
             lines = {"Summons a Spectral Assassin to aid it in battle."}
         },
         {
             name = "Shadow Bolt Volley",
+            spellId = 27383,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
             lines = {"Hurls missiles of dark magic, inflicting 128 to 172 Shadow damage to nearby enemies."}

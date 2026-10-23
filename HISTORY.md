@@ -110,9 +110,9 @@ exported yet.
 
 ## Still open
 
-- **spellId for the other ~660 abilities** — their IDs aren't in the file yet. Next step: match them from
-  the combat-log CSVs by mob + ability name, then by unique name in Spell.csv; flag anything with several
-  candidate ranks.
+- **spellId for the last ~135 abilities** — 2026-10-23 pass filled 456 more (914 in total) from the
+  mob's own combat-log line or a unique name on lokiy.dev/spells. 19 have a `-- spellId: uncertain` note
+  (two IDs in the mob's own log); 116 more are listed in `SPELLID_OPEN.md` (several same-named spells).
 - **NPC (creature) IDs** — no boss, add or trash pack has one yet. Needed to link to the site's NPC pages
   (combat logs carry the creature GUIDs; the server DB has `creature_template`).
 - **Export script** (one per data flow, listed in MAP.md): read `raids/*.lua` → JSON for the site. Not

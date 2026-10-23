@@ -92,17 +92,20 @@ local BWL_BOSSES = {
             -- CHANGED 2026-09-30: spell 23023 in Spell.csv - 500 Fire/s for 10s (30 yd range), confuse, and a 500 Fire pulse to nearby allies each second (old line said 100/s).
             lines = {"Razorgore's most frequent ability by far - sets the target aflame for 500 Fire damage every second for 10 seconds and sends it into a state of panic. While affected, the flames scorch nearby allies for 500 Fire damage every second."}
         }, {
+            -- spellId: uncertain - the combat log has 22425 / 35208 for this mob under this name.
             name = "Fireball Volley",
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             warning = true,
             lines = {"Inflicts 455 Fire damage to nearby enemies and slows their movement speed by 50%."}
         }, {
             name = "Untamed Strike",
+            spellId = 35178,
             icon = "Interface\\Icons\\temp",
             roles = {"tank"},
             lines = {"A heavy strike on his current target."}
         }, {
             name = "Eternal Livingflame",
+            spellId = 35179,
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             lines = {"Heals his allies but burns enemies, ticking every second."}
         }, {
@@ -156,6 +159,7 @@ local BWL_BOSSES = {
                 lines = {"A sweeping attack that strikes its target and nearest ally for weapon damage plus 50, plus 5 per caster level above 10 (about 300 at level 60), affecting up to 10 targets."}
             }, {
                 name = "Concussion Blow",
+                spellId = 22427,
                 icon = "Interface\\Icons\\Ability_ThunderBolt",
                 warning = true,
                 roles = {"tank"},
@@ -225,6 +229,7 @@ local BWL_BOSSES = {
             lines = {"Melee dragonkin add during the Razorgore encounter."},
             abilities = {{
                 name = "Ring Cleave",
+                spellId = 35170,
                 icon = "Interface\\Icons\\Ability_Whirlwind",
                 roles = {"tank"},
                 lines = {"Attacks all nearby enemies in a whirlwind, causing weapon damage to each."}
@@ -245,6 +250,7 @@ local BWL_BOSSES = {
                 lines = {"A sweeping attack that strikes its target and nearest ally for weapon damage plus 50, plus 5 per caster level above 10 (about 300 at level 60), affecting up to 10 targets."}
             }, {
                 name = "Strike",
+                spellId = 15580,
                 icon = "Interface\\Icons\\Ability_Rogue_Ambush",
                 roles = {"tank"},
                 lines = {"Strikes at an enemy, inflicting increased melee damage."}
@@ -258,6 +264,7 @@ local BWL_BOSSES = {
             lines = {"Caster add during the Razorgore encounter."},
             abilities = {{
                 name = "Fireball",
+                spellId = 17290,
                 icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
                 warning = true,
                 roles = {"kick"},
@@ -291,6 +298,7 @@ local BWL_BOSSES = {
             -- egg phase. Only ability it logged as a source is Mental Strike.
             key = "orb_of_domination",
             name = "Orb of Domination",
+            spellId = 35200,
             icon = "Interface\\Icons\\Spell_Shadow_Metamorphosis",
             color = "ffcc6600",
             lines = {"The controllable orb used to take command of Razorgore and destroy the eggs. Stops working (and pulses damage) if the controller is knocked off."},
@@ -313,6 +321,7 @@ local BWL_BOSSES = {
         stats = {armor = 6600, fire = 322, nature = 58, frost = 98, shadow = 78, arcane = 58},
         abilities = {{
             name = "Heavy Thorium Grenade",
+            spellId = 35155,
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
             lines = {"Lobs grenades at the raid - by far its most frequent ability (26000+ log entries)."}
@@ -372,6 +381,7 @@ local BWL_BOSSES = {
         stats = {armor = 5675, fire = 94, nature = 94, frost = 94, shadow = 94, arcane = 94},
         abilities = {{
             name = "Blast Wave",
+            spellId = 23331,
             icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
             warning = true,
             lines = {"A wave of flame radiates outward, inflicting heavy Fire damage to everyone within roughly 10 yards, knocking them back and slowing them.",
@@ -384,6 +394,7 @@ local BWL_BOSSES = {
             lines = {"Resets or reduces threat. The tanks are slowed and cannot chase."}
         }, {
             name = "Mortal Strike",
+            spellId = 24573,
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             warning = true,
             roles = {"tank", "healer"},
@@ -416,18 +427,21 @@ local BWL_BOSSES = {
         stats = {armor = 5280, fire = 384, nature = 76, frost = 31, shadow = 76, arcane = 31},
         abilities = {{
             name = "Flame Buffet",
+            spellId = 23341,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             roles = {"tank"},
             lines = {"Firemaw's defining mechanic and his most frequent ability by an enormous margin (37000+ log entries).",
                      "Increases Fire damage taken and stacks indefinitely. It CANNOT be removed with Vial of Elune's Light."}
         }, {
+            -- spellId: uncertain - the combat log has 22539 / 22682 for this mob under this name.
             name = "Shadow Flame",
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
             lines = {"Inflicts heavy Shadow damage to enemies in a cone in front of him. Do not stand in front."}
         }, {
             name = "Wing Buffet",
+            spellId = 23339,
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
             warning = true,
             roles = {"tank"},
@@ -458,12 +472,14 @@ local BWL_BOSSES = {
         stats = {armor = 5240, fire = 102, nature = 102, frost = 102, shadow = 84, arcane = 31},
         abilities = {{
             name = "Mirrors System",
+            spellId = 35271,
             icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
             warning = true,
             roles = {"caster"},
             lines = {"Reflects the next several direct damage spells back at everyone around him.",
                      "This is why the combat log shows him 'casting' the raid's own spells - stop casting while it is up."}
         }, {
+            -- spellId: uncertain - the combat log has 35268 / 35269 / 35270 for this mob under this name.
             name = "Elemental Blast",
             icon = "Interface\\Icons\\Spell_Nature_EarthShock",
             warning = true,
@@ -621,23 +637,27 @@ local BWL_BOSSES = {
             name = "Brood Afflictions"
         }, {
             name = "Brood Affliction: Black",
+            spellId = 23154,
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_01",
             warning = true,
             roles = {"decurse", "dps"},
             lines = {"Curse. Increases all damage you cause by 10% but magical damage taken by 100%. Lasts 10 minutes."}
         }, {
             name = "Brood Affliction: Blue",
+            spellId = 23153,
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Blue",
             warning = true,
             roles = {"dispel", "tank"},
             lines = {"Magic. Burns 1% mana every second, reduces casting speed by 100% and increases armor by 3000. Lasts 10 minutes."}
         }, {
             name = "Brood Affliction: Green",
+            spellId = 23169,
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Green",
             warning = true,
             roles = {"poison", "healer"},
             lines = {"Poison. Deals 300 damage every 5 seconds, reduces healing received by 50% and increases healing done by 20%. Lasts 10 minutes."}
         }, {
+            -- spellId: uncertain - the combat log has 23155 / 23168 for this mob under this name.
             name = "Brood Affliction: Red",
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Red",
             warning = true,
@@ -646,6 +666,7 @@ local BWL_BOSSES = {
                      "Heals Chromaggus for 300000 when the afflicted player dies."}
         }, {
             name = "Brood Affliction: Bronze",
+            spellId = 23170,
             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_Bronze",
             warning = true,
             roles = {"dispel"},
@@ -913,6 +934,7 @@ local BWL_TRASH_MOBS = {
             lines = {"Marks the target, increasing the Fire damage it takes by 1000 for 2 minutes."}
         }, {
             name = "Commanding Shout",
+            spellId = 22440,
             icon = "Interface\\Icons\\Spell_Magic_MageArmor",
             lines = {"Buffs nearby allies."}
         }}
@@ -925,12 +947,14 @@ local BWL_TRASH_MOBS = {
         stats = {armor = 4000, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
             name = "Flame Buffet",
+            spellId = 22433,
             icon = "Interface\\Icons\\Spell_Fire_Fireball",
             warning = true,
             roles = {"tank"},
             lines = {"Inflicts Fire damage to an enemy and increases the Fire damage it takes."}
         }, {
             name = "Frenzy",
+            spellId = 22428,
             icon = "Interface\\Icons\\Ability_GhoulFrenzy",
             warning = true,
             roles = {"hunter"},
@@ -941,6 +965,7 @@ local BWL_TRASH_MOBS = {
             name = "Passives"
         }, {
             name = "Aura of Flames",
+            spellId = 22436,
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             lines = {"A passive Fire damage aura affecting nearby enemies."}
         }}
@@ -953,12 +978,14 @@ local BWL_TRASH_MOBS = {
         stats = {armor = 5200, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
             name = "Flame Shock",
+            spellId = 22423,
             icon = "Interface\\Icons\\Spell_Fire_FlameShock",
             warning = true,
             roles = {"tank"},
             lines = {"Instantly sears the target with fire, causing Fire damage plus a burn over time."}
         }, {
             name = "Berserker Charge",
+            spellId = 16636,
             icon = "Interface\\Icons\\Ability_Warrior_Charge",
             warning = true,
             roles = {"tank"},
@@ -978,6 +1005,7 @@ local BWL_TRASH_MOBS = {
             lines = {"Inflicts Fire damage to nearby enemies."}
         }, {
             name = "Blast Wave",
+            spellId = 22424,
             icon = "Interface\\Icons\\Spell_Holy_Excorcism_02",
             warning = true,
             lines = {"A wave of flame radiates outward, damaging and dazing nearby enemies."}
@@ -1026,10 +1054,12 @@ local BWL_TRASH_MOBS = {
         stats = {armor = 4200, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
             name = "Flamestrike",
+            spellId = 22275,
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
             warning = true,
             lines = {"Calls down a pillar of fire, burning the area plus an additional burn over time - move out of it."}
         }, {
+            -- spellId: uncertain - the combat log has 22441 / 22442 for this mob under this name.
             name = "Growing Flames",
             icon = "Interface\\Icons\\Spell_Fire_Fire",
             warning = true,
@@ -1054,6 +1084,7 @@ local BWL_TRASH_MOBS = {
             lines = {"Lashes an enemy with dark magic for Shadow damage and reduces healing received on it by 30% for 5 seconds."}
         }, {
             name = "Healing Circle",
+            spellId = 22458,
             icon = "Interface\\Icons\\Spell_Holy_PrayerOfHealing02",
             lines = {"Heals nearby allies."}
         }}
@@ -1077,6 +1108,7 @@ local BWL_TRASH_MOBS = {
             lines = {"Calls down a fiery rain, burning enemies in the area over time - move out."}
         }, {
             name = "Curse of Rot",
+            spellId = 35223,
             icon = "Interface\\Icons\\Spell_Holy_NullifyDisease",
             roles = {"decurse"},
             lines = {"Curses the target, reducing Nature resistance, increasing Nature damage taken, and dealing damage over time."}
@@ -1087,6 +1119,7 @@ local BWL_TRASH_MOBS = {
             lines = {"Causes nearby enemies to flee in terror - damage may interrupt the effect."}
         }, {
             name = "Incineration Curse",
+            spellId = 35221,
             icon = "Interface\\Icons\\Spell_Fire_Incinerate",
             warning = true,
             lines = {"Curses the target, causing Fire damage over time."}
@@ -1181,12 +1214,14 @@ local BWL_TRASH_MOBS = {
         stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
         abilities = {{
             name = "Mortal Strike",
+            spellId = 16856,
             icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
             warning = true,
             roles = {"tank", "healer"},
             lines = {"A vicious strike that wounds the target, reducing the effectiveness of healing on it."}
         }, {
             name = "War Stomp",
+            spellId = 24375,
             icon = "Interface\\Icons\\Ability_BullRush",
             warning = true,
             lines = {"Knocks nearby enemies back, stunning them."}
