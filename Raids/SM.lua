@@ -720,8 +720,7 @@ local SM_TRASH_MOBS = {
         -- Instability remain genuinely vague ("Mirrored Presence." / "Fate
         -- remains unknown.") even in AuraDescription_enUS - real effect still
         -- needs external research.
-        -- Prophecy trigger lines: all quotes real (from user, 2026-10-23 list
-        -- covers 29 of 30); only Doomed's line is still unknown.
+        -- Prophecy trigger lines: all 30 quotes real (from user, 2026-10-23).
         abilities = {{
             name = "Cast Prophecy",
             icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
@@ -760,7 +759,7 @@ local SM_TRASH_MOBS = {
         }, {
             name = "Prophecy: Doomed",
             icon = "Interface\\Icons\\Spell_Shadow_DeathScream",
-            lines = {"Damage taken increased by 300%.", "Trigger line: unknown - to be found/tested."}
+            lines = {"Damage taken increased by 300%.", "Trigger line: \"Your shroud is already woven!\""}
         }, {
             name = "Prophecy: Doppelganger",
             spellId = 36199,

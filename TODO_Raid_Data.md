@@ -502,8 +502,10 @@ Fate, Undying, Unfettered, Untouchable) and confirmed Weakness's line
 (was marked as a guess). **Spellward** had Untouchable's line ("You walk
 between the rain."); now "All Magic will fail against you."
 
+Doomed's line ("Your shroud is already woven!") followed the same day, so
+all 30 cards now have their trigger line.
+
 Still open:
-- **Doomed** - trigger line unknown, to be found in-game.
 - Doppelganger / Instability - real effect unknown (see above).
 
 ### Passive-trait classification pass (2026-08-29)
