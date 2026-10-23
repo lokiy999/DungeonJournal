@@ -345,6 +345,7 @@ local MC_BOSSES = {
             lines = {"Baron Geddon casts Ignite Mana on all players, burning 400 mana every 3(?) sec. for 1 min. Each point of mana that is destroyed also damages the target from which it is consumed."},
             abilities = {{
                 name = "Scald",
+                spellId = 34473,
                 icon = "Interface\\Icons\\spell_fire_incinerate",
                 lines = {"Applied whenever Ignite Mana is dispelled - the target becomes silenced for 10 sec."}
             }}
@@ -398,6 +399,7 @@ local MC_BOSSES = {
             lines = {"Curses all players, increasing the magical damage taken by 100% for 1 min."}
         }, {
             name = "Blink",
+            spellId = 28391,
             icon = "Interface\\Icons\\spell_arcane_blink",
             roles = {"tank"},
             lines = {"Shazzrah teleports on top of a random player every ~30 seconds, clearing all threat in the process."}
@@ -561,6 +563,7 @@ local MC_BOSSES = {
             lines = {"Inflicts 75 Physical damage every 3 seconds for 15 seconds. Also reduces healing effects by 1%."}
         }, {
             name = "Retaliation",
+            spellId = 22857,
             icon = "Interface\\Icons\\Ability_Warrior_Challange",
             warning = true,
             roles = {"melee"},
@@ -655,10 +658,12 @@ local MC_BOSSES = {
         stats = {armor = 4500, fire = 300, nature = 87, frost = 87, shadow = 87, arcane = 100},
         abilities = {{
             name = "Blast Wave",
+            spellId = 20229,
             icon = "Interface\\Icons\\spell_holy_excorcism_02",
             lines = {"Inflicts 994 to 1406 Fire damage to nearby enemies and reduces their movement speed by 50% for 12 sec."}
         }, {
             name = "Magic Reflection",
+            spellId = 20619,
             icon = "Interface\\Icons\\spell_frost_frostshock",
             lines = {"Causes all nearby allies to reflect 100% of harmful spells for 10 sec."}
         }, {

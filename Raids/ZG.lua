@@ -1285,6 +1285,7 @@ local ZG_BOSSES = {
             lines = {"Fears nearby enemies. Keep a Tremor Totem down."}
         }, {
             name = "Curse of Blood",
+            spellId = 24673,
             icon = "Interface\\Icons\\Spell_Shadow_RitualOfSacrifice",
             warning = true,
             roles = {"decurse"},
@@ -1897,6 +1898,7 @@ local ZG_BOSSES = {
             lines = {"'Your eyes tingle...' - inflicts around 175 damage every 2 seconds. His most frequent ability."}
         }, {
             name = "Shadow Beam",
+            spellId = 34952,
             icon = "Interface\\Icons\\Spell_Shadow_SiphonMana",
             warning = true,
             lines = {"A heavy Shadow bolt for around 1825 damage."}

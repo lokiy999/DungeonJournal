@@ -574,6 +574,7 @@ local BWL_BOSSES = {
             lines = {"An explosion of Shadow around Ebonroc, inflicting around 500 Shadow damage to everyone nearby. His most frequent ability."}
         }, {
             name = "Embrace of Shadows",
+            spellId = 35241,
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
             warning = true,
             roles = {"healer"},
@@ -589,11 +590,13 @@ local BWL_BOSSES = {
             name = "Flamegor"
         }, {
             name = "Fire Nova",
+            spellId = 34425,
             icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
             warning = true,
             lines = {"Inflicts around 955 Fire damage to nearby enemies. His most frequent ability."}
         }, {
             name = "Embrace of Flames",
+            spellId = 35242,
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
             warning = true,
             roles = {"healer"},

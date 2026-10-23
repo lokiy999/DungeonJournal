@@ -50,6 +50,7 @@ local WORLD_BOSSES = {
             lines = {"Blasts nearby enemies with ice for around 450 to 550 Frost damage, increasing the time between their attacks and slowing their movement."}
         }, {
             name = "Frost Breath",
+            spellId = 21099,
             icon = "Interface\\Icons\\Spell_Frost_FrostNova",
             warning = true,
             roles = {"tank"},
@@ -77,6 +78,7 @@ local WORLD_BOSSES = {
             lines = {"Teleports every player within 30 yards on top of Azuregos and wipes his threat table. He then re-picks a target."}
         }, {
             name = "Mark of Frost",
+            spellId = 23182,
             icon = "Interface\\Icons\\Spell_Frost_ChainsOfIce",
             warning = true,
             lines = {"A 15 minute debuff applied to any player he kills. While it is up, coming near Azuregos encases you in a frost tomb, frozen and helpless.",
@@ -164,6 +166,7 @@ local WORLD_BOSSES = {
             lines = {"A single-target bolt on the current tank for around 3000 to 4000 Shadow damage."}
         }, {
             name = "Mark of Kazzak",
+            spellId = 21056,
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
             warning = true,
             roles = {"decurse"},
@@ -192,6 +195,7 @@ local WORLD_BOSSES = {
             lines = {"Hard enrage 3 minutes after the pull."}
         }, {
             name = "Capture Soul",
+            spellId = 21054,
             icon = "Interface\\Icons\\Spell_Shadow_SoulGem",
             warning = true,
             lines = {"Passive, very large radius - every player OR pet that dies heals Kazzak for around 90,000. This includes hunter pets and any outside player or pet that dies near him."}
@@ -211,6 +215,7 @@ local WORLD_BOSSES = {
             lines = {"Reduces healing received on the target by 10% per stack for 15 seconds. Stacks."}
         }, {
             name = "Poison Bolt Volley",
+            spellId = 34398,
             icon = "Interface\\Icons\\Ability_Poisons",
             warning = true,
             roles = {"poison"},
@@ -232,6 +237,7 @@ local WORLD_BOSSES = {
             lines = {"Charges an enemy, knocking them back and wiping his threat on that target."}
         }, {
             name = "Wide Slash",
+            spellId = 25814,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
             lines = {"Inflicts weapon damage plus around 500 to enemies in a cone in front of him."}

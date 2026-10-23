@@ -859,3 +859,21 @@ Not filled:
   logs; it's a hint, not proof, so none were filled from it.
 
 The addon still doesn't read `spellId`; it's the key for db.lokiy.dev.
+
+### Second spellId pass: numbers vs. candidates (2026-10-23)
+
+Went through `SPELLID_OPEN.md`: each ability's numbers and effect wording compared with every
+candidate's tooltip and effect values on lokiy.dev/spells. 34 had one clear match and were filled
+(948 spellIds in total), e.g. Majordomo Blast Wave 20229 (994-1406, 50%, 12 sec), Whitemane Holy
+Fire 36019, Vishas Pummel 35900, Kazzak Mark of Kazzak 21056 (250 mana/sec; 21058 is the 4000
+explosion), Azuregos Frost Breath 21099 (the only one that stuns 4 sec).
+
+Left open on purpose (82, still in `SPELLID_OPEN.md`):
+- Ties: Burning Adrenaline 18173 / 23620, Magnetize 34461 / 34462, Rend 21949 / 36080, Wing Buffet,
+  Shadow Nova, Twisted Reflection, Mortal Wound, Lava Spawn Fireball.
+- Doan's Chilled to the Bone: the line (root + 50% slow) reads like 35984, but 35985 is the
+  periodic-trigger half - needs a log.
+- Lines whose numbers match no candidate: Tail Sweep (925-1075 in the line, 1600-2100 in both
+  spells), Emeriss Volatile Infection (875-1125 vs 24928's 1130-1530), Kazzak Void Bolt, Azuregos
+  Chill. Per the Spell.csv-wins rule these lines may need fixing once the right spell is known.
+- Generic abilities with no numbers in the line (Cleave, Shadow Bolt, Fire Blast, ...).

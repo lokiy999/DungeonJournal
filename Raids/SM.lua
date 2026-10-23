@@ -964,6 +964,7 @@ local SM_BOSSES = {
         flags = {"tauntable"},
         abilities = {{
             name = "Aspect of the Monkey",
+            spellId = 36057,
             icon = "Interface\\Icons\\ability_hunter_aspectofthemonkey",
             color = "ffa335ee",
             lines = {"Loksey has +25% dodge and melee critical strike chance. This effect is lost when Loksey is sleeping."}
@@ -983,6 +984,7 @@ local SM_BOSSES = {
             lines = {"Loksey places a frost trap near/below a random player that freezes the first entity that approaches, preventing all action for 10 seconds. Trap will exist for 300 seconds until Disarmed. Triggers Deep Freeze to the target that gets frozen. His own dogs can trigger this trap."},
             abilities = {{
                 name = "Deep Freeze",
+                spellId = 35874,
                 icon = "Interface\\Icons\\ability_mage_coldasice",
                 warning = true,
                 roles = {"healer"},
@@ -1243,6 +1245,7 @@ local SM_BOSSES = {
                      "Can be reflected back onto Vishas? Applied every 12-15 seconds."}
         }, {
             name = "Pummel",
+            spellId = 35900,
             icon = "Interface\\Icons\\INV_Gauntlets_04",
             lines = {"Pummel the target for 1150 to 1450 damage. It also interrupts spellcasting and prevents any spell in that school from being cast for 5 seconds."}
         }}
@@ -1310,6 +1313,7 @@ local SM_BOSSES = {
                      "Stacks are removable by doing 4000? damage within 5? seconds."},
             abilities = {{
                 name = "Cowardice",
+                spellId = 35933,
                 icon = "Interface\\Icons\\ability_cheapshot",
                 lines = {"Feared for 8 seconds and gains aggro of the boss during that time. Boss also becomes untauntable?"}
             }}
@@ -1332,6 +1336,7 @@ local SM_BOSSES = {
         -- (DBC stores them as value-1).
         abilities = {{
             name = "Curse of Thorns",
+            spellId = 35944,
             icon = "Interface\\Icons\\Spell_Shadow_AntiShadow",
             warning = true,
             roles = {"dps", "decurse"},
@@ -1346,6 +1351,7 @@ local SM_BOSSES = {
                      "When the roots collapse, thorns explode outward to all targets in Line of Sight dealing 5380 to 6180 damage and stunning for 2 seconds."}
         }, {
             name = "Fists of Fire",
+            spellId = 35946,
             icon = "Interface\\Icons\\Spell_Fire_Immolation",
             roles = {"tank"},
             lines = {"90% of Brother Michael's Physical damage becomes Fire damage for 25 seconds."}
@@ -1668,11 +1674,13 @@ local SM_BOSSES = {
             lines = {"Cast together with Scarlet Resurrection - sleeps the nearby raid while she brings Mograine back. Everyone wakes the moment Mograine is resurrected."}
         }, {
             name = "Holy Smite",
+            spellId = 36017,
             icon = "Interface\\Icons\\Spell_Holy_HolySmite",
             roles = {"kick"},
             lines = {"Whitemane's main cast, smiting a target for 2730 to 3030 Holy damage."}
         }, {
             name = "Holy Fire",
+            spellId = 36019,
             icon = "Interface\\Icons\\Spell_Holy_SearingLight",
             warning = true,
             roles = {"kick"},
@@ -1693,6 +1701,7 @@ local SM_BOSSES = {
             lines = {"Smites an enemy, inflicting 10000 to 12000 Holy damage."}
         }, {
             name = "Heal",
+            spellId = 36012,
             icon = "Interface\\Icons\\Spell_Holy_Heal",
             warning = true,
             roles = {"kick"},
@@ -1703,6 +1712,7 @@ local SM_BOSSES = {
             lines = {"Whitemane dispels 2 magic spells from herself."}
         }, {
             name = "Power Word: Shield",
+            spellId = 36018,
             icon = "Interface\\Icons\\Spell_Holy_PowerWordShield",
             roles = {"dispel"},
             lines = {"Shields herself, absorbing 15000 damage."}
@@ -1762,6 +1772,7 @@ local SM_BOSSES = {
             lines = {"Whenever players are too close to each other triggers Stomp, interrupting spellcasting and prevents any spell in that school from being cast for 0.5 seconds."}
         }, {
             name = "Panic",
+            spellId = 36031,
             icon = "Interface\\Icons\\spell_shadow_auraofdarkness",
             lines = {"Weakens your spirit, causing Panic to accumulate over time. Upon reaching 10 stacks, triggers Fear."},
             abilities = {{

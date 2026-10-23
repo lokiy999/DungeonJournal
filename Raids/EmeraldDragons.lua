@@ -155,11 +155,13 @@ local GREEN_BOSSES = {
         stats = {armor = 4691, fire = 126, nature = 126, frost = 126, shadow = 126, arcane = 126},
         abilities = {{
             name = "Arcane Blast",
+            spellId = 24857,
             icon = "Interface\\Icons\\Spell_Shadow_DeathPact",
             warning = true,
             lines = {"Blasts an enemy for weapon damage plus 1050 to 1350 Arcane damage and knocks them back."}
         }, {
             name = "Bellowing Roar",
+            spellId = 22686,
             icon = "Interface\\Icons\\Spell_Shadow_Charm",
             warning = true,
             roles = {"shaman"},
@@ -178,11 +180,13 @@ local GREEN_BOSSES = {
                 lines = {"66,620 HP each, full melee strength."},
                 abilities = {{
                     name = "Acid Breath",
+                    spellId = 24839,
                     icon = "Interface\\Icons\\Spell_Nature_Acid_01",
                     warning = true,
                     lines = {"Frontal cone: 875 to 1125 Nature damage plus 150 Nature damage every 3 seconds for 45 seconds."}
                 }, {
                     name = "Poison Cloud",
+                    spellId = 24840,
                     icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
                     warning = true,
                     lines = {"Drops a stationary poison cloud at the shade's feet that deals 350 Nature damage every second for 10 seconds."}
@@ -243,17 +247,20 @@ local GREEN_BOSSES = {
                 lines = {"2,442 HP each."},
                 abilities = {{
                     name = "Moonfire",
+                    spellId = 24957,
                     icon = "Interface\\Icons\\Spell_Nature_StarFall",
                     warning = true,
                     roles = {"kick"},
                     lines = {"219 to 281 Arcane damage plus 88 to 112 Arcane damage every 3 seconds for 12 seconds."}
                 }, {
                     name = "Curse of Thorns",
+                    spellId = 16247,
                     icon = "Interface\\Icons\\Spell_Nature_Thorns",
                     roles = {"decurse"},
                     lines = {"Curses a player for 3 minutes with a 50% chance to take 38 to 82 damage per melee attack they make."}
                 }, {
                     name = "Silence",
+                    spellId = 27559,
                     icon = "Interface\\Icons\\Spell_Shadow_ImpPhaseShift",
                     warning = true,
                     lines = {"Prevents the target from casting spells for 5 seconds."}
