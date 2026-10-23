@@ -53,6 +53,14 @@ grep -o '{' raids/MC.lua | wc -l
 grep -o '}' raids/MC.lua | wc -l
 ```
 
+Balanced braces aren't enough: a field added after a line with no trailing comma
+(e.g. a separator's last `name = "..."`) also breaks loading. Run the field checker
+on every raid file too (no Lua is installed on the PC or the server):
+
+```bash
+python tools/check_fields.py Raids/*.lua
+```
+
 ## Conventions from this project
 
 - Trash packs mirror the boss data shape exactly (icon/flags/stats/abilities)

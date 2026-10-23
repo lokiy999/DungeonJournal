@@ -582,7 +582,6 @@ local MC_BOSSES = {
         }, {
             separator = true,
             name = "Defensive Stance"
-            spellId = 34477,
         }, {
             name = "War Stomp",
             spellId = 27758,
@@ -606,7 +605,6 @@ local MC_BOSSES = {
         }, {
             separator = true,
             name = "Berserker Stance"
-            spellId = 34476,
         }, {
             name = "Flame Charge",
             spellId = 34474,

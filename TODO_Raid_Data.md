@@ -894,3 +894,10 @@ the candidate; lines and spellIds now follow the spell data, each with a `-- CHA
   those numbers and differ only in cone radius (15 / 8 yd), so the spellId is still open.
 
 Not changed: Loksey's Freezing Trap (its "300" is the trap's lifetime, not damage).
+
+### Load error in MC.lua from the spellId pass (fixed 2026-10-23)
+
+The first spellId pass put `spellId` on two Sulfuron separators ("Defensive Stance", "Berserker
+Stance"), whose `name` is the last field and has no trailing comma - WoW refused to load MC.lua
+("'}' expected ... near 'spellId'"). Both lines removed (separators get no spellId). The brace
+count didn't catch it; `tools/check_fields.py` now does and finds nothing else in any raid file.
