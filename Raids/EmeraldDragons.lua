@@ -46,11 +46,14 @@ local GREEN_BOSSES = {
         -- tested values are reused here. Re-test if V+ diverges.
         stats = {armor = 4691, fire = 126, nature = 126, frost = 126, shadow = 126, arcane = 126},
         abilities = {{
+            -- CHANGED 2026-10-23: was "875 to 1125". Spell 24928 triggers 24929 (1130 to 1530
+            -- Nature, 10 yd); the raw combat log of 2026-08-09 agrees (middle 90% of hits 999-1481).
             name = "Volatile Infection",
+            spellId = 24928,
             icon = "Interface\\Icons\\Spell_Holy_HarmUndeadAura",
             warning = true,
             roles = {"dispel", "healer"},
-            lines = {"A disease on a random player for 2 minutes. Deals 875 to 1125 Nature damage every 5 seconds to that player and everyone within a short radius of them."},
+            lines = {"A disease on a random player for 2 minutes. Deals 1130 to 1530 Nature damage every 5 seconds to that player and everyone within 10 yards of them."},
             abilities = {{
                 name = "Putrid Mushroom",
                 icon = "Interface\\Icons\\Spell_Nature_NullifyPoison",
@@ -72,10 +75,13 @@ local GREEN_BOSSES = {
             roles = {"tank"},
             lines = {"Frontal breath: 3000 Nature damage up front, then a 30 second DoT dealing 350 to 450 Nature damage every 3 seconds and adding 10 seconds to all of the target's ability cooldowns. Stacks up to 6 times."}
         }, {
+            -- CHANGED 2026-10-23: was "925 to 1075". Both Tail Sweep spells (15847, 34416) deal
+            -- 1600 to 2100; the raw combat log hits reach 1851 through armor. spellId: 15847 or
+            -- 34416 - same numbers, cone radius 15 vs 8 yd; the log has no IDs to tell them apart.
             name = "Tail Sweep",
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
-            lines = {"Inflicts 925 to 1075 damage to enemies in a 30 yard cone behind her and knocks them back."}
+            lines = {"Inflicts 1600 to 2100 damage to enemies in a cone behind her and knocks them back."}
         }, {
             name = "Seeping Fog",
             icon = "Interface\\Icons\\Spell_Nature_NullifyDisease",
@@ -100,10 +106,13 @@ local GREEN_BOSSES = {
         -- the Emeriss entry.
         stats = {armor = 4691, fire = 126, nature = 126, frost = 126, shadow = 126, arcane = 126},
         abilities = {{
+            -- CHANGED 2026-10-23: was "800 to 1200". Aura 24834 fires a bolt every 5 sec; the bolts
+            -- (24820-24823, 24835) deal 750 to 1250. Raw combat log: middle 90% of hits 705-1223.
             name = "Shadow Bolt Whirl",
+            spellId = 24834,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
-            lines = {"Fires rotating waves of shadow bolts at one side of him at a time for 800 to 1200 damage each, then alternates to the other side."}
+            lines = {"Fires rotating waves of shadow bolts at one side of him at a time for 750 to 1250 Shadow damage each, then alternates to the other side."}
         }, {
             name = "Draw Spirit",
             spellId = 24811,
@@ -126,10 +135,13 @@ local GREEN_BOSSES = {
             roles = {"tank"},
             lines = {"Frontal breath: 3000 Nature damage up front, then a 30 second DoT dealing 350 to 450 Nature damage every 3 seconds and adding 10 seconds to all of the target's ability cooldowns. Stacks up to 6 times."}
         }, {
+            -- CHANGED 2026-10-23: was "925 to 1075". Both Tail Sweep spells (15847, 34416) deal
+            -- 1600 to 2100; the raw combat log hits reach 1851 through armor. spellId: 15847 or
+            -- 34416 - same numbers, cone radius 15 vs 8 yd; the log has no IDs to tell them apart.
             name = "Tail Sweep",
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
-            lines = {"Inflicts 925 to 1075 damage to enemies in a 30 yard cone behind him and knocks them back."}
+            lines = {"Inflicts 1600 to 2100 damage to enemies in a cone behind him and knocks them back."}
         }, {
             name = "Seeping Fog",
             icon = "Interface\\Icons\\Spell_Nature_NullifyDisease",
@@ -200,10 +212,13 @@ local GREEN_BOSSES = {
             roles = {"tank"},
             lines = {"Frontal breath: 3000 Nature damage up front, then a 30 second DoT dealing 350 to 450 Nature damage every 3 seconds and adding 10 seconds to all of the target's ability cooldowns. Stacks up to 6 times."}
         }, {
+            -- CHANGED 2026-10-23: was "925 to 1075". Both Tail Sweep spells (15847, 34416) deal
+            -- 1600 to 2100; the raw combat log hits reach 1851 through armor. spellId: 15847 or
+            -- 34416 - same numbers, cone radius 15 vs 8 yd; the log has no IDs to tell them apart.
             name = "Tail Sweep",
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
-            lines = {"Inflicts 925 to 1075 damage to enemies in a 30 yard cone behind him and knocks them back."}
+            lines = {"Inflicts 1600 to 2100 damage to enemies in a cone behind him and knocks them back."}
         }, {
             name = "Seeping Fog",
             icon = "Interface\\Icons\\Spell_Nature_NullifyDisease",
@@ -274,10 +289,13 @@ local GREEN_BOSSES = {
             roles = {"tank"},
             lines = {"Frontal breath: 3000 Nature damage up front, then a 30 second DoT dealing 350 to 450 Nature damage every 3 seconds and adding 10 seconds to all of the target's ability cooldowns. Stacks up to 6 times."}
         }, {
+            -- CHANGED 2026-10-23: was "925 to 1075". Both Tail Sweep spells (15847, 34416) deal
+            -- 1600 to 2100; the raw combat log hits reach 1851 through armor. spellId: 15847 or
+            -- 34416 - same numbers, cone radius 15 vs 8 yd; the log has no IDs to tell them apart.
             name = "Tail Sweep",
             icon = "Interface\\Icons\\INV_Misc_MonsterScales_05",
             warning = true,
-            lines = {"Inflicts 925 to 1075 damage to enemies in a 30 yard cone behind her and knocks them back."}
+            lines = {"Inflicts 1600 to 2100 damage to enemies in a cone behind her and knocks them back."}
         }, {
             name = "Seeping Fog",
             icon = "Interface\\Icons\\Spell_Nature_NullifyDisease",

@@ -47,10 +47,8 @@ candidates (e.g. 18173 / 23620 Burning Adrenaline), or numbers that match no can
 
 | Mob | Ability | Candidates | Source |
 |---|---|---|---|
-| Emeriss | Volatile Infection | 3584, 3585, 3586, 3587, 12094, 18149, 18150, 24928 (+1) | site name |
 | Emeriss | Tail Sweep | 15847, 34416 | log (other mob) |
 | Emeriss | Seeping Fog | 24813, 24814 | site name |
-| Lethon | Shadow Bolt Whirl | 24820, 24821, 24822, 24823, 24834, 24835, 24836, 24837 (+1) | site name |
 | Lethon | Tail Sweep | 15847, 34416 | log (other mob) |
 | Lethon | Seeping Fog | 24813, 24814 | site name |
 | Taerar | Tail Sweep | 15847, 34416 | log (other mob) |
@@ -64,7 +62,6 @@ candidates (e.g. 18173 / 23620 Burning Adrenaline), or numbers that match no can
 |---|---|---|---|
 | Flamewaker Protector | Mind Control | 605, 627, 1293, 10911, 10912, 10913, 10914, 11446 (+1) | site name |
 | Garr | Magnetize | 34461, 34462 | site name |
-| Enrage | Earthquake | 1348, 33616, 33617, 34400, 35089 | site name |
 | Sulfuron Harbinger | Battle Stance | 34475 | log (other mob) |
 | Sulfuron Harbinger | Rend | 18200, 36080 | log (other mob) |
 | Spawn Lava Spawn | Fireball | 133, 12466, 15242, 16788, 17290, 18392, 19391, 20420 (+2) | log (other mob) |
@@ -86,15 +83,12 @@ candidates (e.g. 18173 / 23620 Burning Adrenaline), or numbers that match no can
 
 | Mob | Ability | Candidates | Source |
 |---|---|---|---|
-| Azuregos | Chill | 21098, 28534, 28547 | site name |
 | Azuregos | Aura of Frost | 23185, 23186 | site name |
 | Azuregos | Teleport | 4801, 7791, 7794, 8195, 20449, 20534, 20682, 29216 (+1) | site name |
 | Lady Hederine | Tears of the Hederine | 34811, 34819 | site name |
 | Lady Hederine | Curse of Weakness | 702, 729, 1031, 1108, 1109, 1393, 1394, 6205 (+15) | site name |
 | Lady Hederine | Lash of Pain | 7814, 7815, 7816, 7876, 7877, 7878, 11778, 11779 (+13) | site name |
 | Lady Hederine | Mind Control | 605, 627, 1293, 10911, 10912, 10913, 10914, 11446 (+1) | site name |
-| Lord Kazzak | Shadow Bolt Volley | 14887, 20741, 22665, 27383 | log (other mob) |
-| Lord Kazzak | Void Bolt | 7588, 21066, 22709 | site name |
 | Lord Kazzak | Twisted Reflection | 21063, 21064 | site name |
 | Lord Kazzak | Thunder Clap | 11581, 35166, 36045 | log (other mob) |
 | Lord Kazzak | Cleave | 15284, 15496, 19632, 19983, 20605, 20691, 22540 | log (other mob) |

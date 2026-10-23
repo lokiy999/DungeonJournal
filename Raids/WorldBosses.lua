@@ -43,11 +43,14 @@ local WORLD_BOSSES = {
         flags = {"damage_frost"},
         stats = {armor = 5880, fire = 126, nature = 126, frost = "immune", shadow = 126, arcane = 300},
         abilities = {{
+            -- CHANGED 2026-10-23: was "around 450 to 550". Spell 21098: 744 to 956 Frost, attack
+            -- time +300%, movement -30%, 30 sec, 25 yd. Raw combat log: median hit 805, 95% under 952.
             name = "Chill",
+            spellId = 21098,
             icon = "Interface\\Icons\\Spell_Frost_Glacier",
             warning = true,
             roles = {"dispel", "tank"},
-            lines = {"Blasts nearby enemies with ice for around 450 to 550 Frost damage, increasing the time between their attacks and slowing their movement."}
+            lines = {"Blasts enemies within 25 yards with ice for 744 to 956 Frost damage, increasing the time between their attacks by 300% and slowing their movement by 30% for 30 seconds."}
         }, {
             name = "Frost Breath",
             spellId = 21099,
@@ -155,15 +158,21 @@ local WORLD_BOSSES = {
         flags = {"damage_shadow"},
         stats = {armor = 5880, fire = 143, nature = 75, frost = 75, shadow = 143, arcane = 75},
         abilities = {{
+            -- CHANGED 2026-10-23: was "around 800 to 1000". Spell 21341 (fired every 2 sec by his
+            -- Frenzy aura 21340): 638 to 862 Shadow, 100 yd. Raw combat log: middle 90% 550-859.
             name = "Shadow Bolt Volley",
+            spellId = 21341,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             warning = true,
-            lines = {"Hurls Shadow bolts at everyone for around 800 to 1000 Shadow damage each, ignoring line of sight, with no target limit."}
+            lines = {"Hurls Shadow bolts at everyone for 638 to 862 Shadow damage each, ignoring line of sight, with no target limit."}
         }, {
+            -- CHANGED 2026-10-23: was "around 3000 to 4000". Spell 21066: 3500 to 4500 Shadow and
+            -- 50% movement slow for 10 sec. Raw combat log: middle 50% of hits 3178-3822, max 4351.
             name = "Void Bolt",
+            spellId = 21066,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             roles = {"tank", "healer"},
-            lines = {"A single-target bolt on the current tank for around 3000 to 4000 Shadow damage."}
+            lines = {"A single-target bolt on the current tank for 3500 to 4500 Shadow damage, reducing movement speed by 50% for 10 seconds."}
         }, {
             name = "Mark of Kazzak",
             spellId = 21056,

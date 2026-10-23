@@ -110,9 +110,9 @@ exported yet.
 
 ## Still open
 
-- **spellId for the last ~100 abilities** — 2026-10-23 passes filled 490 more (948 in total) from the
+- **spellId for the last ~95 abilities** — 2026-10-23 passes filled 496 more (954 in total) from the
   mob's own combat-log line, a unique name on lokiy.dev/spells, or numbers matching one candidate's data.
-  19 have a `-- spellId: uncertain` note (two IDs in the mob's own log); 82 are listed in
+  19 have a `-- spellId: uncertain` note (two IDs in the mob's own log); 76 are listed in
   `SPELLID_OPEN.md` (several same-named spells, nothing in the line to tell them apart).
 - **NPC (creature) IDs** — no boss, add or trash pack has one yet. Needed to link to the site's NPC pages
   (combat logs carry the creature GUIDs; the server DB has `creature_template`).

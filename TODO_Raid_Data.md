@@ -877,3 +877,20 @@ Left open on purpose (82, still in `SPELLID_OPEN.md`):
   spells), Emeriss Volatile Infection (875-1125 vs 24928's 1130-1530), Kazzak Void Bolt, Azuregos
   Chill. Per the Spell.csv-wins rule these lines may need fixing once the right spell is known.
 - Generic abilities with no numbers in the line (Cleave, Shadow Bolt, Fire Blast, ...).
+
+### Lines that disagreed with the spell data, settled from the raw combat log (2026-10-23)
+
+The repo's CSV logs have no world-boss or Emerald Dragon fights, but `logs\WoWCombatLog 2026-08-09.txt`
+(plain text, no spell IDs) does. Its hit ranges (resisted / absorbed / glancing hits left out) picked
+the candidate; lines and spellIds now follow the spell data, each with a `-- CHANGED` note:
+- Emeriss **Volatile Infection** 875-1125 -> 1130-1530 (24928 -> 24929), log 999-1481.
+- Lethon **Shadow Bolt Whirl** 800-1200 -> 750-1250 (aura 24834), log 705-1223.
+- Azuregos **Chill** 450-550 -> 744-956 (21098), log median 805.
+- Kazzak **Shadow Bolt Volley** 800-1000 -> 638-862 (21341), log 550-859.
+- Kazzak **Void Bolt** 3000-4000 -> 3500-4500 + 50% slow (21066), log median 3585.
+- Golemagg **Earthquake** renamed **Earthquaker** (the log's name), 19798: 1588-1912 Nature +
+  2 sec pacify; log median 2098 because he is enraged by then.
+- **Tail Sweep** (all four dragons) 925-1075 -> 1600-2100. Both candidates (15847, 34416) have
+  those numbers and differ only in cone radius (15 / 8 yd), so the spellId is still open.
+
+Not changed: Loksey's Freezing Trap (its "300" is the trap's lifetime, not damage).

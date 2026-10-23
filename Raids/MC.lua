@@ -469,9 +469,13 @@ local MC_BOSSES = {
             warning = true,
             lines = {"Whenever Golemagg reaches 20% health he enrages growing bigger and gaining damage/attack speed and casting his abilities faster?."},
             abilities = {{
-                name = "Earthquake",
+                -- CHANGED 2026-10-23: was "Earthquake ... ~2000+ damage". The combat log names it
+                -- Earthquaker = spell 19798 (1588 to 1912 Nature, 18 yd; triggers 35236, 2 sec
+                -- pacify + silence). Logged hits run higher (median 2098) while he is enraged.
+                name = "Earthquaker",
+                spellId = 19798,
                 icon = "Interface\\Icons\\Spell_Nature_Earthquake",
-                lines = {"Golemagg causes an earthquake every 4 seconds, inflicting ~2000+ damage to nearby enemies.)"}
+                lines = {"Golemagg causes an earthquake every 4 seconds, inflicting 1588 to 1912 Nature damage to enemies within 18 yards (more while enraged) and leaving them unable to attack or cast spells for 2 seconds."}
             }}
         }},
         adds = {{
