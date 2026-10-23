@@ -506,7 +506,11 @@ Doomed's line ("Your shroud is already woven!") followed the same day, so
 all 30 cards now have their trigger line.
 
 Still open:
-- Doppelganger / Instability - real effect unknown (see above).
+- **Doppelganger** - seems to summon a copy (Lokiy, in-game, 2026-10-23);
+  how it works is unknown. Spell.csv 36199 is a lone apply-aura effect, no
+  summon, so it's server-scripted - only in-game testing will tell.
+- **Instability** - effect unknown; Spell.csv 36201 gives nothing beyond
+  "Fate remains unknown." Needs in-game testing.
 
 ### Passive-trait classification pass (2026-08-29)
 

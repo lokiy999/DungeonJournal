@@ -766,8 +766,10 @@ local SM_TRASH_MOBS = {
             icon = "Interface\\Icons\\Spell_Nature_MirrorImage",
             -- CHANGED: AuraDescription_enUS (spell 36175-36204 range) is literally
             -- just "Mirrored Presence." - no numbers, no further mechanic detail
-            -- to extract from Spell.xlsx.
-            lines = {"Mirrored Presence.", "Trigger line: \"One shall become two.\""}
+            -- to extract from Spell.xlsx. Spell.csv (36199) is a single apply-aura
+            -- effect with no summon, so the copy is server-scripted. "Summons a
+            -- copy" is Lokiy's in-game observation (2026-10-23); details unknown.
+            lines = {"Mirrored Presence.", "Seems to summon a copy - exact mechanic not yet known.", "Trigger line: \"One shall become two.\""}
         }, {
             name = "Prophecy: Double-Edged",
             icon = "Interface\\Icons\\Ability_CriticalStrike",
