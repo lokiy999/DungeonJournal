@@ -33,6 +33,7 @@ local ONY_TRASH_ORDER = {
 local ONY_TRASH_MOBS = {
     onyxian_warder = {
         name = "Onyxian Warder",
+        npcId = 12129,
         icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
         flags = {"melee"},
         -- CHANGED: from a real combat log (Onyxia.csv) - stats not present in
@@ -79,6 +80,7 @@ local ONY_TRASH_MOBS = {
 local ONY_BOSSES = {
     onyxia = {
         name = "Onyxia",
+        npcId = 10184,
         icon = "Interface\\Icons\\temp",
         flags = {"damage_fire"},
         stats = {armor = 5550, fire = "immune", nature = 92, frost = 92, shadow = 102, arcane = 88},
@@ -189,6 +191,7 @@ local ONY_BOSSES = {
         -- trash, not an add - see ONY_TRASH_MOBS above.
         adds = {{
             name = "Onyxian Whelp",
+            npcId = 11262,
             icon = "Interface\\Icons\\Ability_Racial_BloodRage",
             -- CHANGED: no real abilities captured in the log for this mob (only the generic Dazed effect).
             lines = {"Whelp-guarding add that spawns during the encounter. No offensive abilities were captured in the log for this mob."}

@@ -39,6 +39,7 @@ local WORLD_BOSS_ORDER = {
 local WORLD_BOSSES = {
     azuregos = {
         name = "Azuregos",
+        npcId = 6109,
         icon = "Interface\\Icons\\temp",
         flags = {"damage_frost"},
         stats = {armor = 5880, fire = 126, nature = 126, frost = "immune", shadow = 126, arcane = 300},
@@ -91,6 +92,7 @@ local WORLD_BOSSES = {
 
     hederine = {
         name = "Lady Hederine",
+        npcId = 10201,
         icon = "Interface\\Icons\\temp",
         flags = {"damage_nature"},
         stats = {armor = 4316, fire = 93, nature = 93, frost = 93, shadow = 93, arcane = 55},
@@ -154,6 +156,7 @@ local WORLD_BOSSES = {
 
     kazzak = {
         name = "Lord Kazzak",
+        npcId = 12397,
         icon = "Interface\\Icons\\temp",
         flags = {"damage_shadow"},
         stats = {armor = 5880, fire = 143, nature = 75, frost = 75, shadow = 143, arcane = 75},
@@ -213,6 +216,7 @@ local WORLD_BOSSES = {
 
     kurinnaxx = {
         name = "Kurinnaxx",
+        npcId = 15348,
         icon = "Interface\\Icons\\temp",
         flags = {"damage_nature"},
         stats = {armor = 6700, fire = 83, nature = 151, frost = 83, shadow = 115, arcane = 115},
@@ -261,6 +265,7 @@ local WORLD_BOSSES = {
 
     teremus = {
         name = "Teremus the Devourer",
+        npcId = 7846,
         icon = "Interface\\Icons\\temp",
         color = "ffffd100",
         flags = {"damage_shadow"},
@@ -306,6 +311,7 @@ local WORLD_BOSSES = {
 
     king_mosh = {
         name = "King Mosh",
+        npcId = 6584,
         icon = "Interface\\Icons\\temp",
         color = "ffffd100",
         flags = {"melee"},

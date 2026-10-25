@@ -69,6 +69,7 @@ local SM_TRASH_ORDER = {
 local SM_TRASH_MOBS = {
     scarlet_soldier = {
         name = "Scarlet Soldier",
+        npcId = 25203,
         icon = "Interface\\Icons\\Ability_Warrior_Sunder",
         flags = {"melee"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -94,6 +95,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_guardsman = {
         name = "Scarlet Guardsman",
+        npcId = 25205,
         icon = "Interface\\Icons\\Ability_Warrior_Disarm",
         flags = {"melee"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -132,6 +134,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_defender = {
         name = "Scarlet Defender",
+        npcId = 25212,
         icon = "Interface\\Icons\\Ability_Warrior_Sunder",
         flags = {"melee"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -167,6 +170,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_centurion = {
         name = "Scarlet Centurion",
+        npcId = 25215,
         icon = "Interface\\Icons\\Spell_Nature_ThunderClap",
         flags = {"melee"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -211,6 +215,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_champion = {
         name = "Scarlet Champion",
+        npcId = 25216,
         icon = "Interface\\Icons\\Ability_Racial_Avatar",
         flags = {"melee"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -255,6 +260,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_myrmidon = {
         name = "Scarlet Myrmidon",
+        npcId = 25209,
         icon = "Interface\\Icons\\Ability_Rogue_Sprint",
         flags = {"melee"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -288,6 +294,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_monk = {
         name = "Scarlet Monk",
+        npcId = 25220,
         icon = "Interface\\Icons\\Ability_Kick",
         flags = {"melee"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -328,6 +335,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_torturer = {
         name = "Scarlet Torturer",
+        npcId = 25219,
         icon = "Interface\\Icons\\Ability_Gouge",
         flags = {"melee"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -356,6 +364,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_tracking_hound = {
         name = "Scarlet Tracking Hound",
+        npcId = 25202,
         icon = "Interface\\Icons\\Ability_Hunter_KillCommand",
         flags = {"melee"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -376,6 +385,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_beastmaster = {
         name = "Scarlet Beastmaster",
+        npcId = 25201,
         icon = "Interface\\Icons\\Ability_Hunter_Quickshot",
         flags = {"ranged"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -408,6 +418,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_sorcerer = {
         name = "Scarlet Sorcerer",
+        npcId = 25208,
         icon = "Interface\\Icons\\Spell_Nature_StarFall",
         flags = {"caster"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -446,6 +457,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_wizard = {
         name = "Scarlet Wizard",
+        npcId = 25214,
         icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
         flags = {"caster"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -504,6 +516,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_evoker = {
         name = "Scarlet Evoker",
+        npcId = 25204,
         icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
         flags = {"caster"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -549,6 +562,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_conjuror = {
         name = "Scarlet Conjuror",
+        npcId = 25211,
         icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
         flags = {"caster"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -575,6 +589,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_abbot = {
         name = "Scarlet Abbot",
+        npcId = 25217,
         icon = "Interface\\Icons\\Spell_Holy_GreaterHeal",
         flags = {"caster"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -603,6 +618,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_adept = {
         name = "Scarlet Adept",
+        npcId = 25210,
         icon = "Interface\\Icons\\Spell_Holy_HolySmite",
         flags = {"caster"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -625,6 +641,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_chaplain = {
         name = "Scarlet Chaplain",
+        npcId = 25213,
         icon = "Interface\\Icons\\Spell_Holy_PrayerOfFortitude",
         flags = {"caster"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -659,6 +676,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_protector = {
         name = "Scarlet Protector",
+        npcId = 25207,
         icon = "Interface\\Icons\\Spell_Holy_LayOnHands",
         flags = {"caster"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -707,6 +725,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_gallant = {
         name = "Scarlet Gallant",
+        npcId = 25218,
         icon = "Interface\\Icons\\Spell_Holy_HolySmite",
         flags = {"caster"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -758,6 +777,7 @@ local SM_TRASH_MOBS = {
 
     scarlet_diviner = {
         name = "Scarlet Diviner",
+        npcId = 25206,
         icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
         flags = {"caster"},
         -- CHANGED: from a real combat log (see Scarlet Monestary Trash CSV) -
@@ -960,6 +980,7 @@ local SM_TRASH_MOBS = {
 local SM_BOSSES = {
     loksey = {
         name = "Loksey",
+        npcId = 25225,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Loksey",
         flags = {"tauntable"},
         abilities = {{
@@ -1033,6 +1054,7 @@ local SM_BOSSES = {
         }},
         adds = {{
             name = "Scarlet Tracking Hound",
+            npcId = 25202,
             icon = "Interface\\Icons\\temp",
             roles = {},
             color = "ffcc0000",
@@ -1051,6 +1073,7 @@ local SM_BOSSES = {
 
     brigitte = {
         name = "Brigitte Abbendis",
+        npcId = 25229,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BrigitteAbbendis",
         flags = {"tauntable"},
         -- NOTE: values from Spell.dbc (IDs 35848-35877), every damage/percent
@@ -1160,6 +1183,7 @@ local SM_BOSSES = {
         }},
         adds = {{
             name = "Scarlet Sharpshooter",
+            npcId = 25230,
             icon = "Interface\\Icons\\temp",
             color = "ffcc0000",
             lines = {"Four of these accompany Brigitte Abbendis into battle."},
@@ -1187,6 +1211,7 @@ local SM_BOSSES = {
 
     vishas = {
         name = "Vishas",
+        npcId = 25224,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Vishas",
         flags = {"tauntable"},
         -- NOTE: values below come from Spell.dbc (IDs 35880-35900). Percentages
@@ -1253,6 +1278,7 @@ local SM_BOSSES = {
 
     herod = {
         name = "Herod",
+        npcId = 25226,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Herod",
         flags = {"notalwaystauntable"},
         abilities = {{
@@ -1322,6 +1348,7 @@ local SM_BOSSES = {
         -- standalone trash pull.
         adds = {{
             name = "Scarlet Trainee",
+            npcId = 25257,
             icon = "Interface\\Icons\\INV_Sword_04",
             lines = {"Herod summons 20 Scarlet Trainees upon his death, at the top of the stairs."}
         }}
@@ -1329,6 +1356,7 @@ local SM_BOSSES = {
 
     brother_michael = {
         name = "Brother Michael",
+        npcId = 25221,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BrotherMichael",
         flags = {"tauntable"},
         -- NOTE: values from Spell.dbc (IDs 35940-35951), cross-checked against
@@ -1404,6 +1432,7 @@ local SM_BOSSES = {
 
     doan = {
         name = "Doan",
+        npcId = 25223,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Doan",
         flags = {"tauntable"},
         -- NOTE: values from Spell.dbc (IDs 35954-35989), cross-checked against
@@ -1570,6 +1599,7 @@ local SM_BOSSES = {
 
     renault_mograine = {
         name = "Renault Mograine",
+        npcId = 25227,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Mograine",
         flags = {"notalwaystauntable"},
         -- NOTE: values from Spell.dbc (IDs 33456-36021), cross-checked against
@@ -1730,6 +1760,7 @@ local SM_BOSSES = {
 
     fairbanks = {
         name = "Fairbanks",
+        npcId = 25222,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Fairbanks",
         flags = {"tauntable"},
         -- NOTE: values from Spell.dbc (IDs 36024-36213), Bile Vomit /

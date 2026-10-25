@@ -58,6 +58,7 @@ local MC_TRASH_ORDER = {
 local MC_BOSSES = {
     lucifron = {
         name = "Lucifron",
+        npcId = 12118,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Lucifron",
         flags = {"tauntable", "damage_fire"}, -- CHANGED: demo of the new boss flag icons
         stats = {armor = 5120, fire = 293, nature = 98, frost = 98, shadow = 186, arcane = 68},
@@ -93,6 +94,7 @@ local MC_BOSSES = {
         }},
         adds = {{
             name = "Flamewaker Protector",
+            npcId = 12119,
             icon = "Interface\\Icons\\Spell_Shadow_SummonFelguard",
             roles = {},
             color = "ffcc0000",
@@ -116,6 +118,7 @@ local MC_BOSSES = {
 
     magmadar = {
         name = "Magmadar",
+        npcId = 11982,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Magmadar",
         flags = {"tauntable", "damage_fire"},
         stats = {armor = 5780, fire = 327, nature = 98, frost = 88, shadow = 85, arcane = 55},
@@ -169,6 +172,7 @@ local MC_BOSSES = {
 
     gehennas = {
         name = "Gehennas",
+        npcId = 12259,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Gehennas",
         flags = {"tauntable"},
         stats = {armor = 5120, fire = 256, nature = 88, frost = 88, shadow = 98, arcane = 68},
@@ -201,6 +205,7 @@ local MC_BOSSES = {
         }},
         adds = {{
             name = "Flamewaker",
+            npcId = 11661,
             icon = "Interface\\Icons\\temp",
             roles = {},
             color = "ffcc0000",
@@ -233,6 +238,7 @@ local MC_BOSSES = {
 
     garr = {
         name = "Garr",
+        npcId = 12057,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Garr",
         flags = {"tauntable"},
         stats = {armor = 8280, fire = 168, nature = 128, frost = 82, shadow = 82, arcane = 62},
@@ -270,6 +276,7 @@ local MC_BOSSES = {
         }},
         adds = {{
             name = "Firesworn",
+            npcId = 12099,
             icon = "Interface\\Icons\\Spell_Fire_Volcano",
             roles = {"tank"},
             color = "ffffaa00",
@@ -303,6 +310,7 @@ local MC_BOSSES = {
 
     baron_geddon = {
         name = "Baron Geddon",
+        npcId = 12056,
         flags = {"tauntable"},
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\BaronGeddon",
         stats = {armor = 4922, fire = "immune", nature = 86, frost = 66, shadow = 84, arcane = 34},
@@ -360,6 +368,7 @@ local MC_BOSSES = {
 
     shazzrah = {
         name = "Shazzrah",
+        npcId = 12264,
         flags = {"tauntable"},
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Shazzrah",
         stats = {armor = 4800, fire = 203, nature = 124, frost = 124, shadow = 124, arcane = 344},
@@ -432,6 +441,7 @@ local MC_BOSSES = {
 
     golemagg = {
         name = "Golemagg the Incinerator",
+        npcId = 11988,
         flags = {"nottauntable"},
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Golemagg",
         stats = {armor = 6200, fire = 422, nature = 137, frost = 98, shadow = 88, arcane = 48},
@@ -480,6 +490,7 @@ local MC_BOSSES = {
         }},
         adds = {{
             name = "Core Rager",
+            npcId = 11672,
             icon = "Interface\\Icons\\INV_Misc_Gem_Bloodstone_01",
             roles = {"tank", "dps"},
             color = "ffcc6600",
@@ -513,6 +524,7 @@ local MC_BOSSES = {
 
     sulfuron = {
         name = "Sulfuron Harbinger",
+        npcId = 12098,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Sulfuron",
         flags = {"tauntable"},
         stats = {armor = 5480, fire = 317, nature = 109, frost = 109, shadow = 109, arcane = 69},
@@ -615,6 +627,7 @@ local MC_BOSSES = {
         }},
         adds = {{
             name = "Flamewaker Priest",
+            npcId = 11662,
             icon = "Interface\\Icons\\Spell_Holy_GuardianSpirit",
             roles = {"tank", "dps"},
             color = "ffcc0000",
@@ -655,6 +668,7 @@ local MC_BOSSES = {
 
     majordomo = {
         name = "Majordomo",
+        npcId = 12018,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Majordomo",
         flags = {"tauntable"},
         stats = {armor = 4500, fire = 300, nature = 87, frost = 87, shadow = 87, arcane = 100},
@@ -696,6 +710,7 @@ local MC_BOSSES = {
         }},
         adds = {{
             name = "Flamewaker Healer",
+            npcId = 11663,
             icon = "Interface\\Icons\\temp",
             roles = {"tank", "dps"},
             color = "ffcc0000",
@@ -719,6 +734,7 @@ local MC_BOSSES = {
             }}
         }, {
             name = "Flamewaker Elite",
+            npcId = 11664,
             icon = "Interface\\Icons\\temp",
             roles = {"dps", "dispel"},
             color = "ffffaa00",
@@ -739,6 +755,7 @@ local MC_BOSSES = {
 
     ragnaros = {
         name = "Ragnaros",
+        npcId = 11502,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Ragnaros",
         flags = {"tauntable"},
         stats = {armor = 5350, fire = "immune", nature = 83, frost = 83, shadow = 83, arcane = 68},
@@ -810,6 +827,7 @@ local MC_BOSSES = {
         }},
         adds = {{
             name = "Son of Flame",
+            npcId = 12143,
             icon = "Interface\\Icons\\Spell_Fire_Elemental_Totem",
             roles = {"tank", "dps"},
             color = "ffff4500",
@@ -832,6 +850,7 @@ local MC_BOSSES = {
 local MC_TRASH_MOBS = {
     molten_giant = {
         name = "Molten Giant",
+        npcId = 11658,
         icon = "Interface\\Icons\\INV_Misc_MonsterClaw_04",
         flags = {"melee"},
         stats = {armor = 4200, fire = 60, nature = 60, frost = 60, shadow = 60, arcane = 60},
@@ -854,6 +873,7 @@ local MC_TRASH_MOBS = {
 
     molten_destroyer = {
         name = "Molten Destroyer",
+        npcId = 11659,
         icon = "Interface\\Icons\\Ability_Smash",
         flags = {"melee"},
         stats = {armor = 4200, fire = 60, nature = 60, frost = 60, shadow = 60, arcane = 60},
@@ -884,6 +904,7 @@ local MC_TRASH_MOBS = {
 
     flameguard = {
         name = "Flameguard",
+        npcId = 11667,
         icon = "Interface\\Icons\\Spell_Fire_FireArmor",
         flags = {"melee"},
         -- CHANGED: armor/resistances confirmed via testing.
@@ -914,6 +935,7 @@ local MC_TRASH_MOBS = {
 
     firelord = {
         name = "Firelord",
+        npcId = 11668,
         icon = "Interface\\Icons\\Spell_Fire_Elemental_Totem",
         flags = {"caster"},
         stats = {armor = 3600, fire = "immune", nature = 60, frost = 60, shadow = 60, arcane = 60},
@@ -968,6 +990,7 @@ local MC_TRASH_MOBS = {
 
     core_hound = {
         name = "Core Hound",
+        npcId = 11671,
         icon = "Interface\\Icons\\Ability_Hunter_Pet_Wolf",
         flags = {"melee"},
         stats = {armor = 3400, fire = "immune", nature = 50, frost = 50, shadow = 50, arcane = 50},
@@ -992,6 +1015,7 @@ local MC_TRASH_MOBS = {
 
     ancient_core_hound = {
         name = "Ancient Core Hound",
+        npcId = 11673,
         icon = "Interface\\Icons\\Ability_Hunter_Pet_Wolf",
         flags = {"melee"},
         stats = {armor = 3800, fire = "immune", nature = 60, frost = 60, shadow = 60, arcane = 60},
@@ -1055,6 +1079,7 @@ local MC_TRASH_MOBS = {
 
     lava_surger = {
         name = "Lava Surger",
+        npcId = 12101,
         icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
         flags = {"melee"},
         stats = {armor = 3000, fire = "immune", nature = 60, frost = 60, shadow = 60, arcane = 60},
@@ -1088,6 +1113,7 @@ local MC_TRASH_MOBS = {
 
     lava_elemental = {
         name = "Lava Elemental",
+        npcId = 12076,
         icon = "Interface\\Icons\\Spell_Fire_Fireball02",
         -- CHANGED: confirmed via testing - not tauntable.
         flags = {"nottauntable"},
@@ -1112,6 +1138,7 @@ local MC_TRASH_MOBS = {
 
     lava_reaver = {
         name = "Lava Reaver",
+        npcId = 12100,
         icon = "Interface\\Icons\\Ability_Rogue_Ambush",
         flags = {"melee"},
         stats = {armor = 3400, fire = "immune", nature = 50, frost = 50, shadow = 50, arcane = 50},
@@ -1138,6 +1165,7 @@ local MC_TRASH_MOBS = {
 
     lava_annihilator = {
         name = "Lava Annihilator",
+        npcId = 11665,
         icon = "Interface\\Icons\\stoneskinz_3",
         -- CHANGED: confirmed via testing - not tauntable, melee tag removed.
         flags = {"nottauntable"},
@@ -1175,6 +1203,7 @@ local MC_TRASH_MOBS = {
         -- run log, alongside the packs already sourced from
         -- mob_abilities_summary.txt - see the PR notes.
         name = "Flame Imp",
+        npcId = 11669,
         icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
         -- CHANGED: confirmed via testing - melee tag replaced with caster.
         flags = {"caster"},
@@ -1192,6 +1221,7 @@ local MC_TRASH_MOBS = {
 
     firewalker = {
         name = "Firewalker",
+        npcId = 11666,
         icon = "Interface\\Icons\\Spell_Fire_Incinerate",
         flags = {"melee"},
         stats = {armor = 3600, fire = "immune", nature = 55, frost = 55, shadow = 55, arcane = 55},

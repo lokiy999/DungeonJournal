@@ -80,6 +80,7 @@ local BWL_TRASH_ORDER = {
 local BWL_BOSSES = {
     razorgore = {
         name = "Razorgore the Untamed",
+        npcId = 12435,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Razorgore",
         flags = {"nottauntable"},
         stats = {armor = 5675, fire = 243, nature = 71, frost = 71, shadow = 71, arcane = 108},
@@ -146,6 +147,7 @@ local BWL_BOSSES = {
         adds = {{
             key = "blackwing_guardsman",
             name = "Blackwing Guardsman",
+            npcId = 14456,
             icon = "Interface\\Icons\\Ability_Warrior_Cleave",
             roles = {"tank"},
             color = "ffcc6600",
@@ -182,6 +184,7 @@ local BWL_BOSSES = {
             -- were dropped as nearby-Paladin buff noise, same as elsewhere.
             key = "grethok",
             name = "Grethok the Controller",
+            npcId = 12557,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowWordDominate",
             roles = {"kick", "dispel"},
             color = "ffcc6600",
@@ -223,6 +226,7 @@ local BWL_BOSSES = {
         }, {
             key = "death_talon_dragonspawn",
             name = "Death Talon Dragonspawn",
+            npcId = 12422,
             icon = "Interface\\Icons\\Ability_Whirlwind",
             roles = {"tank"},
             color = "ffcc6600",
@@ -237,6 +241,7 @@ local BWL_BOSSES = {
         }, {
             key = "blackwing_legionnaire",
             name = "Blackwing Legionnaire",
+            npcId = 12416,
             icon = "Interface\\Icons\\Ability_Rogue_Ambush",
             roles = {"tank"},
             color = "ffcc6600",
@@ -258,6 +263,7 @@ local BWL_BOSSES = {
         }, {
             key = "blackwing_mage",
             name = "Blackwing Mage",
+            npcId = 12420,
             icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
             roles = {"kick"},
             color = "ffcc6600",
@@ -298,6 +304,7 @@ local BWL_BOSSES = {
             -- egg phase. Only ability it logged as a source is Mental Strike.
             key = "orb_of_domination",
             name = "Orb of Domination",
+            npcId = 25119,
             spellId = 35200,
             icon = "Interface\\Icons\\Spell_Shadow_Metamorphosis",
             color = "ffcc6600",
@@ -316,6 +323,7 @@ local BWL_BOSSES = {
 
     elementium_decapitator = {
         name = "Elementium Decapitator Mk III",
+        npcId = 25100,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\ElementiumDecapitator",
         flags = {"nottauntable"},
         stats = {armor = 6600, fire = 322, nature = 58, frost = 98, shadow = 78, arcane = 58},
@@ -360,6 +368,7 @@ local BWL_BOSSES = {
             key = "sawblade",
             -- spellId: uncertain - only the 'Stun 5s' effect (35162) is known, not the blade's own spell.
             name = "Sawblade",
+            npcIds = {25103, 25104, 25105, 25109},
             icon = "Interface\\Icons\\Ability_Whirlwind",
             color = "ffcc6600",
             lines = {"Spinning blades launched across the room. Being hit deals damage and (per the boss's 'Stun 5s' cast, spell 35162) stuns for about 5 seconds - do not stand in their path."},
@@ -376,6 +385,7 @@ local BWL_BOSSES = {
 
     broodlord = {
         name = "Broodlord Lashlayer",
+        npcId = 12017,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Broodlord",
         flags = {"nottauntable"},
         stats = {armor = 5675, fire = 94, nature = 94, frost = 94, shadow = 94, arcane = 94},
@@ -422,6 +432,7 @@ local BWL_BOSSES = {
 
     firemaw = {
         name = "Firemaw",
+        npcId = 11983,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Firemaw",
         flags = {"tauntable"},
         stats = {armor = 5280, fire = 384, nature = 76, frost = 31, shadow = 76, arcane = 31},
@@ -467,6 +478,7 @@ local BWL_BOSSES = {
 
     krixix = {
         name = "Master Elemental Shaper Krixix",
+        npcId = 14401,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Krixix",
         flags = {"tauntable"},
         stats = {armor = 5240, fire = 102, nature = 102, frost = 102, shadow = 84, arcane = 31},
@@ -524,6 +536,7 @@ local BWL_BOSSES = {
 
     ebonroc_flamegor = {
         name = "Ebonroc & Flamegor",
+        npcIds = {14601, 11981},
         flags = {"nottauntable"},
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Ebonroc",
         stats = {armor = 5680, fire = 0, nature = 21, frost = 37, shadow = 188, arcane = 98},
@@ -610,6 +623,7 @@ local BWL_BOSSES = {
 
     chromaggus = {
         name = "Chromaggus",
+        npcId = 14020,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Chromaggus",
         flags = {"tauntable"},
         stats = {armor = 6440, fire = 73, nature = 73, frost = 73, shadow = 73, arcane = 73},
@@ -735,6 +749,7 @@ local BWL_BOSSES = {
 
     nefarian = {
         name = "Neferian",
+        npcId = 11583,
         icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Neferian",
         flags = {"tauntable"},
         stats = {armor = 5680, fire = 314, nature = 58, frost = 58, shadow = 114, arcane = 36},
@@ -880,6 +895,7 @@ local BWL_BOSSES = {
         adds = {{
             key = "bone_construct",
             name = "Bone Construct",
+            npcId = 14605,
             icon = "Interface\\Icons\\INV_Misc_Bone_HumanSkull_01",
             color = "ffcc6600",
             lines = {"Raised from the bone piles on the floor during phase 2 (the 'Bone Constructs!' shout). Slow-moving."},
@@ -916,6 +932,7 @@ local BWL_BOSSES = {
 local BWL_TRASH_MOBS = {
     death_talon_captain = {
         name = "Death Talon Captain",
+        npcId = 12467,
         icon = "Interface\\Icons\\Ability_Warrior_Cleave",
         flags = {"melee"},
         stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
@@ -945,6 +962,7 @@ local BWL_TRASH_MOBS = {
 
     death_talon_seether = {
         name = "Death Talon Seether",
+        npcId = 12464,
         icon = "Interface\\Icons\\Spell_Fire_Fire",
         flags = {"caster"},
         stats = {armor = 4000, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
@@ -976,6 +994,7 @@ local BWL_TRASH_MOBS = {
 
     death_talon_flamescale = {
         name = "Death Talon Flamescale",
+        npcId = 12463,
         icon = "Interface\\Icons\\Ability_Warrior_Charge",
         flags = {"melee"},
         stats = {armor = 5200, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
@@ -998,6 +1017,7 @@ local BWL_TRASH_MOBS = {
 
     death_talon_wyrmkin = {
         name = "Death Talon Wyrmkin",
+        npcId = 12465,
         icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
         flags = {"caster"},
         stats = {armor = 5400, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
@@ -1017,6 +1037,7 @@ local BWL_TRASH_MOBS = {
 
     corrupted_red_whelp = {
         name = "Corrupted Red Whelp",
+        npcId = 14022,
         icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
         flags = {"caster"},
         stats = {armor = 3200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
@@ -1025,6 +1046,7 @@ local BWL_TRASH_MOBS = {
 
     corrupted_green_whelp = {
         name = "Corrupted Green Whelp",
+        npcId = 14023,
         icon = "Interface\\Icons\\Spell_Nature_NullifyPoison",
         flags = {"caster"},
         stats = {armor = 3200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
@@ -1033,6 +1055,7 @@ local BWL_TRASH_MOBS = {
 
     corrupted_blue_whelp = {
         name = "Corrupted Blue Whelp",
+        npcId = 14024,
         icon = "Interface\\Icons\\Spell_Frost_FrostBolt02",
         flags = {"caster"},
         stats = {armor = 3200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
@@ -1044,6 +1067,7 @@ local BWL_TRASH_MOBS = {
     -- it logged no ability of its own in that run.
     corrupted_bronze_whelp = {
         name = "Corrupted Bronze Whelp",
+        npcId = 14025,
         icon = "Interface\\Icons\\Spell_Nature_TimeStop",
         flags = {"caster"},
         stats = {armor = 3200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
@@ -1052,6 +1076,7 @@ local BWL_TRASH_MOBS = {
 
     death_talon_hatcher = {
         name = "Death Talon Hatcher",
+        npcId = 12468,
         icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
         flags = {"caster"},
         stats = {armor = 4200, fire = "immune", nature = 90, frost = 90, shadow = 90, arcane = 90},
@@ -1072,6 +1097,7 @@ local BWL_TRASH_MOBS = {
 
     blackwing_taskmaster = {
         name = "Blackwing Taskmaster",
+        npcId = 12458,
         icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
         flags = {"caster", "healer"},
         stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
@@ -1095,6 +1121,9 @@ local BWL_TRASH_MOBS = {
 
     blackwing_warlock = {
         name = "Blackwing Warlock",
+        npcId = 12459,
+        npcId = 12459,
+        npcId = 12459,
         icon = "Interface\\Icons\\Spell_Shadow_RainOfFire",
         flags = {"caster"},
         stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
@@ -1136,6 +1165,9 @@ local BWL_TRASH_MOBS = {
 
     blackwing_technician = {
         name = "Blackwing Technician",
+        npcId = 13996,
+        npcId = 13996,
+        npcId = 13996,
         icon = "Interface\\Icons\\INV_Misc_Bomb_08",
         flags = {"ranged"},
         stats = {armor = 3800, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
@@ -1154,6 +1186,9 @@ local BWL_TRASH_MOBS = {
 
     death_talon_overseer = {
         name = "Death Talon Overseer",
+        npcId = 12461,
+        npcId = 12461,
+        npcId = 12461,
         icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
         flags = {"melee"},
         stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
@@ -1184,6 +1219,8 @@ local BWL_TRASH_MOBS = {
 
     blackwing_spellbinder = {
         name = "Blackwing Spellbinder",
+        npcId = 12457,
+        npcId = 12457,
         icon = "Interface\\Icons\\Spell_Fire_Fireball",
         flags = {"caster", "immune_spells"},
         stats = {armor = 4200, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},
@@ -1212,6 +1249,8 @@ local BWL_TRASH_MOBS = {
 
     death_talon_wyrmguard = {
         name = "Death Talon Wyrmguard",
+        npcId = 12460,
+        npcId = 12460,
         icon = "Interface\\Icons\\INV_Misc_MonsterScales_14",
         flags = {"melee"},
         stats = {armor = 5600, fire = 90, nature = 90, frost = 90, shadow = 90, arcane = 90},

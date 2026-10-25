@@ -72,6 +72,8 @@ call — edit the `{ ... }` raid table, same shape as before the split:
 { key = "MC", name = "Molten Core", expanded = false, bosses = {{
     key = "lucifron",
     name = "Lucifron",
+    npcId = 12118,                   -- optional, the creature ID (from a combat-log GUID); npcIds = {..} for
+                                     -- an entry that is several creatures. Key for db.lokiy.dev; not read by the addon
     icon = "Interface\\AddOns\\DungeonJournal\\Icons\\Lucifron", -- no .blp extension
     color = "ffffd100",                                          -- optional, tints the tree row (gold here)
     flags = { "nottauntable", "potion_fire" },                   -- keys of BOSS_FLAGS

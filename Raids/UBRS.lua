@@ -67,6 +67,7 @@ local UBRS_TRASH_ORDER = {
 local UBRS_TRASH_MOBS = {
     blackhand_assassin = {
         name = "Blackhand Assassin",
+        npcId = 10318,
         icon = "Interface\\Icons\\Ability_BackStab",
         flags = {"melee"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -123,6 +124,7 @@ local UBRS_TRASH_MOBS = {
 
     blackhand_dreadweaver = {
         name = "Blackhand Dreadweaver",
+        npcId = 9817,
         icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
         flags = {"caster"},
         -- CHANGED: merged with "Summoned Blackhand Dreadweaver" (necromancer-summoned) - it logs the same 3 spells
@@ -177,6 +179,7 @@ local UBRS_TRASH_MOBS = {
 
     blackhand_elite = {
         name = "Blackhand Elite",
+        npcId = 10317,
         icon = "Interface\\Icons\\INV_Gauntlets_05",
         flags = {"melee"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -228,6 +231,7 @@ local UBRS_TRASH_MOBS = {
 
     blackhand_incarcerator = {
         name = "Blackhand Incarcerator",
+        npcId = 10316,
         icon = "Interface\\Icons\\Ability_ThunderBolt",
         flags = {"melee"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -253,6 +257,7 @@ local UBRS_TRASH_MOBS = {
 
     blackhand_iron_guard = {
         name = "Blackhand Iron Guard",
+        npcId = 10319,
         icon = "Interface\\Icons\\Ability_Warrior_ShieldWall",
         flags = {"melee"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -310,6 +315,7 @@ local UBRS_TRASH_MOBS = {
 
     blackhand_summoner = {
         name = "Blackhand Summoner",
+        npcId = 9818,
         icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
         flags = {"caster"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -348,6 +354,7 @@ local UBRS_TRASH_MOBS = {
 
     blackhand_veteran = {
         name = "Blackhand Veteran",
+        npcId = 9819,
         icon = "Interface\\Icons\\Ability_Warrior_ShieldBash",
         flags = {"melee"},
         -- CHANGED: merged with "Summoned Blackhand Veteran" (necromancer-summoned) - it logs the same 3 spells
@@ -384,6 +391,7 @@ local UBRS_TRASH_MOBS = {
 
     burning_felhound = {
         name = "Burning Felhound",
+        npcId = 10261,
         icon = "Interface\\Icons\\Spell_Shadow_ManaBurn",
         flags = {"melee"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -402,6 +410,7 @@ local UBRS_TRASH_MOBS = {
 
     burning_imp = {
         name = "Burning Imp",
+        npcId = 9708,
         icon = "Interface\\Icons\\Spell_Fire_FireBolt",
         flags = {"caster"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -419,6 +428,7 @@ local UBRS_TRASH_MOBS = {
 
     chromatic_dragonspawn = {
         name = "Chromatic Dragonspawn",
+        npcId = 10447,
         icon = "Interface\\Icons\\Ability_Warrior_Cleave",
         flags = {"melee"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -444,6 +454,7 @@ local UBRS_TRASH_MOBS = {
 
     chromatic_elite_guard = {
         name = "Chromatic Elite Guard",
+        npcId = 10814,
         icon = "Interface\\Icons\\Ability_Warrior_Sunder",
         flags = {"melee"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -494,6 +505,7 @@ local UBRS_TRASH_MOBS = {
 
     chromatic_whelp = {
         name = "Chromatic Whelp",
+        npcId = 10442,
         icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
         flags = {"caster"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -528,6 +540,7 @@ local UBRS_TRASH_MOBS = {
 
     rage_talon_captain = {
         name = "Rage Talon Captain",
+        npcId = 10371,
         icon = "Interface\\Icons\\Ability_Warrior_Cleave",
         flags = {"melee"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -575,6 +588,7 @@ local UBRS_TRASH_MOBS = {
 
     rage_talon_dragon_guard = {
         name = "Rage Talon Dragon Guard",
+        npcId = 10366,
         icon = "Interface\\Icons\\Ability_Warrior_ShieldReflection",
         flags = {"melee"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -631,6 +645,7 @@ local UBRS_TRASH_MOBS = {
 
     rage_talon_dragonspawn = {
         name = "Rage Talon Dragonspawn",
+        npcId = 9096,
         icon = "Interface\\Icons\\Ability_Warrior_Charge",
         flags = {"melee"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -687,6 +702,7 @@ local UBRS_TRASH_MOBS = {
 
     rage_talon_fire_tongue = {
         name = "Rage Talon Fire Tongue",
+        npcId = 10372,
         icon = "Interface\\Icons\\Spell_Fire_Incinerate",
         flags = {"caster"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -734,6 +750,7 @@ local UBRS_TRASH_MOBS = {
 
     rage_talon_flamescale = {
         name = "Rage Talon Flamescale",
+        npcId = 10083,
         icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
         flags = {"caster"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -774,6 +791,7 @@ local UBRS_TRASH_MOBS = {
 
     rookery_guardian = {
         name = "Rookery Guardian",
+        npcId = 10258,
         icon = "Interface\\Icons\\Ability_Warrior_Cleave",
         flags = {"melee"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -807,6 +825,7 @@ local UBRS_TRASH_MOBS = {
 
     rookery_hatcher = {
         name = "Rookery Hatcher",
+        npcId = 10683,
         icon = "Interface\\Icons\\Temp",
         flags = {"melee"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -839,6 +858,7 @@ local UBRS_TRASH_MOBS = {
 
     rookery_whelp = {
         name = "Rookery Whelp",
+        npcId = 10161,
         icon = "Interface\\Icons\\Spell_Frost_Stun",
         flags = {"melee"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -848,6 +868,7 @@ local UBRS_TRASH_MOBS = {
 
     scarshield_acolyte = {
         name = "Scarshield Acolyte",
+        npcId = 9045,
         icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
         flags = {"caster"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -881,6 +902,7 @@ local UBRS_TRASH_MOBS = {
 
     scarshield_legionnaire = {
         name = "Scarshield Legionnaire",
+        npcId = 9097,
         icon = "Interface\\Icons\\Ability_Warrior_Cleave",
         flags = {"melee"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -928,6 +950,7 @@ local UBRS_TRASH_MOBS = {
 
     scarshield_spellbinder = {
         name = "Scarshield Spellbinder",
+        npcId = 9098,
         icon = "Interface\\Icons\\Spell_Arcane_StarFire",
         flags = {"caster"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -998,6 +1021,7 @@ local UBRS_TRASH_MOBS = {
 
     scarshield_warlock = {
         name = "Scarshield Warlock",
+        npcId = 9257,
         icon = "Interface\\Icons\\Spell_Shadow_Possession",
         flags = {"caster"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -1031,6 +1055,7 @@ local UBRS_TRASH_MOBS = {
 
     spectral_assassin = {
         name = "Spectral Assassin",
+        npcId = 16066,
         icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
         flags = {"melee"},
         -- CHANGED: from a real combat log (UBRS.csv) - stats not present in that
@@ -1064,6 +1089,7 @@ local UBRS_TRASH_MOBS = {
 local UBRS_BOSSES = {
     emberseer = {
         name = "Pyroguard Emberseer",
+        npcId = 9816,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (UBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
@@ -1104,6 +1130,7 @@ local UBRS_BOSSES = {
 
     solakar = {
         name = "Solakar Flamewreath",
+        npcId = 10264,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (UBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
@@ -1146,6 +1173,7 @@ local UBRS_BOSSES = {
 
     goraluk = {
         name = "Goraluk Anvilcrack",
+        npcId = 10899,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (UBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
@@ -1184,6 +1212,7 @@ local UBRS_BOSSES = {
 
     jed = {
         name = "Jed Runewatcher",
+        npcId = 10509,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: no combat data for Jed Runewatcher in UBRS.csv - left as placeholder,
         -- see TODO_Raid_Data.md.
@@ -1196,6 +1225,7 @@ local UBRS_BOSSES = {
 
     rend = {
         name = "Warchief Rend Blackhand",
+        npcId = 10429,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (UBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
@@ -1258,6 +1288,7 @@ local UBRS_BOSSES = {
 
     gyth = {
         name = "Gyth",
+        npcId = 10339,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (UBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
@@ -1312,6 +1343,7 @@ local UBRS_BOSSES = {
 
     the_beast = {
         name = "The Beast",
+        npcId = 10430,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (UBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
@@ -1380,6 +1412,7 @@ local UBRS_BOSSES = {
 
     drakkisath = {
         name = "General Drakkisath",
+        npcId = 10363,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (UBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
@@ -1449,6 +1482,7 @@ local UBRS_BOSSES = {
 
     valthalak = {
         name = "Lord Valthalak",
+        npcId = 16042,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (UBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.

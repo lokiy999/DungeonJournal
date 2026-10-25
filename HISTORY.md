@@ -103,10 +103,35 @@ Decisions recorded in `CLAUDE.md`:
     passive 7376 is known; 71 / 7164 / 34477?), ZG Infected Bite on the mob that cites both 24339 and
     16128.
 
-## In the middle of
+## 6. Creature IDs and the JSON export for db.lokiy.dev — Oct 25
 
-Getting DungeonJournal's data onto db.lokiy.dev. The spell IDs are the first half; nothing has been
-exported yet.
+**Request (via the hub session):** the data goes onto db.lokiy.dev's NPC / boss pages
+(`db.lokiy.dev/npc/<creature id>`); DungeonJournal stays the hand-edited source.
+
+- **Creature IDs:** 248 of 249 bosses, adds and trash packs got `npcId = N` (`npcIds = {...}` where one
+  entry is several creatures), via `tools/match_creature_ids.py` (re-runnable; `--write` adds missing ones).
+  - Source order: the Vanilla+ combat logs first — the repo's CSVs (Source / Target GUID) and the client's
+    Chronicle logs (`UNIT_INFO`, zone from `ZONE_INFO`); creature ID = GUID digits 7-12 (`0xF130` + ID).
+    pfQuest's classic database (hub `data\pfquest`) only for mobs in no log (13: Emerald Dragons, the
+    world bosses, Urok Doomhowl, Renataki, Wushoolay).
+  - **Scarlet Monastery is all Vanilla+ creatures** (25200-25264), not the classic IDs pfQuest has;
+    BWL's Orb of Domination is 25119 (pfQuest: 14453).
+  - Several IDs under one name: the logs mix up same-kind names (the four Corrupted Whelps, Firelord /
+    Lava Annihilator) — pfQuest's classic ID decides when it is one of the logged ones. Ragnaros, Onyxia,
+    Magmadar, Firemaw, Razorgore, Loksey, Mograine, Sharpshooter and Azus each have a same-named helper
+    NPC that casts one ground effect (Ragnaros 40004, Onyxia 20009 Eruption, Magmadar 20006
+    Conflagration, Azus 25034 Blood Tide, ...): the boss is the ID that casts the whole kit.
+  - By hand: Ebonroc & Flamegor = `npcIds = {14601, 11981}`; Sawblade = the four Vanilla+ Sawblades
+    25103/25104/25105/25109; Gri'lek = 15082 (15081 is a level 45-46 elite). Journal names "Neferian" and
+    "Majordomo" are matched as Nefarian / Majordomo Executus.
+  - **Not found: Nameless Hermit** (ZG, Vanilla+ custom, in no log and not in pfQuest).
+- **Export:** `tools/export_json.py` (reader: `tools/lua_data.py`, a Python reader for the Lua data since
+  there is no Lua on the PC or server) writes `dungeonjournal.json`: per raid its bosses (with adds) and
+  trash in tree order, each with creature ID, flags, stats and abilities (spell ID, school from the hub's
+  Patch 3 `Spell.dbc`, lines, roles, nested abilities, separators), plus the DungeonJournalTactics entry
+  for that key as `tactics`, and the flag / role legend. `--upload` copies it to
+  `/opt/wowsims-classic/tools/itemdb/dungeonjournal.json` for the Database chat.
+  **Run it after every change to the raid files or the tactics** (from `raid-data-todo` until merged).
 
 ## Still open
 
@@ -114,10 +139,10 @@ exported yet.
   mob's own combat-log line, a unique name on lokiy.dev/spells, or numbers matching one candidate's data.
   19 have a `-- spellId: uncertain` note (two IDs in the mob's own log); 76 are listed in
   `SPELLID_OPEN.md` (several same-named spells, nothing in the line to tell them apart).
-- **NPC (creature) IDs** — no boss, add or trash pack has one yet. Needed to link to the site's NPC pages
-  (combat logs carry the creature GUIDs; the server DB has `creature_template`).
-- **Export script** (one per data flow, listed in MAP.md): read `raids/*.lua` → JSON for the site. Not
-  written yet.
+- **Nameless Hermit's creature ID** (ZG) — in no log and not in pfQuest; needs a log of the fight or
+  Lokiy's server data.
+- **pfQuest-only creature IDs** (13, listed in section 6) are classic IDs: confirm them when a log of
+  those fights exists (Vanilla+ re-numbered SM; others could be re-numbered too).
 - **Merge `raid-data-todo` into `main`** (36+ commits ahead) once Lokiy has checked the Sep 30 / Oct 22
   data passes in-game. The `Tactics` branch is fully merged and can be deleted too.
 - **Project docs:** the shared convention is `docs/CHANGES.md`, `docs/TODO.md`, `docs/TODO_DONE.md`; this

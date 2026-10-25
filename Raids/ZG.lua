@@ -94,6 +94,7 @@ local ZG_TRASH_ORDER = {
 local ZG_TRASH_MOBS = {
     atalai_mistress = {
         name = "Atal'ai Mistress",
+        npcId = 14882,
         icon = "Interface\\Icons\\Ability_Kick",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -119,6 +120,7 @@ local ZG_TRASH_MOBS = {
 
     bloodscalp_speaker = {
         name = "Bloodscalp Speaker",
+        npcId = 11389,
         icon = "Interface\\Icons\\Ability_Gouge",
         flags = {"ranged"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -142,6 +144,7 @@ local ZG_TRASH_MOBS = {
 
     bloodseeker_bat = {
         name = "Bloodseeker Bat",
+        npcId = 11368,
         icon = "Interface\\Icons\\Spell_Shadow_Charm",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -164,6 +167,7 @@ local ZG_TRASH_MOBS = {
 
     bloodseeker_batrider = {
         name = "Bloodseeker Batrider",
+        npcId = 14965,
         icon = "Interface\\Icons\\Spell_Fire_Immolation",
         flags = {"caster"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -194,6 +198,7 @@ local ZG_TRASH_MOBS = {
 
     gurubashi_axe_thrower = {
         name = "Gurubashi Axe Thrower",
+        npcId = 11350,
         icon = "Interface\\Icons\\INV_Axe_08",
         flags = {"ranged"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -224,6 +229,7 @@ local ZG_TRASH_MOBS = {
 
     gurubashi_bat_rider = {
         name = "Gurubashi Bat Rider",
+        npcId = 14750,
         icon = "Interface\\Icons\\Spell_Shadow_CallofBone",
         flags = {"caster"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -288,6 +294,7 @@ local ZG_TRASH_MOBS = {
 
     gurubashi_berserker = {
         name = "Gurubashi Berserker",
+        npcId = 11352,
         icon = "Interface\\Icons\\INV_Gauntlets_05",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -332,6 +339,7 @@ local ZG_TRASH_MOBS = {
 
     gurubashi_blood_drinker = {
         name = "Gurubashi Blood Drinker",
+        npcId = 11353,
         icon = "Interface\\Icons\\Spell_Shadow_LifeDrain02",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -354,6 +362,7 @@ local ZG_TRASH_MOBS = {
 
     gurubashi_champion = {
         name = "Gurubashi Champion",
+        npcId = 11356,
         icon = "Interface\\Icons\\Ability_Warrior_ShieldWall",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -403,6 +412,7 @@ local ZG_TRASH_MOBS = {
 
     gurubashi_headhunter = {
         name = "Gurubashi Headhunter",
+        npcId = 11351,
         icon = "Interface\\Icons\\Ability_Hunter_AimedShot",
         flags = {"ranged"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -438,6 +448,7 @@ local ZG_TRASH_MOBS = {
 
     hakkari_blood_priest = {
         name = "Hakkari Blood Priest",
+        npcId = 11340,
         icon = "Interface\\Icons\\Spell_Holy_DispelMagic",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -466,6 +477,7 @@ local ZG_TRASH_MOBS = {
 
     hakkari_priest = {
         name = "Hakkari Priest",
+        npcId = 11830,
         icon = "Interface\\Icons\\Spell_Shadow_PsychicScream",
         flags = {"caster"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -505,6 +517,7 @@ local ZG_TRASH_MOBS = {
 
     hakkari_shadow_hunter = {
         name = "Hakkari Shadow Hunter",
+        npcId = 11339,
         icon = "Interface\\Icons\\Ability_Marksmanship",
         flags = {"caster"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -529,6 +542,7 @@ local ZG_TRASH_MOBS = {
 
     hakkari_shadowcaster = {
         name = "Hakkari Shadowcaster",
+        npcId = 11338,
         icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
         flags = {"caster"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -566,6 +580,7 @@ local ZG_TRASH_MOBS = {
 
     hakkari_witch_doctor = {
         name = "Hakkari Witch Doctor",
+        npcId = 11831,
         icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
         flags = {"caster"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -627,6 +642,7 @@ local ZG_TRASH_MOBS = {
 
     hooktooth_frenzy = {
         name = "Hooktooth Frenzy",
+        npcId = 11374,
         icon = "Interface\\Icons\\Temp",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -640,6 +656,7 @@ local ZG_TRASH_MOBS = {
 
     mad_servant = {
         name = "Mad Servant",
+        npcId = 15111,
         icon = "Interface\\Icons\\Spell_Fire_FlameBolt",
         flags = {"caster"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -671,6 +688,7 @@ local ZG_TRASH_MOBS = {
 
     razzashi_adder = {
         name = "Razzashi Adder",
+        npcId = 11372,
         icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
         flags = {"caster"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -696,6 +714,7 @@ local ZG_TRASH_MOBS = {
 
     razzashi_broodwidow = {
         name = "Razzashi Broodwidow",
+        npcId = 11370,
         icon = "Interface\\Icons\\Ability_Creature_Disease_02",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -727,6 +746,7 @@ local ZG_TRASH_MOBS = {
 
     razzashi_cobra = {
         name = "Razzashi Cobra",
+        npcId = 11373,
         icon = "Interface\\Icons\\Spell_Nature_CorrosiveBreath",
         flags = {"caster"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -764,6 +784,7 @@ local ZG_TRASH_MOBS = {
 
     razzashi_raptor = {
         name = "Razzashi Raptor",
+        npcId = 14821,
         icon = "Interface\\Icons\\Ability_Warrior_Sunder",
         flags = {"caster"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -797,6 +818,7 @@ local ZG_TRASH_MOBS = {
 
     razzashi_serpent = {
         name = "Razzashi Serpent",
+        npcId = 11371,
         icon = "Interface\\Icons\\Spell_Shadow_VampiricAura",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -820,6 +842,7 @@ local ZG_TRASH_MOBS = {
 
     razzashi_skitterer = {
         name = "Razzashi Skitterer",
+        npcId = 14880,
         icon = "Interface\\Icons\\Temp",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -833,6 +856,7 @@ local ZG_TRASH_MOBS = {
 
     razzashi_venombrood = {
         name = "Razzashi Venombrood",
+        npcId = 14532,
         icon = "Interface\\Icons\\Ability_Creature_Poison_01",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -851,6 +875,7 @@ local ZG_TRASH_MOBS = {
 
     sacrificed_troll = {
         name = "Sacrificed Troll",
+        npcId = 14826,
         icon = "Interface\\Icons\\Spell_Shadow_UnsummonBuilding",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -867,6 +892,7 @@ local ZG_TRASH_MOBS = {
 
     skullsplitter_speaker = {
         name = "Skullsplitter Speaker",
+        npcId = 11390,
         icon = "Interface\\Icons\\INV_Spear_05",
         flags = {"ranged"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -889,6 +915,7 @@ local ZG_TRASH_MOBS = {
 
     son_of_hakkar = {
         name = "Son of Hakkar",
+        npcId = 11357,
         icon = "Interface\\Icons\\Ability_GolemThunderClap",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -916,6 +943,7 @@ local ZG_TRASH_MOBS = {
 
     soulflayer = {
         name = "Soulflayer",
+        npcId = 11359,
         icon = "Interface\\Icons\\Spell_Shadow_Possession",
         flags = {"caster"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -967,6 +995,7 @@ local ZG_TRASH_MOBS = {
 
     vilebranch_speaker = {
         name = "Vilebranch Speaker",
+        npcId = 11391,
         icon = "Interface\\Icons\\Ability_Warrior_WarCry",
         flags = {"ranged"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -991,6 +1020,7 @@ local ZG_TRASH_MOBS = {
 
     voodoo_slave = {
         name = "Voodoo Slave",
+        npcId = 14883,
         icon = "Interface\\Icons\\Spell_Shadow_ChillTouch",
         flags = {"caster"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -1045,6 +1075,7 @@ local ZG_TRASH_MOBS = {
 
     witherbark_speaker = {
         name = "Witherbark Speaker",
+        npcId = 11388,
         icon = "Interface\\Icons\\Spell_Nature_EarthShock",
         flags = {"caster"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -1070,6 +1101,7 @@ local ZG_TRASH_MOBS = {
 
     withered_mistress = {
         name = "Withered Mistress",
+        npcId = 14825,
         icon = "Interface\\Icons\\Spell_Nature_Polymorph",
         flags = {"caster"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -1115,6 +1147,7 @@ local ZG_TRASH_MOBS = {
 
     zulian_crocolisk = {
         name = "Zulian Crocolisk",
+        npcId = 15043,
         icon = "Interface\\Icons\\Ability_Gouge",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -1138,6 +1171,7 @@ local ZG_TRASH_MOBS = {
 
     zulian_guardian = {
         name = "Zulian Guardian",
+        npcId = 15068,
         icon = "Interface\\Icons\\Ability_Druid_Rake",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -1154,6 +1188,7 @@ local ZG_TRASH_MOBS = {
 
     zulian_panther = {
         name = "Zulian Panther",
+        npcId = 11365,
         icon = "Interface\\Icons\\Ability_Druid_Disembowel",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -1178,6 +1213,7 @@ local ZG_TRASH_MOBS = {
 
     zulian_prowler = {
         name = "Zulian Prowler",
+        npcId = 15101,
         icon = "Interface\\Icons\\Ability_GhoulFrenzy",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -1192,6 +1228,7 @@ local ZG_TRASH_MOBS = {
 
     zulian_stalker = {
         name = "Zulian Stalker",
+        npcId = 15067,
         icon = "Interface\\Icons\\Ability_Rogue_Ambush",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -1207,6 +1244,7 @@ local ZG_TRASH_MOBS = {
 
     zulian_tiger = {
         name = "Zulian Tiger",
+        npcId = 11361,
         icon = "Interface\\Icons\\Ability_Druid_Disembowel",
         flags = {"melee"},
         -- CHANGED: from a real combat log ("ZG Spell GO.csv") - stats not present in that log, never tested.
@@ -1239,6 +1277,7 @@ local ZG_TRASH_MOBS = {
 local ZG_BOSSES = {
     jeklik = {
         name = "High Priestess Jeklik",
+        npcId = 14517,
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4222, fire = 92, nature = 92, frost = 27, shadow = 92, arcane = 27},
         abilities = {{
@@ -1300,6 +1339,7 @@ local ZG_BOSSES = {
 
     venoxis = {
         name = "High Priest Venoxis",
+        npcId = 14507,
         icon = "Interface\\Icons\\temp",
         flags = {"damage_nature"},
         stats = {armor = 4691, fire = 23, nature = 270, frost = 23, shadow = 23, arcane = 23},
@@ -1366,6 +1406,7 @@ local ZG_BOSSES = {
 
     marli = {
         name = "High Priestess Mar'li",
+        npcId = 14510,
         icon = "Interface\\Icons\\temp",
         flags = {"damage_nature"},
         stats = {armor = 4880, fire = 7, nature = 126, frost = 24, shadow = 126, arcane = 126},
@@ -1416,6 +1457,7 @@ local ZG_BOSSES = {
         -- CHANGED: Spawn of Mar'li moved out of trash - it's her add.
         adds = {{
             name = "Spawn of Mar'li",
+            npcId = 15041,
             icon = "Interface\\Icons\\Spell_Holy_InnerFire",
             lines = {"An add summoned during the Mar'li encounter."},
             abilities = {{
@@ -1431,6 +1473,7 @@ local ZG_BOSSES = {
 
     mandokir = {
         name = "Bloodlord Mandokir",
+        npcId = 11382,
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4950, fire = 44, nature = 75, frost = 12, shadow = 44, arcane = 44},
         abilities = {{
@@ -1481,6 +1524,7 @@ local ZG_BOSSES = {
         -- Thekal's zealots - see TODO_Raid_Data.md).
         adds = {{
             name = "Ohgan",
+            npcId = 14988,
             icon = "Interface\\Icons\\Ability_Warrior_Sunder",
             lines = {"Bloodlord Mandokir's mount - a second boss fought alongside him in this encounter."},
             abilities = {{
@@ -1513,6 +1557,7 @@ local ZG_BOSSES = {
     -- entry that BuildAbilityLines can't see into.
     renataki = {
         name = "Renataki",
+        npcId = 15084,
         icon = "Interface\\Icons\\Ability_Rogue_Ambush",
         abilities = {{
             name = "Thousand Blades",
@@ -1535,6 +1580,7 @@ local ZG_BOSSES = {
 
     grilek = {
         name = "Gri'lek",
+        npcId = 15082,
         icon = "Interface\\Icons\\Ability_WarStomp",
         abilities = {{
             name = "Sweeping Strikes",
@@ -1557,6 +1603,7 @@ local ZG_BOSSES = {
 
     hazzarah = {
         name = "Hazza'rah",
+        npcId = 15083,
         icon = "Interface\\Icons\\Spell_Nature_Sleep",
         abilities = {{
             name = "Earth Shock",
@@ -1586,6 +1633,7 @@ local ZG_BOSSES = {
         }},
         adds = {{
             name = "Nightmare Illusion",
+            npcId = 15163,
             icon = "Interface\\Icons\\Temp",
             lines = {"An add summoned during the Hazza'rah encounter. No offensive abilities were captured in the log for this mob."}
         }}
@@ -1593,6 +1641,7 @@ local ZG_BOSSES = {
 
     wushoolay = {
         name = "Wushoolay",
+        npcId = 15085,
         icon = "Interface\\Icons\\Spell_Nature_ChainLightning",
         abilities = {{
             name = "Lightning Cloud",
@@ -1614,6 +1663,7 @@ local ZG_BOSSES = {
 
     gahzranka = {
         name = "Gahz'ranka",
+        npcId = 15114,
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4400, fire = 15, nature = 15, frost = 15, shadow = 15, arcane = 15},
         abilities = {{
@@ -1663,6 +1713,7 @@ local ZG_BOSSES = {
     -- sub-boss entries under this one key.
     thekal = {
         name = "High Priest Thekal",
+        npcId = 14509,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: stats are for Thekal himself (the primary tank target) -
         -- no confirmed stats exist for Lor'Khan/Zath.
@@ -1798,6 +1849,7 @@ local ZG_BOSSES = {
 
     arlokk = {
         name = "High Priestess Arlokk",
+        npcId = 14515,
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4700, fire = 38, nature = 84, frost = 38, shadow = 84, arcane = 38},
         abilities = {{
@@ -1874,6 +1926,7 @@ local ZG_BOSSES = {
 
     jindo = {
         name = "Jin'do the Hexxer",
+        npcId = 11380,
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4950, fire = 44, nature = 168, frost = 30, shadow = 168, arcane = 168},
         abilities = {{
@@ -1919,6 +1972,7 @@ local ZG_BOSSES = {
         -- CHANGED: Shade of Jin'do moved out of trash - it's his add.
         adds = {{
             name = "Shade of Jin'do",
+            npcId = 14986,
             icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
             lines = {"An add summoned during the Jin'do encounter."},
             abilities = {{
@@ -1934,6 +1988,7 @@ local ZG_BOSSES = {
 
     hakkar = {
         name = "Hakkar",
+        npcId = 14834,
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4880, fire = 51, nature = 51, frost = 14, shadow = 141, arcane = 51},
         abilities = {{
@@ -1983,6 +2038,7 @@ local ZG_BOSSES = {
 
     azus = {
         name = "Azus the Bloodseeker",
+        npcId = 25031,
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4950, fire = 44, nature = 75, frost = 12, shadow = 44, arcane = 44},
         abilities = {{
@@ -2081,6 +2137,7 @@ local ZG_BOSSES = {
         -- CHANGED: Caverngloom Crocolisk moved out of trash - it's his add.
         adds = {{
             name = "Caverngloom Crocolisk",
+            npcId = 25040,
             icon = "Interface\\Icons\\Spell_Shadow_CallofBone",
             lines = {"An add summoned during the Nameless Hermit encounter."},
             abilities = {{

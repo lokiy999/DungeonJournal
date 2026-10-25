@@ -81,6 +81,7 @@ local LBRS_TRASH_ORDER = {
 local LBRS_TRASH_MOBS = {
     bloodaxe_evoker = {
         name = "Bloodaxe Evoker",
+        npcId = 9693,
         icon = "Interface\\Icons\\Spell_Arcane_StarFire",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -116,6 +117,7 @@ local LBRS_TRASH_MOBS = {
 
     bloodaxe_raider = {
         name = "Bloodaxe Raider",
+        npcId = 9692,
         icon = "Interface\\Icons\\Ability_Warrior_Cleave",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -145,6 +147,7 @@ local LBRS_TRASH_MOBS = {
 
     bloodaxe_summoner = {
         name = "Bloodaxe Summoner",
+        npcId = 9717,
         icon = "Interface\\Icons\\Spell_Nature_StarFall",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -181,6 +184,7 @@ local LBRS_TRASH_MOBS = {
 
     bloodaxe_veteran = {
         name = "Bloodaxe Veteran",
+        npcId = 9583,
         icon = "Interface\\Icons\\Ability_Rogue_Ambush",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -230,6 +234,7 @@ local LBRS_TRASH_MOBS = {
 
     bloodaxe_warmonger = {
         name = "Bloodaxe Warmonger",
+        npcId = 9716,
         icon = "Interface\\Icons\\Ability_Warrior_SavageBlow",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -275,6 +280,7 @@ local LBRS_TRASH_MOBS = {
 
     bloodaxe_worg = {
         name = "Bloodaxe Worg",
+        npcId = 9696,
         icon = "Interface\\Icons\\Spell_Frost_Stun",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -283,6 +289,7 @@ local LBRS_TRASH_MOBS = {
 
     bloodaxe_worg_pup = {
         name = "Bloodaxe Worg Pup",
+        npcId = 10221,
         icon = "Interface\\Icons\\Spell_Frost_Stun",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -291,6 +298,7 @@ local LBRS_TRASH_MOBS = {
 
     firebrand_darkweaver = {
         name = "Firebrand Darkweaver",
+        npcId = 9261,
         icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -335,6 +343,7 @@ local LBRS_TRASH_MOBS = {
 
     firebrand_dreadweaver = {
         name = "Firebrand Dreadweaver",
+        npcId = 9263,
         icon = "Interface\\Icons\\Ability_Creature_Cursed_03",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -375,6 +384,7 @@ local LBRS_TRASH_MOBS = {
 
     firebrand_grunt = {
         name = "Firebrand Grunt",
+        npcId = 9259,
         icon = "Interface\\Icons\\Ability_Warrior_Challange",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -449,6 +459,7 @@ local LBRS_TRASH_MOBS = {
 
     firebrand_invoker = {
         name = "Firebrand Invoker",
+        npcId = 9262,
         icon = "Interface\\Icons\\Spell_Fire_SealOfFire",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -493,6 +504,7 @@ local LBRS_TRASH_MOBS = {
 
     firebrand_legionnaire = {
         name = "Firebrand Legionnaire",
+        npcId = 9260,
         icon = "Interface\\Icons\\INV_Shield_05",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -567,6 +579,7 @@ local LBRS_TRASH_MOBS = {
 
     firebrand_pyromancer = {
         name = "Firebrand Pyromancer",
+        npcId = 9264,
         icon = "Interface\\Icons\\Spell_Fire_FlameShock",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -606,6 +619,7 @@ local LBRS_TRASH_MOBS = {
 
     scarshield_acolyte = {
         name = "Scarshield Acolyte",
+        npcId = 9045,
         icon = "Interface\\Icons\\Spell_Shadow_ShadowWordPain",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -635,6 +649,7 @@ local LBRS_TRASH_MOBS = {
 
     scarshield_legionnaire = {
         name = "Scarshield Legionnaire",
+        npcId = 9097,
         icon = "Interface\\Icons\\Ability_Warrior_Charge",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -675,6 +690,7 @@ local LBRS_TRASH_MOBS = {
 
     scarshield_raider = {
         name = "Scarshield Raider",
+        npcId = 9258,
         icon = "Interface\\Icons\\Ability_Rogue_Ambush",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -695,6 +711,7 @@ local LBRS_TRASH_MOBS = {
 
     scarshield_spellbinder = {
         name = "Scarshield Spellbinder",
+        npcId = 9098,
         icon = "Interface\\Icons\\Spell_Nature_Brilliance",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -756,6 +773,7 @@ local LBRS_TRASH_MOBS = {
 
     scarshield_warlock = {
         name = "Scarshield Warlock",
+        npcId = 9257,
         icon = "Interface\\Icons\\Spell_Shadow_ShadowBolt",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -786,6 +804,7 @@ local LBRS_TRASH_MOBS = {
 
     smolderthorn_axe_thrower = {
         name = "Smolderthorn Axe Thrower",
+        npcId = 9267,
         icon = "Interface\\Icons\\INV_Axe_08",
         flags = {"ranged"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -824,6 +843,7 @@ local LBRS_TRASH_MOBS = {
 
     smolderthorn_berserker = {
         name = "Smolderthorn Berserker",
+        npcId = 9268,
         icon = "Interface\\Icons\\Ability_Rogue_SliceDice",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -873,6 +893,7 @@ local LBRS_TRASH_MOBS = {
 
     smolderthorn_headhunter = {
         name = "Smolderthorn Headhunter",
+        npcId = 9241,
         icon = "Interface\\Icons\\Ability_Throw",
         flags = {"ranged"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -902,6 +923,7 @@ local LBRS_TRASH_MOBS = {
 
     smolderthorn_mystic = {
         name = "Smolderthorn Mystic",
+        npcId = 9239,
         icon = "Interface\\Icons\\Spell_Nature_GroundingTotem",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -944,6 +966,7 @@ local LBRS_TRASH_MOBS = {
 
     smolderthorn_seer = {
         name = "Smolderthorn Seer",
+        npcId = 9269,
         icon = "Interface\\Icons\\Spell_Nature_LightningShield",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -960,6 +983,7 @@ local LBRS_TRASH_MOBS = {
 
     smolderthorn_shadow_hunter = {
         name = "Smolderthorn Shadow Hunter",
+        npcId = 9265,
         icon = "Interface\\Icons\\Spell_Shadow_RitualOfSacrifice",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -1005,6 +1029,7 @@ local LBRS_TRASH_MOBS = {
 
     smolderthorn_shadow_priest = {
         name = "Smolderthorn Shadow Priest",
+        npcId = 9240,
         icon = "Interface\\Icons\\Spell_Shadow_SummonVoidWalker",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -1053,6 +1078,7 @@ local LBRS_TRASH_MOBS = {
 
     smolderthorn_witch_doctor = {
         name = "Smolderthorn Witch Doctor",
+        npcId = 9266,
         icon = "Interface\\Icons\\Spell_Fire_SearingTotem",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -1075,6 +1101,7 @@ local LBRS_TRASH_MOBS = {
 
     spire_scorpid = {
         name = "Spire Scorpid",
+        npcId = 9701,
         icon = "Interface\\Icons\\Spell_Frost_Stun",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -1083,6 +1110,7 @@ local LBRS_TRASH_MOBS = {
 
     spire_spider = {
         name = "Spire Spider",
+        npcId = 10374,
         icon = "Interface\\Icons\\Spell_Shadow_Teleport",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -1122,6 +1150,7 @@ local LBRS_TRASH_MOBS = {
 
     spire_spiderling = {
         name = "Spire Spiderling",
+        npcId = 10375,
         icon = "Interface\\Icons\\Spell_Frost_Stun",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -1130,6 +1159,7 @@ local LBRS_TRASH_MOBS = {
 
     spirestone_battle_mage = {
         name = "Spirestone Battle Mage",
+        npcId = 9197,
         icon = "Interface\\Icons\\Spell_Fire_FlameShock",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -1189,6 +1219,7 @@ local LBRS_TRASH_MOBS = {
 
     spirestone_enforcer = {
         name = "Spirestone Enforcer",
+        npcId = 9199,
         icon = "Interface\\Icons\\Ability_Warrior_Cleave",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -1223,6 +1254,7 @@ local LBRS_TRASH_MOBS = {
 
     spirestone_mystic = {
         name = "Spirestone Mystic",
+        npcId = 9198,
         icon = "Interface\\Icons\\Spell_Nature_Rejuvenation",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -1254,6 +1286,7 @@ local LBRS_TRASH_MOBS = {
 
     spirestone_ogre_magus = {
         name = "Spirestone Ogre Magus",
+        npcId = 9201,
         icon = "Interface\\Icons\\Spell_Nature_Slow",
         flags = {"caster"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -1282,6 +1315,7 @@ local LBRS_TRASH_MOBS = {
 
     spirestone_reaver = {
         name = "Spirestone Reaver",
+        npcId = 9200,
         icon = "Interface\\Icons\\Ability_Whirlwind",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -1314,6 +1348,7 @@ local LBRS_TRASH_MOBS = {
 
     spirestone_warlord = {
         name = "Spirestone Warlord",
+        npcId = 9216,
         icon = "Interface\\Icons\\Ability_Warrior_BattleShout",
         flags = {"melee"},
         -- CHANGED: from a real combat log (LBRS.csv) - stats not present in that log, never tested.
@@ -1366,6 +1401,7 @@ local LBRS_TRASH_MOBS = {
 local LBRS_BOSSES = {
     omokk = {
         name = "Highlord Omokk",
+        npcId = 9196,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (LBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
@@ -1424,6 +1460,7 @@ local LBRS_BOSSES = {
 
     voshgajin = {
         name = "Shadow Hunter Vosh'gajin",
+        npcId = 9236,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (LBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
@@ -1462,6 +1499,7 @@ local LBRS_BOSSES = {
 
     voone = {
         name = "War Master Voone",
+        npcId = 9237,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (LBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
@@ -1511,6 +1549,7 @@ local LBRS_BOSSES = {
 
     smolderweb = {
         name = "Mother Smolderweb",
+        npcId = 10596,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (LBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
@@ -1547,6 +1586,7 @@ local LBRS_BOSSES = {
 
     urok = {
         name = "Urok Doomhowl",
+        npcId = 10584,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: no combat data for Urok Doomhowl in LBRS.csv (no "Urok Doomhowl" source
         -- with a 0xF130-prefixed GUID logged any ability) - left as placeholder, see
@@ -1560,6 +1600,7 @@ local LBRS_BOSSES = {
 
     zigris = {
         name = "Quartermaster Zigris",
+        npcId = 9736,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (LBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
@@ -1597,6 +1638,7 @@ local LBRS_BOSSES = {
 
     halycon = {
         name = "Halycon",
+        npcId = 10220,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (LBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
@@ -1633,6 +1675,7 @@ local LBRS_BOSSES = {
 
     gizrul = {
         name = "Gizrul the Slavener",
+        npcId = 10268,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (LBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.
@@ -1671,6 +1714,7 @@ local LBRS_BOSSES = {
 
     wyrmthalak = {
         name = "Overlord Wyrmthalak",
+        npcId = 9568,
         icon = "Interface\\Icons\\temp",
         -- CHANGED: real abilities from a combat log (LBRS.csv), cross-matched against
         -- Spell.xlsx by exact Spell ID - see TODO_Raid_Data.md for gaps left as X.

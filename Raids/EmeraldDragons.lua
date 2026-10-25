@@ -38,6 +38,7 @@ local GREEN_BOSS_ORDER = {
 local GREEN_BOSSES = {
     emeriss = {
         name = "Emeriss",
+        npcId = 14889,
         icon = "Interface\\Icons\\temp",
         flags = {"damage_nature"},
         -- CHANGED: V+ Lists "Resistances Data" only has Ysondre's row filled
@@ -100,6 +101,7 @@ local GREEN_BOSSES = {
 
     lethon = {
         name = "Lethon",
+        npcId = 14888,
         icon = "Interface\\Icons\\temp",
         flags = {"damage_shadow"},
         -- CHANGED: reused from Ysondre's tested V+ Lists row - see the note on
@@ -160,6 +162,7 @@ local GREEN_BOSSES = {
 
     taerar = {
         name = "Taerar",
+        npcId = 14890,
         icon = "Interface\\Icons\\temp",
         flags = {"damage_arcane"},
         -- CHANGED: reused from Ysondre's tested V+ Lists row - see the note on
@@ -237,6 +240,7 @@ local GREEN_BOSSES = {
 
     ysondre = {
         name = "Ysondre",
+        npcId = 14887,
         icon = "Interface\\Icons\\temp",
         flags = {"damage_nature"},
         -- CHANGED: the only dragon with a filled row in V+ Lists "Resistances
