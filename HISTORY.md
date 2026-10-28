@@ -139,8 +139,6 @@ Decisions recorded in `CLAUDE.md`:
   mob's own combat-log line, a unique name on lokiy.dev/spells, or numbers matching one candidate's data.
   19 have a `-- spellId: uncertain` note (two IDs in the mob's own log); 76 are listed in
   `SPELLID_OPEN.md` (several same-named spells, nothing in the line to tell them apart).
-- **Nameless Hermit's creature ID** (ZG) — in no log and not in pfQuest; needs a log of the fight or
-  Lokiy's server data.
 - **pfQuest-only creature IDs** (13, listed in section 6) are classic IDs: confirm them when a log of
   those fights exists (Vanilla+ re-numbered SM; others could be re-numbered too).
 - **Merge `raid-data-todo` into `main`** (36+ commits ahead) once Lokiy has checked the Sep 30 / Oct 22

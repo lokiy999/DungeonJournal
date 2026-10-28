@@ -2101,6 +2101,7 @@ local ZG_BOSSES = {
     -- Spell.xlsx by exact Spell ID - replaces the old placeholder.
     nameless_hermit = {
         name = "Nameless Hermit",
+        npcId = 25030,
         icon = "Interface\\Icons\\temp",
         stats = {armor = 4950, fire = 44, nature = 75, frost = 12, shadow = 44, arcane = 44},
         abilities = {{
