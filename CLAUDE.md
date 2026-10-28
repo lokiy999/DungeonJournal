@@ -112,3 +112,7 @@ python tools/check_fields.py Raids/*.lua
   match Spell.csv - don't leave it and flag it. Keep a `-- CHANGED` comment
   with the spell ID and the old value.
 
+**Change log (Lokiy, 2026-10-28):** real changes (code) go in `HISTORY.md` (a numbered section); minor ones (hotfixes, data added /
+removed, wording, settings, rebuilds: no code change) are one dated line in `MINOR.md`. After either, run
+`python tools/changelog.py` in the hub (`C:\Users\Leon_\Documents\WoW Website Project`) and commit + push the hub: its `CHANGELOG.md` and
+`CHANGELOG_MINOR.md` show every project's changes together.
